@@ -1,11 +1,25 @@
 name: BIST Supertrend Scanner
 
 on:
+
   workflow_dispatch:
+    inputs:
+
+      test_mode:
+        description: "Test modu - BIST saat kontrolunu atla"
+        required: true
+        type: choice
+        default: "false"
+
+        options:
+          - "false"
+          - "true"
 
   schedule:
+
     - cron: "10 10-17 * * 1-5"
       timezone: "Europe/Istanbul"
+
 
 jobs:
 
@@ -18,22 +32,56 @@ jobs:
 
     steps:
 
+      # ======================================================
+      # REPOSITORY
+      # ======================================================
+
       - name: Repository checkout
+
         uses: actions/checkout@v4
 
+
+      # ======================================================
+      # PYTHON
+      # ======================================================
+
       - name: Python kurulumu
+
         uses: actions/setup-python@v5
+
         with:
           python-version: "3.11"
 
+
+      # ======================================================
+      # PAKETLER
+      # ======================================================
+
       - name: Paketleri kur
+
         run: |
+
           python -m pip install --upgrade pip
+
           pip install -r requirements.txt
 
-      - name: BIST Supertrend taraması
+
+      # ======================================================
+      # SCANNER
+      # ======================================================
+
+      - name: BIST Supertrend taramasi
+
         env:
+
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+          TEST_MODE: ${{ inputs.test_mode || 'false' }}
+
         run: |
+
+          echo "TEST_MODE = $TEST_MODE"
+
           python scanner.py
