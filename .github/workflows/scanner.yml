@@ -1,0 +1,39 @@
+name: BIST Supertrend Scanner
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "10 10-17 * * 1-5"
+      timezone: "Europe/Istanbul"
+
+jobs:
+
+  scan:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      - name: Python kurulumu
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Paketleri kur
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: BIST Supertrend taraması
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python scanner.py
