@@ -1,6 +1,6 @@
 # ============================================================
 # BIST SUPERTREND ALARM SISTEMI
-# SURUM 2 - TELEGRAM MESAJ BOLME DUZELTMESI
+# SURUM 3 - TEST MODU + TELEGRAM MESAJ BOLME
 # ============================================================
 #
 # BIST hisselerini otomatik bulur
@@ -13,10 +13,15 @@
 #
 # Son tamamlanmis 2 saatlik mum BUY ise Telegram bildirimi
 #
-# BUY yoksa Telegram mesaj GONDERILMEZ.
+# NORMAL MOD:
+#   Sadece BIST islem saatlerinde calisir.
 #
-# Telegram mesajlari 4096 karakter sinirina gore
-# otomatik olarak parcalara ayrilir.
+# TEST MODU:
+#   Hafta sonu / islem saati disinda da tarama yapabilir.
+#
+# Telegram:
+#   Mesaj 4096 karakter sinirini asmamak icin
+#   otomatik olarak parcalara ayrilir.
 #
 # ============================================================
 
@@ -62,6 +67,33 @@ SYMBOL_DELAY = 0.10
 
 
 # ============================================================
+# TEST MODU
+# ============================================================
+#
+# GitHub Actions TEST_MODE ortam degiskeninden gelir.
+#
+# true  -> islem saati kontrolu atlanir.
+# false -> normal BIST saat kontrolu uygulanir.
+#
+# ============================================================
+
+TEST_MODE_VALUE = os.getenv(
+    "TEST_MODE",
+    "false"
+)
+
+TEST_MODE = (
+    str(TEST_MODE_VALUE).lower().strip()
+    in (
+        "true",
+        "1",
+        "yes",
+        "on"
+    )
+)
+
+
+# ============================================================
 # TELEGRAM
 # ============================================================
 
@@ -75,8 +107,8 @@ TELEGRAM_CHAT_ID = os.getenv(
     ""
 )
 
-# Telegram maksimum 4096 karakter.
-# Guvenli tarafta kalmak icin 3800 kullaniyoruz.
+# Telegram resmi sinir 4096 karakterdir.
+# 3800 kullanarak guvenli pay birakiyoruz.
 TELEGRAM_MAX_LENGTH = 3800
 
 
@@ -464,7 +496,7 @@ def get_tv_candles(symbol):
         )
 
         # ----------------------------------------------------
-        # WebSocket
+        # WEBSOCKET
         # ----------------------------------------------------
 
         ws = websocket.create_connection(
@@ -1087,7 +1119,7 @@ def get_tv_candles(symbol):
                     )
 
             # ----------------------------------------------------
-            # Yeterli veri geldi
+            # YETERLI VERI
             # ----------------------------------------------------
 
             if len(candles) >= 30:
@@ -1635,7 +1667,7 @@ def format_price(price):
 
 
 # ============================================================
-# TELEGRAM MESAJI OLUSTUR
+# TELEGRAM SATIRLARI
 # ============================================================
 
 def build_telegram_lines(
@@ -1646,7 +1678,10 @@ def build_telegram_lines(
 
     lines = []
 
-    # BASLIK
+    # --------------------------------------------------------
+    # TAM BASLIK
+    # --------------------------------------------------------
+
     lines.append(
         "SUPERTREND AL SİNYALİ VEREN HİSSELER"
     )
@@ -1685,6 +1720,10 @@ def build_telegram_lines(
     )
 
     lines.append("")
+
+    # --------------------------------------------------------
+    # HISSER
+    # --------------------------------------------------------
 
     for result in results:
 
@@ -1732,8 +1771,10 @@ def split_telegram_messages(
 
     for line in lines:
 
-        # Satirin kendisi maksimumdan uzunsa
-        # guvenli sekilde parcalara ayir.
+        # ----------------------------------------------------
+        # Cok uzun tek satir
+        # ----------------------------------------------------
+
         if len(line) > max_length:
 
             if current_lines:
@@ -1767,12 +1808,15 @@ def split_telegram_messages(
 
         line_length = len(line)
 
-        # Satirlar arasi \n hesabi
         extra = (
             1
             if current_lines
             else 0
         )
+
+        # ----------------------------------------------------
+        # Yeni satir sigmiyorsa
+        # ----------------------------------------------------
 
         if (
             current_length
@@ -1811,6 +1855,10 @@ def split_telegram_messages(
                 line_length
             )
 
+    # --------------------------------------------------------
+    # Son mesaj
+    # --------------------------------------------------------
+
     if current_lines:
 
         messages.append(
@@ -1823,7 +1871,7 @@ def split_telegram_messages(
 
 
 # ============================================================
-# TELEGRAM GONDER
+# TELEGRAM TEK MESAJ GONDER
 # ============================================================
 
 def send_telegram(
@@ -1874,7 +1922,7 @@ def send_telegram(
     )
 
     # --------------------------------------------------------
-    # Telegram hata detayini gostermesi icin
+    # TELEGRAM HATA DETAYI
     # --------------------------------------------------------
 
     if not response.ok:
@@ -1889,9 +1937,12 @@ def send_telegram(
 
         raise RuntimeError(
             "Telegram HTTP "
-            + str(response.status_code)
-            + ": "
-            + str(error_data)
+            +
+            str(response.status_code)
+            +
+            ": "
+            +
+            str(error_data)
         )
 
     try:
@@ -1902,21 +1953,23 @@ def send_telegram(
 
         raise RuntimeError(
             "Telegram gecersiz JSON cevabi: "
-            + response.text
+            +
+            response.text
         )
 
     if not result.get("ok"):
 
         raise RuntimeError(
             "Telegram hatasi: "
-            + str(result)
+            +
+            str(result)
         )
 
     return result
 
 
 # ============================================================
-# TELEGRAM'A PARCALI GONDER
+# TELEGRAM SONUCLARI GONDER
 # ============================================================
 
 def send_telegram_results(
@@ -1975,8 +2028,10 @@ def send_telegram_results(
 
             raise
 
-        # Telegram'a arka arkaya cok hizli
-        # istek atmamak icin kisa bekleme.
+        # ----------------------------------------------------
+        # Mesajlar arasinda kisa bekleme
+        # ----------------------------------------------------
+
         if number < len(messages):
 
             time.sleep(1)
@@ -2116,20 +2171,48 @@ def main():
     )
 
     # --------------------------------------------------------
-    # BIST SAAT KONTROLU
+    # TEST MODU DURUMU
     # --------------------------------------------------------
 
-    if not is_bist_open_time():
+    if TEST_MODE:
 
         log(
-            "BIST normal islem saatleri disinda."
+            "!!! TEST MODU AKTIF !!!"
         )
 
         log(
-            "Tarama yapilmayacak."
+            "BIST islem saati kontrolu ATLANACAK."
         )
 
-        return
+        log(
+            "Hafta sonu olsa bile tarama yapilacak."
+        )
+
+    else:
+
+        log(
+            "NORMAL MOD AKTIF."
+        )
+
+        log(
+            "BIST islem saati kontrolu uygulanacak."
+        )
+
+        # ----------------------------------------------------
+        # BIST SAAT KONTROLU
+        # ----------------------------------------------------
+
+        if not is_bist_open_time():
+
+            log(
+                "BIST normal islem saatleri disinda."
+            )
+
+            log(
+                "Tarama yapilmayacak."
+            )
+
+            return
 
     # --------------------------------------------------------
     # TELEGRAM KONTROL
