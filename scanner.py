@@ -1,27 +1,31 @@
 # ============================================================
 # BIST SUPERTREND ALARM SISTEMI
-# SURUM 3 - TEST MODU + TELEGRAM MESAJ BOLME
+# SURUM 2
+# GERCEK SAT -> AL DONUSU
 # ============================================================
 #
-# BIST hisselerini otomatik bulur
+# OZELLIKLER
 #
-# Supertrend:
-#   Timeframe       = 2 saat
-#   ATR Period      = 10
-#   Source          = HL2
-#   ATR Multiplier  = 2
+# 1) BIST hisselerini TradingView Scanner ile otomatik bulur
+# 2) TradingView WebSocket ile 2 saatlik mumlari alir
+# 3) Supertrend:
+#       ATR Period    = 10
+#       Source        = HL2
+#       Multiplier    = 2
+#       Timeframe     = 2H
+# 4) SADECE gercek SAT -> AL donuslerini yakalar
+# 5) Son tamamlanmis 2 saatlik mum kullanilir
+# 6) Telegram bildirimi gonderir
+# 7) Telegram 4096 karakter siniri icin mesajlari boler
+# 8) TEST_MODE ile once tek hisse test edilebilir
 #
-# Son tamamlanmis 2 saatlik mum BUY ise Telegram bildirimi
+# GERCEK AL:
 #
-# NORMAL MOD:
-#   Sadece BIST islem saatlerinde calisir.
+#       ONCEKI MUM       SON MUM
+#          SAT     ->       AL
+#          -1      ->       +1
 #
-# TEST MODU:
-#   Hafta sonu / islem saati disinda da tarama yapabilir.
-#
-# Telegram:
-#   Mesaj 4096 karakter sinirini asmamak icin
-#   otomatik olarak parcalara ayrilir.
+# BUY trendinde kalmis hisseler bildirilmez.
 #
 # ============================================================
 
@@ -44,12 +48,49 @@ from zoneinfo import ZoneInfo
 
 TIMEZONE = "Europe/Istanbul"
 
+
+# ------------------------------------------------------------
+# SUPERTREND
+# ------------------------------------------------------------
+
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
-
 TIMEFRAME = "120"
 
 CANDLE_COUNT = 150
+
+
+# ------------------------------------------------------------
+# TEST MODU
+# ------------------------------------------------------------
+#
+# ILK TESTTE:
+#
+# TEST_MODE = True
+#
+# Sadece TEST_SYMBOLS icindeki hisseler taranir.
+#
+# Ornek:
+# BIST:ZOREN
+#
+# Test basarili olduktan sonra:
+#
+# TEST_MODE = False
+#
+# yapilarak tum BIST taranir.
+#
+# ------------------------------------------------------------
+
+TEST_MODE = True
+
+TEST_SYMBOLS = [
+    "BIST:ZOREN"
+]
+
+
+# ------------------------------------------------------------
+# TRADINGVIEW
+# ------------------------------------------------------------
 
 TV_SCANNER_URL = (
     "https://scanner.tradingview.com/turkey/scan"
@@ -60,42 +101,14 @@ TV_WS_URL = (
 )
 
 WS_TIMEOUT = 10
-
 REQUEST_TIMEOUT = 20
 
 SYMBOL_DELAY = 0.10
 
 
-# ============================================================
-# TEST MODU
-# ============================================================
-#
-# GitHub Actions TEST_MODE ortam degiskeninden gelir.
-#
-# true  -> islem saati kontrolu atlanir.
-# false -> normal BIST saat kontrolu uygulanir.
-#
-# ============================================================
-
-TEST_MODE_VALUE = os.getenv(
-    "TEST_MODE",
-    "false"
-)
-
-TEST_MODE = (
-    str(TEST_MODE_VALUE).lower().strip()
-    in (
-        "true",
-        "1",
-        "yes",
-        "on"
-    )
-)
-
-
-# ============================================================
+# ------------------------------------------------------------
 # TELEGRAM
-# ============================================================
+# ------------------------------------------------------------
 
 TELEGRAM_BOT_TOKEN = os.getenv(
     "TELEGRAM_BOT_TOKEN",
@@ -107,14 +120,13 @@ TELEGRAM_CHAT_ID = os.getenv(
     ""
 )
 
-# Telegram resmi sinir 4096 karakterdir.
-# 3800 kullanarak guvenli pay birakiyoruz.
-TELEGRAM_MAX_LENGTH = 3800
+# Telegram maksimum mesaj uzunlugu
+TELEGRAM_MAX_LENGTH = 4000
 
 
-# ============================================================
+# ------------------------------------------------------------
 # BIST ISLEM SAATLERI
-# ============================================================
+# ------------------------------------------------------------
 
 MARKET_OPEN_HOUR = 10
 MARKET_OPEN_MINUTE = 0
@@ -227,7 +239,6 @@ def extract_tv_messages(raw):
         except ValueError:
 
             position = length_end + 3
-
             continue
 
         json_start = length_end + 3
@@ -258,7 +269,10 @@ def extract_tv_messages(raw):
 
         position = json_end
 
-    return messages, raw[position:]
+    return (
+        messages,
+        raw[position:]
+    )
 
 
 # ============================================================
@@ -418,7 +432,6 @@ def get_bist_symbols():
                     item,
                     dict
                 ):
-
                     continue
 
                 symbol = item.get(
@@ -426,7 +439,6 @@ def get_bist_symbols():
                 )
 
                 if not symbol:
-
                     continue
 
                 if symbol.startswith(
@@ -571,11 +583,14 @@ def get_tv_candles(symbol):
         # ----------------------------------------------------
 
         symbol_config = json.dumps(
+
             {
                 "symbol": symbol,
                 "adjustment": "splits"
             },
+
             separators=(",", ":")
+
         )
 
         resolve_symbol = (
@@ -663,7 +678,6 @@ def get_tv_candles(symbol):
                 )
 
             if packet is None:
-
                 break
 
             if isinstance(
@@ -701,7 +715,6 @@ def get_tv_candles(symbol):
                         )
 
                     except Exception:
-
                         pass
 
                     continue
@@ -730,13 +743,12 @@ def get_tv_candles(symbol):
                 )
 
                 # ------------------------------------------------
-                # SERIES DATA
+                # DU
                 # ------------------------------------------------
 
                 if method == "du":
 
                     if len(params) < 2:
-
                         continue
 
                     data_container = (
@@ -747,7 +759,6 @@ def get_tv_candles(symbol):
                         data_container,
                         dict
                     ):
-
                         continue
 
                     series_data = (
@@ -770,14 +781,12 @@ def get_tv_candles(symbol):
                                 if "s" in value:
 
                                     series_data = value
-
                                     break
 
                     if not isinstance(
                         series_data,
                         dict
                     ):
-
                         continue
 
                     bars = series_data.get(
@@ -789,7 +798,6 @@ def get_tv_candles(symbol):
                         bars,
                         list
                     ):
-
                         continue
 
                     for bar in bars:
@@ -798,7 +806,6 @@ def get_tv_candles(symbol):
                             bar,
                             dict
                         ):
-
                             continue
 
                         values = bar.get(
@@ -809,11 +816,9 @@ def get_tv_candles(symbol):
                             values,
                             list
                         ):
-
                             continue
 
                         if len(values) < 5:
-
                             continue
 
                         try:
@@ -870,7 +875,6 @@ def get_tv_candles(symbol):
                                 continue
 
                             if high_price < low_price:
-
                                 continue
 
                             candles[
@@ -908,7 +912,6 @@ def get_tv_candles(symbol):
                 elif method == "timescale_update":
 
                     if len(params) < 2:
-
                         continue
 
                     data_container = (
@@ -919,20 +922,15 @@ def get_tv_candles(symbol):
                         data_container,
                         dict
                     ):
-
                         continue
 
-                    series_data = None
-
-                    if "sds_1" in data_container:
-
-                        series_data = (
-                            data_container[
-                                "sds_1"
-                            ]
+                    series_data = (
+                        data_container.get(
+                            "sds_1"
                         )
+                    )
 
-                    else:
+                    if series_data is None:
 
                         for value in (
                             data_container.values()
@@ -946,14 +944,12 @@ def get_tv_candles(symbol):
                                 if "s" in value:
 
                                     series_data = value
-
                                     break
 
                     if not isinstance(
                         series_data,
                         dict
                     ):
-
                         continue
 
                     bars = series_data.get(
@@ -965,7 +961,6 @@ def get_tv_candles(symbol):
                         bars,
                         list
                     ):
-
                         continue
 
                     for bar in bars:
@@ -974,7 +969,6 @@ def get_tv_candles(symbol):
                             bar,
                             dict
                         ):
-
                             continue
 
                         values = bar.get(
@@ -985,11 +979,9 @@ def get_tv_candles(symbol):
                             values,
                             list
                         ):
-
                             continue
 
                         if len(values) < 5:
-
                             continue
 
                         try:
@@ -1042,11 +1034,9 @@ def get_tv_candles(symbol):
                                     close_price
                                 ]
                             ):
-
                                 continue
 
                             if high_price < low_price:
-
                                 continue
 
                             candles[
@@ -1118,18 +1108,16 @@ def get_tv_candles(symbol):
                         + str(params)
                     )
 
-            # ----------------------------------------------------
-            # YETERLI VERI
-            # ----------------------------------------------------
+            if (
+                len(candles) >= 30
+                and
+                series_completed
+            ):
 
-            if len(candles) >= 30:
-
-                if series_completed:
-
-                    break
+                break
 
         # --------------------------------------------------------
-        # SON KONTROL
+        # SON KONTROLLER
         # --------------------------------------------------------
 
         if not candles:
@@ -1159,11 +1147,8 @@ def get_tv_candles(symbol):
         if ws is not None:
 
             try:
-
                 ws.close()
-
             except Exception:
-
                 pass
 
 
@@ -1176,9 +1161,7 @@ def calculate_atr(
     period=10
 ):
 
-    if len(candles) < (
-        period + 2
-    ):
+    if len(candles) < period:
 
         return [
             None
@@ -1192,7 +1175,6 @@ def calculate_atr(
     ):
 
         high = candle["high"]
-
         low = candle["low"]
 
         if i == 0:
@@ -1257,7 +1239,6 @@ def calculate_atr(
         )
 
         if previous_atr is None:
-
             continue
 
         atr[i] = (
@@ -1277,10 +1258,10 @@ def calculate_atr(
 
 
 # ============================================================
-# SUPERTREND
+# SUPERTREND - BUTUN VERILER
 # ============================================================
 
-def calculate_supertrend(
+def calculate_supertrend_all(
     candles,
     atr_period=10,
     multiplier=2.0
@@ -1317,18 +1298,38 @@ def calculate_supertrend(
         for _ in candles
     ]
 
+    # --------------------------------------------------------
+    # ILK GECERLI ATR NOKTASI
+    # --------------------------------------------------------
+
+    first_index = None
+
     for i in range(
         len(candles)
     ):
 
-        if atr[i] is None:
+        if atr[i] is not None:
 
+            first_index = i
+            break
+
+    if first_index is None:
+        return None
+
+    # --------------------------------------------------------
+    # SUPERTREND
+    # --------------------------------------------------------
+
+    for i in range(
+        first_index,
+        len(candles)
+    ):
+
+        if atr[i] is None:
             continue
 
         high = candles[i]["high"]
-
         low = candles[i]["low"]
-
         close = candles[i]["close"]
 
         # ----------------------------------------------------
@@ -1350,7 +1351,11 @@ def calculate_supertrend(
             multiplier * atr[i]
         )
 
-        if i == atr_period - 1:
+        # ----------------------------------------------------
+        # ILK DEGER
+        # ----------------------------------------------------
+
+        if i == first_index:
 
             upper_band[i] = (
                 basic_upper
@@ -1360,6 +1365,7 @@ def calculate_supertrend(
                 basic_lower
             )
 
+            # Ilk baslangic SAT kabul edilir.
             direction[i] = -1
 
             supertrend[i] = (
@@ -1401,7 +1407,7 @@ def calculate_supertrend(
             previous_direction = -1
 
         # ----------------------------------------------------
-        # UPPER BAND
+        # FINAL UPPER BAND
         # ----------------------------------------------------
 
         if (
@@ -1427,7 +1433,7 @@ def calculate_supertrend(
             )
 
         # ----------------------------------------------------
-        # LOWER BAND
+        # FINAL LOWER BAND
         # ----------------------------------------------------
 
         if (
@@ -1454,6 +1460,9 @@ def calculate_supertrend(
 
         # ----------------------------------------------------
         # TREND
+        #
+        # +1 = AL / YUKARI TREND
+        # -1 = SAT / ASAGI TREND
         # ----------------------------------------------------
 
         if previous_direction == -1:
@@ -1498,56 +1507,25 @@ def calculate_supertrend(
                 upper_band[i]
             )
 
-    valid_indexes = [
-
-        i
-
-        for i, value in enumerate(
-            direction
-        )
-
-        if value is not None
-
-    ]
-
-    if not valid_indexes:
-
-        return None
-
-    last_index = (
-        valid_indexes[-1]
-    )
-
     return {
 
-        "index":
-            last_index,
-
-        "direction":
-            direction[
-                last_index
-            ],
+        "directions":
+            direction,
 
         "supertrend":
-            supertrend[
-                last_index
-            ],
+            supertrend,
 
-        "close":
-            candles[
-                last_index
-            ]["close"],
+        "upper_band":
+            upper_band,
 
-        "candle_time":
-            candles[
-                last_index
-            ]["time"]
+        "lower_band":
+            lower_band
 
     }
 
 
 # ============================================================
-# SON TAMAMLANMIS MUM
+# SON TAMAMLANMIS 2 SAATLIK MUM
 # ============================================================
 
 def get_last_completed_candle(
@@ -1555,7 +1533,6 @@ def get_last_completed_candle(
 ):
 
     if not candles:
-
         return None
 
     now = now_istanbul()
@@ -1598,8 +1575,12 @@ def get_last_completed_candle(
             continue
 
     if not completed:
-
         return None
+
+    completed.sort(
+        key=lambda x:
+            x["time"]
+    )
 
     return completed[-1]
 
@@ -1641,240 +1622,10 @@ def is_bist_open_time():
 
 
 # ============================================================
-# FIYAT FORMAT
+# TELEGRAM TEK MESAJ
 # ============================================================
 
-def format_price(price):
-
-    text = f"{price:,.2f}"
-
-    text = text.replace(
-        ",",
-        "X"
-    )
-
-    text = text.replace(
-        ".",
-        ","
-    )
-
-    text = text.replace(
-        "X",
-        "."
-    )
-
-    return text
-
-
-# ============================================================
-# TELEGRAM SATIRLARI
-# ============================================================
-
-def build_telegram_lines(
-    results
-):
-
-    now = now_istanbul()
-
-    lines = []
-
-    # --------------------------------------------------------
-    # TAM BASLIK
-    # --------------------------------------------------------
-
-    lines.append(
-        "SUPERTREND AL SİNYALİ VEREN HİSSELER"
-    )
-
-    lines.append("")
-
-    lines.append(
-        "BIST 2 SAATLİK SUPERTREND"
-    )
-
-    lines.append(
-        f"ATR Periyodu: {ATR_PERIOD}"
-    )
-
-    lines.append(
-        f"ATR Çarpanı: {ATR_MULTIPLIER:g}"
-    )
-
-    lines.append(
-        "Kaynak: HL2 = (Yüksek + Düşük) / 2"
-    )
-
-    lines.append("")
-
-    lines.append(
-        "Tarama: "
-        +
-        now.strftime(
-            "%d.%m.%Y %H:%M"
-        )
-    )
-
-    lines.append(
-        f"BUY veren hisse: "
-        f"{len(results)} adet"
-    )
-
-    lines.append("")
-
-    # --------------------------------------------------------
-    # HISSER
-    # --------------------------------------------------------
-
-    for result in results:
-
-        symbol = (
-            result["symbol"]
-            .replace(
-                "BIST:",
-                ""
-            )
-        )
-
-        price = format_price(
-            result["price"]
-        )
-
-        lines.append(
-            f"✅ {symbol}   {price} TL"
-        )
-
-    lines.append("")
-
-    lines.append(
-        "Sinyal son tamamlanmış "
-        "2 saatlik mum üzerinden "
-        "hesaplanmıştır."
-    )
-
-    return lines
-
-
-# ============================================================
-# TELEGRAM MESAJLARINI BOL
-# ============================================================
-
-def split_telegram_messages(
-    lines,
-    max_length=TELEGRAM_MAX_LENGTH
-):
-
-    messages = []
-
-    current_lines = []
-
-    current_length = 0
-
-    for line in lines:
-
-        # ----------------------------------------------------
-        # Cok uzun tek satir
-        # ----------------------------------------------------
-
-        if len(line) > max_length:
-
-            if current_lines:
-
-                messages.append(
-                    "\n".join(
-                        current_lines
-                    )
-                )
-
-                current_lines = []
-
-                current_length = 0
-
-            start = 0
-
-            while start < len(line):
-
-                part = line[
-                    start:
-                    start + max_length
-                ]
-
-                messages.append(
-                    part
-                )
-
-                start += max_length
-
-            continue
-
-        line_length = len(line)
-
-        extra = (
-            1
-            if current_lines
-            else 0
-        )
-
-        # ----------------------------------------------------
-        # Yeni satir sigmiyorsa
-        # ----------------------------------------------------
-
-        if (
-            current_length
-            +
-            extra
-            +
-            line_length
-            >
-            max_length
-        ):
-
-            if current_lines:
-
-                messages.append(
-                    "\n".join(
-                        current_lines
-                    )
-                )
-
-            current_lines = [
-                line
-            ]
-
-            current_length = (
-                line_length
-            )
-
-        else:
-
-            current_lines.append(
-                line
-            )
-
-            current_length += (
-                extra +
-                line_length
-            )
-
-    # --------------------------------------------------------
-    # Son mesaj
-    # --------------------------------------------------------
-
-    if current_lines:
-
-        messages.append(
-            "\n".join(
-                current_lines
-            )
-        )
-
-    return messages
-
-
-# ============================================================
-# TELEGRAM TEK MESAJ GONDER
-# ============================================================
-
-def send_telegram(
+def send_telegram_single(
     message
 ):
 
@@ -1922,126 +1673,321 @@ def send_telegram(
     )
 
     # --------------------------------------------------------
-    # TELEGRAM HATA DETAYI
+    # Telegram 400 hatasinda gercek cevabi yaz
     # --------------------------------------------------------
 
-    if not response.ok:
+    if response.status_code != 200:
 
         try:
-
-            error_data = response.json()
-
+            telegram_result = response.json()
         except Exception:
-
-            error_data = response.text
-
-        raise RuntimeError(
-            "Telegram HTTP "
-            +
-            str(response.status_code)
-            +
-            ": "
-            +
-            str(error_data)
-        )
-
-    try:
-
-        result = response.json()
-
-    except Exception:
+            telegram_result = response.text
 
         raise RuntimeError(
-            "Telegram gecersiz JSON cevabi: "
-            +
-            response.text
+            "Telegram API hatasi "
+            + str(response.status_code)
+            + ": "
+            + str(telegram_result)
         )
+
+    result = response.json()
 
     if not result.get("ok"):
 
         raise RuntimeError(
             "Telegram hatasi: "
-            +
-            str(result)
+            + str(result)
         )
 
-    return result
-
 
 # ============================================================
-# TELEGRAM SONUCLARI GONDER
+# TELEGRAM MESAJ PARCALAMA
 # ============================================================
 
-def send_telegram_results(
-    results
+def split_message(
+    message,
+    max_length=TELEGRAM_MAX_LENGTH
 ):
 
-    lines = build_telegram_lines(
-        results
+    if len(message) <= max_length:
+
+        return [
+            message
+        ]
+
+    lines = message.split(
+        "\n"
     )
 
-    messages = split_telegram_messages(
-        lines,
-        TELEGRAM_MAX_LENGTH
+    chunks = []
+
+    current = ""
+
+    for line in lines:
+
+        candidate = (
+            current
+            +
+            (
+                "\n"
+                if current
+                else ""
+            )
+            +
+            line
+        )
+
+        if len(candidate) <= max_length:
+
+            current = candidate
+
+        else:
+
+            if current:
+
+                chunks.append(
+                    current
+                )
+
+            # Tek satir limitten uzunsa
+            # guvenli sekilde bol.
+
+            if len(line) > max_length:
+
+                start = 0
+
+                while (
+                    start <
+                    len(line)
+                ):
+
+                    end = (
+                        start +
+                        max_length
+                    )
+
+                    chunks.append(
+                        line[
+                            start:end
+                        ]
+                    )
+
+                    start = end
+
+                current = ""
+
+            else:
+
+                current = line
+
+    if current:
+
+        chunks.append(
+            current
+        )
+
+    return chunks
+
+
+# ============================================================
+# TELEGRAM
+# ============================================================
+
+def send_telegram(
+    message
+):
+
+    chunks = split_message(
+        message
     )
 
     log(
-        f"Telegram icin {len(messages)} "
-        f"mesaj olusturuldu."
+        f"Telegram mesaj parca sayisi: "
+        f"{len(chunks)}"
     )
 
-    for number, message in enumerate(
-        messages,
+    for index, chunk in enumerate(
+        chunks,
         start=1
     ):
 
-        log(
-            f"Telegram mesaj "
-            f"{number}/{len(messages)} "
-            f"gonderiliyor..."
+        send_telegram_single(
+            chunk
         )
 
         log(
-            f"Mesaj karakter sayisi: "
-            f"{len(message)}"
+            f"Telegram mesaj {index}/"
+            f"{len(chunks)} gonderildi."
         )
 
-        try:
+        if index < len(chunks):
 
-            send_telegram(
-                message
+            time.sleep(
+                0.5
             )
 
-            log(
-                f"Telegram mesaj "
-                f"{number}/{len(messages)} "
-                f"basariyla gonderildi."
+
+# ============================================================
+# FIYAT FORMAT
+# ============================================================
+
+def format_price(price):
+
+    text = f"{price:,.2f}"
+
+    text = text.replace(
+        ",",
+        "X"
+    )
+
+    text = text.replace(
+        ".",
+        ","
+    )
+
+    text = text.replace(
+        "X",
+        "."
+    )
+
+    return text
+
+
+# ============================================================
+# MUM ZAMANI FORMAT
+# ============================================================
+
+def format_candle_time(
+    timestamp
+):
+
+    try:
+
+        dt = (
+            datetime.fromtimestamp(
+                timestamp,
+                tz=ZoneInfo("UTC")
             )
-
-        except Exception as e:
-
-            log(
-                f"Telegram mesaj "
-                f"{number}/{len(messages)} "
-                f"GONDERILEMEDI: {e}"
+            .astimezone(
+                ZoneInfo(TIMEZONE)
             )
+        )
 
-            raise
+        return dt.strftime(
+            "%d.%m.%Y %H:%M"
+        )
 
-        # ----------------------------------------------------
-        # Mesajlar arasinda kisa bekleme
-        # ----------------------------------------------------
+    except Exception:
 
-        if number < len(messages):
+        return "-"
 
-            time.sleep(1)
+
+# ============================================================
+# TELEGRAM MESAJI
+# ============================================================
+
+def build_telegram_message(
+    results
+):
+
+    now = now_istanbul()
+
+    lines = []
+
+    # --------------------------------------------------------
+    # BASLIK
+    # --------------------------------------------------------
+
+    lines.append(
+        "SUPERTREND AL SİNYALİ VEREN HİSSELER"
+    )
+
+    lines.append("")
+
+    lines.append(
+        "BIST 2 SAATLİK SUPERTREND"
+    )
+
+    lines.append(
+        f"ATR Periyodu: {ATR_PERIOD}"
+    )
+
+    lines.append(
+        f"ATR Çarpanı: {ATR_MULTIPLIER:g}"
+    )
+
+    lines.append(
+        "Kaynak: HL2 = (Yüksek + Düşük) / 2"
+    )
+
+    lines.append("")
+
+    lines.append(
+        "Tarama: "
+        +
+        now.strftime(
+            "%d.%m.%Y %H:%M"
+        )
+    )
+
+    lines.append(
+        f"Yeni SAT → AL sinyali: "
+        f"{len(results)} adet"
+    )
+
+    lines.append("")
+
+    # --------------------------------------------------------
+    # HISSELER
+    # --------------------------------------------------------
+
+    for result in results:
+
+        symbol = (
+            result["symbol"]
+            .replace(
+                "BIST:",
+                ""
+            )
+        )
+
+        price = format_price(
+            result["price"]
+        )
+
+        candle_time = (
+            format_candle_time(
+                result["candle_time"]
+            )
+        )
+
+        lines.append(
+            f"{symbol} | "
+            f"{price} TL | "
+            f"SAT → AL | "
+            f"{candle_time}"
+        )
+
+    lines.append("")
+
+    lines.append(
+        "Sinyal: Önceki tamamlanmış "
+        "2H mum SAT (-1), son tamamlanmış "
+        "2H mum AL (+1)."
+    )
+
+    return "\n".join(
+        lines
+    )
 
 
 # ============================================================
 # TEK HISSE TARAMA
 # ============================================================
 
-def scan_symbol(symbol):
+def scan_symbol(
+    symbol
+):
 
     try:
 
@@ -2065,6 +2011,11 @@ def scan_symbol(symbol):
 
         if completed is None:
 
+            log(
+                f"{symbol} -> "
+                "Tamamlanmis 2H mum bulunamadi."
+            )
+
             return None
 
         completed_time = (
@@ -2084,7 +2035,6 @@ def scan_symbol(symbol):
             ):
 
                 completed_index = i
-
                 break
 
         if completed_index is None:
@@ -2092,7 +2042,7 @@ def scan_symbol(symbol):
             return None
 
         # ----------------------------------------------------
-        # TAMAMLANMIS MUMLARA KADAR HESAPLA
+        # SADECE TAMAMLANMIS MUMLAR
         # ----------------------------------------------------
 
         calculation_candles = (
@@ -2101,27 +2051,113 @@ def scan_symbol(symbol):
             ]
         )
 
-        result = calculate_supertrend(
+        # ----------------------------------------------------
+        # SUPERTREND
+        # ----------------------------------------------------
 
-            calculation_candles,
+        trend_data = (
+            calculate_supertrend_all(
+                calculation_candles,
+                ATR_PERIOD,
+                ATR_MULTIPLIER
+            )
+        )
 
-            ATR_PERIOD,
+        if trend_data is None:
 
-            ATR_MULTIPLIER
+            return None
+
+        directions = (
+            trend_data[
+                "directions"
+            ]
+        )
+
+        # ----------------------------------------------------
+        # GECERLI TREND INDEKSLERINI BUL
+        # ----------------------------------------------------
+
+        valid_indexes = [
+
+            i
+
+            for i, value in enumerate(
+                directions
+            )
+
+            if value is not None
+
+        ]
+
+        if len(valid_indexes) < 2:
+
+            return None
+
+        current_index = (
+            valid_indexes[-1]
+        )
+
+        previous_index = (
+            valid_indexes[-2]
+        )
+
+        previous_trend = (
+            directions[
+                previous_index
+            ]
+        )
+
+        current_trend = (
+            directions[
+                current_index
+            ]
+        )
+
+        # ----------------------------------------------------
+        # GERCEK SAT -> AL
+        # ----------------------------------------------------
+
+        is_new_buy = (
+
+            previous_trend == -1
+
+            and
+
+            current_trend == 1
 
         )
 
-        if result is None:
+        # ----------------------------------------------------
+        # TEST ICIN DETAY
+        # ----------------------------------------------------
+
+        log(
+            f"    Trend: "
+            f"{previous_trend} -> "
+            f"{current_trend}"
+        )
+
+        log(
+            f"    Mum: "
+            f"{format_candle_time(completed_time)}"
+        )
+
+        log(
+            f"    Kapanis: "
+            f"{format_price(completed['close'])} TL"
+        )
+
+        # ----------------------------------------------------
+        # YENI AL DEGILSE
+        # ----------------------------------------------------
+
+        if not is_new_buy:
 
             return None
 
         # ----------------------------------------------------
-        # BUY = +1
+        # YENI AL
         # ----------------------------------------------------
-
-        if result["direction"] != 1:
-
-            return None
 
         return {
 
@@ -2129,10 +2165,16 @@ def scan_symbol(symbol):
                 symbol,
 
             "price":
-                result["close"],
+                completed["close"],
 
             "candle_time":
-                result["candle_time"]
+                completed_time,
+
+            "previous_trend":
+                previous_trend,
+
+            "current_trend":
+                current_trend
 
         }
 
@@ -2155,7 +2197,8 @@ def main():
     log("=" * 70)
 
     log(
-        "BIST SUPERTREND TARAMASI BASLADI"
+        "BIST SUPERTREND TARAMASI "
+        "SURUM 2 BASLADI"
     )
 
     log("=" * 70)
@@ -2171,36 +2214,46 @@ def main():
     )
 
     # --------------------------------------------------------
-    # TEST MODU DURUMU
+    # TEST MODU BILGISI
     # --------------------------------------------------------
 
     if TEST_MODE:
 
+        log("")
         log(
-            "!!! TEST MODU AKTIF !!!"
+            "******** TEST MODU AKTIF ********"
         )
 
         log(
-            "BIST islem saati kontrolu ATLANACAK."
+            "Sadece su hisseler taranacak:"
         )
 
+        for symbol in TEST_SYMBOLS:
+
+            log(
+                "    "
+                + symbol
+            )
+
         log(
-            "Hafta sonu olsa bile tarama yapilacak."
+            "**********************************"
         )
 
     else:
 
         log(
-            "NORMAL MOD AKTIF."
+            "NORMAL MOD: Tum BIST hisseleri taranacak."
         )
 
-        log(
-            "BIST islem saati kontrolu uygulanacak."
-        )
+    # --------------------------------------------------------
+    # BIST SAAT KONTROLU
+    #
+    # TEST MODUNDA BU KONTROLU DEVRE DISI BIRAKIYORUZ.
+    # Boylece GitHub Actions MANUEL calistirildiginda
+    # hafta sonu/gece de test yapilabilir.
+    # --------------------------------------------------------
 
-        # ----------------------------------------------------
-        # BIST SAAT KONTROLU
-        # ----------------------------------------------------
+    if not TEST_MODE:
 
         if not is_bist_open_time():
 
@@ -2214,8 +2267,14 @@ def main():
 
             return
 
+    else:
+
+        log(
+            "TEST MODU: BIST saat kontrolu atlandi."
+        )
+
     # --------------------------------------------------------
-    # TELEGRAM KONTROL
+    # TELEGRAM AYARLARI
     # --------------------------------------------------------
 
     if not TELEGRAM_BOT_TOKEN:
@@ -2231,10 +2290,20 @@ def main():
         )
 
     # --------------------------------------------------------
-    # BIST HISSELERI
+    # HISSE LISTESI
     # --------------------------------------------------------
 
-    symbols = get_bist_symbols()
+    if TEST_MODE:
+
+        symbols = sorted(
+            set(
+                TEST_SYMBOLS
+            )
+        )
+
+    else:
+
+        symbols = get_bist_symbols()
 
     total = len(symbols)
 
@@ -2242,6 +2311,7 @@ def main():
         f"Toplam {total} hisse taranacak."
     )
 
+    log("")
     log(
         "Supertrend ayarlari:"
     )
@@ -2260,6 +2330,10 @@ def main():
 
     log(
         "Timeframe = 2H"
+    )
+
+    log(
+        "Sinyal = SAT (-1) -> AL (+1)"
     )
 
     log("")
@@ -2298,14 +2372,28 @@ def main():
                 success_count += 1
 
                 log(
-                    "    >>> BUY: "
+                    "    >>> YENI AL SINYALI!"
+                )
+
+                log(
+                    "    >>> "
                     +
-                    f"{result['price']:.2f} TL"
+                    symbol
+                )
+
+                log(
+                    "    >>> "
+                    +
+                    f"{format_price(result['price'])} TL"
                 )
 
             else:
 
                 success_count += 1
+
+                log(
+                    "    -> Yeni SAT -> AL yok."
+                )
 
         except Exception as e:
 
@@ -2315,9 +2403,11 @@ def main():
                 f"    >>> TARAMA HATASI: {e}"
             )
 
-        time.sleep(
-            SYMBOL_DELAY
-        )
+        if SYMBOL_DELAY > 0:
+
+            time.sleep(
+                SYMBOL_DELAY
+            )
 
     # --------------------------------------------------------
     # SONUCLAR
@@ -2348,7 +2438,7 @@ def main():
     )
 
     log(
-        f"BUY veren: {len(results)}"
+        f"YENI SAT -> AL: {len(results)}"
     )
 
     log("=" * 70)
@@ -2361,26 +2451,34 @@ def main():
 
         log(
             "Son tamamlanmis 2 saatlik "
-            "mumda BUY veren hisse yok."
+            "mumlarda yeni SAT -> AL "
+            "donusu bulunamadi."
         )
 
         log(
             "Telegram mesaji GONDERILMEYECEK."
         )
 
+        log(
+            "PROGRAM BASARIYLA TAMAMLANDI."
+        )
+
         return
 
     # --------------------------------------------------------
-    # TELEGRAM
+    # TELEGRAM MESAJI
     # --------------------------------------------------------
 
-    send_telegram_results(
+    message = build_telegram_message(
         results
     )
 
+    send_telegram(
+        message
+    )
+
     log(
-        "Tum Telegram bildirimleri "
-        "basariyla gonderildi."
+        "Telegram bildirimi basariyla gonderildi."
     )
 
     log(
