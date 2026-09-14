@@ -1,31 +1,25 @@
 # ============================================================
 # BIST SUPERTREND ALARM SISTEMI
-# SURUM 2
-# GERCEK SAT -> AL DONUSU
+# SURUM 2 - FINAL
 # ============================================================
 #
 # OZELLIKLER
 #
-# 1) BIST hisselerini TradingView Scanner ile otomatik bulur
+# 1) Tum BIST hisselerini TradingView Scanner ile bulur
 # 2) TradingView WebSocket ile 2 saatlik mumlari alir
 # 3) Supertrend:
-#       ATR Period    = 10
-#       Source        = HL2
-#       Multiplier    = 2
-#       Timeframe     = 2H
-# 4) SADECE gercek SAT -> AL donuslerini yakalar
-# 5) Son tamamlanmis 2 saatlik mum kullanilir
-# 6) Telegram bildirimi gonderir
-# 7) Telegram 4096 karakter siniri icin mesajlari boler
-# 8) TEST_MODE ile once tek hisse test edilebilir
+#       ATR Period     = 10
+#       Source         = HL2
+#       Multiplier     = 2
+#       Timeframe      = 2H
 #
-# GERCEK AL:
-#
-#       ONCEKI MUM       SON MUM
-#          SAT     ->       AL
-#          -1      ->       +1
-#
-# BUY trendinde kalmis hisseler bildirilmez.
+# 4) SADECE gercek SAT -> AL donusunu yakalar
+# 5) Ayni sinyali tekrar gondermez
+# 6) Son durum GitHub state dosyasinda saklanir
+# 7) Telegram bildirimi gonderir
+# 8) TEST MODU vardir
+# 9) Normal modda BIST saatleri disinda tarama yapmaz
+# 10) Normal modda tum 619+ BIST hissesini tarar
 #
 # ============================================================
 
@@ -35,6 +29,7 @@ import time
 import random
 import string
 import math
+import base64
 import requests
 import websocket
 
@@ -48,7 +43,6 @@ from zoneinfo import ZoneInfo
 
 TIMEZONE = "Europe/Istanbul"
 
-
 # ------------------------------------------------------------
 # SUPERTREND
 # ------------------------------------------------------------
@@ -56,37 +50,7 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-
 CANDLE_COUNT = 150
-
-
-# ------------------------------------------------------------
-# TEST MODU
-# ------------------------------------------------------------
-#
-# ILK TESTTE:
-#
-# TEST_MODE = True
-#
-# Sadece TEST_SYMBOLS icindeki hisseler taranir.
-#
-# Ornek:
-# BIST:ZOREN
-#
-# Test basarili olduktan sonra:
-#
-# TEST_MODE = False
-#
-# yapilarak tum BIST taranir.
-#
-# ------------------------------------------------------------
-
-TEST_MODE = True
-
-TEST_SYMBOLS = [
-    "BIST:ZOREN"
-]
-
 
 # ------------------------------------------------------------
 # TRADINGVIEW
@@ -102,9 +66,56 @@ TV_WS_URL = (
 
 WS_TIMEOUT = 10
 REQUEST_TIMEOUT = 20
+SYMBOL_DELAY = 0.05
 
-SYMBOL_DELAY = 0.10
+# ------------------------------------------------------------
+# TEST MODU
+#
+# GitHub Actions workflow'undan ayarlanabilir.
+#
+# TEST_MODE = true:
+#   - BIST saat kontrolunu bypass eder
+#   - TEST_SYMBOLS listesini tarar
+#   - State dosyasini DEGISTIRMEZ
+#
+# ------------------------------------------------------------
 
+TEST_MODE = (
+    os.getenv(
+        "TEST_MODE",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
+TEST_SYMBOLS_TEXT = os.getenv(
+    "TEST_SYMBOLS",
+    "BIST:ZOREN"
+)
+
+TEST_SYMBOLS = [
+    x.strip()
+    for x in TEST_SYMBOLS_TEXT.split(",")
+    if x.strip()
+]
+
+SEND_TEST_TELEGRAM = (
+    os.getenv(
+        "SEND_TEST_TELEGRAM",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
 
 # ------------------------------------------------------------
 # TELEGRAM
@@ -120,12 +131,8 @@ TELEGRAM_CHAT_ID = os.getenv(
     ""
 )
 
-# Telegram maksimum mesaj uzunlugu
-TELEGRAM_MAX_LENGTH = 4000
-
-
 # ------------------------------------------------------------
-# BIST ISLEM SAATLERI
+# BIST SAATLERI
 # ------------------------------------------------------------
 
 MARKET_OPEN_HOUR = 10
@@ -133,6 +140,29 @@ MARKET_OPEN_MINUTE = 0
 
 MARKET_CLOSE_HOUR = 18
 MARKET_CLOSE_MINUTE = 0
+
+# ------------------------------------------------------------
+# GITHUB STATE
+# ------------------------------------------------------------
+
+GITHUB_TOKEN = os.getenv(
+    "GITHUB_TOKEN",
+    ""
+)
+
+GITHUB_REPOSITORY = os.getenv(
+    "GITHUB_REPOSITORY",
+    ""
+)
+
+GITHUB_REF_NAME = os.getenv(
+    "GITHUB_REF_NAME",
+    "main"
+)
+
+STATE_FILE = (
+    "state/supertrend_state.json"
+)
 
 
 # ============================================================
@@ -167,9 +197,9 @@ def random_session(prefix):
     )
 
     return (
-        prefix +
-        "_" +
-        "".join(
+        prefix
+        + "_"
+        + "".join(
             random.choice(chars)
             for _ in range(12)
         )
@@ -180,7 +210,10 @@ def random_session(prefix):
 # TRADINGVIEW MESAJI
 # ============================================================
 
-def tv_message(method, params):
+def tv_message(
+    method,
+    params
+):
 
     payload = json.dumps(
         {
@@ -205,7 +238,6 @@ def tv_message(method, params):
 def extract_tv_messages(raw):
 
     messages = []
-
     position = 0
 
     while True:
@@ -242,14 +274,11 @@ def extract_tv_messages(raw):
             continue
 
         json_start = length_end + 3
-
         json_end = (
-            json_start +
-            length
+            json_start + length
         )
 
         if json_end > len(raw):
-
             break
 
         full_frame = raw[
@@ -276,7 +305,7 @@ def extract_tv_messages(raw):
 
 
 # ============================================================
-# BIST HISSelerini OTOMATIK BUL
+# BIST HISSelerini BUL
 # ============================================================
 
 def get_bist_symbols():
@@ -331,7 +360,6 @@ def get_bist_symbols():
         "options": {
 
             "active_symbols_only": True,
-
             "lang": "tr"
 
         },
@@ -346,7 +374,6 @@ def get_bist_symbols():
         "sort": {
 
             "sortBy": "name",
-
             "sortOrder": "asc"
 
         },
@@ -354,9 +381,7 @@ def get_bist_symbols():
         "symbols": {
 
             "query": {
-
                 "types": []
-
             },
 
             "tickers": []
@@ -434,9 +459,7 @@ def get_bist_symbols():
                 ):
                     continue
 
-                symbol = item.get(
-                    "s"
-                )
+                symbol = item.get("s")
 
                 if not symbol:
                     continue
@@ -444,10 +467,7 @@ def get_bist_symbols():
                 if symbol.startswith(
                     "BIST:"
                 ):
-
-                    symbols.append(
-                        symbol
-                    )
+                    symbols.append(symbol)
 
             symbols = sorted(
                 set(symbols)
@@ -493,23 +513,14 @@ def get_tv_candles(symbol):
 
     ws = None
 
-    chart_session = random_session(
-        "cs"
-    )
-
-    quote_session = random_session(
-        "qs"
-    )
+    chart_session = random_session("cs")
+    quote_session = random_session("qs")
 
     try:
 
         log(
             f"    TradingView veri baglantisi: {symbol}"
         )
-
-        # ----------------------------------------------------
-        # WEBSOCKET
-        # ----------------------------------------------------
 
         ws = websocket.create_connection(
 
@@ -646,16 +657,10 @@ def get_tv_candles(symbol):
         )
 
         candles = {}
-
         raw_buffer = ""
 
         start_time = time.time()
-
         series_completed = False
-
-        # ----------------------------------------------------
-        # VERI BEKLE
-        # ----------------------------------------------------
 
         while (
             time.time() - start_time
@@ -704,16 +709,12 @@ def get_tv_candles(symbol):
                 # HEARTBEAT
                 # ------------------------------------------------
 
-                if payload.startswith(
-                    "~h~"
-                ):
+                if payload.startswith("~h~"):
 
                     try:
-
                         ws.send(
                             full_frame
                         )
-
                     except Exception:
                         pass
 
@@ -733,14 +734,8 @@ def get_tv_candles(symbol):
 
                     continue
 
-                method = obj.get(
-                    "m"
-                )
-
-                params = obj.get(
-                    "p",
-                    []
-                )
+                method = obj.get("m")
+                params = obj.get("p", [])
 
                 # ------------------------------------------------
                 # DU
@@ -751,9 +746,7 @@ def get_tv_candles(symbol):
                     if len(params) < 2:
                         continue
 
-                    data_container = (
-                        params[1]
-                    )
+                    data_container = params[1]
 
                     if not isinstance(
                         data_container,
@@ -808,9 +801,7 @@ def get_tv_candles(symbol):
                         ):
                             continue
 
-                        values = bar.get(
-                            "v"
-                        )
+                        values = bar.get("v")
 
                         if not isinstance(
                             values,
@@ -861,25 +852,27 @@ def get_tv_candles(symbol):
 
                                     volume = 0.0
 
+                            numbers = [
+                                timestamp,
+                                open_price,
+                                high_price,
+                                low_price,
+                                close_price
+                            ]
+
                             if not all(
                                 math.isfinite(x)
-                                for x in [
-                                    timestamp,
-                                    open_price,
-                                    high_price,
-                                    low_price,
-                                    close_price
-                                ]
+                                for x in numbers
                             ):
-
                                 continue
 
-                            if high_price < low_price:
+                            if (
+                                high_price <
+                                low_price
+                            ):
                                 continue
 
-                            candles[
-                                timestamp
-                            ] = {
+                            candles[timestamp] = {
 
                                 "time":
                                     timestamp,
@@ -914,9 +907,7 @@ def get_tv_candles(symbol):
                     if len(params) < 2:
                         continue
 
-                    data_container = (
-                        params[1]
-                    )
+                    data_container = params[1]
 
                     if not isinstance(
                         data_container,
@@ -971,9 +962,7 @@ def get_tv_candles(symbol):
                         ):
                             continue
 
-                        values = bar.get(
-                            "v"
-                        )
+                        values = bar.get("v")
 
                         if not isinstance(
                             values,
@@ -1014,34 +1003,11 @@ def get_tv_candles(symbol):
                                 values[5] is not None
                             ):
 
-                                try:
+                                volume = float(
+                                    values[5]
+                                )
 
-                                    volume = float(
-                                        values[5]
-                                    )
-
-                                except Exception:
-
-                                    volume = 0.0
-
-                            if not all(
-                                math.isfinite(x)
-                                for x in [
-                                    timestamp,
-                                    open_price,
-                                    high_price,
-                                    low_price,
-                                    close_price
-                                ]
-                            ):
-                                continue
-
-                            if high_price < low_price:
-                                continue
-
-                            candles[
-                                timestamp
-                            ] = {
+                            candles[timestamp] = {
 
                                 "time":
                                     timestamp,
@@ -1076,7 +1042,7 @@ def get_tv_candles(symbol):
                     series_completed = True
 
                 # ------------------------------------------------
-                # SYMBOL ERROR
+                # HATALAR
                 # ------------------------------------------------
 
                 elif method == "symbol_error":
@@ -1086,20 +1052,12 @@ def get_tv_candles(symbol):
                         + str(params)
                     )
 
-                # ------------------------------------------------
-                # SERIES ERROR
-                # ------------------------------------------------
-
                 elif method == "series_error":
 
                     raise RuntimeError(
                         "TradingView series_error: "
                         + str(params)
                     )
-
-                # ------------------------------------------------
-                # CRITICAL ERROR
-                # ------------------------------------------------
 
                 elif method == "critical_error":
 
@@ -1113,12 +1071,7 @@ def get_tv_candles(symbol):
                 and
                 series_completed
             ):
-
                 break
-
-        # --------------------------------------------------------
-        # SON KONTROLLER
-        # --------------------------------------------------------
 
         if not candles:
 
@@ -1128,8 +1081,7 @@ def get_tv_candles(symbol):
 
         result = sorted(
             candles.values(),
-            key=lambda x:
-                x["time"]
+            key=lambda x: x["time"]
         )
 
         if len(result) < 20:
@@ -1170,19 +1122,14 @@ def calculate_atr(
 
     true_ranges = []
 
-    for i, candle in enumerate(
-        candles
-    ):
+    for i, candle in enumerate(candles):
 
         high = candle["high"]
         low = candle["low"]
 
         if i == 0:
 
-            tr = (
-                high -
-                low
-            )
+            tr = high - low
 
         else:
 
@@ -1206,9 +1153,7 @@ def calculate_atr(
 
             )
 
-        true_ranges.append(
-            tr
-        )
+        true_ranges.append(tr)
 
     atr = [
         None
@@ -1217,17 +1162,12 @@ def calculate_atr(
 
     first_atr = (
         sum(
-            true_ranges[
-                :period
-            ]
+            true_ranges[:period]
         )
-        /
-        period
+        / period
     )
 
-    atr[
-        period - 1
-    ] = first_atr
+    atr[period - 1] = first_atr
 
     for i in range(
         period,
@@ -1258,10 +1198,13 @@ def calculate_atr(
 
 
 # ============================================================
-# SUPERTREND - BUTUN VERILER
+# SUPERTREND YONLERI
+#
+#  1  = AL
+# -1  = SAT
 # ============================================================
 
-def calculate_supertrend_all(
+def calculate_supertrend_directions(
     candles,
     atr_period=10,
     multiplier=2.0
@@ -1288,40 +1231,12 @@ def calculate_supertrend_all(
         for _ in candles
     ]
 
-    supertrend = [
-        None
-        for _ in candles
-    ]
-
     direction = [
         None
         for _ in candles
     ]
 
-    # --------------------------------------------------------
-    # ILK GECERLI ATR NOKTASI
-    # --------------------------------------------------------
-
-    first_index = None
-
     for i in range(
-        len(candles)
-    ):
-
-        if atr[i] is not None:
-
-            first_index = i
-            break
-
-    if first_index is None:
-        return None
-
-    # --------------------------------------------------------
-    # SUPERTREND
-    # --------------------------------------------------------
-
-    for i in range(
-        first_index,
         len(candles)
     ):
 
@@ -1337,25 +1252,22 @@ def calculate_supertrend_all(
         # ----------------------------------------------------
 
         hl2 = (
-            high +
-            low
+            high + low
         ) / 2.0
 
         basic_upper = (
-            hl2 +
+            hl2
+            +
             multiplier * atr[i]
         )
 
         basic_lower = (
-            hl2 -
+            hl2
+            -
             multiplier * atr[i]
         )
 
-        # ----------------------------------------------------
-        # ILK DEGER
-        # ----------------------------------------------------
-
-        if i == first_index:
+        if i == atr_period - 1:
 
             upper_band[i] = (
                 basic_upper
@@ -1365,12 +1277,7 @@ def calculate_supertrend_all(
                 basic_lower
             )
 
-            # Ilk baslangic SAT kabul edilir.
             direction[i] = -1
-
-            supertrend[i] = (
-                upper_band[i]
-            )
 
             continue
 
@@ -1407,7 +1314,7 @@ def calculate_supertrend_all(
             previous_direction = -1
 
         # ----------------------------------------------------
-        # FINAL UPPER BAND
+        # UPPER BAND
         # ----------------------------------------------------
 
         if (
@@ -1433,7 +1340,7 @@ def calculate_supertrend_all(
             )
 
         # ----------------------------------------------------
-        # FINAL LOWER BAND
+        # LOWER BAND
         # ----------------------------------------------------
 
         if (
@@ -1460,17 +1367,11 @@ def calculate_supertrend_all(
 
         # ----------------------------------------------------
         # TREND
-        #
-        # +1 = AL / YUKARI TREND
-        # -1 = SAT / ASAGI TREND
         # ----------------------------------------------------
 
         if previous_direction == -1:
 
-            if (
-                close >
-                upper_band[i]
-            ):
+            if close > upper_band[i]:
 
                 direction[i] = 1
 
@@ -1480,10 +1381,7 @@ def calculate_supertrend_all(
 
         else:
 
-            if (
-                close <
-                lower_band[i]
-            ):
+            if close < lower_band[i]:
 
                 direction[i] = -1
 
@@ -1491,44 +1389,14 @@ def calculate_supertrend_all(
 
                 direction[i] = 1
 
-        # ----------------------------------------------------
-        # SUPERTREND
-        # ----------------------------------------------------
-
-        if direction[i] == 1:
-
-            supertrend[i] = (
-                lower_band[i]
-            )
-
-        else:
-
-            supertrend[i] = (
-                upper_band[i]
-            )
-
-    return {
-
-        "directions":
-            direction,
-
-        "supertrend":
-            supertrend,
-
-        "upper_band":
-            upper_band,
-
-        "lower_band":
-            lower_band
-
-    }
+    return direction
 
 
 # ============================================================
-# SON TAMAMLANMIS 2 SAATLIK MUM
+# SON TAMAMLANMIS MUM
 # ============================================================
 
-def get_last_completed_candle(
+def get_last_completed_index(
     candles
 ):
 
@@ -1537,13 +1405,15 @@ def get_last_completed_candle(
 
     now = now_istanbul()
 
-    completed = []
-
     timeframe_seconds = (
         2 * 60 * 60
     )
 
-    for candle in candles:
+    candidates = []
+
+    for i, candle in enumerate(
+        candles
+    ):
 
         try:
 
@@ -1558,7 +1428,8 @@ def get_last_completed_candle(
             )
 
             candle_end = (
-                candle_time +
+                candle_time
+                +
                 timedelta(
                     seconds=timeframe_seconds
                 )
@@ -1566,27 +1437,20 @@ def get_last_completed_candle(
 
             if candle_end <= now:
 
-                completed.append(
-                    candle
-                )
+                candidates.append(i)
 
         except Exception:
 
             continue
 
-    if not completed:
+    if not candidates:
         return None
 
-    completed.sort(
-        key=lambda x:
-            x["time"]
-    )
-
-    return completed[-1]
+    return candidates[-1]
 
 
 # ============================================================
-# BIST ISLEM SAATI
+# BIST SAAT KONTROLU
 # ============================================================
 
 def is_bist_open_time():
@@ -1594,40 +1458,273 @@ def is_bist_open_time():
     now = now_istanbul()
 
     if now.weekday() >= 5:
-
         return False
 
     current_minutes = (
-        now.hour * 60 +
+        now.hour * 60
+        +
         now.minute
     )
 
     open_minutes = (
-        MARKET_OPEN_HOUR * 60 +
+        MARKET_OPEN_HOUR * 60
+        +
         MARKET_OPEN_MINUTE
     )
 
     close_minutes = (
-        MARKET_CLOSE_HOUR * 60 +
+        MARKET_CLOSE_HOUR * 60
+        +
         MARKET_CLOSE_MINUTE
     )
 
     return (
         open_minutes
-        <=
-        current_minutes
+        <= current_minutes
         <
         close_minutes
     )
 
 
 # ============================================================
-# TELEGRAM TEK MESAJ
+# GITHUB STATE OKUMA
 # ============================================================
 
-def send_telegram_single(
-    message
-):
+def github_headers():
+
+    return {
+
+        "Authorization":
+            f"Bearer {GITHUB_TOKEN}",
+
+        "Accept":
+            "application/vnd.github+json",
+
+        "X-GitHub-Api-Version":
+            "2022-11-28"
+
+    }
+
+
+def load_state():
+
+    # TEST MODUNDA STATE OKUNABILIR
+    # fakat degistirilmez.
+
+    if (
+        not GITHUB_TOKEN
+        or
+        not GITHUB_REPOSITORY
+    ):
+
+        log(
+            "UYARI: GitHub state bilgileri yok."
+        )
+
+        return {}
+
+    url = (
+        "https://api.github.com/repos/"
+        +
+        GITHUB_REPOSITORY
+        +
+        "/contents/"
+        +
+        STATE_FILE
+        +
+        "?ref="
+        +
+        GITHUB_REF_NAME
+    )
+
+    try:
+
+        response = requests.get(
+            url,
+            headers=github_headers(),
+            timeout=REQUEST_TIMEOUT
+        )
+
+        if response.status_code == 404:
+
+            log(
+                "State dosyasi henuz yok. "
+                "Ilk durumlar olusturulacak."
+            )
+
+            return {}
+
+        response.raise_for_status()
+
+        data = response.json()
+
+        encoded = data.get(
+            "content",
+            ""
+        )
+
+        if not encoded:
+            return {}
+
+        content = base64.b64decode(
+            encoded
+        ).decode(
+            "utf-8"
+        )
+
+        state = json.loads(content)
+
+        if not isinstance(
+            state,
+            dict
+        ):
+
+            return {}
+
+        log(
+            f"GitHub state okundu: "
+            f"{len(state)} hisse"
+        )
+
+        return state
+
+    except Exception as e:
+
+        log(
+            "GitHub state okuma hatasi: "
+            + str(e)
+        )
+
+        return {}
+
+
+# ============================================================
+# GITHUB STATE KAYDET
+# ============================================================
+
+def save_state(state):
+
+    if TEST_MODE:
+
+        log(
+            "TEST MODU: State dosyasi "
+            "DEGISTIRILMEYECEK."
+        )
+
+        return
+
+    if (
+        not GITHUB_TOKEN
+        or
+        not GITHUB_REPOSITORY
+    ):
+
+        raise RuntimeError(
+            "GitHub state icin "
+            "GITHUB_TOKEN/GITHUB_REPOSITORY "
+            "eksik."
+        )
+
+    # Once mevcut dosyanin SHA'sini al.
+    url = (
+        "https://api.github.com/repos/"
+        +
+        GITHUB_REPOSITORY
+        +
+        "/contents/"
+        +
+        STATE_FILE
+    )
+
+    get_response = requests.get(
+
+        url
+        +
+        "?ref="
+        +
+        GITHUB_REF_NAME,
+
+        headers=github_headers(),
+
+        timeout=REQUEST_TIMEOUT
+
+    )
+
+    existing_sha = None
+
+    if get_response.status_code == 200:
+
+        existing_sha = (
+            get_response.json().get(
+                "sha"
+            )
+        )
+
+    content = json.dumps(
+        state,
+        ensure_ascii=False,
+        indent=2,
+        sort_keys=True
+    )
+
+    encoded = base64.b64encode(
+        content.encode("utf-8")
+    ).decode("ascii")
+
+    payload = {
+
+        "message":
+            "Update Supertrend state",
+
+        "content":
+            encoded,
+
+        "branch":
+            GITHUB_REF_NAME
+
+    }
+
+    if existing_sha:
+
+        payload["sha"] = existing_sha
+
+    response = requests.put(
+
+        url,
+
+        headers=github_headers(),
+
+        json=payload,
+
+        timeout=REQUEST_TIMEOUT
+
+    )
+
+    if response.status_code not in (
+        200,
+        201
+    ):
+
+        raise RuntimeError(
+            "GitHub state kaydedilemedi: "
+            +
+            str(response.status_code)
+            +
+            " "
+            +
+            response.text[:500]
+        )
+
+    log(
+        "GitHub state basariyla kaydedildi."
+    )
+
+
+# ============================================================
+# TELEGRAM
+# ============================================================
+
+def send_telegram(message):
 
     if not TELEGRAM_BOT_TOKEN:
 
@@ -1649,182 +1746,91 @@ def send_telegram_single(
         "/sendMessage"
     )
 
-    payload = {
-
-        "chat_id":
-            TELEGRAM_CHAT_ID,
-
-        "text":
-            message,
-
-        "disable_web_page_preview":
-            True
-
-    }
-
-    response = requests.post(
-
-        url,
-
-        json=payload,
-
-        timeout=REQUEST_TIMEOUT
-
-    )
-
-    # --------------------------------------------------------
-    # Telegram 400 hatasinda gercek cevabi yaz
-    # --------------------------------------------------------
-
-    if response.status_code != 200:
-
-        try:
-            telegram_result = response.json()
-        except Exception:
-            telegram_result = response.text
-
-        raise RuntimeError(
-            "Telegram API hatasi "
-            + str(response.status_code)
-            + ": "
-            + str(telegram_result)
-        )
-
-    result = response.json()
-
-    if not result.get("ok"):
-
-        raise RuntimeError(
-            "Telegram hatasi: "
-            + str(result)
-        )
-
-
-# ============================================================
-# TELEGRAM MESAJ PARCALAMA
-# ============================================================
-
-def split_message(
-    message,
-    max_length=TELEGRAM_MAX_LENGTH
-):
-
-    if len(message) <= max_length:
-
-        return [
-            message
-        ]
-
-    lines = message.split(
-        "\n"
-    )
+    # Telegram 4096 karakter sinirini asmamak icin
+    max_length = 3900
 
     chunks = []
 
     current = ""
 
-    for line in lines:
+    for line in message.splitlines(
+        keepends=True
+    ):
 
-        candidate = (
-            current
+        if (
+            len(current)
             +
-            (
-                "\n"
-                if current
-                else ""
-            )
-            +
-            line
-        )
+            len(line)
+            >
+            max_length
+        ):
 
-        if len(candidate) <= max_length:
+            if current:
+                chunks.append(current)
 
-            current = candidate
+            current = line
 
         else:
 
-            if current:
-
-                chunks.append(
-                    current
-                )
-
-            # Tek satir limitten uzunsa
-            # guvenli sekilde bol.
-
-            if len(line) > max_length:
-
-                start = 0
-
-                while (
-                    start <
-                    len(line)
-                ):
-
-                    end = (
-                        start +
-                        max_length
-                    )
-
-                    chunks.append(
-                        line[
-                            start:end
-                        ]
-                    )
-
-                    start = end
-
-                current = ""
-
-            else:
-
-                current = line
+            current += line
 
     if current:
+        chunks.append(current)
 
-        chunks.append(
-            current
+    for chunk in chunks:
+
+        payload = {
+
+            "chat_id":
+                TELEGRAM_CHAT_ID,
+
+            "text":
+                chunk,
+
+            "disable_web_page_preview":
+                True
+
+        }
+
+        response = requests.post(
+
+            url,
+
+            json=payload,
+
+            timeout=REQUEST_TIMEOUT
+
         )
 
-    return chunks
+        if not response.ok:
 
+            # Telegram'in asil hata mesajini gostersin
+            try:
+                detail = response.json()
+            except Exception:
+                detail = response.text
 
-# ============================================================
-# TELEGRAM
-# ============================================================
-
-def send_telegram(
-    message
-):
-
-    chunks = split_message(
-        message
-    )
-
-    log(
-        f"Telegram mesaj parca sayisi: "
-        f"{len(chunks)}"
-    )
-
-    for index, chunk in enumerate(
-        chunks,
-        start=1
-    ):
-
-        send_telegram_single(
-            chunk
-        )
-
-        log(
-            f"Telegram mesaj {index}/"
-            f"{len(chunks)} gonderildi."
-        )
-
-        if index < len(chunks):
-
-            time.sleep(
-                0.5
+            raise RuntimeError(
+                "Telegram HTTP "
+                +
+                str(response.status_code)
+                +
+                ": "
+                +
+                str(detail)
             )
+
+        result = response.json()
+
+        if not result.get("ok"):
+
+            raise RuntimeError(
+                "Telegram hatasi: "
+                +
+                str(result)
+            )
+
+        time.sleep(0.3)
 
 
 # ============================================================
@@ -1854,35 +1860,6 @@ def format_price(price):
 
 
 # ============================================================
-# MUM ZAMANI FORMAT
-# ============================================================
-
-def format_candle_time(
-    timestamp
-):
-
-    try:
-
-        dt = (
-            datetime.fromtimestamp(
-                timestamp,
-                tz=ZoneInfo("UTC")
-            )
-            .astimezone(
-                ZoneInfo(TIMEZONE)
-            )
-        )
-
-        return dt.strftime(
-            "%d.%m.%Y %H:%M"
-        )
-
-    except Exception:
-
-        return "-"
-
-
-# ============================================================
 # TELEGRAM MESAJI
 # ============================================================
 
@@ -1894,10 +1871,7 @@ def build_telegram_message(
 
     lines = []
 
-    # --------------------------------------------------------
-    # BASLIK
-    # --------------------------------------------------------
-
+    # BASLIK TAM OLARAK BU
     lines.append(
         "SUPERTREND AL SİNYALİ VEREN HİSSELER"
     )
@@ -1905,7 +1879,7 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "BIST 2 SAATLİK SUPERTREND"
+        "📊 BIST 2 SAATLİK SUPERTREND"
     )
 
     lines.append(
@@ -1923,7 +1897,7 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "Tarama: "
+        "🕒 Tarama: "
         +
         now.strftime(
             "%d.%m.%Y %H:%M"
@@ -1931,15 +1905,11 @@ def build_telegram_message(
     )
 
     lines.append(
-        f"Yeni SAT → AL sinyali: "
+        f"🟢 YENİ SAT → AL: "
         f"{len(results)} adet"
     )
 
     lines.append("")
-
-    # --------------------------------------------------------
-    # HISSELER
-    # --------------------------------------------------------
 
     for result in results:
 
@@ -1955,29 +1925,65 @@ def build_telegram_message(
             result["price"]
         )
 
-        candle_time = (
-            format_candle_time(
-                result["candle_time"]
+        candle_dt = (
+            datetime.fromtimestamp(
+                result["candle_time"],
+                tz=ZoneInfo("UTC")
+            )
+            .astimezone(
+                ZoneInfo(TIMEZONE)
             )
         )
 
         lines.append(
-            f"{symbol} | "
-            f"{price} TL | "
-            f"SAT → AL | "
-            f"{candle_time}"
+            f"✅ {symbol}   {price} TL"
+        )
+
+        lines.append(
+            "   Mum: "
+            +
+            candle_dt.strftime(
+                "%d.%m.%Y %H:%M"
+            )
         )
 
     lines.append("")
 
     lines.append(
         "Sinyal: Önceki tamamlanmış "
-        "2H mum SAT (-1), son tamamlanmış "
-        "2H mum AL (+1)."
+        "2H mum SAT, son tamamlanmış "
+        "2H mum AL."
     )
 
-    return "\n".join(
-        lines
+    return "\n".join(lines)
+
+
+# ============================================================
+# TEST TELEGRAM MESAJI
+# ============================================================
+
+def build_test_message():
+
+    now = now_istanbul()
+
+    return (
+        "SUPERTREND AL SİNYALİ VEREN HİSSELER\n"
+        "\n"
+        "🧪 TEST MODU\n"
+        "\n"
+        "Telegram bağlantısı başarıyla "
+        "çalışıyor.\n"
+        "\n"
+        "Tarama zamanı: "
+        +
+        now.strftime(
+            "%d.%m.%Y %H:%M:%S"
+        )
+        +
+        "\n"
+        "\n"
+        "Bu mesaj gerçek SAT → AL sinyali "
+        "değildir."
     )
 
 
@@ -1986,7 +1992,8 @@ def build_telegram_message(
 # ============================================================
 
 def scan_symbol(
-    symbol
+    symbol,
+    state
 ):
 
     try:
@@ -1997,53 +2004,41 @@ def scan_symbol(
 
         if not candles:
 
-            return None
+            return {
+                "status": "error",
+                "symbol": symbol,
+                "error":
+                    "Mum verisi yok."
+            }
 
         # ----------------------------------------------------
         # SON TAMAMLANMIS MUM
         # ----------------------------------------------------
 
-        completed = (
-            get_last_completed_candle(
+        completed_index = (
+            get_last_completed_index(
                 candles
             )
         )
 
-        if completed is None:
-
-            log(
-                f"{symbol} -> "
-                "Tamamlanmis 2H mum bulunamadi."
-            )
-
-            return None
-
-        completed_time = (
-            completed["time"]
-        )
-
-        completed_index = None
-
-        for i, candle in enumerate(
-            candles
-        ):
-
-            if (
-                candle["time"]
-                ==
-                completed_time
-            ):
-
-                completed_index = i
-                break
-
         if completed_index is None:
 
-            return None
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error":
+                    "Tamamlanmis mum yok."
+            }
 
-        # ----------------------------------------------------
-        # SADECE TAMAMLANMIS MUMLAR
-        # ----------------------------------------------------
+        # En az onceki mum da olmali
+        if completed_index < 1:
+
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error":
+                    "Onceki mum yok."
+            }
 
         calculation_candles = (
             candles[
@@ -2051,140 +2046,283 @@ def scan_symbol(
             ]
         )
 
-        # ----------------------------------------------------
-        # SUPERTREND
-        # ----------------------------------------------------
-
-        trend_data = (
-            calculate_supertrend_all(
-                calculation_candles,
-                ATR_PERIOD,
-                ATR_MULTIPLIER
-            )
-        )
-
-        if trend_data is None:
-
-            return None
-
         directions = (
-            trend_data[
-                "directions"
+            calculate_supertrend_directions(
+
+                calculation_candles,
+
+                ATR_PERIOD,
+
+                ATR_MULTIPLIER
+
+            )
+        )
+
+        if directions is None:
+
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error":
+                    "Supertrend hesaplanamadi."
+            }
+
+        # ----------------------------------------------------
+        # SON IKI TAMAMLANMIS MUM
+        # ----------------------------------------------------
+
+        current_direction = (
+            directions[
+                completed_index
+            ]
+        )
+
+        previous_direction = None
+
+        # Onceki gecerli direction'i bul
+        for i in range(
+            completed_index - 1,
+            -1,
+            -1
+        ):
+
+            if directions[i] is not None:
+
+                previous_direction = (
+                    directions[i]
+                )
+
+                break
+
+        if current_direction is None:
+
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error":
+                    "Son yon bulunamadi."
+            }
+
+        if previous_direction is None:
+
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error":
+                    "Onceki yon bulunamadi."
+            }
+
+        current_candle = (
+            calculation_candles[
+                completed_index
+            ]
+        )
+
+        previous_candle = (
+            calculation_candles[
+                completed_index - 1
             ]
         )
 
         # ----------------------------------------------------
-        # GECERLI TREND INDEKSLERINI BUL
+        # GITHUB'TAN ONCEKI DURUM
         # ----------------------------------------------------
 
-        valid_indexes = [
+        old = state.get(
+            symbol
+        )
 
-            i
+        old_direction = None
+        old_candle_time = None
 
-            for i, value in enumerate(
-                directions
+        if isinstance(
+            old,
+            dict
+        ):
+
+            old_direction = old.get(
+                "direction"
             )
 
-            if value is not None
-
-        ]
-
-        if len(valid_indexes) < 2:
-
-            return None
-
-        current_index = (
-            valid_indexes[-1]
-        )
-
-        previous_index = (
-            valid_indexes[-2]
-        )
-
-        previous_trend = (
-            directions[
-                previous_index
-            ]
-        )
-
-        current_trend = (
-            directions[
-                current_index
-            ]
-        )
+            old_candle_time = old.get(
+                "candle_time"
+            )
 
         # ----------------------------------------------------
         # GERCEK SAT -> AL
+        #
+        # Onceki taramada SAT
+        # Simdiki tamamlanmis mum AL
+        #
+        # Ayrica mum zamani ilerlemis olmali.
         # ----------------------------------------------------
 
-        is_new_buy = (
+        new_buy = (
 
-            previous_trend == -1
+            old_direction == -1
 
             and
 
-            current_trend == 1
+            current_direction == 1
+
+            and
+
+            (
+                old_candle_time is None
+                or
+                float(
+                    current_candle["time"]
+                )
+                >
+                float(
+                    old_candle_time
+                )
+            )
 
         )
 
         # ----------------------------------------------------
-        # TEST ICIN DETAY
+        # ILK KEZ GORULEN HISSE
+        #
+        # Ilk calismada AL ise alarm verme.
+        # Sadece mevcut durumu kaydet.
         # ----------------------------------------------------
 
-        log(
-            f"    Trend: "
-            f"{previous_trend} -> "
-            f"{current_trend}"
+        first_seen = (
+            old is None
         )
 
-        log(
-            f"    Mum: "
-            f"{format_candle_time(completed_time)}"
-        )
+        if first_seen:
 
-        log(
-            f"    Kapanis: "
-            f"{format_price(completed['close'])} TL"
-        )
+            log(
+                f"    Ilk durum: "
+                f"{'AL' if current_direction == 1 else 'SAT'}"
+            )
+
+        elif new_buy:
+
+            log(
+                "    >>> YENI SAT -> AL <<<"
+            )
+
+        else:
+
+            if (
+                old_direction == -1
+                and
+                current_direction == -1
+            ):
+
+                log(
+                    "    SAT -> SAT"
+                )
+
+            elif (
+                old_direction == 1
+                and
+                current_direction == 1
+            ):
+
+                log(
+                    "    AL -> AL"
+                )
+
+            elif (
+                old_direction == 1
+                and
+                current_direction == -1
+            ):
+
+                log(
+                    "    >>> YENI SAT"
+                )
+
+            else:
+
+                log(
+                    "    Durum degismedi."
+                )
 
         # ----------------------------------------------------
-        # YENI AL DEGILSE
-        # ----------------------------------------------------
-
-        if not is_new_buy:
-
-            return None
-
-        # ----------------------------------------------------
-        # YENI AL
+        # RESULT
         # ----------------------------------------------------
 
         return {
+
+            "status":
+                "new_buy"
+                if new_buy
+                else "ok",
 
             "symbol":
                 symbol,
 
             "price":
-                completed["close"],
+                current_candle["close"],
 
             "candle_time":
-                completed_time,
+                current_candle["time"],
 
-            "previous_trend":
-                previous_trend,
+            "direction":
+                current_direction,
 
-            "current_trend":
-                current_trend
+            "previous_direction":
+                previous_direction,
+
+            "previous_candle_time":
+                previous_candle["time"]
 
         }
 
     except Exception as e:
 
         log(
-            f"{symbol} -> hata: {e}"
+            f"    {symbol} -> hata: {e}"
         )
 
-        return None
+        return {
+
+            "status":
+                "error",
+
+            "symbol":
+                symbol,
+
+            "error":
+                str(e)
+
+        }
+
+
+# ============================================================
+# STATE'E YENI DURUMU YAZ
+# ============================================================
+
+def update_state(
+    state,
+    result
+):
+
+    if result.get("status") not in (
+        "ok",
+        "new_buy"
+    ):
+        return
+
+    symbol = result["symbol"]
+
+    state[symbol] = {
+
+        "direction":
+            result["direction"],
+
+        "candle_time":
+            result["candle_time"],
+
+        "updated_at":
+            now_istanbul().isoformat()
+
+    }
 
 
 # ============================================================
@@ -2195,12 +2333,9 @@ def main():
 
     log("")
     log("=" * 70)
-
     log(
-        "BIST SUPERTREND TARAMASI "
-        "SURUM 2 BASLADI"
+        "BIST SUPERTREND FINAL TARAMASI BASLADI"
     )
-
     log("=" * 70)
 
     current_time = now_istanbul()
@@ -2214,96 +2349,167 @@ def main():
     )
 
     # --------------------------------------------------------
-    # TEST MODU BILGISI
+    # TEST MODU
     # --------------------------------------------------------
 
     if TEST_MODE:
 
-        log("")
         log(
-            "******** TEST MODU AKTIF ********"
+            "========================================"
         )
 
         log(
-            "Sadece su hisseler taranacak:"
+            "TEST MODU AKTIF"
         )
+
+        log(
+            "BIST saat kontrolu BYPASS edildi."
+        )
+
+        log(
+            "Test hisseleri: "
+            +
+            ", ".join(TEST_SYMBOLS)
+        )
+
+        log(
+            "========================================"
+        )
+
+        if SEND_TEST_TELEGRAM:
+
+            log(
+                "Telegram test mesaji gonderiliyor..."
+            )
+
+            send_telegram(
+                build_test_message()
+            )
+
+            log(
+                "Telegram test mesaji basariyla gonderildi."
+            )
+
+        # TEST MODU sadece baglantiyi ve
+        # Supertrend sonucunu kontrol eder.
+        #
+        # State degistirilmez.
+
+        test_state = load_state()
+
+        success = 0
+        errors = 0
 
         for symbol in TEST_SYMBOLS:
 
+            log("")
             log(
-                "    "
-                + symbol
+                f"[TEST] {symbol}"
             )
 
-        log(
-            "**********************************"
-        )
-
-    else:
-
-        log(
-            "NORMAL MOD: Tum BIST hisseleri taranacak."
-        )
-
-    # --------------------------------------------------------
-    # BIST SAAT KONTROLU
-    #
-    # TEST MODUNDA BU KONTROLU DEVRE DISI BIRAKIYORUZ.
-    # Boylece GitHub Actions MANUEL calistirildiginda
-    # hafta sonu/gece de test yapilabilir.
-    # --------------------------------------------------------
-
-    if not TEST_MODE:
-
-        if not is_bist_open_time():
-
-            log(
-                "BIST normal islem saatleri disinda."
+            result = scan_symbol(
+                symbol,
+                test_state
             )
 
-            log(
-                "Tarama yapilmayacak."
-            )
+            if result.get("status") == "error":
 
-            return
+                errors += 1
 
-    else:
+                log(
+                    "    TEST HATASI: "
+                    +
+                    str(
+                        result.get(
+                            "error"
+                        )
+                    )
+                )
 
+            else:
+
+                success += 1
+
+                direction = result.get(
+                    "direction"
+                )
+
+                if direction == 1:
+
+                    log(
+                        "    TEST SONUCU: AL"
+                    )
+
+                elif direction == -1:
+
+                    log(
+                        "    TEST SONUCU: SAT"
+                    )
+
+                else:
+
+                    log(
+                        "    TEST SONUCU: BELIRSIZ"
+                    )
+
+        log("")
         log(
-            "TEST MODU: BIST saat kontrolu atlandi."
+            "TEST MODU TAMAMLANDI."
         )
 
+        log(
+            f"Basarili: {success}"
+        )
+
+        log(
+            f"Hata: {errors}"
+        )
+
+        return
+
     # --------------------------------------------------------
-    # TELEGRAM AYARLARI
+    # NORMAL MOD
+    # --------------------------------------------------------
+
+    if not is_bist_open_time():
+
+        log(
+            "BIST normal islem saatleri disinda."
+        )
+
+        log(
+            "Tarama yapilmayacak."
+        )
+
+        return
+
+    # --------------------------------------------------------
+    # TELEGRAM KONTROL
     # --------------------------------------------------------
 
     if not TELEGRAM_BOT_TOKEN:
 
-        log(
-            "UYARI: TELEGRAM_BOT_TOKEN yok."
+        raise RuntimeError(
+            "TELEGRAM_BOT_TOKEN bulunamadi."
         )
 
     if not TELEGRAM_CHAT_ID:
 
-        log(
-            "UYARI: TELEGRAM_CHAT_ID yok."
+        raise RuntimeError(
+            "TELEGRAM_CHAT_ID bulunamadi."
         )
 
     # --------------------------------------------------------
-    # HISSE LISTESI
+    # STATE
     # --------------------------------------------------------
 
-    if TEST_MODE:
+    state = load_state()
 
-        symbols = sorted(
-            set(
-                TEST_SYMBOLS
-            )
-        )
+    # --------------------------------------------------------
+    # BIST HISSELERI
+    # --------------------------------------------------------
 
-    else:
-
-        symbols = get_bist_symbols()
+    symbols = get_bist_symbols()
 
     total = len(symbols)
 
@@ -2311,7 +2517,6 @@ def main():
         f"Toplam {total} hisse taranacak."
     )
 
-    log("")
     log(
         "Supertrend ayarlari:"
     )
@@ -2333,15 +2538,14 @@ def main():
     )
 
     log(
-        "Sinyal = SAT (-1) -> AL (+1)"
+        "Alarm = SAT -> AL"
     )
 
     log("")
 
-    results = []
+    new_buy_results = []
 
     success_count = 0
-
     error_count = 0
 
     # --------------------------------------------------------
@@ -2357,63 +2561,61 @@ def main():
             f"[{number}/{total}] {symbol}"
         )
 
-        try:
+        result = scan_symbol(
+            symbol,
+            state
+        )
 
-            result = scan_symbol(
-                symbol
-            )
+        status = result.get(
+            "status"
+        )
 
-            if result is not None:
-
-                results.append(
-                    result
-                )
-
-                success_count += 1
-
-                log(
-                    "    >>> YENI AL SINYALI!"
-                )
-
-                log(
-                    "    >>> "
-                    +
-                    symbol
-                )
-
-                log(
-                    "    >>> "
-                    +
-                    f"{format_price(result['price'])} TL"
-                )
-
-            else:
-
-                success_count += 1
-
-                log(
-                    "    -> Yeni SAT -> AL yok."
-                )
-
-        except Exception as e:
+        if status == "error":
 
             error_count += 1
 
             log(
-                f"    >>> TARAMA HATASI: {e}"
+                "    >>> HATA"
             )
 
-        if SYMBOL_DELAY > 0:
+            continue
 
-            time.sleep(
-                SYMBOL_DELAY
+        success_count += 1
+
+        if status == "new_buy":
+
+            new_buy_results.append(
+                result
             )
+
+            log(
+                "    >>>>>> YENI SAT -> AL <<<<<<"
+            )
+
+            log(
+                "    Fiyat: "
+                +
+                f"{result['price']:.2f} TL"
+            )
+
+        # ----------------------------------------------------
+        # STATE GUNCELLE
+        # ----------------------------------------------------
+
+        update_state(
+            state,
+            result
+        )
+
+        time.sleep(
+            SYMBOL_DELAY
+        )
 
     # --------------------------------------------------------
     # SONUCLAR
     # --------------------------------------------------------
 
-    results.sort(
+    new_buy_results.sort(
         key=lambda x:
             x["symbol"]
     )
@@ -2438,21 +2640,29 @@ def main():
     )
 
     log(
-        f"YENI SAT -> AL: {len(results)}"
+        f"YENI SAT -> AL: "
+        f"{len(new_buy_results)}"
     )
 
     log("=" * 70)
 
     # --------------------------------------------------------
-    # BUY YOK
+    # STATE KAYDET
     # --------------------------------------------------------
 
-    if not results:
+    save_state(
+        state
+    )
+
+    # --------------------------------------------------------
+    # YENI AL YOK
+    # --------------------------------------------------------
+
+    if not new_buy_results:
 
         log(
-            "Son tamamlanmis 2 saatlik "
-            "mumlarda yeni SAT -> AL "
-            "donusu bulunamadi."
+            "Son taramada yeni "
+            "SAT -> AL donusu bulunamadi."
         )
 
         log(
@@ -2466,11 +2676,11 @@ def main():
         return
 
     # --------------------------------------------------------
-    # TELEGRAM MESAJI
+    # TELEGRAM
     # --------------------------------------------------------
 
     message = build_telegram_message(
-        results
+        new_buy_results
     )
 
     send_telegram(
@@ -2500,17 +2710,13 @@ if __name__ == "__main__":
 
         log("")
         log("=" * 70)
-
         log(
             "PROGRAM HATASI"
         )
-
         log("=" * 70)
-
         log(
             str(e)
         )
-
         log("=" * 70)
 
         raise
