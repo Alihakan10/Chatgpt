@@ -128,6 +128,19 @@ def apply_v3(source):
     if MARKER_V3 in source:
         print("OK: WebSocket yamasi zaten uygulanmis.")
         return source, False
+
+    # scanner.py daha once manuel olarak yeni header yapisina
+    # gecirildiyse tekrar yamalama; sadece marker ekle.
+    current = '''        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            header=[\n                "Origin: https://data.tradingview.com",\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )'''
+    if current in source:
+        marked = current.replace(
+            "        ws = websocket.create_connection(",
+            "        # SAFE_WEBSOCKET_PATCH_V3\n        ws = websocket.create_connection(",
+            1,
+        )
+        print("OK: mevcut WebSocket header yamasi algilandi.")
+        return source.replace(current, marked, 1), True
+
     old = '''        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com"\n\n        )\n'''
     new = '''        # SAFE_WEBSOCKET_PATCH_V3
         ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com",\n\n            header=[\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )\n'''
