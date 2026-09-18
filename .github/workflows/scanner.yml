@@ -23,6 +23,14 @@ on:
         options:
           - "true"
           - "false"
+      force_scan:
+        description: "MANUEL TARAMA: BIST SAATLERI DISINDA DA TARA"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
   schedule:
     - cron: "10 7-14 * * 1-5"
 
@@ -66,4 +74,5 @@ jobs:
           TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_mode || 'false' }}
           TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
           SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
+          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
         run: python scanner.py
