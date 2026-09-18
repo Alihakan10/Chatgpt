@@ -30,7 +30,8 @@ on:
         type: choice
         options:
           - "true"
-          - "false"      send_scan_report:
+          - "false"
+      send_scan_report:
         description: "TEST RAPORU: MEVCUT BUY DURUMLARINI TELEGRAMA GONDER"
         required: true
         default: "false"
