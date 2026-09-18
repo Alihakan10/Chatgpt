@@ -6,6 +6,7 @@ import textwrap
 PATH = Path("scanner.py")
 MARKER_V1 = "# SAFE_TELEGRAM_STATE_PATCH_V1"
 MARKER_V2 = "# SAFE_MANUAL_SCAN_PATCH_V2"
+MARKER_V3 = "# SAFE_WEBSOCKET_PATCH_V3"
 
 
 def git_commit_push(message):
@@ -22,7 +23,7 @@ def git_commit_push(message):
         ],
         check=True,
     )
-    subprocess.run(["git", "add", "scanner.py"], check=True)
+    subprocess.run(["git", "add", "scanner.py", "patch_scanner.py"], check=True)
 
     changed = subprocess.run(
         ["git", "diff", "--cached", "--quiet"],
@@ -123,11 +124,25 @@ FORCE_SCAN = (
     return source, True
 
 
+def apply_v3(source):
+    if MARKER_V3 in source:
+        print("OK: WebSocket yamasi zaten uygulanmis.")
+        return source, False
+    old = '''        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com"\n\n        )\n'''
+    new = '''        # SAFE_WEBSOCKET_PATCH_V3
+        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com",\n\n            header=[\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )\n'''
+    if old not in source:
+        raise RuntimeError("TradingView WebSocket baglanti bolumu bulunamadi; WebSocket yamasi uygulanmadi.")
+    return source.replace(old,new,1), True
+
+
 def main():
     if not PATH.exists():
         raise RuntimeError("scanner.py bulunamadi.")
 
     source = PATH.read_text(encoding="utf-8")
+
+    source, changed_v3 = apply_v3(source)
 
     # V1 yoksa once Telegram/state yamasi uygulanmali.
     if MARKER_V1 not in source:
@@ -394,7 +409,7 @@ def main():
     # V1 mevcutsa da V2 manuel tarama yamasi uygulanir.
     source, changed_v2 = apply_v2(source)
 
-    if not changed_v2 and MARKER_V1 in source:
+    if not changed_v3 and not changed_v2 and MARKER_V1 in source:
         print("OK: tum scanner.py yamalari zaten uygulanmis.")
         return
 
