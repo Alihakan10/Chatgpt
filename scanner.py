@@ -61,7 +61,7 @@ TV_SCANNER_URL = (
 )
 
 TV_WS_URL = (
-    "wss://prodata.tradingview.com/socket.io/websocket?from=chart"
+    "wss://data.tradingview.com/socket.io/websocket"
 )
 
 WS_TIMEOUT = 10
@@ -557,13 +557,20 @@ def get_tv_candles(symbol):
         )
 
         # SAFE_WEBSOCKET_PATCH_V3
+        ws_url = (
+            TV_WS_URL
+            + "?from=chart&date="
+            + now_istanbul().strftime("%Y_%m_%d-%H_%M")
+            + "&type=chart"
+        )
+
         ws = websocket.create_connection(
 
-            TV_WS_URL,
+            ws_url,
 
             timeout=WS_TIMEOUT,
 
-            origin="https://s.tradingview.com",
+            origin="https://www.tradingview.com",
 
             header=[
                 "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
