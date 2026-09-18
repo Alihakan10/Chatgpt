@@ -562,7 +562,10 @@ def get_tv_candles(symbol):
 
             timeout=WS_TIMEOUT,
 
-            origin="https://data.tradingview.com"
+            header=[
+                "Origin: https://data.tradingview.com",
+                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
+            ]
 
         )
 
