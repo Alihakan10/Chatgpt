@@ -129,25 +129,22 @@ def apply_v3(source):
         print("OK: WebSocket yamasi zaten uygulanmis.")
         return source, False
 
-    # scanner.py daha once manuel olarak yeni header yapisina
-    # gecirildiyse tekrar yamalama; sadece marker ekle.
-    current = '''        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            header=[\n                "Origin: https://data.tradingview.com",\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )'''
-    if current in source:
-        marked = current.replace(
-            "        ws = websocket.create_connection(",
-            "        # SAFE_WEBSOCKET_PATCH_V3\n        ws = websocket.create_connection(",
-            1,
-        )
-        print("OK: mevcut WebSocket header yamasi algilandi.")
-        return source.replace(current, marked, 1), True
+    # scanner.py baglanti ayari elle guncellendiyse marker ekle.
+    if "wss://prodata.tradingview.com/socket.io/websocket?from=chart" in source:
+        if "origin="https://s.tradingview.com"" in source:
+            marker = "        # SAFE_WEBSOCKET_PATCH_V3\n"
+            needle = "        ws = websocket.create_connection("
+            if marker not in source:
+                source = source.replace(needle, marker + needle, 1)
+            print("OK: prodata WebSocket ayari algilandi.")
+            return source, True
 
     old = '''        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com"\n\n        )\n'''
-    new = '''        # SAFE_WEBSOCKET_PATCH_V3
-        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://data.tradingview.com",\n\n            header=[\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )\n'''
     if old not in source:
         raise RuntimeError("TradingView WebSocket baglanti bolumu bulunamadi; WebSocket yamasi uygulanmadi.")
+    new = '''        # SAFE_WEBSOCKET_PATCH_V3
+        ws = websocket.create_connection(\n\n            TV_WS_URL,\n\n            timeout=WS_TIMEOUT,\n\n            origin="https://s.tradingview.com",\n\n            header=[\n                "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"\n            ]\n\n        )\n'''
     return source.replace(old,new,1), True
-
 
 def main():
     if not PATH.exists():
