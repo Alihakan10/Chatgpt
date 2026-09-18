@@ -94,166 +94,23 @@ def extract_tv_messages(raw):
 
 
 def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
-    """Verifier icin TradingView WebSocket veri cekimi."""
-    last_error = None
+    """
+    KRITIK VERIFIER: scanner.py'nin kendi get_tv_candles() fonksiyonunu
+    dogrudan kullanir. Boylece verifier ile scanner arasinda WebSocket
+    protokol farki kalmaz. scanner.py DEGISTIRILMEZ.
+    """
+    import scanner
 
-    for attempt in range(1, 4):
-        ws = None
-        chart_session = random_session("cs")
-        try:
-            # TradingView ornek istemcilerinde Origin header olarak gonderiliyor.
-            # GitHub Actions ortaminda origin= parametresi bazi edge noktalarinda
-            # baglantinin hemen kapatilmasina yol acabiliyor.
-            ws = websocket.create_connection(
-                TV_WS_URL,
-                timeout=20,
-                header=[
-                    "Origin: https://data.tradingview.com",
-                    "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
-                ],
-            )
+    # scanner.py zaten TIMEFRAME/CANDLE_COUNT ayarlarini kendi sabitlerinden
+    # kullaniyor. Verifier tarafinda ayni sembol icin ayni veri katmanini
+    # calistiriyoruz.
+    candles = scanner.get_tv_candles(symbol)
 
-            def send(method, params):
-                ws.send(tv_message(method, params))
+    if not candles:
+        raise RuntimeError("scanner.py TradingView mum verisi dondurmedi.")
 
-            send("set_auth_token", ["unauthorized_user_token"])
-            send("chart_create_session", [chart_session, ""])
-            send("switch_timezone", ["exchange"])
+    return candles
 
-            symbol_config = json.dumps(
-                {
-                    "symbol": symbol,
-                    "adjustment": "splits",
-                    "session": "regular",
-                },
-                separators=(",", ":"),
-            )
-
-            send(
-                "resolve_symbol",
-                [chart_session, "sds_sym_1", "=" + symbol_config],
-            )
-            send(
-                "create_series",
-                [
-                    chart_session,
-                    "sds_1",
-                    "s1",
-                    "sds_sym_1",
-                    timeframe,
-                    candle_count,
-                    "",
-                ],
-            )
-
-            candles = {}
-            raw_buffer = ""
-            started = time.time()
-
-            while time.time() - started < 20:
-                packet = ws.recv()
-                if packet is None:
-                    break
-
-                if isinstance(packet, bytes):
-                    packet = packet.decode("utf-8", errors="ignore")
-
-                raw_buffer += packet
-                messages, raw_buffer = extract_tv_messages(raw_buffer)
-
-                for full_frame, payload in messages:
-                    if payload.startswith("~h~"):
-                        try:
-                            ws.send(full_frame)
-                        except Exception:
-                            pass
-                        continue
-
-                    try:
-                        obj = json.loads(payload)
-                    except Exception:
-                        continue
-
-                    method = obj.get("m")
-                    params = obj.get("p", [])
-
-                    if method in ("critical_error", "series_error"):
-                        raise RuntimeError(
-                            f"TradingView {method}: {params}"
-                        )
-
-                    if (
-                        method != "timescale_update"
-                        or len(params) < 2
-                        or not isinstance(params[1], dict)
-                    ):
-                        continue
-
-                    container = params[1]
-                    series_data = container.get("sds_1")
-
-                    if not isinstance(series_data, dict):
-                        for value in container.values():
-                            if isinstance(value, dict) and "s" in value:
-                                series_data = value
-                                break
-
-                    if not isinstance(series_data, dict):
-                        continue
-
-                    for bar in series_data.get("s", []):
-                        if not isinstance(bar, dict):
-                            continue
-
-                        values = bar.get("v")
-                        if not isinstance(values, list) or len(values) < 5:
-                            continue
-
-                        # TV protokolunun bazi varyantlarinda v[0] index,
-                        # v[1] timestamp olabilir. Once epoch timestamp'i
-                        # tespit ediyoruz; normal formatta v[0] timestamp'tir.
-                        try:
-                            raw = [float(x) for x in values]
-                        except Exception:
-                            continue
-
-                        if raw[0] >= 1_000_000_000:
-                            t, o, h, low, close = raw[:5]
-                        elif len(raw) >= 6 and raw[1] >= 1_000_000_000:
-                            t, o, h, low, close = raw[1:6]
-                        else:
-                            continue
-
-                        candles[t] = {
-                            "time": t,
-                            "open": o,
-                            "high": h,
-                            "low": low,
-                            "close": close,
-                        }
-
-                if len(candles) >= min(30, candle_count):
-                    break
-
-            if candles:
-                return sorted(candles.values(), key=lambda x: x["time"])
-
-            raise RuntimeError("TradingView mum verisi gondermedi.")
-
-        except Exception as exc:
-            last_error = exc
-            if attempt < 3:
-                time.sleep(2 * attempt)
-        finally:
-            if ws is not None:
-                try:
-                    ws.close()
-                except Exception:
-                    pass
-
-    raise RuntimeError(
-        "TradingView WebSocket baglantisi basarisiz: " + str(last_error)
-    )
 
 def aggregate_1h_to_direct_2h(one_hour, direct_2h):
     """
