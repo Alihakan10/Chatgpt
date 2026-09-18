@@ -1234,8 +1234,8 @@ def calculate_atr(
 # ============================================================
 # SUPERTREND YONLERI
 #
-#  1  = AL
-# -1  = SAT
+# -1 = AL (TradingView/Pine)
+#  1 = SAT
 # ============================================================
 
 def calculate_supertrend_directions(
@@ -1398,7 +1398,9 @@ def calculate_supertrend_directions(
             else:
                 direction[i] = -1
 
-        if direction[i] == 1:
+        # TradingView: -1 (UP/BUY) uses the lower band;
+        # +1 (DOWN/SAT) uses the upper band.
+        if direction[i] == -1:
             supertrend[i] = lower_band[i]
         else:
             supertrend[i] = upper_band[i]
