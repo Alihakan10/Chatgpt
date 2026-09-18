@@ -1795,6 +1795,7 @@ def send_telegram(message):
         payload = {
             "chat_id": TELEGRAM_CHAT_ID,
             "text": chunk,
+            "parse_mode": "HTML",
             "disable_web_page_preview": True
         }
 
@@ -1984,8 +1985,19 @@ def build_telegram_message(
             )
         )
 
+        tradingview_url = (
+            "https://www.tradingview.com/symbols/"
+            + symbol
+            + "/?exchange=BIST"
+        )
+
         lines.append(
-            f"✅ {symbol}   {price} TL"
+            '<a href="' + tradingview_url + '">'
+            + "✅ "
+            + symbol
+            + "</a>   "
+            + price
+            + " TL"
         )
 
         lines.append(
