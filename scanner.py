@@ -2265,9 +2265,18 @@ def scan_symbol(
         # Ayrica mum zamani ilerlemis olmali.
         # ----------------------------------------------------
 
+        # TradingView'deki BUY etiketi, mevcut yonun
+        # sadece AL olmasi degil, tamamlanmis mumda
+        # SAT -> AL donusu olmasidir.
+        #
+        # Bu nedenle alarm kosulu dogrudan son iki
+        # tamamlanmis mumun yonlerinden uretilir.
+        # GitHub state ise ayni BUY mumunun tekrar
+        # gonderilmesini engeller.
+
         new_buy = (
 
-            old_direction == -1
+            previous_direction == -1
 
             and
 
@@ -2770,10 +2779,16 @@ def main():
 
     if SEND_SCAN_REPORT:
 
+        # TEST RAPORU SADECE GERCEK SAT -> AL
+        # DONUSLERINI GOSTERIR.
         current_buy_results = [
             result
             for result in scan_results
-            if result.get("direction") == 1
+            if (
+                result.get("previous_direction") == -1
+                and
+                result.get("direction") == 1
+            )
         ]
 
         current_buy_results.sort(
