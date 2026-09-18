@@ -117,7 +117,8 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
         symbol_config = json.dumps(
             {
                 "symbol": symbol,
-                "adjustment": "splits"
+                "adjustment": "splits",
+                "session": "regular"
             },
             separators=(",", ":")
         )
@@ -142,6 +143,11 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                 candle_count,
                 ""
             ]
+        ))
+
+        ws.send(tv_message(
+            "switch_timezone",
+            ["exchange"]
         ))
 
         candles = {}
