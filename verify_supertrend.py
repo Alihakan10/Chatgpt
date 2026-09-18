@@ -421,6 +421,58 @@ def official_tv_supertrend(candles, period=10, multiplier=2.0):
     }
 
 
+def atr_sma(candles, period):
+    """Kivanc'taki 'Change ATR Calculation Method' acik oldugunda
+    kullanilan alternatif ATR: SMA(True Range, period)."""
+    tr = true_ranges(candles)
+    atr = [None] * len(candles)
+    for i in range(period - 1, len(candles)):
+        atr[i] = sum(tr[i - period + 1:i + 1]) / period
+    return atr
+
+
+def kivanc_supertrend_sma(candles, period=10, multiplier=2.0):
+    """Ekrandaki ayarlara gore Kivanc SuperTrend: ATR SMA."""
+    atr = atr_sma(candles, period)
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [None] * len(candles)
+    line = [None] * len(candles)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            continue
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        raw_up = hl2 - multiplier * atr[i]
+        raw_dn = hl2 + multiplier * atr[i]
+
+        if i == period - 1:
+            up[i] = raw_up
+            dn[i] = raw_dn
+            trend[i] = 1
+            line[i] = up[i]
+            continue
+
+        prev_up = up[i - 1]
+        prev_dn = dn[i - 1]
+        prev_close = candles[i - 1]["close"]
+
+        up[i] = max(raw_up, prev_up) if prev_close > prev_up else raw_up
+        dn[i] = min(raw_dn, prev_dn) if prev_close < prev_dn else raw_dn
+
+        prev_trend = trend[i - 1]
+        if prev_trend == -1 and candles[i]["close"] > prev_dn:
+            trend[i] = 1
+        elif prev_trend == 1 and candles[i]["close"] < prev_up:
+            trend[i] = -1
+        else:
+            trend[i] = prev_trend
+
+        line[i] = up[i] if trend[i] == 1 else dn[i]
+
+    return {"atr": atr, "up": up, "dn": dn, "trend": trend, "line": line}
+
+
 def kivanc_supertrend(candles, period=10, multiplier=2.0):
     """
     KivancOzbilgic SuperTrend mantigi.
@@ -660,6 +712,7 @@ def main():
     print("=" * 78)
     print("SUPERTREND FORMUL KARSILASTIRMA")
     print("scanner.py DEGISTIRILMIYOR")
+    print("EKRAN: Change ATR Calculation Method = ACIK -> ATR = SMA(TR,10)")
     print("=" * 78)
     print(
         f"ATR={ATR_PERIOD}  MULT={ATR_MULTIPLIER}  "
@@ -701,6 +754,11 @@ def main():
                 ATR_PERIOD,
                 ATR_MULTIPLIER
             )
+            kivanc_sma = kivanc_supertrend_sma(
+                candles,
+                ATR_PERIOD,
+                ATR_MULTIPLIER
+            )
 
             oi = official["direction"][idx]
             op = official["direction"][idx - 1]
@@ -715,6 +773,11 @@ def main():
 
             kbuy, ksignal = find_flips(
                 kivanc["trend"],
+                "kivanc",
+                idx
+            )
+            ks_buy, ks_signal = find_flips(
+                kivanc_sma["trend"],
                 "kivanc",
                 idx
             )
@@ -740,15 +803,22 @@ def main():
                 f"{direction_text(ki, 'kivanc')} "
                 f"{'<<< BUY' if kbuy else ''}"
             )
+            ks_prev = kivanc_sma["trend"][idx - 1]
+            ks_now = kivanc_sma["trend"][idx]
+            print(
+                "Kivanc/SMA            : "
+                f"{direction_text(ks_prev, 'kivanc')} -> "
+                f"{direction_text(ks_now, 'kivanc')} "
+                f"{'<<< BUY' if ks_buy else ''}"
+            )
 
-            if obuy == kbuy:
-                print(
-                    "BUY ESLESMESI         : AYNI"
-                )
-            else:
-                print(
-                    "BUY ESLESMESI         : FARKLI"
-                )
+            print(
+                "EKRAN AYARI           : Change ATR Calculation Method = ACIK"
+            )
+            print(
+                "Kivanc SMA BUY        : "
+                + ("VAR" if ks_buy else "YOK")
+            )
 
             # Son 8 tamamlanmis mumda uc farkli BUY adayini yan yana ver.
             # Boylece kullanici TradingView grafiğindeki yesil BUY
