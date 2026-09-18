@@ -93,7 +93,7 @@ def extract_tv_messages(raw):
     return messages, raw[position:]
 
 
-def get_tv_candles(symbol):
+def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
     ws = None
     chart_session = random_session("cs")
 
@@ -138,8 +138,8 @@ def get_tv_candles(symbol):
                 "sds_1",
                 "s1",
                 "sds_sym_1",
-                TIMEFRAME,
-                CANDLE_COUNT,
+                timeframe,
+                candle_count,
                 ""
             ]
         ))
@@ -242,6 +242,67 @@ def get_tv_candles(symbol):
                 ws.close()
             except Exception:
                 pass
+
+
+def aggregate_1h_to_direct_2h(one_hour, direct_2h):
+    """
+    TradingView 1H mumlarini, TradingView'in kendi 2H mum acilis
+    zamanlarini referans alarak birlestirir.
+
+    Boylece 09:00-11:00 gibi varsayilan bir seans baslangici uydurmak
+    yerine, dogrudan TV'nin 2H bar zamanlarini anchor olarak kullaniriz.
+    """
+    by_time = {int(round(c["time"])): c for c in one_hour}
+    result = []
+    hour = 60 * 60
+
+    for bar2 in direct_2h:
+        t = int(round(bar2["time"]))
+        first = by_time.get(t)
+        second = by_time.get(t + hour)
+
+        if first is None or second is None:
+            continue
+
+        result.append({
+            "time": bar2["time"],
+            "open": first["open"],
+            "high": max(first["high"], second["high"]),
+            "low": min(first["low"], second["low"]),
+            "close": second["close"],
+        })
+
+    return result
+
+
+def compare_direct_and_merged(direct_2h, merged_2h, count=10):
+    print("")
+    print("2H DOGRUDAN TV vs 1H -> 2H BIRLESTIRME:")
+    print("  TARIH/Saat          DIRECT_OHLC                 MERGED_OHLC                 FARK")
+
+    direct_map = {int(round(c["time"])): c for c in direct_2h}
+    merged_map = {int(round(c["time"])): c for c in merged_2h}
+    times = sorted(set(direct_map) & set(merged_map))[-count:]
+
+    for t in times:
+        d = direct_map[t]
+        m = merged_map[t]
+        diff = max(
+            abs(d["open"] - m["open"]),
+            abs(d["high"] - m["high"]),
+            abs(d["low"] - m["low"]),
+            abs(d["close"] - m["close"]),
+        )
+        print(
+            f"  {candle_label(d['time'])}  "
+            f"{d['open']:.4f}/{d['high']:.4f}/{d['low']:.4f}/{d['close']:.4f}   "
+            f"{m['open']:.4f}/{m['high']:.4f}/{m['low']:.4f}/{m['close']:.4f}   "
+            f"{diff:.6f}"
+        )
+
+    print(
+        "  NOT: FARK=0 ise 1H'den kurulan 2H mum, TV'nin dogrudan 2H mumuyla ayni."
+    )
 
 
 def true_ranges(candles):
@@ -611,7 +672,9 @@ def main():
         print(symbol)
 
         try:
-            candles = get_tv_candles(symbol)
+            candles = get_tv_candles(symbol, TIMEFRAME, CANDLE_COUNT)
+            one_hour = get_tv_candles(symbol, "60", CANDLE_COUNT * 2)
+            merged = aggregate_1h_to_direct_2h(one_hour, candles)
 
             if len(candles) < ATR_PERIOD + 5:
                 print(
@@ -624,6 +687,8 @@ def main():
             if idx is None:
                 print("TAMAMLANMIS MUM YOK")
                 continue
+
+            compare_direct_and_merged(candles, merged, count=10)
 
             official = official_tv_supertrend(
                 candles,
@@ -712,6 +777,9 @@ def main():
     print(
         "ONEMLI: Bu test TradingView grafik ekranindaki "
         "yesil BUY etiketini otomatik okuyamaz."
+    )
+    print(
+        "Yeni testte ayrica TV'nin dogrudan 2H mumlari ile 1H'den birlestirilen 2H mumlari karsilastirilir. "
     )
     print(
         "Yeni testte son 8 mum icin 3 aday ayri ayri gosterilir: "
