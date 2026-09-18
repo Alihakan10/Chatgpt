@@ -4,7 +4,123 @@ import sys
 import textwrap
 
 PATH = Path("scanner.py")
-MARKER = "# SAFE_TELEGRAM_STATE_PATCH_V1"
+MARKER_V1 = "# SAFE_TELEGRAM_STATE_PATCH_V1"
+MARKER_V2 = "# SAFE_MANUAL_SCAN_PATCH_V2"
+
+
+def git_commit_push(message):
+    subprocess.run(
+        ["git", "config", "user.name", "github-actions[bot]"],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "git",
+            "config",
+            "user.email",
+            "41898282+github-actions[bot]@users.noreply.github.com",
+        ],
+        check=True,
+    )
+    subprocess.run(["git", "add", "scanner.py"], check=True)
+
+    changed = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"],
+        check=False,
+    )
+
+    if changed.returncode != 0:
+        subprocess.run(
+            ["git", "commit", "-m", message],
+            check=True,
+        )
+        subprocess.run(["git", "push"], check=True)
+        print("OK: scanner.py degisikligi commit edilip push edildi.")
+    else:
+        print("OK: scanner.py icin yeni degisiklik yok.")
+
+
+def apply_v2(source):
+    if MARKER_V2 in source:
+        print("OK: manuel tarama yamasi zaten uygulanmis.")
+        return source, False
+
+    # FORCE_SCAN ayarini TELEGRAM bolumunden once ekle.
+    anchor = '# ------------------------------------------------------------\n# TELEGRAM\n# ------------------------------------------------------------'
+    addition = '''# ------------------------------------------------------------
+# MANUEL TARAMA
+#
+# GitHub Actions workflow_dispatch ile calistirildiginda
+# BIST saatleri disinda da tam tarama yapilabilmesini saglar.
+# ------------------------------------------------------------
+
+# SAFE_MANUAL_SCAN_PATCH_V2
+FORCE_SCAN = (
+    os.getenv(
+        "FORCE_SCAN",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
+'''
+
+    if anchor not in source:
+        raise RuntimeError(
+            "TELEGRAM ayar bolumu bulunamadi; manuel tarama yamasi uygulanmadi."
+        )
+
+    source = source.replace(
+        anchor,
+        addition + anchor,
+        1,
+    )
+
+    old = '''    if not is_bist_open_time():
+
+        log(
+            "BIST normal islem saatleri disinda."
+        )
+
+        log(
+            "Tarama yapilmayacak."
+        )
+
+        return
+'''
+
+    new = '''    if not FORCE_SCAN and not is_bist_open_time():
+
+        log(
+            "BIST normal islem saatleri disinda."
+        )
+
+        log(
+            "Tarama yapilmayacak."
+        )
+
+        return
+
+    if FORCE_SCAN:
+
+        log(
+            "MANUEL TARAMA: BIST saat kontrolu BYPASS edildi."
+        )
+'''
+
+    if old not in source:
+        raise RuntimeError(
+            "BIST saat kontrolu bolumu bulunamadi; manuel tarama yamasi uygulanmadi."
+        )
+
+    source = source.replace(old, new, 1)
+
+    return source, True
 
 
 def main():
@@ -13,163 +129,161 @@ def main():
 
     source = PATH.read_text(encoding="utf-8")
 
-    if MARKER in source:
-        print("OK: scanner.py yamasi zaten uygulanmis.")
-        return
-
-    start = source.find("def send_telegram(message):")
-    end = source.find(
-        "# ============================================================\n# FIYAT FORMAT",
-        start,
-    )
-
-    if start < 0 or end < 0:
-        raise RuntimeError(
-            "send_telegram() bolumu bulunamadi; dosya degistirilmedi."
+    # V1 yoksa once Telegram/state yamasi uygulanmali.
+    if MARKER_V1 not in source:
+        start = source.find("def send_telegram(message):")
+        end = source.find(
+            "# ============================================================\n# FIYAT FORMAT",
+            start,
         )
 
-    telegram_function = textwrap.dedent(
-        '''
-        # SAFE_TELEGRAM_STATE_PATCH_V1
-        TELEGRAM_RETRY_DELAYS = (2, 5, 10)
-
-
-        def send_telegram(message):
-
-            if not TELEGRAM_BOT_TOKEN:
-                raise RuntimeError(
-                    "TELEGRAM_BOT_TOKEN bulunamadi."
-                )
-
-            if not TELEGRAM_CHAT_ID:
-                raise RuntimeError(
-                    "TELEGRAM_CHAT_ID bulunamadi."
-                )
-
-            url = (
-                "https://api.telegram.org/bot"
-                + TELEGRAM_BOT_TOKEN
-                + "/sendMessage"
+        if start < 0 or end < 0:
+            raise RuntimeError(
+                "send_telegram() bolumu bulunamadi; dosya degistirilmedi."
             )
 
-            max_length = 3900
-            chunks = []
-            current = ""
+        telegram_function = textwrap.dedent(
+            '''
+            # SAFE_TELEGRAM_STATE_PATCH_V1
+            TELEGRAM_RETRY_DELAYS = (2, 5, 10)
 
-            for line in message.splitlines(keepends=True):
 
-                if len(current) + len(line) > max_length:
+            def send_telegram(message):
 
-                    if current:
-                        chunks.append(current)
+                if not TELEGRAM_BOT_TOKEN:
+                    raise RuntimeError(
+                        "TELEGRAM_BOT_TOKEN bulunamadi."
+                    )
 
-                    current = line
+                if not TELEGRAM_CHAT_ID:
+                    raise RuntimeError(
+                        "TELEGRAM_CHAT_ID bulunamadi."
+                    )
 
-                else:
-                    current += line
+                url = (
+                    "https://api.telegram.org/bot"
+                    + TELEGRAM_BOT_TOKEN
+                    + "/sendMessage"
+                )
 
-            if current:
-                chunks.append(current)
+                max_length = 3900
+                chunks = []
+                current = ""
 
-            if not chunks:
-                chunks = [""]
+                for line in message.splitlines(keepends=True):
 
-            for chunk_no, chunk in enumerate(chunks, 1):
+                    if len(current) + len(line) > max_length:
 
-                payload = {
-                    "chat_id": TELEGRAM_CHAT_ID,
-                    "text": chunk,
-                    "disable_web_page_preview": True
-                }
+                        if current:
+                            chunks.append(current)
 
-                last_error = None
+                        current = line
 
-                for attempt in range(len(TELEGRAM_RETRY_DELAYS) + 1):
+                    else:
+                        current += line
 
-                    try:
+                if current:
+                    chunks.append(current)
 
-                        response = requests.post(
-                            url,
-                            json=payload,
-                            timeout=REQUEST_TIMEOUT
-                        )
+                if not chunks:
+                    chunks = [""]
 
-                        if response.ok:
+                for chunk_no, chunk in enumerate(chunks, 1):
 
-                            try:
-                                result = response.json()
-                            except Exception as exc:
-                                last_error = RuntimeError(
-                                    "Telegram JSON cevabi okunamadi: "
-                                    + str(exc)
-                                )
-                            else:
-                                if result.get("ok"):
-                                    last_error = None
-                                    break
+                    payload = {
+                        "chat_id": TELEGRAM_CHAT_ID,
+                        "text": chunk,
+                        "disable_web_page_preview": True
+                    }
 
-                                last_error = RuntimeError(
-                                    "Telegram hatasi: "
-                                    + str(result)
-                                )
+                    last_error = None
 
-                        else:
+                    for attempt in range(len(TELEGRAM_RETRY_DELAYS) + 1):
 
-                            try:
-                                detail = response.json()
-                            except Exception:
-                                detail = response.text
+                        try:
 
-                            last_error = RuntimeError(
-                                "Telegram HTTP "
-                                + str(response.status_code)
-                                + ": "
-                                + str(detail)
+                            response = requests.post(
+                                url,
+                                json=payload,
+                                timeout=REQUEST_TIMEOUT
                             )
 
-                            if response.status_code not in (
-                                429, 500, 502, 503, 504
-                            ):
-                                raise last_error
+                            if response.ok:
 
-                    except requests.RequestException as exc:
-                        last_error = exc
+                                try:
+                                    result = response.json()
+                                except Exception as exc:
+                                    last_error = RuntimeError(
+                                        "Telegram JSON cevabi okunamadi: "
+                                        + str(exc)
+                                    )
+                                else:
+                                    if result.get("ok"):
+                                        last_error = None
+                                        break
 
-                    if attempt < len(TELEGRAM_RETRY_DELAYS):
+                                    last_error = RuntimeError(
+                                        "Telegram hatasi: "
+                                        + str(result)
+                                    )
 
-                        delay = TELEGRAM_RETRY_DELAYS[attempt]
+                            else:
 
-                        log(
-                            "Telegram chunk "
+                                try:
+                                    detail = response.json()
+                                except Exception:
+                                    detail = response.text
+
+                                last_error = RuntimeError(
+                                    "Telegram HTTP "
+                                    + str(response.status_code)
+                                    + ": "
+                                    + str(detail)
+                                )
+
+                                if response.status_code not in (
+                                    429, 500, 502, 503, 504
+                                ):
+                                    raise last_error
+
+                        except requests.RequestException as exc:
+                            last_error = exc
+
+                        if attempt < len(TELEGRAM_RETRY_DELAYS):
+
+                            delay = TELEGRAM_RETRY_DELAYS[attempt]
+
+                            log(
+                                "Telegram chunk "
+                                + str(chunk_no)
+                                + "/"
+                                + str(len(chunks))
+                                + " basarisiz; "
+                                + str(delay)
+                                + " saniye sonra tekrar denenecek."
+                            )
+
+                            time.sleep(delay)
+
+                    if last_error is not None:
+
+                        raise RuntimeError(
+                            "Telegram gonderilemedi (chunk "
                             + str(chunk_no)
                             + "/"
                             + str(len(chunks))
-                            + " basarisiz; "
-                            + str(delay)
-                            + " saniye sonra tekrar denenecek."
+                            + "): "
+                            + str(last_error)
                         )
 
-                        time.sleep(delay)
+                    if chunk_no < len(chunks):
+                        time.sleep(0.3)
+            '''
+        )
 
-                if last_error is not None:
+        source = source[:start] + telegram_function + "\n\n" + source[end:]
 
-                    raise RuntimeError(
-                        "Telegram gonderilemedi (chunk "
-                        + str(chunk_no)
-                        + "/"
-                        + str(len(chunks))
-                        + "): "
-                        + str(last_error)
-                    )
-
-                if chunk_no < len(chunks):
-                    time.sleep(0.3)
-        '''
-    )
-
-    source = source[:start] + telegram_function + "\n\n" + source[end:]
-
-    old_order = """    save_state(
+        old_order = """    save_state(
         state
     )
 
@@ -215,7 +329,7 @@ def main():
     )
 """
 
-    new_order = """    # --------------------------------------------------------
+        new_order = """    # --------------------------------------------------------
     # YENI AL YOK
     # --------------------------------------------------------
 
@@ -270,12 +384,20 @@ def main():
     )
 """
 
-    if old_order not in source:
-        raise RuntimeError(
-            "main state/Telegram siralamasi bulunamadi; dosya degistirilmedi."
-        )
+        if old_order not in source:
+            raise RuntimeError(
+                "main state/Telegram siralamasi bulunamadi; dosya degistirilmedi."
+            )
 
-    source = source.replace(old_order, new_order, 1)
+        source = source.replace(old_order, new_order, 1)
+
+    # V1 mevcutsa da V2 manuel tarama yamasi uygulanir.
+    source, changed_v2 = apply_v2(source)
+
+    if not changed_v2 and MARKER_V1 in source:
+        print("OK: tum scanner.py yamalari zaten uygulanmis.")
+        return
+
     PATH.write_text(source, encoding="utf-8")
 
     check = subprocess.run(
@@ -291,40 +413,9 @@ def main():
             "scanner.py syntax kontrolu basarisiz; commit yapilmadi."
         )
 
-    subprocess.run(
-        ["git", "config", "user.name", "github-actions[bot]"],
-        check=True,
+    git_commit_push(
+        "Enable manual full scan outside BIST hours"
     )
-    subprocess.run(
-        [
-            "git",
-            "config",
-            "user.email",
-            "41898282+github-actions[bot]@users.noreply.github.com",
-        ],
-        check=True,
-    )
-    subprocess.run(["git", "add", "scanner.py"], check=True)
-
-    changed = subprocess.run(
-        ["git", "diff", "--cached", "--quiet"],
-        check=False,
-    )
-
-    if changed.returncode != 0:
-        subprocess.run(
-            [
-                "git",
-                "commit",
-                "-m",
-                "Fix Telegram retry and state save order",
-            ],
-            check=True,
-        )
-        subprocess.run(["git", "push"], check=True)
-        print("OK: scanner.py yamasi commit edilip push edildi.")
-    else:
-        print("OK: scanner.py icin yeni degisiklik yok.")
 
 
 if __name__ == "__main__":
