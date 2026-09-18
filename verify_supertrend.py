@@ -9,6 +9,8 @@
 #    A) TradingView resmi Supertrend band/trend mantigi
 #    B) KivancOzbilgic acik kaynak SuperTrend mantigi
 # 3) SAT -> AL donuslerini yan yana gostermek
+# 4) BUY etiketinin "trend flip" mi yoksa "fiyatin Supertrend
+#    cizgisini yukari kesmesi" mi oldugunu ayirmak
 #
 # Ayarlar:
 # ATR = 10
@@ -35,20 +37,12 @@ ATR_MULTIPLIER = 2.0
 TIMEZONE = "Europe/Istanbul"
 
 DEFAULT_SYMBOLS = [
-    "BIST:ARFYE",
     "BIST:ATEKS",
-    "BIST:AYES",
-    "BIST:AYGAZ",
-    "BIST:DGNMO",
-    "BIST:MSGYO",
-    "BIST:PSGYO",
-    "BIST:RNPOL",
-    "BIST:RODRG",
-    "BIST:SANFM",
-    "BIST:SEKFK",
-    "BIST:SOKM",
-    "BIST:YBTAS",
-    "BIST:YGGYO",
+    "BIST:ARFYE",
+    "BIST:GESAN",
+    "BIST:GLRMK",
+    "BIST:SEGMN",
+    "BIST:AKFIS",
 ]
 
 
@@ -506,6 +500,71 @@ def find_flips(direction, mode, idx):
     return False, None
 
 
+
+def cross_above_supertrend_line(candles, line, idx):
+    """
+    Fiyatin Supertrend cizgisini yukari kestigi bar.
+
+    Bu, "trend flip" ile ayni sey degildir.
+    TradingView'daki bazi BUY etiketli scriptler BUY'i
+    fiyat/Supertrend crossover olarak tanimlar.
+    """
+    if idx is None or idx < 1:
+        return False
+
+    current_close = candles[idx]["close"]
+    previous_close = candles[idx - 1]["close"]
+    current_line = line[idx]
+    previous_line = line[idx - 1]
+
+    if (
+        current_line is None
+        or previous_line is None
+    ):
+        return False
+
+    return (
+        current_close > current_line
+        and previous_close <= previous_line
+    )
+
+
+def print_last_bars(candles, official, kivanc, idx, count=8):
+    start = max(1, idx - count + 1)
+
+    print("")
+    print(f"Son {idx - start + 1} tamamlanmis mum icin aday BUY sinyalleri:")
+    print(
+        "  TARIH/Saat          CLOSE       TV-FLIP  KIVANC-FLIP  "
+        "TV-CROSS-UP"
+    )
+
+    for j in range(start, idx + 1):
+        tv_flip, _ = find_flips(
+            official["direction"],
+            "official",
+            j
+        )
+        kv_flip, _ = find_flips(
+            kivanc["trend"],
+            "kivanc",
+            j
+        )
+        cross = cross_above_supertrend_line(
+            candles,
+            official["line"],
+            j
+        )
+
+        print(
+            f"  {candle_label(candles[j]['time'])}  "
+            f"{candles[j]['close']:.4f}   "
+            f"{'BUY' if tv_flip else '-':7}   "
+            f"{'BUY' if kv_flip else '-':10}   "
+            f"{'BUY' if cross else '-'}"
+        )
+
+
 def main():
     import os
 
@@ -603,24 +662,16 @@ def main():
                     "BUY ESLESMESI         : FARKLI"
                 )
 
-            # Son 5 tamamlanmis mumun yonleri.
-            start = max(0, idx - 4)
-            print("Son 5 yon:")
-            for j in range(start, idx + 1):
-                print(
-                    "  "
-                    + candle_label(candles[j]["time"])
-                    + " | "
-                    + direction_text(
-                        official["direction"][j],
-                        "official"
-                    )
-                    + " | "
-                    + direction_text(
-                        kivanc["trend"][j],
-                        "kivanc"
-                    )
-                )
+            # Son 8 tamamlanmis mumda uc farkli BUY adayini yan yana ver.
+            # Boylece kullanici TradingView grafiğindeki yesil BUY
+            # etiketinin hangi mantiga denk geldigini dogrudan kontrol edebilir.
+            print_last_bars(
+                candles,
+                official,
+                kivanc,
+                idx,
+                count=8
+            )
 
         except Exception as exc:
             print("HATA:", exc)
@@ -629,12 +680,18 @@ def main():
     print("=" * 78)
     print("TEST BITTI")
     print(
-        "Not: Bu rapor TradingView grafik ekranindaki "
+        "ONEMLI: Bu test TradingView grafik ekranindaki "
         "yesil BUY etiketini otomatik okuyamaz."
     )
     print(
-        "Ama iki matematiksel Supertrend algoritmasini "
-        "ayni OHLC mumlarinda birebir yan yana verir."
+        "Yeni testte son 8 mum icin 3 aday ayri ayri gosterilir: "
+        "TV trend flip, Kivanc trend flip ve fiyatin TV Supertrend "
+        "cizgisini yukari kesmesi."
+    )
+    print(
+        "Amaç: ATEKS/AKFIS'teki gorunen BUY etiketi ile hangi adayın "
+        "mum/saat olarak ayni oldugunu bulmak. scanner.py bu testte "
+        "DEGISTIRILMEZ."
     )
     print("=" * 78)
 
