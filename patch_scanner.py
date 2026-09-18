@@ -131,7 +131,7 @@ def apply_v3(source):
 
     # scanner.py baglanti ayari elle guncellendiyse marker ekle.
     if "wss://prodata.tradingview.com/socket.io/websocket?from=chart" in source:
-        if "origin="https://s.tradingview.com"" in source:
+        if 'origin="https://s.tradingview.com"' in source:
             marker = "        # SAFE_WEBSOCKET_PATCH_V3\n"
             needle = "        ws = websocket.create_connection("
             if marker not in source:
