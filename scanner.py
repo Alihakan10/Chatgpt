@@ -1266,8 +1266,8 @@ def calculate_supertrend_directions(
           close < lowerBand -> DOWN
           aksi -> UP
 
-    1  = UP / BUY
-    -1 = DOWN / SELL
+    -1 = UP / BUY
+     1 = DOWN / SELL
     """
 
     if len(candles) < (atr_period + 5):
@@ -1328,7 +1328,9 @@ def calculate_supertrend_directions(
             upper_band[i] = basic_upper
             lower_band[i] = basic_lower
             supertrend[i] = basic_upper
-            direction[i] = -1
+            # TradingView ta.supertrend() starts in DOWN direction.
+            # Pine direction: +1 = DOWN/SAT, -1 = UP/BUY.
+            direction[i] = 1
 
             continue
 
@@ -1381,17 +1383,20 @@ def calculate_supertrend_directions(
             previous_upper
         ):
 
+            # TradingView ta.supertrend():
+            # close > upper band -> UP/BUY (-1)
             if close > upper_band[i]:
-                direction[i] = 1
-            else:
                 direction[i] = -1
+            else:
+                direction[i] = 1
 
         else:
 
+            # close < lower band -> DOWN/SAT (+1)
             if close < lower_band[i]:
-                direction[i] = -1
-            else:
                 direction[i] = 1
+            else:
+                direction[i] = -1
 
         if direction[i] == 1:
             supertrend[i] = lower_band[i]
@@ -2276,11 +2281,12 @@ def scan_symbol(
 
         new_buy = (
 
-            previous_direction == -1
+            # TradingView/Pine: +1 SAT -> -1 AL
+            previous_direction == 1
 
             and
 
-            current_direction == 1
+            current_direction == -1
 
             and
 
@@ -2313,7 +2319,7 @@ def scan_symbol(
 
             log(
                 f"    Ilk durum: "
-                f"{'AL' if current_direction == 1 else 'SAT'}"
+                f"{'AL' if current_direction == -1 else 'SAT'}"
             )
 
         elif new_buy:
@@ -2325,9 +2331,9 @@ def scan_symbol(
         else:
 
             if (
-                old_direction == -1
+                old_direction == 1
                 and
-                current_direction == -1
+                current_direction == 1
             ):
 
                 log(
@@ -2335,9 +2341,9 @@ def scan_symbol(
                 )
 
             elif (
-                old_direction == 1
+                old_direction == -1
                 and
-                current_direction == 1
+                current_direction == -1
             ):
 
                 log(
@@ -2345,9 +2351,9 @@ def scan_symbol(
                 )
 
             elif (
-                old_direction == 1
+                old_direction == -1
                 and
-                current_direction == -1
+                current_direction == 1
             ):
 
                 log(
@@ -2551,13 +2557,13 @@ def main():
                     "direction"
                 )
 
-                if direction == 1:
+                if direction == -1:
 
                     log(
                         "    TEST SONUCU: AL"
                     )
 
-                elif direction == -1:
+                elif direction == 1:
 
                     log(
                         "    TEST SONUCU: SAT"
@@ -2785,9 +2791,10 @@ def main():
             result
             for result in scan_results
             if (
-                result.get("previous_direction") == -1
+                # TradingView/Pine: +1 SAT -> -1 AL
+                result.get("previous_direction") == 1
                 and
-                result.get("direction") == 1
+                result.get("direction") == -1
             )
         ]
 
