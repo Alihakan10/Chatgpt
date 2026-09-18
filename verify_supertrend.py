@@ -94,178 +94,22 @@ def extract_tv_messages(raw):
 
 
 def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
-    last_error = None
+    """
+    Verifier, scanner.py'nin calisan TradingView veri katmanini kullanir.
+    Boylece iki dosya farkli WebSocket oturumu kullanip farkli davranmaz.
+    scanner.py bu test tarafindan degistirilmez.
+    """
+    from scanner import get_tv_candles as scanner_get_tv_candles
 
-    for attempt in range(1, 4):
-        ws = None
-        chart_session = random_session("cs")
+    if timeframe != TIMEFRAME:
+        # scanner.py 2H taramasi icin sabit TIMEFRAME kullanir.
+        # Bu verifier artik 1H birlestirme testi yapmadigi icin
+        # 2H disindaki zaman dilimine ihtiyac yoktur.
+        raise ValueError(
+            "Verifier yalnizca TradingView 2H verisini kullanir."
+        )
 
-        try:
-            ws = websocket.create_connection(
-                TV_WS_URL,
-                timeout=15,
-                origin="https://data.tradingview.com"
-            )
-
-            ws.send(tv_message(
-                "set_auth_token",
-                ["unauthorized_user_token"]
-            ))
-            ws.send(tv_message(
-                "chart_create_session",
-                [chart_session, ""]
-            ))
-
-            symbol_config = json.dumps(
-                {
-                    "symbol": symbol,
-                    "adjustment": "splits",
-                    "session": "regular"
-                },
-                separators=(",", ":")
-            )
-
-            ws.send(tv_message(
-                "resolve_symbol",
-                [
-                    chart_session,
-                    "sds_sym_1",
-                    "=" + symbol_config
-                ]
-            ))
-
-            ws.send(tv_message(
-                "create_series",
-                [
-                    chart_session,
-                    "sds_1",
-                    "s1",
-                    "sds_sym_1",
-                    timeframe,
-                    candle_count,
-                    ""
-                ]
-            ))
-
-            ws.send(tv_message(
-                "switch_timezone",
-                ["exchange"]
-            ))
-
-            candles = {}
-            raw_buffer = ""
-            started = time.time()
-
-            while time.time() - started < 12:
-                try:
-                    packet = ws.recv()
-                except websocket.WebSocketTimeoutException:
-                    break
-
-                if packet is None:
-                    break
-
-                if isinstance(packet, bytes):
-                    packet = packet.decode("utf-8", errors="ignore")
-
-                raw_buffer += packet
-                messages, raw_buffer = extract_tv_messages(raw_buffer)
-
-                for full_frame, payload in messages:
-                    if payload.startswith("~h~"):
-                        try:
-                            ws.send(full_frame)
-                        except Exception:
-                            pass
-                        continue
-
-                    try:
-                        obj = json.loads(payload)
-                    except Exception:
-                        continue
-
-                    if obj.get("m") != "timescale_update":
-                        continue
-
-                    params = obj.get("p", [])
-                    if len(params) < 2:
-                        continue
-
-                    container = params[1]
-                    if not isinstance(container, dict):
-                        continue
-
-                    series_data = container.get("sds_1")
-                    if series_data is None:
-                        for value in container.values():
-                            if isinstance(value, dict) and "s" in value:
-                                series_data = value
-                                break
-
-                    if not isinstance(series_data, dict):
-                        continue
-
-                    for bar in series_data.get("s", []):
-                        if not isinstance(bar, dict):
-                            continue
-                        values = bar.get("v")
-                        if not isinstance(values, list) or len(values) < 5:
-                            continue
-                        try:
-                            t, o, h, l, close = (
-                                float(values[0]),
-                                float(values[1]),
-                                float(values[2]),
-                                float(values[3]),
-                                float(values[4]),
-                            )
-                        except Exception:
-                            continue
-
-                        candles[t] = {
-                            "time": t,
-                            "open": o,
-                            "high": h,
-                            "low": l,
-                            "close": close,
-                        }
-
-                if len(candles) >= 30:
-                    break
-
-            if not candles:
-                raise RuntimeError("TradingView mum verisi gondermedi.")
-
-            result = sorted(
-                candles.values(),
-                key=lambda x: x["time"]
-            )
-
-            if len(result) < 20:
-                raise RuntimeError(
-                    "TradingView'dan sadece "
-                    + str(len(result))
-                    + " mum geldi."
-                )
-
-            return result
-
-        except Exception as exc:
-            last_error = exc
-            if attempt < 3:
-                time.sleep(attempt * 3)
-
-        finally:
-            if ws is not None:
-                try:
-                    ws.close()
-                except Exception:
-                    pass
-
-    raise RuntimeError(
-        "TradingView WebSocket baglantisi basarisiz: "
-        + str(last_error)
-    )
+    return scanner_get_tv_candles(symbol)
 
 
 def aggregate_1h_to_direct_2h(one_hour, direct_2h):
@@ -749,9 +593,8 @@ def main():
         print(symbol)
 
         try:
-            # Once sadece TradingView'in dogrudan 2H serisini dogrula.
-            # 1H -> 2H ikinci baglantisi testin kendisini gereksiz yere
-            # rate-limit/remote-host sorununa sokmasin.
+            # Scanner ile ayni calisan TradingView veri katmanindan
+            # dogrudan 2H mumlari al.
             candles = get_tv_candles(symbol, TIMEFRAME, CANDLE_COUNT)
             merged = candles[:]
 
@@ -875,12 +718,11 @@ def main():
         "yesil BUY etiketini otomatik okuyamaz."
     )
     print(
-        "Yeni testte ayrica TV'nin dogrudan 2H mumlari ile 1H'den birlestirilen 2H mumlari karsilastirilir. "
+        "Bu test scanner.py ile ayni TradingView WebSocket veri katmanini kullanir."
     )
     print(
-        "Yeni testte son 8 mum icin 3 aday ayri ayri gosterilir: "
-        "TV trend flip, Kivanc trend flip ve fiyatin TV Supertrend "
-        "cizgisini yukari kesmesi."
+        "Son 8 tamamlanmis mum icin TV trend flip, Kivanc/RMA trend flip "
+        "ve fiyat/Supertrend cross adaylari gosterilir."
     )
     print(
         "Amaç: ATEKS/AKFIS'teki gorunen BUY etiketi ile hangi adayın "
