@@ -631,7 +631,8 @@ def get_tv_candles(symbol):
 
             {
                 "symbol": symbol,
-                "adjustment": "splits"
+                "adjustment": "splits",
+                "session": "regular"
             },
 
             separators=(",", ":")
@@ -686,6 +687,17 @@ def get_tv_candles(symbol):
                     TIMEFRAME,
                     CANDLE_COUNT,
                     ""
+                ]
+            )
+        )
+
+        # TradingView chart ile ayni gorunum/zaman ekseni:
+        # BIST regular session + exchange timezone.
+        ws.send(
+            tv_message(
+                "switch_timezone",
+                [
+                    "exchange"
                 ]
             )
         )
