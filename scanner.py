@@ -50,7 +50,7 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 150
+CANDLE_COUNT = 500
 
 # ------------------------------------------------------------
 # TRADINGVIEW
@@ -1256,111 +1256,89 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
     """
-    KivancOzbilgic TradingView SuperTrend ile birebir uyumlu hesaplama.
+    TradingView Kivanc SuperTrend mantigi.
 
-    Kullanici ayarlari:
-      ATR Period = 10
-      Source = HL2
-      ATR Multiplier = 2.0
-      Change ATR Calculation Method = ACIK -> RMA
+    Change ATR Calculation Method = ACIK:
+        ATR = Wilder/RMA(TR, period)
 
-    Pine mantigi:
-      atr = RMA(TR, period)
-      up = HL2 - multiplier * atr
-      up := close[1] > up[1] ? max(up, up[1]) : up
-      dn = HL2 + multiplier * atr
-      dn := close[1] < dn[1] ? min(dn, dn[1]) : dn
-      trend = trend[1]
-      trend := trend == -1 and close > dn[1] ? 1 :
-               trend == 1 and close < up[1] ? -1 : trend
-      buySignal = trend == 1 and trend[1] == -1
+    Source:
+        HL2 = (High + Low) / 2
 
-    Scanner'in dahili yon kodu:
-      -1 = AL / BUY
-       1 = SAT / SELL
+    Yon:
+        1  = AL
+        -1 = SAT
+
+    Kivanc'taki kritik nokta:
+        Trend donusu, GUNCEL bandi degil,
+        bir onceki mumun sabitlenmis bandi (up1/dn1)
+        kullanilarak yapilir.
     """
 
-    if len(candles) < (atr_period + 5):
+    if len(candles) < atr_period + 5:
         return None
 
-    atr = calculate_atr(
-        candles,
-        atr_period
-    )
+    atr = calculate_atr(candles, atr_period)
 
-    up = [None for _ in candles]
-    dn = [None for _ in candles]
-    trend = [None for _ in candles]
-    direction = [None for _ in candles]
+    up = [None] * len(candles)   # lower band
+    dn = [None] * len(candles)   # upper band
+    trend = [None] * len(candles)
 
-    for i in range(len(candles)):
+    first = atr_period - 1
+
+    # Kivanc Pine:
+    # trend = 1
+    # up  = src - Multiplier * ATR
+    # dn  = src + Multiplier * ATR
+    hl2 = (candles[first]["high"] + candles[first]["low"]) / 2.0
+    up[first] = hl2 - multiplier * atr[first]
+    dn[first] = hl2 + multiplier * atr[first]
+    trend[first] = 1
+
+    for i in range(first + 1, len(candles)):
         if atr[i] is None:
             continue
 
-        hl2 = (
-            candles[i]["high"] +
-            candles[i]["low"]
-        ) / 2.0
+        high = candles[i]["high"]
+        low = candles[i]["low"]
+        close = candles[i]["close"]
+        prev_close = candles[i - 1]["close"]
 
-        raw_up = (
-            hl2 -
-            multiplier * atr[i]
-        )
+        src = (high + low) / 2.0
 
-        raw_dn = (
-            hl2 +
-            multiplier * atr[i]
-        )
-
-        if i == atr_period - 1:
-            up[i] = raw_up
-            dn[i] = raw_dn
-            trend[i] = 1
-            direction[i] = -1
-            continue
+        raw_up = src - multiplier * atr[i]
+        raw_dn = src + multiplier * atr[i]
 
         prev_up = up[i - 1]
         prev_dn = dn[i - 1]
-        prev_close = candles[i - 1]["close"]
 
-        if prev_up is None or prev_dn is None:
-            continue
+        # Pine:
+        # up1=nz(up[1],up)
+        # up := close[1] > up1 ? max(up,up1) : up
+        if prev_up is None:
+            prev_up = raw_up
 
-        up[i] = (
-            max(raw_up, prev_up)
-            if prev_close > prev_up
-            else raw_up
-        )
+        if prev_dn is None:
+            prev_dn = raw_dn
 
-        dn[i] = (
-            min(raw_dn, prev_dn)
-            if prev_close < prev_dn
-            else raw_dn
-        )
+        up[i] = max(raw_up, prev_up) if prev_close > prev_up else raw_up
+        dn[i] = min(raw_dn, prev_dn) if prev_close < prev_dn else raw_dn
 
         prev_trend = trend[i - 1]
-
         if prev_trend is None:
-            continue
+            prev_trend = 1
 
-        if (
-            prev_trend == -1
-            and candles[i]["close"] > prev_dn
-        ):
+        # Pine:
+        # trend := trend == -1 and close > dn1 ? 1 :
+        #          trend ==  1 and close < up1 ? -1 :
+        #          trend
+        if prev_trend == -1 and close > prev_dn:
             trend[i] = 1
-        elif (
-            prev_trend == 1
-            and candles[i]["close"] < prev_up
-        ):
+        elif prev_trend == 1 and close < prev_up:
             trend[i] = -1
         else:
             trend[i] = prev_trend
 
-        # Kivanc trend +1 = UP/BUY.
-        # Scanner state convention -1 = AL/BUY.
-        direction[i] = -trend[i]
-
-    return direction
+    return trend
 
 
 # ============================================================
