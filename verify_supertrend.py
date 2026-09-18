@@ -107,149 +107,153 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                 origin="https://data.tradingview.com"
             )
 
-        ws.send(tv_message(
-            "set_auth_token",
-            ["unauthorized_user_token"]
-        ))
+            ws.send(tv_message(
+                "set_auth_token",
+                ["unauthorized_user_token"]
+            ))
+            ws.send(tv_message(
+                "chart_create_session",
+                [chart_session, ""]
+            ))
 
-        ws.send(tv_message(
-            "chart_create_session",
-            [chart_session, ""]
-        ))
+            symbol_config = json.dumps(
+                {
+                    "symbol": symbol,
+                    "adjustment": "splits",
+                    "session": "regular"
+                },
+                separators=(",", ":")
+            )
 
-        symbol_config = json.dumps(
-            {
-                "symbol": symbol,
-                "adjustment": "splits",
-                "session": "regular"
-            },
-            separators=(",", ":")
-        )
+            ws.send(tv_message(
+                "resolve_symbol",
+                [
+                    chart_session,
+                    "sds_sym_1",
+                    "=" + symbol_config
+                ]
+            ))
 
-        ws.send(tv_message(
-            "resolve_symbol",
-            [
-                chart_session,
-                "sds_sym_1",
-                "=" + symbol_config
-            ]
-        ))
+            ws.send(tv_message(
+                "create_series",
+                [
+                    chart_session,
+                    "sds_1",
+                    "s1",
+                    "sds_sym_1",
+                    timeframe,
+                    candle_count,
+                    ""
+                ]
+            ))
 
-        ws.send(tv_message(
-            "create_series",
-            [
-                chart_session,
-                "sds_1",
-                "s1",
-                "sds_sym_1",
-                timeframe,
-                candle_count,
-                ""
-            ]
-        ))
+            ws.send(tv_message(
+                "switch_timezone",
+                ["exchange"]
+            ))
 
-        ws.send(tv_message(
-            "switch_timezone",
-            ["exchange"]
-        ))
+            candles = {}
+            raw_buffer = ""
+            started = time.time()
 
-        candles = {}
-        raw_buffer = ""
-        started = time.time()
-
-        while time.time() - started < 10:
-            try:
-                packet = ws.recv()
-            except websocket.WebSocketTimeoutException:
-                break
-
-            if packet is None:
-                break
-
-            if isinstance(packet, bytes):
-                packet = packet.decode("utf-8", errors="ignore")
-
-            raw_buffer += packet
-            messages, raw_buffer = extract_tv_messages(raw_buffer)
-
-            for full_frame, payload in messages:
-                if payload.startswith("~h~"):
-                    try:
-                        ws.send(full_frame)
-                    except Exception:
-                        pass
-                    continue
-
+            while time.time() - started < 12:
                 try:
-                    obj = json.loads(payload)
-                except Exception:
-                    continue
-
-                if obj.get("m") != "timescale_update":
-                    continue
-
-                params = obj.get("p", [])
-                if len(params) < 2:
-                    continue
-
-                container = params[1]
-                if not isinstance(container, dict):
-                    continue
-
-                series_data = container.get("sds_1")
-
-                if series_data is None:
-                    for value in container.values():
-                        if isinstance(value, dict) and "s" in value:
-                            series_data = value
-                            break
-
-                if not isinstance(series_data, dict):
-                    continue
-
-                bars = series_data.get("s", [])
-                if not isinstance(bars, list):
-                    continue
-
-                for bar in bars:
-                    if not isinstance(bar, dict):
-                        continue
-
-                    values = bar.get("v")
-                    if not isinstance(values, list) or len(values) < 5:
-                        continue
-
-                    try:
-                        t = float(values[0])
-                        o = float(values[1])
-                        h = float(values[2])
-                        l = float(values[3])
-                        c = float(values[4])
-                    except Exception:
-                        continue
-
-                    candles[t] = {
-                        "time": t,
-                        "open": o,
-                        "high": h,
-                        "low": l,
-                        "close": c,
-                    }
-
-            if len(candles) >= 20:
-                # Once we have a healthy batch, allow one short pause for
-                # the final update packet, then continue.
-                if time.time() - started > 2:
+                    packet = ws.recv()
+                except websocket.WebSocketTimeoutException:
                     break
 
-        result = sorted(candles.values(), key=lambda x: x["time"])
+                if packet is None:
+                    break
+
+                if isinstance(packet, bytes):
+                    packet = packet.decode("utf-8", errors="ignore")
+
+                raw_buffer += packet
+                messages, raw_buffer = extract_tv_messages(raw_buffer)
+
+                for full_frame, payload in messages:
+                    if payload.startswith("~h~"):
+                        try:
+                            ws.send(full_frame)
+                        except Exception:
+                            pass
+                        continue
+
+                    try:
+                        obj = json.loads(payload)
+                    except Exception:
+                        continue
+
+                    if obj.get("m") != "timescale_update":
+                        continue
+
+                    params = obj.get("p", [])
+                    if len(params) < 2:
+                        continue
+
+                    container = params[1]
+                    if not isinstance(container, dict):
+                        continue
+
+                    series_data = container.get("sds_1")
+                    if series_data is None:
+                        for value in container.values():
+                            if isinstance(value, dict) and "s" in value:
+                                series_data = value
+                                break
+
+                    if not isinstance(series_data, dict):
+                        continue
+
+                    for bar in series_data.get("s", []):
+                        if not isinstance(bar, dict):
+                            continue
+                        values = bar.get("v")
+                        if not isinstance(values, list) or len(values) < 5:
+                            continue
+                        try:
+                            t, o, h, l, close = (
+                                float(values[0]),
+                                float(values[1]),
+                                float(values[2]),
+                                float(values[3]),
+                                float(values[4]),
+                            )
+                        except Exception:
+                            continue
+
+                        candles[t] = {
+                            "time": t,
+                            "open": o,
+                            "high": h,
+                            "low": l,
+                            "close": close,
+                        }
+
+                if len(candles) >= 30:
+                    break
+
+            if not candles:
+                raise RuntimeError("TradingView mum verisi gondermedi.")
+
+            result = sorted(
+                candles.values(),
+                key=lambda x: x["time"]
+            )
+
+            if len(result) < 20:
+                raise RuntimeError(
+                    "TradingView'dan sadece "
+                    + str(len(result))
+                    + " mum geldi."
+                )
+
             return result
 
         except Exception as exc:
             last_error = exc
             if attempt < 3:
                 time.sleep(attempt * 3)
-            continue
 
         finally:
             if ws is not None:
