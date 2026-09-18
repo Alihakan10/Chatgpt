@@ -1724,46 +1724,36 @@ def save_state(state):
 # TELEGRAM
 # ============================================================
 
+
+# SAFE_TELEGRAM_STATE_PATCH_V1
+TELEGRAM_RETRY_DELAYS = (2, 5, 10)
+
+
 def send_telegram(message):
 
     if not TELEGRAM_BOT_TOKEN:
-
         raise RuntimeError(
             "TELEGRAM_BOT_TOKEN bulunamadi."
         )
 
     if not TELEGRAM_CHAT_ID:
-
         raise RuntimeError(
             "TELEGRAM_CHAT_ID bulunamadi."
         )
 
     url = (
         "https://api.telegram.org/bot"
-        +
-        TELEGRAM_BOT_TOKEN
-        +
-        "/sendMessage"
+        + TELEGRAM_BOT_TOKEN
+        + "/sendMessage"
     )
 
-    # Telegram 4096 karakter sinirini asmamak icin
     max_length = 3900
-
     chunks = []
-
     current = ""
 
-    for line in message.splitlines(
-        keepends=True
-    ):
+    for line in message.splitlines(keepends=True):
 
-        if (
-            len(current)
-            +
-            len(line)
-            >
-            max_length
-        ):
+        if len(current) + len(line) > max_length:
 
             if current:
                 chunks.append(current)
@@ -1771,66 +1761,104 @@ def send_telegram(message):
             current = line
 
         else:
-
             current += line
 
     if current:
         chunks.append(current)
 
-    for chunk in chunks:
+    if not chunks:
+        chunks = [""]
+
+    for chunk_no, chunk in enumerate(chunks, 1):
 
         payload = {
-
-            "chat_id":
-                TELEGRAM_CHAT_ID,
-
-            "text":
-                chunk,
-
-            "disable_web_page_preview":
-                True
-
+            "chat_id": TELEGRAM_CHAT_ID,
+            "text": chunk,
+            "disable_web_page_preview": True
         }
 
-        response = requests.post(
+        last_error = None
 
-            url,
+        for attempt in range(len(TELEGRAM_RETRY_DELAYS) + 1):
 
-            json=payload,
-
-            timeout=REQUEST_TIMEOUT
-
-        )
-
-        if not response.ok:
-
-            # Telegram'in asil hata mesajini gostersin
             try:
-                detail = response.json()
-            except Exception:
-                detail = response.text
+
+                response = requests.post(
+                    url,
+                    json=payload,
+                    timeout=REQUEST_TIMEOUT
+                )
+
+                if response.ok:
+
+                    try:
+                        result = response.json()
+                    except Exception as exc:
+                        last_error = RuntimeError(
+                            "Telegram JSON cevabi okunamadi: "
+                            + str(exc)
+                        )
+                    else:
+                        if result.get("ok"):
+                            last_error = None
+                            break
+
+                        last_error = RuntimeError(
+                            "Telegram hatasi: "
+                            + str(result)
+                        )
+
+                else:
+
+                    try:
+                        detail = response.json()
+                    except Exception:
+                        detail = response.text
+
+                    last_error = RuntimeError(
+                        "Telegram HTTP "
+                        + str(response.status_code)
+                        + ": "
+                        + str(detail)
+                    )
+
+                    if response.status_code not in (
+                        429, 500, 502, 503, 504
+                    ):
+                        raise last_error
+
+            except requests.RequestException as exc:
+                last_error = exc
+
+            if attempt < len(TELEGRAM_RETRY_DELAYS):
+
+                delay = TELEGRAM_RETRY_DELAYS[attempt]
+
+                log(
+                    "Telegram chunk "
+                    + str(chunk_no)
+                    + "/"
+                    + str(len(chunks))
+                    + " basarisiz; "
+                    + str(delay)
+                    + " saniye sonra tekrar denenecek."
+                )
+
+                time.sleep(delay)
+
+        if last_error is not None:
 
             raise RuntimeError(
-                "Telegram HTTP "
-                +
-                str(response.status_code)
-                +
-                ": "
-                +
-                str(detail)
+                "Telegram gonderilemedi (chunk "
+                + str(chunk_no)
+                + "/"
+                + str(len(chunks))
+                + "): "
+                + str(last_error)
             )
 
-        result = response.json()
-
-        if not result.get("ok"):
-
-            raise RuntimeError(
-                "Telegram hatasi: "
-                +
-                str(result)
-            )
-
-        time.sleep(0.3)
+        if chunk_no < len(chunks):
+            time.sleep(0.3)
 
 
 # ============================================================
@@ -2650,15 +2678,15 @@ def main():
     # STATE KAYDET
     # --------------------------------------------------------
 
-    save_state(
-        state
-    )
-
     # --------------------------------------------------------
     # YENI AL YOK
     # --------------------------------------------------------
 
     if not new_buy_results:
+
+        save_state(
+            state
+        )
 
         log(
             "Son taramada yeni "
@@ -2679,12 +2707,21 @@ def main():
     # TELEGRAM
     # --------------------------------------------------------
 
+    # Yeni AL varsa once Telegram basarili olmali.
+    # Telegram basarisiz olursa save_state calismaz.
+    # Boylece sonraki taramada sinyal yeniden yakalanabilir.
+
     message = build_telegram_message(
         new_buy_results
     )
 
     send_telegram(
         message
+    )
+
+    # Telegram basarili olduktan sonra state kaydedilir.
+    save_state(
+        state
     )
 
     log(
