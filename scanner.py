@@ -118,6 +118,27 @@ SEND_TEST_TELEGRAM = (
 )
 
 # ------------------------------------------------------------
+# MANUEL TARAMA
+#
+# GitHub Actions workflow_dispatch ile calistirildiginda
+# BIST saatleri disinda da tam tarama yapilabilmesini saglar.
+# ------------------------------------------------------------
+
+# SAFE_MANUAL_SCAN_PATCH_V2
+FORCE_SCAN = (
+    os.getenv(
+        "FORCE_SCAN",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
+# ------------------------------------------------------------
 # TELEGRAM
 # ------------------------------------------------------------
 
@@ -2499,7 +2520,7 @@ def main():
     # NORMAL MOD
     # --------------------------------------------------------
 
-    if not is_bist_open_time():
+    if not FORCE_SCAN and not is_bist_open_time():
 
         log(
             "BIST normal islem saatleri disinda."
@@ -2510,6 +2531,12 @@ def main():
         )
 
         return
+
+    if FORCE_SCAN:
+
+        log(
+            "MANUEL TARAMA: BIST saat kontrolu BYPASS edildi."
+        )
 
     # --------------------------------------------------------
     # TELEGRAM KONTROL
