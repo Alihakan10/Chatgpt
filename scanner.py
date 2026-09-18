@@ -117,6 +117,19 @@ SEND_TEST_TELEGRAM = (
     )
 )
 
+SEND_SCAN_REPORT = (
+    os.getenv(
+        "SEND_SCAN_REPORT",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
 # ------------------------------------------------------------
 # MANUEL TARAMA
 #
@@ -1996,6 +2009,64 @@ def build_telegram_message(
 
 
 # ============================================================
+# TEST TARAMA RAPORU
+# ============================================================
+def build_scan_report_message(results):
+
+    now = now_istanbul()
+
+    lines = [
+        "SUPERTREND TEST TARAMA RAPORU",
+        "",
+        "📊 BIST 2 SAATLİK SUPERTREND",
+        f"ATR Periyodu: {ATR_PERIOD}",
+        f"ATR Çarpanı: {ATR_MULTIPLIER:g}",
+        "Kaynak: HL2 = (Yüksek + Düşük) / 2",
+        "",
+        "🧪 TEST: Mevcut yönü BUY olan hisseler",
+        "🕒 Tarama: " + now.strftime("%d.%m.%Y %H:%M"),
+        f"🟢 BUY DURUMU: {len(results)} adet",
+        ""
+    ]
+
+    for result in results:
+
+        symbol = result["symbol"].replace("BIST:", "")
+        price = format_price(result["price"])
+
+        candle_dt = (
+            datetime.fromtimestamp(
+                result["candle_time"],
+                tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+        )
+
+        tradingview_url = (
+            "https://www.tradingview.com/chart/"
+            + "?symbol=BIST%3A"
+            + symbol
+            + "&interval=120"
+        )
+
+        lines.append(
+            '<a href="' + tradingview_url + '">'
+            + "🟢 "
+            + symbol
+            + "</a>   "
+            + price
+            + " TL"
+        )
+
+        lines.append(
+            "   Mum: " + candle_dt.strftime("%d.%m.%Y %H:%M")
+        )
+
+    lines.append("")
+    lines.append("Bu mesaj TEST RAPORUDUR; yeni SAT → AL alarmı değildir.")
+
+    return "\n".join(lines)
+
+# ============================================================
 # TEST TELEGRAM MESAJI
 # ============================================================
 
@@ -2586,6 +2657,8 @@ def main():
 
     log("")
 
+    scan_results = []
+
     new_buy_results = []
 
     success_count = 0
@@ -2608,6 +2681,8 @@ def main():
             symbol,
             state
         )
+
+        scan_results.append(result)
 
         status = result.get(
             "status"
@@ -2688,6 +2763,32 @@ def main():
     )
 
     log("=" * 70)
+
+    # --------------------------------------------------------
+    # TEST TARAMA RAPORU
+    # --------------------------------------------------------
+
+    if SEND_SCAN_REPORT:
+
+        current_buy_results = [
+            result
+            for result in scan_results
+            if result.get("direction") == 1
+        ]
+
+        current_buy_results.sort(
+            key=lambda x: x["symbol"]
+        )
+
+        send_telegram(
+            build_scan_report_message(
+                current_buy_results
+            )
+        )
+
+        log(
+            "TEST tarama raporu Telegram'a gonderildi."
+        )
 
     # --------------------------------------------------------
     # STATE KAYDET
