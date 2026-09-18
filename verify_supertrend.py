@@ -40,7 +40,7 @@ DEFAULT_SYMBOLS = [
     "BIST:AYES",
     "BIST:AYGAZ",
     "BIST:DGNMO",
-    "BIST:MSGY0",
+    "BIST:MSGYO",
     "BIST:PSGYO",
     "BIST:RNPOL",
     "BIST:RODRG",
