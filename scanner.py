@@ -2030,9 +2030,9 @@ def build_scan_report_message(results):
         f"ATR Çarpanı: {ATR_MULTIPLIER:g}",
         "Kaynak: HL2 = (Yüksek + Düşük) / 2",
         "",
-        "🧪 TEST: Mevcut yönü BUY olan hisseler",
+        "🧪 TEST: Gerçek SAT → AL dönüşü olan hisseler",
         "🕒 Tarama: " + now.strftime("%d.%m.%Y %H:%M"),
-        f"🟢 BUY DURUMU: {len(results)} adet",
+        f"🟢 SAT → AL DÖNÜŞÜ: {len(results)} adet",
         ""
     ]
 
