@@ -1986,9 +1986,10 @@ def build_telegram_message(
         )
 
         tradingview_url = (
-            "https://www.tradingview.com/symbols/"
+            "https://www.tradingview.com/chart/"
+            + "?symbol=BIST%3A"
             + symbol
-            + "/?exchange=BIST"
+            + "&interval=120"
         )
 
         lines.append(
