@@ -31,7 +31,7 @@ import websocket
 
 TV_WS_URL = "wss://data.tradingview.com/socket.io/websocket"
 TIMEFRAME = "120"
-CANDLE_COUNT = 150
+CANDLE_COUNT = 1000
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEZONE = "Europe/Istanbul"
@@ -712,7 +712,7 @@ def main():
     print("=" * 78)
     print("SUPERTREND FORMUL KARSILASTIRMA")
     print("scanner.py DEGISTIRILMIYOR")
-    print("EKRAN: Change ATR Calculation Method = ACIK -> ATR = SMA(TR,10)")
+    print("EKRAN: Change ATR Calculation Method = ACIK -> ATR = RMA(TR,10)")
     print("=" * 78)
     print(
         f"ATR={ATR_PERIOD}  MULT={ATR_MULTIPLIER}  "
