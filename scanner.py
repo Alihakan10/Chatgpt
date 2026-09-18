@@ -1256,30 +1256,28 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
     """
-    TradingView Supertrend hesaplamasi.
+    KivancOzbilgic TradingView SuperTrend ile birebir uyumlu hesaplama.
 
-    TradingView'in resmi Supertrend formulu:
-      hl2 = (high + low) / 2
-      basicUpperBand = hl2 + multiplier * ATR
-      basicLowerBand = hl2 - multiplier * ATR
-      upperBand = basicUpperBand < prev upperBand or
-                  prev close > prev upperBand
-                  ? basicUpperBand : prev upperBand
-      lowerBand = basicLowerBand > prev lowerBand or
-                  prev close < prev lowerBand
-                  ? basicLowerBand : prev lowerBand
+    Kullanici ayarlari:
+      ATR Period = 10
+      Source = HL2
+      ATR Multiplier = 2.0
+      Change ATR Calculation Method = ACIK -> RMA
 
-    Trend yonu:
-      ATR hesaplanana kadar DOWN
-      prev Supertrend == prev upperBand ise:
-          close > upperBand -> UP
-          aksi -> DOWN
-      aksi halde:
-          close < lowerBand -> DOWN
-          aksi -> UP
+    Pine mantigi:
+      atr = RMA(TR, period)
+      up = HL2 - multiplier * atr
+      up := close[1] > up[1] ? max(up, up[1]) : up
+      dn = HL2 + multiplier * atr
+      dn := close[1] < dn[1] ? min(dn, dn[1]) : dn
+      trend = trend[1]
+      trend := trend == -1 and close > dn[1] ? 1 :
+               trend == 1 and close < up[1] ? -1 : trend
+      buySignal = trend == 1 and trend[1] == -1
 
-    -1 = UP / BUY
-     1 = DOWN / SELL
+    Scanner'in dahili yon kodu:
+      -1 = AL / BUY
+       1 = SAT / SELL
     """
 
     if len(candles) < (atr_period + 5):
@@ -1290,132 +1288,77 @@ def calculate_supertrend_directions(
         atr_period
     )
 
-    upper_band = [
-        None
-        for _ in candles
-    ]
-
-    lower_band = [
-        None
-        for _ in candles
-    ]
-
-    supertrend = [
-        None
-        for _ in candles
-    ]
-
-    direction = [
-        None
-        for _ in candles
-    ]
+    up = [None for _ in candles]
+    dn = [None for _ in candles]
+    trend = [None for _ in candles]
+    direction = [None for _ in candles]
 
     for i in range(len(candles)):
-
         if atr[i] is None:
             continue
 
-        high = candles[i]["high"]
-        low = candles[i]["low"]
-        close = candles[i]["close"]
-
         hl2 = (
-            high + low
+            candles[i]["high"] +
+            candles[i]["low"]
         ) / 2.0
 
-        basic_upper = (
-            hl2
-            +
+        raw_up = (
+            hl2 -
             multiplier * atr[i]
         )
 
-        basic_lower = (
-            hl2
-            -
+        raw_dn = (
+            hl2 +
             multiplier * atr[i]
         )
 
         if i == atr_period - 1:
-
-            upper_band[i] = basic_upper
-            lower_band[i] = basic_lower
-            supertrend[i] = basic_upper
-            # TradingView ta.supertrend() starts in DOWN direction.
-            # Pine direction: +1 = DOWN/SAT, -1 = UP/BUY.
-            direction[i] = 1
-
+            up[i] = raw_up
+            dn[i] = raw_dn
+            trend[i] = 1
+            direction[i] = -1
             continue
 
-        previous_close = (
-            candles[i - 1]["close"]
+        prev_up = up[i - 1]
+        prev_dn = dn[i - 1]
+        prev_close = candles[i - 1]["close"]
+
+        if prev_up is None or prev_dn is None:
+            continue
+
+        up[i] = (
+            max(raw_up, prev_up)
+            if prev_close > prev_up
+            else raw_up
         )
 
-        previous_upper = (
-            upper_band[i - 1]
+        dn[i] = (
+            min(raw_dn, prev_dn)
+            if prev_close < prev_dn
+            else raw_dn
         )
 
-        previous_lower = (
-            lower_band[i - 1]
-        )
+        prev_trend = trend[i - 1]
 
-        previous_supertrend = (
-            supertrend[i - 1]
-        )
-
-        if previous_upper is None:
-            previous_upper = basic_upper
-
-        if previous_lower is None:
-            previous_lower = basic_lower
-
-        if previous_supertrend is None:
-            previous_supertrend = previous_upper
+        if prev_trend is None:
+            continue
 
         if (
-            basic_upper < previous_upper
-            or
-            previous_close > previous_upper
+            prev_trend == -1
+            and candles[i]["close"] > prev_dn
         ):
-            upper_band[i] = basic_upper
-        else:
-            upper_band[i] = previous_upper
-
-        if (
-            basic_lower > previous_lower
-            or
-            previous_close < previous_lower
+            trend[i] = 1
+        elif (
+            prev_trend == 1
+            and candles[i]["close"] < prev_up
         ):
-            lower_band[i] = basic_lower
+            trend[i] = -1
         else:
-            lower_band[i] = previous_lower
+            trend[i] = prev_trend
 
-        if (
-            previous_supertrend
-            ==
-            previous_upper
-        ):
-
-            # TradingView ta.supertrend():
-            # close > upper band -> UP/BUY (-1)
-            if close > upper_band[i]:
-                direction[i] = -1
-            else:
-                direction[i] = 1
-
-        else:
-
-            # close < lower band -> DOWN/SAT (+1)
-            if close < lower_band[i]:
-                direction[i] = 1
-            else:
-                direction[i] = -1
-
-        # TradingView: -1 (UP/BUY) uses the lower band;
-        # +1 (DOWN/SAT) uses the upper band.
-        if direction[i] == -1:
-            supertrend[i] = lower_band[i]
-        else:
-            supertrend[i] = upper_band[i]
+        # Kivanc trend +1 = UP/BUY.
+        # Scanner state convention -1 = AL/BUY.
+        direction[i] = -trend[i]
 
     return direction
 
