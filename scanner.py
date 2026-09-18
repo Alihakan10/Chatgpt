@@ -1230,11 +1230,34 @@ def calculate_supertrend_directions(
     atr_period=10,
     multiplier=2.0
 ):
+    """
+    TradingView Supertrend hesaplamasi.
 
-    if len(candles) < (
-        atr_period + 5
-    ):
+    TradingView'in resmi Supertrend formulu:
+      hl2 = (high + low) / 2
+      basicUpperBand = hl2 + multiplier * ATR
+      basicLowerBand = hl2 - multiplier * ATR
+      upperBand = basicUpperBand < prev upperBand or
+                  prev close > prev upperBand
+                  ? basicUpperBand : prev upperBand
+      lowerBand = basicLowerBand > prev lowerBand or
+                  prev close < prev lowerBand
+                  ? basicLowerBand : prev lowerBand
 
+    Trend yonu:
+      ATR hesaplanana kadar DOWN
+      prev Supertrend == prev upperBand ise:
+          close > upperBand -> UP
+          aksi -> DOWN
+      aksi halde:
+          close < lowerBand -> DOWN
+          aksi -> UP
+
+    1  = UP / BUY
+    -1 = DOWN / SELL
+    """
+
+    if len(candles) < (atr_period + 5):
         return None
 
     atr = calculate_atr(
@@ -1252,14 +1275,17 @@ def calculate_supertrend_directions(
         for _ in candles
     ]
 
+    supertrend = [
+        None
+        for _ in candles
+    ]
+
     direction = [
         None
         for _ in candles
     ]
 
-    for i in range(
-        len(candles)
-    ):
+    for i in range(len(candles)):
 
         if atr[i] is None:
             continue
@@ -1267,10 +1293,6 @@ def calculate_supertrend_directions(
         high = candles[i]["high"]
         low = candles[i]["low"]
         close = candles[i]["close"]
-
-        # ----------------------------------------------------
-        # HL2
-        # ----------------------------------------------------
 
         hl2 = (
             high + low
@@ -1290,14 +1312,9 @@ def calculate_supertrend_directions(
 
         if i == atr_period - 1:
 
-            upper_band[i] = (
-                basic_upper
-            )
-
-            lower_band[i] = (
-                basic_lower
-            )
-
+            upper_band[i] = basic_upper
+            lower_band[i] = basic_lower
+            supertrend[i] = basic_upper
             direction[i] = -1
 
             continue
@@ -1314,101 +1331,59 @@ def calculate_supertrend_directions(
             lower_band[i - 1]
         )
 
-        previous_direction = (
-            direction[i - 1]
+        previous_supertrend = (
+            supertrend[i - 1]
         )
 
         if previous_upper is None:
-
-            previous_upper = (
-                basic_upper
-            )
+            previous_upper = basic_upper
 
         if previous_lower is None:
+            previous_lower = basic_lower
 
-            previous_lower = (
-                basic_lower
-            )
-
-        if previous_direction is None:
-
-            previous_direction = -1
-
-        # ----------------------------------------------------
-        # UPPER BAND
-        # ----------------------------------------------------
+        if previous_supertrend is None:
+            previous_supertrend = previous_upper
 
         if (
-
-            basic_upper <
-            previous_upper
-
+            basic_upper < previous_upper
             or
-
-            previous_close >
-            previous_upper
-
+            previous_close > previous_upper
         ):
-
-            upper_band[i] = (
-                basic_upper
-            )
-
+            upper_band[i] = basic_upper
         else:
-
-            upper_band[i] = (
-                previous_upper
-            )
-
-        # ----------------------------------------------------
-        # LOWER BAND
-        # ----------------------------------------------------
+            upper_band[i] = previous_upper
 
         if (
-
-            basic_lower >
-            previous_lower
-
+            basic_lower > previous_lower
             or
-
-            previous_close <
-            previous_lower
-
+            previous_close < previous_lower
         ):
-
-            lower_band[i] = (
-                basic_lower
-            )
-
+            lower_band[i] = basic_lower
         else:
+            lower_band[i] = previous_lower
 
-            lower_band[i] = (
-                previous_lower
-            )
-
-        # ----------------------------------------------------
-        # TREND
-        # ----------------------------------------------------
-
-        if previous_direction == -1:
+        if (
+            previous_supertrend
+            ==
+            previous_upper
+        ):
 
             if close > upper_band[i]:
-
                 direction[i] = 1
-
             else:
-
                 direction[i] = -1
 
         else:
 
             if close < lower_band[i]:
-
                 direction[i] = -1
-
             else:
-
                 direction[i] = 1
+
+        if direction[i] == 1:
+            supertrend[i] = lower_band[i]
+        else:
+            supertrend[i] = upper_band[i]
 
     return direction
 
