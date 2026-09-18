@@ -656,39 +656,113 @@ def get_investing_instrument_id(symbol):
 
 
 def load_investing_ids():
+    if not GITHUB_TOKEN or not GITHUB_REPOSITORY:
+        return {}
+
+    url = (
+        "https://api.github.com/repos/"
+        + GITHUB_REPOSITORY
+        + "/contents/"
+        + INVESTING_ID_FILE
+        + "?ref="
+        + GITHUB_REF_NAME
+    )
+
     try:
-        data = github_get_file(
-            INVESTING_ID_FILE
+        response = requests.get(
+            url,
+            headers=github_headers(),
+            timeout=REQUEST_TIMEOUT
         )
 
-        if isinstance(data, dict):
-            return {
-                str(k): str(v)
-                for k, v in data.items()
-                if v
-            }
+        if response.status_code == 404:
+            return {}
+
+        response.raise_for_status()
+
+        encoded = response.json().get("content", "")
+        if not encoded:
+            return {}
+
+        content = base64.b64decode(encoded).decode("utf-8")
+        data = json.loads(content)
+
+        if not isinstance(data, dict):
+            return {}
+
+        return {
+            str(k): str(v)
+            for k, v in data.items()
+            if v
+        }
 
     except Exception as exc:
         log(
             "Investing ID cache okunamadi: "
             + str(exc)
         )
-
-    return {}
+        return {}
 
 
 def save_investing_ids(ids):
+    if TEST_MODE:
+        return
+
+    if not GITHUB_TOKEN or not GITHUB_REPOSITORY:
+        return
+
+    url = (
+        "https://api.github.com/repos/"
+        + GITHUB_REPOSITORY
+        + "/contents/"
+        + INVESTING_ID_FILE
+    )
+
     try:
-        github_put_file(
-            INVESTING_ID_FILE,
-            ids,
-            "Update Investing instrument cache"
+        get_response = requests.get(
+            url + "?ref=" + GITHUB_REF_NAME,
+            headers=github_headers(),
+            timeout=REQUEST_TIMEOUT
         )
+
+        existing_sha = None
+        if get_response.status_code == 200:
+            existing_sha = get_response.json().get("sha")
+        elif get_response.status_code != 404:
+            get_response.raise_for_status()
+
+        content = json.dumps(
+            ids,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True
+        )
+
+        payload = {
+            "message": "Update Investing instrument cache",
+            "content": base64.b64encode(
+                content.encode("utf-8")
+            ).decode("ascii"),
+            "branch": GITHUB_REF_NAME
+        }
+
+        if existing_sha:
+            payload["sha"] = existing_sha
+
+        response = requests.put(
+            url,
+            headers=github_headers(),
+            json=payload,
+            timeout=REQUEST_TIMEOUT
+        )
+        response.raise_for_status()
+
         log(
-            "Investing ID cache GitHub'a kaydedildi: "
+            "Investing ID cache kaydedildi: "
             + str(len(ids))
             + " hisse"
         )
+
     except Exception as exc:
         log(
             "Investing ID cache kaydedilemedi: "
