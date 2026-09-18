@@ -50,7 +50,7 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 500
+CANDLE_COUNT = 150
 
 # ------------------------------------------------------------
 # TRADINGVIEW
