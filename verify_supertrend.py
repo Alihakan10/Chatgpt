@@ -565,6 +565,29 @@ def print_last_bars(candles, official, kivanc, idx, count=8):
         )
 
 
+
+def print_detailed_values(candles, official, kivanc, idx, count=8):
+    start = max(1, idx - count + 1)
+    print("")
+    print("DETAYLI BANT/CLOSE KONTROLU:")
+    print(
+        "  TARIH/Saat          CLOSE    TV_LOWER   TV_UPPER   "
+        "TV_LINE    TV_DIR   KV_UP      KV_DN      KV_TREND"
+    )
+    for j in range(start, idx + 1):
+        print(
+            f"  {candle_label(candles[j]['time'])}  "
+            f"{candles[j]['close']:8.4f} "
+            f"{official['lower'][j]:9.4f} "
+            f"{official['upper'][j]:9.4f} "
+            f"{official['line'][j]:9.4f} "
+            f"{direction_text(official['direction'][j], 'official'):6} "
+            f"{kivanc['up'][j]:9.4f} "
+            f"{kivanc['dn'][j]:9.4f} "
+            f"{direction_text(kivanc['trend'][j], 'kivanc')}"
+        )
+
+
 def main():
     import os
 
@@ -666,6 +689,13 @@ def main():
             # Boylece kullanici TradingView grafiğindeki yesil BUY
             # etiketinin hangi mantiga denk geldigini dogrudan kontrol edebilir.
             print_last_bars(
+                candles,
+                official,
+                kivanc,
+                idx,
+                count=8
+            )
+            print_detailed_values(
                 candles,
                 official,
                 kivanc,
