@@ -94,52 +94,46 @@ def extract_tv_messages(raw):
 
 
 def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
-    """
-    Verifier icin hafif ve dayanıklı TradingView WebSocket istemcisi.
-    Scanner.py ile ayni veri protokolunu kullanir; ancak GitHub Actions
-    ortami icin baglanti kopmasinda yeniden dener.
-    """
+    """Verifier icin TradingView WebSocket veri cekimi."""
     last_error = None
 
     for attempt in range(1, 4):
         ws = None
         chart_session = random_session("cs")
-
         try:
+            # TradingView ornek istemcilerinde Origin header olarak gonderiliyor.
+            # GitHub Actions ortaminda origin= parametresi bazi edge noktalarinda
+            # baglantinin hemen kapatilmasina yol acabiliyor.
             ws = websocket.create_connection(
                 TV_WS_URL,
                 timeout=20,
-                origin="https://www.tradingview.com"
+                header=[
+                    "Origin: https://data.tradingview.com",
+                    "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140 Safari/537.36",
+                ],
             )
 
-            ws.send(tv_message(
-                "set_auth_token",
-                ["unauthorized_user_token"]
-            ))
-            ws.send(tv_message(
-                "chart_create_session",
-                [chart_session, ""]
-            ))
+            def send(method, params):
+                ws.send(tv_message(method, params))
+
+            send("set_auth_token", ["unauthorized_user_token"])
+            send("chart_create_session", [chart_session, ""])
+            send("switch_timezone", ["exchange"])
 
             symbol_config = json.dumps(
                 {
                     "symbol": symbol,
                     "adjustment": "splits",
-                    "session": "regular"
+                    "session": "regular",
                 },
-                separators=(",", ":")
+                separators=(",", ":"),
             )
 
-            ws.send(tv_message(
+            send(
                 "resolve_symbol",
-                [
-                    chart_session,
-                    "sds_sym_1",
-                    "=" + symbol_config
-                ]
-            ))
-
-            ws.send(tv_message(
+                [chart_session, "sds_sym_1", "=" + symbol_config],
+            )
+            send(
                 "create_series",
                 [
                     chart_session,
@@ -148,16 +142,9 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                     "sds_sym_1",
                     timeframe,
                     candle_count,
-                    ""
-                ]
-            ))
-
-            # Exchange timezone is only for display labels; candle timestamps
-            # remain epoch seconds.
-            ws.send(tv_message(
-                "switch_timezone",
-                ["exchange"]
-            ))
+                    "",
+                ],
+            )
 
             candles = {}
             raw_buffer = ""
@@ -165,7 +152,6 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
 
             while time.time() - started < 20:
                 packet = ws.recv()
-
                 if packet is None:
                     break
 
@@ -191,22 +177,22 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                     method = obj.get("m")
                     params = obj.get("p", [])
 
-                    if method == "critical_error":
-                        raise RuntimeError("TradingView critical_error: " + str(params))
+                    if method in ("critical_error", "series_error"):
+                        raise RuntimeError(
+                            f"TradingView {method}: {params}"
+                        )
 
-                    if method == "series_error":
-                        raise RuntimeError("TradingView series_error: " + str(params))
-
-                    if method not in ("timescale_update", "du"):
-                        continue
-
-                    if len(params) < 2 or not isinstance(params[1], dict):
+                    if (
+                        method != "timescale_update"
+                        or len(params) < 2
+                        or not isinstance(params[1], dict)
+                    ):
                         continue
 
                     container = params[1]
                     series_data = container.get("sds_1")
 
-                    if series_data is None:
+                    if not isinstance(series_data, dict):
                         for value in container.values():
                             if isinstance(value, dict) and "s" in value:
                                 series_data = value
@@ -223,15 +209,19 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                         if not isinstance(values, list) or len(values) < 5:
                             continue
 
+                        # TV protokolunun bazi varyantlarinda v[0] index,
+                        # v[1] timestamp olabilir. Once epoch timestamp'i
+                        # tespit ediyoruz; normal formatta v[0] timestamp'tir.
                         try:
-                            t, o, h, low, close = (
-                                float(values[0]),
-                                float(values[1]),
-                                float(values[2]),
-                                float(values[3]),
-                                float(values[4]),
-                            )
+                            raw = [float(x) for x in values]
                         except Exception:
+                            continue
+
+                        if raw[0] >= 1_000_000_000:
+                            t, o, h, low, close = raw[:5]
+                        elif len(raw) >= 6 and raw[1] >= 1_000_000_000:
+                            t, o, h, low, close = raw[1:6]
+                        else:
                             continue
 
                         candles[t] = {
@@ -245,16 +235,15 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                 if len(candles) >= min(30, candle_count):
                     break
 
-            if not candles:
-                raise RuntimeError("TradingView mum verisi gondermedi.")
+            if candles:
+                return sorted(candles.values(), key=lambda x: x["time"])
 
-            return sorted(candles.values(), key=lambda x: x["time"])
+            raise RuntimeError("TradingView mum verisi gondermedi.")
 
         except Exception as exc:
             last_error = exc
             if attempt < 3:
                 time.sleep(2 * attempt)
-
         finally:
             if ws is not None:
                 try:
@@ -263,10 +252,8 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                     pass
 
     raise RuntimeError(
-        "TradingView WebSocket baglantisi basarisiz: "
-        + str(last_error)
+        "TradingView WebSocket baglantisi basarisiz: " + str(last_error)
     )
-
 
 def aggregate_1h_to_direct_2h(one_hour, direct_2h):
     """
