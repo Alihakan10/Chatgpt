@@ -562,8 +562,8 @@ def get_tv_candles(symbol):
 
             timeout=WS_TIMEOUT,
 
-            origin="https://data.tradingview.com",
-            header=["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"]
+            origin="https://data.tradingview.com"
+
         )
 
         # ----------------------------------------------------
@@ -631,7 +631,8 @@ def get_tv_candles(symbol):
 
             {
                 "symbol": symbol,
-                "adjustment": "splits"
+                "adjustment": "splits",
+                "session": "regular"
             },
 
             separators=(",", ":")
@@ -686,6 +687,17 @@ def get_tv_candles(symbol):
                     TIMEFRAME,
                     CANDLE_COUNT,
                     ""
+                ]
+            )
+        )
+
+        # TradingView chart ile ayni gorunum/zaman ekseni:
+        # BIST regular session + exchange timezone.
+        ws.send(
+            tv_message(
+                "switch_timezone",
+                [
+                    "exchange"
                 ]
             )
         )
@@ -1136,347 +1148,6 @@ def get_tv_candles(symbol):
                 ws.close()
             except Exception:
                 pass
-
-
-
-# ============================================================
-# TRADINGVIEW TOPLU MUM VERISI
-#
-# Tek tek 620 WebSocket baglantisi yerine 10'ar hisseyi
-# ayni TradingView chart session icinde alir.
-# Bu, GitHub Actions IP'sinin TradingView tarafindan
-# baglanti/rate-limit nedeniyle kesilmesini onlemek icindir.
-# ============================================================
-
-BATCH_SIZE = 10
-BATCH_DELAY = 1.5
-BATCH_RETRY_DELAYS = (3, 8, 15)
-
-BATCH_CANDLE_CACHE = {}
-
-
-def get_tv_candles_batch(symbols):
-    if not symbols:
-        return {}
-
-    last_error = None
-
-    for attempt, retry_delay in enumerate(
-        (0,) + BATCH_RETRY_DELAYS,
-        start=1
-    ):
-        ws = None
-
-        try:
-            if retry_delay:
-                log(
-                    f"    Toplu TradingView yeniden deneme "
-                    f"({attempt}/{len(BATCH_RETRY_DELAYS) + 1}); "
-                    f"{retry_delay} saniye bekleniyor."
-                )
-                time.sleep(retry_delay)
-
-            log(
-                f"    TradingView toplu baglanti: "
-                f"{len(symbols)} hisse"
-            )
-
-            ws = websocket.create_connection(
-                TV_WS_URL,
-                timeout=WS_TIMEOUT,
-                origin="https://data.tradingview.com",
-                header=["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"]
-            )
-
-            chart_session = random_session("cs")
-            quote_session = random_session("qs")
-
-            ws.send(
-                tv_message(
-                    "set_auth_token",
-                    ["unauthorized_user_token"]
-                )
-            )
-
-            ws.send(
-                tv_message(
-                    "chart_create_session",
-                    [chart_session, ""]
-                )
-            )
-
-            ws.send(
-                tv_message(
-                    "quote_create_session",
-                    [quote_session]
-                )
-            )
-
-            ws.send(
-                tv_message(
-                    "quote_set_fields",
-                    [
-                        quote_session,
-                        "lp",
-                        "volume",
-                        "ch",
-                        "chp"
-                    ]
-                )
-            )
-
-            candles_by_symbol = {
-                symbol: {}
-                for symbol in symbols
-            }
-
-            series_to_symbol = {}
-            raw_buffer = ""
-            completed = set()
-
-            for number, symbol in enumerate(symbols, start=1):
-                series_id = f"sds_{number}"
-                symbol_id = f"sds_sym_{number}"
-
-                symbol_config = json.dumps(
-                    {
-                        "symbol": symbol,
-                        "adjustment": "splits",
-                        "session": "regular"
-                    },
-                    separators=(",", ":")
-                )
-
-                ws.send(
-                    tv_message(
-                        "quote_add_symbols",
-                        [quote_session, symbol]
-                    )
-                )
-
-                ws.send(
-                    tv_message(
-                        "resolve_symbol",
-                        [
-                            chart_session,
-                            symbol_id,
-                            "=" + symbol_config
-                        ]
-                    )
-                )
-
-                ws.send(
-                    tv_message(
-                        "create_series",
-                        [
-                            chart_session,
-                            series_id,
-                            "s" + str(number),
-                            symbol_id,
-                            TIMEFRAME,
-                            CANDLE_COUNT,
-                            ""
-                        ]
-                    )
-                )
-
-                series_to_symbol[series_id] = symbol
-
-            start_time = time.time()
-
-            while time.time() - start_time < WS_TIMEOUT:
-                try:
-                    packet = ws.recv()
-                except websocket.WebSocketTimeoutException:
-                    break
-                except Exception as e:
-                    raise RuntimeError(
-                        "WebSocket recv hatasi: " + str(e)
-                    )
-
-                if packet is None:
-                    break
-
-                if isinstance(packet, bytes):
-                    packet = packet.decode(
-                        "utf-8",
-                        errors="ignore"
-                    )
-
-                raw_buffer += packet
-
-                messages, raw_buffer = extract_tv_messages(
-                    raw_buffer
-                )
-
-                for full_frame, payload in messages:
-                    if payload.startswith("~h~"):
-                        try:
-                            ws.send(full_frame)
-                        except Exception:
-                            pass
-                        continue
-
-                    try:
-                        obj = json.loads(payload)
-                    except Exception:
-                        continue
-
-                    method = obj.get("m")
-                    params = obj.get("p", [])
-
-                    if method == "du":
-                        if len(params) < 2:
-                            continue
-
-                        data_container = params[1]
-
-                        if not isinstance(
-                            data_container,
-                            dict
-                        ):
-                            continue
-
-                        for series_id, symbol in series_to_symbol.items():
-                            series_data = data_container.get(
-                                series_id
-                            )
-
-                            if not isinstance(
-                                series_data,
-                                dict
-                            ):
-                                continue
-
-                            bars = series_data.get("s", [])
-
-                            if not isinstance(bars, list):
-                                continue
-
-                            target = candles_by_symbol[symbol]
-
-                            for bar in bars:
-                                if not isinstance(bar, dict):
-                                    continue
-
-                                values = bar.get("v")
-
-                                if not isinstance(values, list):
-                                    continue
-
-                                if len(values) < 5:
-                                    continue
-
-                                try:
-                                    timestamp = float(values[0])
-                                    open_price = float(values[1])
-                                    high_price = float(values[2])
-                                    low_price = float(values[3])
-                                    close_price = float(values[4])
-
-                                    numbers = [
-                                        timestamp,
-                                        open_price,
-                                        high_price,
-                                        low_price,
-                                        close_price
-                                    ]
-
-                                    if not all(
-                                        math.isfinite(x)
-                                        for x in numbers
-                                    ):
-                                        continue
-
-                                    if high_price < low_price:
-                                        continue
-
-                                    volume = 0.0
-
-                                    if (
-                                        len(values) > 5
-                                        and values[5] is not None
-                                    ):
-                                        try:
-                                            volume = float(values[5])
-                                        except Exception:
-                                            volume = 0.0
-
-                                    target[timestamp] = {
-                                        "time": timestamp,
-                                        "open": open_price,
-                                        "high": high_price,
-                                        "low": low_price,
-                                        "close": close_price,
-                                        "volume": volume
-                                    }
-
-                                except Exception:
-                                    continue
-
-                    elif method == "series_completed":
-                        if params:
-                            completed.add(str(params[1]))
-
-                    elif method in (
-                        "symbol_error",
-                        "series_error",
-                        "critical_error"
-                    ):
-                        # Bir sembol hata verse bile diger sembollerin
-                        # verisini kaybetmemek icin toplu oturumu
-                        # tamamen iptal etmiyoruz.
-                        continue
-
-                ready = sum(
-                    1
-                    for symbol in symbols
-                    if len(candles_by_symbol[symbol]) >= 20
-                )
-
-                if ready == len(symbols):
-                    break
-
-            result = {}
-
-            for symbol in symbols:
-                rows = sorted(
-                    candles_by_symbol[symbol].values(),
-                    key=lambda x: x["time"]
-                )
-
-                if len(rows) >= 20:
-                    result[symbol] = rows
-
-            if result:
-                log(
-                    f"    Toplu veri basarili: "
-                    f"{len(result)}/{len(symbols)} hisse"
-                )
-                return result
-
-            raise RuntimeError(
-                "Toplu TradingView oturumundan mum verisi gelmedi."
-            )
-
-        except Exception as e:
-            last_error = e
-            log(
-                f"    Toplu TradingView hatasi: {e}"
-            )
-
-        finally:
-            if ws is not None:
-                try:
-                    ws.close()
-                except Exception:
-                    pass
-
-    raise RuntimeError(
-        "Toplu TradingView verisi alinamadi: "
-        + str(last_error)
-    )
-
 
 
 # ============================================================
@@ -2375,12 +2046,9 @@ def scan_symbol(
 
     try:
 
-        candles = BATCH_CANDLE_CACHE.pop(symbol, None)
-
-        if candles is None:
-            # Toplu oturumda veri gelmeyen tek hisse icin
-            # son bir bireysel deneme yap.
-            candles = get_tv_candles(symbol)
+        candles = get_tv_candles(
+            symbol
+        )
 
         if not candles:
 
@@ -2948,42 +2616,7 @@ def main():
 
     # --------------------------------------------------------
     # TARAMA
-    #
-    # TradingView baglanti limiti nedeniyle hisseler 10'arli
-    # toplu WebSocket oturumlariyla alinir.
     # --------------------------------------------------------
-
-    BATCH_CANDLE_CACHE.clear()
-
-    for batch_start in range(
-        0,
-        total,
-        BATCH_SIZE
-    ):
-        batch_symbols = symbols[
-            batch_start:batch_start + BATCH_SIZE
-        ]
-
-        try:
-            batch_data = get_tv_candles_batch(
-                batch_symbols
-            )
-            BATCH_CANDLE_CACHE.update(
-                batch_data
-            )
-        except Exception as e:
-            log(
-                "    Toplu batch basarisiz: "
-                + str(e)
-            )
-
-        if batch_start + BATCH_SIZE < total:
-            time.sleep(BATCH_DELAY)
-
-    log(
-        f"Toplu veri hazir: "
-        f"{len(BATCH_CANDLE_CACHE)}/{total} hisse"
-    )
 
     for number, symbol in enumerate(
         symbols,
