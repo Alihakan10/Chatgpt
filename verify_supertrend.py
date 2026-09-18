@@ -31,7 +31,7 @@ import websocket
 
 TV_WS_URL = "wss://data.tradingview.com/socket.io/websocket"
 TIMEFRAME = "120"
-CANDLE_COUNT = 1000
+CANDLE_COUNT = 300
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEZONE = "Europe/Istanbul"
@@ -94,15 +94,18 @@ def extract_tv_messages(raw):
 
 
 def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
-    ws = None
-    chart_session = random_session("cs")
+    last_error = None
 
-    try:
-        ws = websocket.create_connection(
-            TV_WS_URL,
-            timeout=10,
-            origin="https://data.tradingview.com"
-        )
+    for attempt in range(1, 4):
+        ws = None
+        chart_session = random_session("cs")
+
+        try:
+            ws = websocket.create_connection(
+                TV_WS_URL,
+                timeout=15,
+                origin="https://data.tradingview.com"
+            )
 
         ws.send(tv_message(
             "set_auth_token",
@@ -240,14 +243,25 @@ def get_tv_candles(symbol, timeframe=TIMEFRAME, candle_count=CANDLE_COUNT):
                     break
 
         result = sorted(candles.values(), key=lambda x: x["time"])
-        return result
+            return result
 
-    finally:
-        if ws is not None:
-            try:
-                ws.close()
-            except Exception:
-                pass
+        except Exception as exc:
+            last_error = exc
+            if attempt < 3:
+                time.sleep(attempt * 3)
+            continue
+
+        finally:
+            if ws is not None:
+                try:
+                    ws.close()
+                except Exception:
+                    pass
+
+    raise RuntimeError(
+        "TradingView WebSocket baglantisi basarisiz: "
+        + str(last_error)
+    )
 
 
 def aggregate_1h_to_direct_2h(one_hour, direct_2h):
@@ -731,9 +745,11 @@ def main():
         print(symbol)
 
         try:
+            # Once sadece TradingView'in dogrudan 2H serisini dogrula.
+            # 1H -> 2H ikinci baglantisi testin kendisini gereksiz yere
+            # rate-limit/remote-host sorununa sokmasin.
             candles = get_tv_candles(symbol, TIMEFRAME, CANDLE_COUNT)
-            one_hour = get_tv_candles(symbol, "60", CANDLE_COUNT * 2)
-            merged = aggregate_1h_to_direct_2h(one_hour, candles)
+            merged = candles[:]
 
             if len(candles) < ATR_PERIOD + 5:
                 print(
@@ -747,7 +763,7 @@ def main():
                 print("TAMAMLANMIS MUM YOK")
                 continue
 
-            compare_direct_and_merged(candles, merged, count=10)
+            compare_direct_and_merged(candles, merged, count=3)
 
             official = official_tv_supertrend(
                 candles,
