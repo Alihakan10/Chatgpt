@@ -30,7 +30,15 @@ on:
         type: choice
         options:
           - "true"
+          - "false"      send_scan_report:
+        description: "TEST RAPORU: MEVCUT BUY DURUMLARINI TELEGRAMA GONDER"
+        required: true
+        default: "false"
+        type: choice
+        options:
+          - "true"
           - "false"
+
   schedule:
     - cron: "10 7-14 * * 1-5"
 
@@ -75,4 +83,5 @@ jobs:
           TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
           SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
           FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
+          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'false' }}
         run: python scanner.py
