@@ -2180,6 +2180,7 @@ def main():
         # State degistirilmez.
 
         test_state = load_state()
+        investing_ids = load_investing_ids()
 
         success = 0
         errors = 0
@@ -2193,7 +2194,8 @@ def main():
 
             result = scan_symbol(
                 symbol,
-                test_state
+                test_state,
+                investing_ids
             )
 
             if result.get("status") == "error":
@@ -2294,6 +2296,13 @@ def main():
     # --------------------------------------------------------
 
     state = load_state()
+    investing_ids = load_investing_ids()
+
+    log(
+        "Investing ID cache: "
+        + str(len(investing_ids))
+        + " hisse"
+    )
 
     # --------------------------------------------------------
     # BIST HISSELERI
@@ -2355,7 +2364,8 @@ def main():
 
         result = scan_symbol(
             symbol,
-            state
+            state,
+            investing_ids
         )
 
         scan_results.append(result)
@@ -2476,6 +2486,8 @@ def main():
     # --------------------------------------------------------
     # STATE KAYDET
     # --------------------------------------------------------
+    save_investing_ids(investing_ids)
+
 
     # --------------------------------------------------------
     # YENI AL YOK
