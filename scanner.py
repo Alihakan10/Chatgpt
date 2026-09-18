@@ -562,8 +562,8 @@ def get_tv_candles(symbol):
 
             timeout=WS_TIMEOUT,
 
-            origin="https://data.tradingview.com"
-
+            origin="https://data.tradingview.com",
+            header=["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"]
         )
 
         # ----------------------------------------------------
@@ -631,8 +631,7 @@ def get_tv_candles(symbol):
 
             {
                 "symbol": symbol,
-                "adjustment": "splits",
-                "session": "regular"
+                "adjustment": "splits"
             },
 
             separators=(",", ":")
@@ -687,17 +686,6 @@ def get_tv_candles(symbol):
                     TIMEFRAME,
                     CANDLE_COUNT,
                     ""
-                ]
-            )
-        )
-
-        # TradingView chart ile ayni gorunum/zaman ekseni:
-        # BIST regular session + exchange timezone.
-        ws.send(
-            tv_message(
-                "switch_timezone",
-                [
-                    "exchange"
                 ]
             )
         )
@@ -1196,7 +1184,8 @@ def get_tv_candles_batch(symbols):
             ws = websocket.create_connection(
                 TV_WS_URL,
                 timeout=WS_TIMEOUT,
-                origin="https://data.tradingview.com"
+                origin="https://data.tradingview.com",
+                header=["User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"]
             )
 
             chart_session = random_session("cs")
@@ -1292,13 +1281,6 @@ def get_tv_candles_batch(symbols):
                 )
 
                 series_to_symbol[series_id] = symbol
-
-            ws.send(
-                tv_message(
-                    "switch_timezone",
-                    ["exchange"]
-                )
-            )
 
             start_time = time.time()
 
