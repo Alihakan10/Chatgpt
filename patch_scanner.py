@@ -125,6 +125,11 @@ FORCE_SCAN = (
 
 
 def apply_v3(source):
+    # OHLC artik TradingView WebSocket kullanmiyor.
+    if "def get_investing_candles" in source:
+        print("OK: Investing.com OHLC veri kaynagi aktif.")
+        return source, False
+
     if MARKER_V3 in source:
         print("OK: WebSocket yamasi zaten uygulanmis.")
         return source, False
