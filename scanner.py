@@ -1767,13 +1767,23 @@ def build_test_message():
 
 def scan_symbol(
     symbol,
-    state
+    state,
+    investing_ids
 ):
 
     try:
 
+        ticker = symbol.split(":")[-1].upper()
+
+        instrument_id = investing_ids.get(ticker)
+
+        if instrument_id is None:
+            instrument_id = get_investing_instrument_id(symbol)
+            investing_ids[ticker] = instrument_id
+
         candles = get_investing_candles(
-            symbol
+            symbol,
+            instrument_id
         )
 
         if not candles:
