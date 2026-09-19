@@ -543,13 +543,14 @@ def get_tv_candles(symbol):
             f"    TradingView veri baglantisi: {symbol}"
         )
 
+        # SAFE_WEBSOCKET_PATCH_V3
         ws = websocket.create_connection(
 
             TV_WS_URL,
 
             timeout=WS_TIMEOUT,
 
-            origin="https://data.tradingview.com"
+            origin="https://www.tradingview.com"
 
         )
 
