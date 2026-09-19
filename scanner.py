@@ -50,7 +50,7 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 1000
+CANDLE_COUNT = 5000
 
 # ------------------------------------------------------------
 # TRADINGVIEW
@@ -2393,7 +2393,7 @@ def build_current_report_message(results):
     now = now_istanbul()
 
     lines = [
-        "SUPERTREND MEVCUT AL DURUMU",
+        "TRADINGVIEW BUY SINYALLERI",
         "",
         "📊 BIST 2 SAATLİK SUPERTREND",
         "ATR Periyodu: " + str(ATR_PERIOD),
@@ -2401,7 +2401,7 @@ def build_current_report_message(results):
         "Kaynak: HL2 = (Yüksek + Düşük) / 2",
         "",
         "🕒 Tarama: " + now.strftime("%d.%m.%Y %H:%M"),
-        f"🟢 MEVCUT AL: {len(results)} adet",
+        f"🟢 BUY SINYALI: {len(results)} adet",
         "",
     ]
 
@@ -2441,8 +2441,8 @@ def build_current_report_message(results):
         )
 
     lines.append("")
-    lines.append("Bu rapor mevcut AL durumlarını gösterir.")
-    lines.append("Yeni SAT → AL alarmı değildir.")
+    lines.append("Bu rapor yalnızca son tamamlanmış 2H mumunda BUY etiketi oluşanları gösterir.")
+    lines.append("Ayarlar: ATR 10 | HL2 | 2.0 | RMA | 2H")
 
     return "\n".join(lines)
 
@@ -2798,6 +2798,36 @@ def main():
             "Sadece son tamamlanmis 2H mumundaki "
             "gercek BUY sinyalleri Telegram'a gonderildi."
         )
+
+    # --------------------------------------------------------
+    # SADECE TRADINGVIEW BUY RAPORU MODU
+    # --------------------------------------------------------
+    # SEND_SCAN_REPORT=true iken yalnızca son tamamlanmış 2H mumunda
+    # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
+    if SEND_SCAN_REPORT:
+
+        if current_buy_signal_results:
+
+            send_telegram(
+                build_telegram_message(
+                    current_buy_signal_results
+                )
+            )
+
+            log(
+                "Sadece TradingView BUY sinyalleri Telegram'a gönderildi."
+            )
+
+        else:
+
+            log(
+                "Son tamamlanmış 2H mumunda TradingView BUY sinyali bulunamadı."
+            )
+
+        save_state(state)
+
+        log("BUY raporu modu tamamlandı.")
+        return
 
     # --------------------------------------------------------
     # STATE KAYDET
