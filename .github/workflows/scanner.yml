@@ -1,6 +1,10 @@
 name: BIST Supertrend Scanner
 
 on:
+  push:
+    branches:
+      - main
+
   workflow_dispatch:
     inputs:
       test_mode:
@@ -80,7 +84,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: scanner.py guvenli yamasi
-        if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.test_mode != 'true')
         run: python patch_scanner.py
 
       - name: BIST Supertrend taramasi
@@ -93,7 +97,7 @@ jobs:
           TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_mode || 'false' }}
           TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
           SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
-          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
+          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || (github.event_name == 'push' && 'true' || 'false') }}
           SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
           SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
         run: python scanner.py
