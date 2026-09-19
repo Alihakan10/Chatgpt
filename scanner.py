@@ -702,12 +702,451 @@ def get_tv_candles(symbol):
             )
         )
 
+        # TradingView chart ile aynı borsa saat dilimini kullan.
+        ws.send(
+            tv_message(
+                "switch_timezone",
+                [
+                    chart_session,
+                    "exchange"
+                ]
+            )
+        )
+
+        candles = {}
+        raw_buffer = ""
+
+        start_time = time.time()
+        series_completed = False
+
+        while (
+            time.time() - start_time
+            < WS_TIMEOUT
+        ):
+
+            try:
+
+                packet = ws.recv()
+
+            except websocket.WebSocketTimeoutException:
+
+                break
+
+            except Exception as e:
+
+                raise RuntimeError(
+                    "WebSocket recv hatasi: "
+                    + str(e)
+                )
+
+            if packet is None:
+                break
+
+            if isinstance(
+                packet,
+                bytes
+            ):
+
+                packet = packet.decode(
+                    "utf-8",
+                    errors="ignore"
+                )
+
+            raw_buffer += packet
+
+            messages, raw_buffer = (
+                extract_tv_messages(
+                    raw_buffer
+                )
+            )
+
+            for full_frame, payload in messages:
+
+                # ------------------------------------------------
+                # HEARTBEAT
+                # ------------------------------------------------
+
+                if payload.startswith("~h~"):
+
+                    try:
+                        ws.send(
+                            full_frame
+                        )
+                    except Exception:
+                        pass
+
+                    continue
+
+                # ------------------------------------------------
+                # JSON
+                # ------------------------------------------------
+
+                try:
+
+                    obj = json.loads(
+                        payload
+                    )
+
+                except Exception:
+
+                    continue
+
+                method = obj.get("m")
+                params = obj.get("p", [])
+
+                # ------------------------------------------------
+                # DU
+                # ------------------------------------------------
+
+                if method == "du":
+
+                    if len(params) < 2:
+                        continue
+
+                    data_container = params[1]
+
+                    if not isinstance(
+                        data_container,
+                        dict
+                    ):
+                        continue
+
+                    series_data = (
+                        data_container.get(
+                            "sds_1"
+                        )
+                    )
+
+                    if series_data is None:
+
+                        for value in (
+                            data_container.values()
+                        ):
+
+                            if isinstance(
+                                value,
+                                dict
+                            ):
+
+                                if "s" in value:
+
+                                    series_data = value
+                                    break
+
+                    if not isinstance(
+                        series_data,
+                        dict
+                    ):
+                        continue
+
+                    bars = series_data.get(
+                        "s",
+                        []
+                    )
+
+                    if not isinstance(
+                        bars,
+                        list
+                    ):
+                        continue
+
+                    for bar in bars:
+
+                        if not isinstance(
+                            bar,
+                            dict
+                        ):
+                            continue
+
+                        values = bar.get("v")
+
+                        if not isinstance(
+                            values,
+                            list
+                        ):
+                            continue
+
+                        if len(values) < 5:
+                            continue
+
+                        try:
+
+                            timestamp = float(
+                                values[0]
+                            )
+
+                            open_price = float(
+                                values[1]
+                            )
+
+                            high_price = float(
+                                values[2]
+                            )
+
+                            low_price = float(
+                                values[3]
+                            )
+
+                            close_price = float(
+                                values[4]
+                            )
+
+                            volume = 0.0
+
+                            if (
+                                len(values) > 5
+                                and
+                                values[5] is not None
+                            ):
+
+                                try:
+
+                                    volume = float(
+                                        values[5]
+                                    )
+
+                                except Exception:
+
+                                    volume = 0.0
+
+                            numbers = [
+                                timestamp,
+                                open_price,
+                                high_price,
+                                low_price,
+                                close_price
+                            ]
+
+                            if not all(
+                                math.isfinite(x)
+                                for x in numbers
+                            ):
+                                continue
+
+                            if (
+                                high_price <
+                                low_price
+                            ):
+                                continue
+
+                            candles[timestamp] = {
+
+                                "time":
+                                    timestamp,
+
+                                "open":
+                                    open_price,
+
+                                "high":
+                                    high_price,
+
+                                "low":
+                                    low_price,
+
+                                "close":
+                                    close_price,
+
+                                "volume":
+                                    volume
+
+                            }
+
+                        except Exception:
+
+                            continue
+
+                # ------------------------------------------------
+                # TIMESCALE UPDATE
+                # ------------------------------------------------
+
+                elif method == "timescale_update":
+
+                    if len(params) < 2:
+                        continue
+
+                    data_container = params[1]
+
+                    if not isinstance(
+                        data_container,
+                        dict
+                    ):
+                        continue
+
+                    series_data = (
+                        data_container.get(
+                            "sds_1"
+                        )
+                    )
+
+                    if series_data is None:
+
+                        for value in (
+                            data_container.values()
+                        ):
+
+                            if isinstance(
+                                value,
+                                dict
+                            ):
+
+                                if "s" in value:
+
+                                    series_data = value
+                                    break
+
+                    if not isinstance(
+                        series_data,
+                        dict
+                    ):
+                        continue
+
+                    bars = series_data.get(
+                        "s",
+                        []
+                    )
+
+                    if not isinstance(
+                        bars,
+                        list
+                    ):
+                        continue
+
+                    for bar in bars:
+
+                        if not isinstance(
+                            bar,
+                            dict
+                        ):
+                            continue
+
+                        values = bar.get("v")
+
+                        if not isinstance(
+                            values,
+                            list
+                        ):
+                            continue
+
+                        if len(values) < 5:
+                            continue
+
+                        try:
+
+                            timestamp = float(
+                                values[0]
+                            )
+
+                            open_price = float(
+                                values[1]
+                            )
+
+                            high_price = float(
+                                values[2]
+                            )
+
+                            low_price = float(
+                                values[3]
+                            )
+
+                            close_price = float(
+                                values[4]
+                            )
+
+                            volume = 0.0
+
+                            if (
+                                len(values) > 5
+                                and
+                                values[5] is not None
+                            ):
+
+                                volume = float(
+                                    values[5]
+                                )
+
+                            candles[timestamp] = {
+
+                                "time":
+                                    timestamp,
+
+                                "open":
+                                    open_price,
+
+                                "high":
+                                    high_price,
+
+                                "low":
+                                    low_price,
+
+                                "close":
+                                    close_price,
+
+                                "volume":
+                                    volume
+
+                            }
+
+                        except Exception:
+
+                            continue
+
+                # ------------------------------------------------
+                # SERIES COMPLETED
+                # ------------------------------------------------
+
+                elif method == "series_completed":
+
+                    series_completed = True
+
+                # ------------------------------------------------
+                # HATALAR
+                # ------------------------------------------------
+
+                elif method == "symbol_error":
+
+                    raise RuntimeError(
+                        "TradingView symbol_error: "
+                        + str(params)
+                    )
+
+                elif method == "series_error":
+
+                    raise RuntimeError(
+                        "TradingView series_error: "
+                        + str(params)
+                    )
+
+                elif method == "critical_error":
+
+                    raise RuntimeError(
+                        "TradingView critical_error: "
+                        + str(params)
+                    )
+
+            if (
+                len(candles) >= 30
+                and
+                series_completed
+            ):
+                break
+
+        if not candles:
+
+            raise RuntimeError(
+                "TradingView mum verisi gondermedi."
+            )
+
+        result = sorted(
+            candles.values(),
+            key=lambda x: x["time"]
+        )
+
         if len(result) < 20:
 
             raise RuntimeError(
                 "TradingView'dan sadece "
                 + str(len(result))
-                + " adet 2H mum geldi."
+                + " mum geldi."
             )
 
         return result
@@ -1004,7 +1443,7 @@ def get_last_completed_index(
             # son seansta 17:00'de baslayabilir ve 18:00'de biter.
             # Bu son bar nominal olarak 2 saatlik degildir.
             if (
-                candle_time.hour == 16
+                candle_time.hour == 17
                 and candle_time.minute == 0
             ):
                 candle_end = candle_time.replace(
