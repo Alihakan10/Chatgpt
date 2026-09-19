@@ -2009,10 +2009,11 @@ def build_telegram_message(
             )
         )
 
+        ticker = symbol.split(":", 1)[-1]
         tradingview_url = (
             "https://www.tradingview.com/chart/"
             + "?symbol=BIST%3A"
-            + symbol
+            + ticker
             + "&interval=120"
         )
 
@@ -2438,10 +2439,11 @@ def build_current_report_message(results):
         symbol = result["symbol"]
         price = format_price(result["price"])
 
+        ticker = symbol.split(":", 1)[-1]
         tradingview_url = (
             "https://www.tradingview.com/chart/"
             + "?symbol=BIST%3A"
-            + symbol
+            + ticker
             + "&interval=120"
         )
 
