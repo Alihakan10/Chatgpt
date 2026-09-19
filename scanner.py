@@ -2167,6 +2167,19 @@ def scan_symbol(
         )
 
         # ----------------------------------------------------
+        # TRADINGVIEW BUY SINYALI
+        #
+        # Bu, son tamamlanmis 2H mumunda TradingView
+        # Supertrend BUY etiketinin kosuludur.
+        # State'ten bagimsiz hesaplanir.
+        # ----------------------------------------------------
+
+        buy_signal = (
+            previous_direction == -1
+            and current_direction == 1
+        )
+
+        # ----------------------------------------------------
         # GITHUB'TAN ONCEKI DURUM
         # ----------------------------------------------------
 
@@ -2310,6 +2323,9 @@ def scan_symbol(
 
             "previous_direction":
                 previous_direction,
+
+            "buy_signal":
+                buy_signal,
 
             "previous_candle_time":
                 previous_candle["time"]
@@ -2659,7 +2675,7 @@ def main():
     log("")
 
     new_buy_results = []
-    current_buy_results = []
+    current_buy_signal_results = []
 
     success_count = 0
     error_count = 0
@@ -2698,8 +2714,10 @@ def main():
 
         success_count += 1
 
-        if result.get("direction") == 1:
-            current_buy_results.append(result)
+        # Sadece son tamamlanmis 2H mumunda gercek
+        # TradingView BUY kosulu olusanlari rapora al.
+        if result.get("buy_signal") is True:
+            current_buy_signal_results.append(result)
 
         if status == "new_buy":
 
@@ -2765,29 +2783,21 @@ def main():
 
     log("=" * 70)
 
-    # TEST RAPORU SADECE GERCEK YENI SAT -> AL SINYALLERINI GONDERIR.
-    # Mevcut AL durumlari kesinlikle rapora dahil edilmez.
-    if SEND_SCAN_REPORT and new_buy_results:
+    # TEST RAPORU SADECE SON TAMAMLANMIS 2H MUMUNDA
+    # GERCEK BUY SINYALI OLANLARI GOSTERIR.
+    # State'teki mevcut AL durumu rapora dahil edilmez.
+    if SEND_SCAN_REPORT and current_buy_signal_results:
 
         send_telegram(
             build_telegram_message(
-                new_buy_results
+                current_buy_signal_results
             )
         )
 
-        save_state(
-            state
-        )
-
         log(
-            "Sadece gercek yeni SAT -> AL sinyalleri Telegram'a gonderildi."
+            "Sadece son tamamlanmis 2H mumundaki "
+            "gercek BUY sinyalleri Telegram'a gonderildi."
         )
-
-        log(
-            "PROGRAM BASARIYLA TAMAMLANDI."
-        )
-
-        return
 
     # --------------------------------------------------------
     # STATE KAYDET
