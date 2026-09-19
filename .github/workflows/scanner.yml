@@ -61,7 +61,7 @@ permissions:
 
 concurrency:
   group: bist-supertrend-scanner
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   scan:
