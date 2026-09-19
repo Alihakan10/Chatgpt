@@ -1902,7 +1902,7 @@ def build_telegram_message(
 
     # BASLIK TAM OLARAK BU
     lines.append(
-        "SUPERTREND AL SİNYALİ VEREN HİSSELER"
+        "TRADINGVIEW BUY SİNYALİ VEREN HİSSELER"
     )
 
     lines.append("")
@@ -1934,7 +1934,7 @@ def build_telegram_message(
     )
 
     lines.append(
-        f"🟢 YENİ SAT → AL: "
+        f"🟢 BUY SİNYALI: "
         f"{len(results)} adet"
     )
 
@@ -1974,7 +1974,7 @@ def build_telegram_message(
 
         lines.append(
             '<a href="' + tradingview_url + '">'
-            + "✅ "
+            + "🟢 "
             + symbol
             + "</a>   "
             + price
