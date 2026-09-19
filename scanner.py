@@ -2943,22 +2943,51 @@ def main():
     # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
     if SEND_SCAN_REPORT:
 
-        if current_buy_signal_results:
+        # Aynı BUY mumunu tekrar Telegram'a gönderme.
+        # State tarama sırasında güncellendiği için mevcut BUY
+        # mumunu göndermeden önce her sonuç için bir önceki
+        # kayıtlı mum zamanını kontrol et.
+        report_buy_results = []
+
+        for result in current_buy_signal_results:
+
+            old_result = state.get(
+                result["symbol"]
+            )
+
+            old_candle_time = None
+
+            if isinstance(old_result, dict):
+
+                old_candle_time = old_result.get(
+                    "candle_time"
+                )
+
+            if (
+                old_candle_time is None
+                or
+                float(result["candle_time"])
+                != float(old_candle_time)
+            ):
+
+                report_buy_results.append(result)
+
+        if report_buy_results:
 
             send_telegram(
                 build_telegram_message(
-                    current_buy_signal_results
+                    report_buy_results
                 )
             )
 
             log(
-                "Sadece TradingView BUY sinyalleri Telegram'a gönderildi."
+                "Sadece yeni TradingView BUY sinyalleri Telegram'a gönderildi."
             )
 
         else:
 
             log(
-                "Son tamamlanmış 2H mumunda TradingView BUY sinyali bulunamadı."
+                "Yeni TradingView BUY sinyali yok; Telegram gönderilmeyecek."
             )
 
         save_state(state)
