@@ -553,7 +553,11 @@ def _investing_headers():
         "Accept": "application/json, text/plain, */*",
         "Referer": "https://www.investing.com/",
         "Origin": "https://www.investing.com",
-        "domain-id": "www",
+        "domain-id": "tr",
+        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-site",
         "DNT": "1",
     }
 
