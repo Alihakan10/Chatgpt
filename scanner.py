@@ -2388,6 +2388,69 @@ def update_state(
     }
 
 
+
+# ============================================================
+# MEVCUT AL DURUMU RAPORU
+# ============================================================
+
+def build_current_report_message(results):
+
+    now = now_istanbul()
+
+    lines = [
+        "SUPERTREND MEVCUT AL DURUMU",
+        "",
+        "📊 BIST 2 SAATLİK SUPERTREND",
+        "ATR Periyodu: " + str(ATR_PERIOD),
+        "ATR Çarpanı: " + f"{ATR_MULTIPLIER:g}",
+        "Kaynak: HL2 = (Yüksek + Düşük) / 2",
+        "",
+        "🕒 Tarama: " + now.strftime("%d.%m.%Y %H:%M"),
+        f"🟢 MEVCUT AL: {len(results)} adet",
+        "",
+    ]
+
+    for result in results:
+
+        symbol = result["symbol"]
+        price = format_price(result["price"])
+
+        tradingview_url = (
+            "https://www.tradingview.com/chart/"
+            + "?symbol=BIST%3A"
+            + symbol
+            + "&interval=120"
+        )
+
+        lines.append(
+            '<a href="' + tradingview_url + '">'
+            + "🟢 "
+            + symbol
+            + "</a>   "
+            + price
+            + " TL"
+        )
+
+        candle_dt = (
+            datetime.fromtimestamp(
+                result["candle_time"],
+                tz=ZoneInfo("UTC")
+            ).astimezone(
+                ZoneInfo(TIMEZONE)
+            )
+        )
+
+        lines.append(
+            "   Mum: " + candle_dt.strftime("%d.%m.%Y %H:%M")
+        )
+
+    lines.append("")
+    lines.append("Bu rapor mevcut AL durumlarını gösterir.")
+    lines.append("Yeni SAT → AL alarmı değildir.")
+
+    return "\n".join(lines)
+
+
 # ============================================================
 # ANA PROGRAM
 # ============================================================
@@ -2613,6 +2676,7 @@ def main():
     log("")
 
     new_buy_results = []
+    current_buy_results = []
 
     success_count = 0
     error_count = 0
@@ -2650,6 +2714,9 @@ def main():
             continue
 
         success_count += 1
+
+        if result.get("direction") == 1:
+            current_buy_results.append(result)
 
         if status == "new_buy":
 
@@ -2714,6 +2781,18 @@ def main():
     )
 
     log("=" * 70)
+
+    if SEND_SCAN_REPORT and current_buy_results:
+
+        send_telegram(
+            build_current_report_message(
+                current_buy_results
+            )
+        )
+
+        log(
+            "Mevcut AL durum raporu Telegram'a gonderildi."
+        )
 
     # --------------------------------------------------------
     # STATE KAYDET
