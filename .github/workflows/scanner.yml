@@ -32,7 +32,7 @@ on:
           - "true"
           - "false"
       send_scan_report:
-        description: "TEST RAPORU: MEVCUT BUY DURUMLARINI TELEGRAMA GONDER"
+        description: "TEST RAPORU: SADECE YENI BUY SINYALLERINI TELEGRAMA GONDER"
         required: true
         default: "false"
         type: choice
