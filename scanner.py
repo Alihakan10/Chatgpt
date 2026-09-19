@@ -641,7 +641,7 @@ def get_investing_instrument_id(symbol):
         response.raise_for_status()
 
         equity_match = re.search(
-            r'href=["\\'](/equities/[^"\\']+)["\\']',
+            r'href=[\"\'](/equities/.[^\"\']+)[\"\']',
             response.text,
             re.I
         )
