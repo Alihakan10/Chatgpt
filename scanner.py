@@ -1258,7 +1258,6 @@ def calculate_supertrend_directions(
     if len(candles) < (
         atr_period + 5
     ):
-
         return None
 
     atr = calculate_atr(
@@ -1266,12 +1265,12 @@ def calculate_supertrend_directions(
         atr_period
     )
 
-    upper_band = [
+    up_band = [
         None
         for _ in candles
     ]
 
-    lower_band = [
+    down_band = [
         None
         for _ in candles
     ]
@@ -1281,7 +1280,37 @@ def calculate_supertrend_directions(
         for _ in candles
     ]
 
+    # TradingView / KivancOzbilgic Supertrend:
+    # changeATR = true -> Wilder RMA ATR
+    # Source = HL2
+    # 1 = AL / UpTrend
+    # -1 = SAT / DownTrend
+
+    first = atr_period - 1
+
+    if atr[first] is None:
+        return None
+
+    hl2 = (
+        candles[first]["high"]
+        + candles[first]["low"]
+    ) / 2.0
+
+    up_band[first] = (
+        hl2
+        - multiplier * atr[first]
+    )
+
+    down_band[first] = (
+        hl2
+        + multiplier * atr[first]
+    )
+
+    # Kivanc script starts with trend = 1.
+    direction[first] = 1
+
     for i in range(
+        first + 1,
         len(candles)
     ):
 
@@ -1290,149 +1319,75 @@ def calculate_supertrend_directions(
 
         high = candles[i]["high"]
         low = candles[i]["low"]
-        close = candles[i]["close"]
 
-        # ----------------------------------------------------
-        # HL2
-        # ----------------------------------------------------
-
-        hl2 = (
+        src = (
             high + low
         ) / 2.0
 
-        basic_upper = (
-            hl2
-            +
-            multiplier * atr[i]
+        basic_up = (
+            src
+            - multiplier * atr[i]
         )
 
-        basic_lower = (
-            hl2
-            -
-            multiplier * atr[i]
+        basic_down = (
+            src
+            + multiplier * atr[i]
         )
 
-        if i == atr_period - 1:
+        prev_close = candles[i - 1]["close"]
 
-            upper_band[i] = (
-                basic_upper
+        prev_up = up_band[i - 1]
+
+        prev_down = down_band[i - 1]
+
+        if prev_up is None:
+            prev_up = basic_up
+
+        if prev_down is None:
+            prev_down = basic_down
+
+        # up := close[1] > up1 ? max(up, up1) : up
+        if prev_close > prev_up:
+            up_band[i] = max(
+                basic_up,
+                prev_up
             )
+        else:
+            up_band[i] = basic_up
 
-            lower_band[i] = (
-                basic_lower
+        # dn := close[1] < dn1 ? min(dn, dn1) : dn
+        if prev_close < prev_down:
+            down_band[i] = min(
+                basic_down,
+                prev_down
             )
+        else:
+            down_band[i] = basic_down
 
+        prev_direction = direction[i - 1]
+
+        if prev_direction is None:
+            prev_direction = 1
+
+        close = candles[i]["close"]
+
+        # EXACT Kivanc condition:
+        # trend == -1 and close > dn1 -> AL
+        # trend ==  1 and close < up1 -> SAT
+        if (
+            prev_direction == -1
+            and close > prev_down
+        ):
+            direction[i] = 1
+
+        elif (
+            prev_direction == 1
+            and close < prev_up
+        ):
             direction[i] = -1
 
-            continue
-
-        previous_close = (
-            candles[i - 1]["close"]
-        )
-
-        previous_upper = (
-            upper_band[i - 1]
-        )
-
-        previous_lower = (
-            lower_band[i - 1]
-        )
-
-        previous_direction = (
-            direction[i - 1]
-        )
-
-        if previous_upper is None:
-
-            previous_upper = (
-                basic_upper
-            )
-
-        if previous_lower is None:
-
-            previous_lower = (
-                basic_lower
-            )
-
-        if previous_direction is None:
-
-            previous_direction = -1
-
-        # ----------------------------------------------------
-        # UPPER BAND
-        # ----------------------------------------------------
-
-        if (
-
-            basic_upper <
-            previous_upper
-
-            or
-
-            previous_close >
-            previous_upper
-
-        ):
-
-            upper_band[i] = (
-                basic_upper
-            )
-
         else:
-
-            upper_band[i] = (
-                previous_upper
-            )
-
-        # ----------------------------------------------------
-        # LOWER BAND
-        # ----------------------------------------------------
-
-        if (
-
-            basic_lower >
-            previous_lower
-
-            or
-
-            previous_close <
-            previous_lower
-
-        ):
-
-            lower_band[i] = (
-                basic_lower
-            )
-
-        else:
-
-            lower_band[i] = (
-                previous_lower
-            )
-
-        # ----------------------------------------------------
-        # TREND
-        # ----------------------------------------------------
-
-        if previous_direction == -1:
-
-            if close > upper_band[i]:
-
-                direction[i] = 1
-
-            else:
-
-                direction[i] = -1
-
-        else:
-
-            if close < lower_band[i]:
-
-                direction[i] = -1
-
-            else:
-
-                direction[i] = 1
+            direction[i] = prev_direction
 
     return direction
 
