@@ -34,7 +34,7 @@ on:
       send_scan_report:
         description: "TEST RAPORU: SADECE YENI BUY SINYALLERINI TELEGRAMA GONDER"
         required: true
-        default: "false"
+        default: "true"
         type: choice
         options:
           - "true"
@@ -43,7 +43,7 @@ on:
       scan_limit:
         description: "TARAMA HISSE SAYISI"
         required: true
-        default: "200"
+        default: "620"
         type: choice
         options:
           - "200"
@@ -94,6 +94,6 @@ jobs:
           TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
           SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
           FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
-          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'false' }}
+          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
           SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
         run: python scanner.py
