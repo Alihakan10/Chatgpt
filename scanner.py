@@ -117,6 +117,29 @@ SEND_TEST_TELEGRAM = (
     )
 )
 
+SEND_SCAN_REPORT = (
+    os.getenv(
+        "SEND_SCAN_REPORT",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
+SCAN_LIMIT_TEXT = os.getenv(
+    "SCAN_LIMIT",
+    "620"
+)
+
+try:
+    SCAN_LIMIT = int(SCAN_LIMIT_TEXT)
+except ValueError:
+    SCAN_LIMIT = 620
+
 # ------------------------------------------------------------
 # MANUEL TARAMA
 #
@@ -2642,6 +2665,9 @@ def main():
     # --------------------------------------------------------
 
     symbols = get_bist_symbols()
+
+    if SCAN_LIMIT > 0:
+        symbols = symbols[:SCAN_LIMIT]
 
     total = len(symbols)
 
