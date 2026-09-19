@@ -61,7 +61,8 @@ TV_SCANNER_URL = (
 
 # Investing.com HTTP veri kaynagi
 INVESTING_SEARCH_URL = "https://api.investing.com/api/search/v2/search"
-INVESTING_CHART_URL = "https://api.investing.com/api/financialdata/{}/historical/chart/"
+INVESTING_CHART_URL = "https://tvc6.investing.com/d8f62270e64f9eb6e4e6a07c3ffeab0b/1729428526/9/9/16/history"
+INVESTING_HISTORY_DAYS = 45
 INVESTING_TIMEOUT = 30
 INVESTING_POINTS = 120
 INVESTING_ID_FILE = "state/investing_ids.json"
@@ -624,38 +625,65 @@ def _find_investing_quote(obj, symbol):
 
 def get_investing_instrument_id(symbol):
     ticker = symbol.split(":")[-1].upper()
-
-    queries = [
-        f"{INVESTING_SEARCH_URL}?q={ticker}",
-        "https://api.investing.com/api/search/?t=Equities&q=" + ticker,
-    ]
-
     last_error = None
 
-    for url in queries:
-        try:
-            data = _investing_get(url)
-            instrument_id = _find_investing_quote(
-                data,
-                ticker
-            )
+    try:
+        from curl_cffi import requests as curl_requests
+        import re
 
-            if instrument_id:
-                return instrument_id
+        search_url = "https://www.investing.com/search/?q=" + ticker
+        response = curl_requests.get(
+            search_url,
+            headers=_investing_headers(),
+            impersonate="chrome",
+            timeout=INVESTING_TIMEOUT,
+        )
+        response.raise_for_status()
 
-        except Exception as exc:
-            last_error = exc
+        equity_match = re.search(
+            r'href=["\\'](/equities/[^"\\']+)["\\']',
+            response.text,
+            re.I
+        )
+
+        if not equity_match:
+            raise RuntimeError("Investing hisse sayfasi bulunamadi.")
+
+        page_url = "https://www.investing.com" + equity_match.group(1)
+
+        page = curl_requests.get(
+            page_url,
+            headers=_investing_headers(),
+            impersonate="chrome",
+            timeout=INVESTING_TIMEOUT,
+        )
+        page.raise_for_status()
+
+        patterns = [
+            r'instrument_id\\?"\\?:\\?"(\\d+)',
+            r'instrument_id["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
+            r'pair_id["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
+            r'pairId["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
+            r'name=["\\']item_ID["\\'][^>]*value=["\\'](\\d+)',
+            r'data-pair-id=["\\'](\\d+)',
+        ]
+
+        for pattern in patterns:
+            match = re.search(pattern, page.text, re.I)
+            if match:
+                return match.group(1)
+
+        raise RuntimeError("Investing enstruman ID sayfada bulunamadi.")
+
+    except Exception as exc:
+        last_error = exc
 
     raise RuntimeError(
         "Investing enstruman ID bulunamadi: "
         + ticker
-        + (
-            " ("
-            + str(last_error)
-            + ")"
-            if last_error
-            else ""
-        )
+        + " ("
+        + str(last_error)
+        + ")"
     )
 
 
@@ -866,20 +894,59 @@ def get_investing_candles(symbol, instrument_id=None):
             get_investing_instrument_id(symbol)
         )
 
+    now_ts = int(time.time())
+    from_ts = now_ts - (INVESTING_HISTORY_DAYS * 86400)
+
     params = {
-        "period": "P1M",
-        "interval": "PT1H",
-        "pointscount": str(INVESTING_POINTS),
+        "symbol": str(instrument_id),
+        "resolution": "60",
+        "from": str(from_ts),
+        "to": str(now_ts),
     }
 
-    data = _investing_get(
-        INVESTING_CHART_URL.format(
-            instrument_id
-        ),
+    from curl_cffi import requests as curl_requests
+
+    response = curl_requests.get(
+        INVESTING_CHART_URL,
         params=params,
+        headers=_investing_headers(),
+        impersonate="chrome",
+        timeout=INVESTING_TIMEOUT,
     )
 
-    rows = data.get("data", [])
+    if response.status_code != 200:
+        raise RuntimeError(
+            "Investing chart HTTP "
+            + str(response.status_code)
+            + ": "
+            + response.text[:300]
+        )
+
+    data = response.json()
+
+    if data.get("s") == "no_data":
+        return []
+
+    times = data.get("t", [])
+    opens = data.get("o", [])
+    highs = data.get("h", [])
+    lows = data.get("l", [])
+    closes = data.get("c", [])
+    volumes = data.get("v", [])
+
+    rows = []
+    for i in range(min(
+        len(times), len(opens), len(highs),
+        len(lows), len(closes)
+    )):
+        rows.append([
+            times[i],
+            opens[i],
+            highs[i],
+            lows[i],
+            closes[i],
+            volumes[i] if i < len(volumes) else 0,
+        ])
 
     candles_1h = []
 
