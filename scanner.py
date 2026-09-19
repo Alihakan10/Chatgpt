@@ -50,7 +50,8 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 5000
+SOURCE_TIMEFRAME = "60"
+CANDLE_COUNT = 10000
 
 # ------------------------------------------------------------
 # TRADINGVIEW
@@ -695,7 +696,7 @@ def get_tv_candles(symbol):
                     "sds_1",
                     "s1",
                     "sds_sym_1",
-                    TIMEFRAME,
+                    SOURCE_TIMEFRAME,
                     CANDLE_COUNT,
                     ""
                 ]
@@ -1141,12 +1142,15 @@ def get_tv_candles(symbol):
             key=lambda x: x["time"]
         )
 
+        if SOURCE_TIMEFRAME == "60":
+            result = aggregate_bist_1h_to_2h(result)
+
         if len(result) < 20:
 
             raise RuntimeError(
                 "TradingView'dan sadece "
                 + str(len(result))
-                + " mum geldi."
+                + " adet 2H mum geldi."
             )
 
         return result
@@ -1159,6 +1163,57 @@ def get_tv_candles(symbol):
                 ws.close()
             except Exception:
                 pass
+
+
+# ============================================================
+# BIST 1H -> 2H MUM BİRLEŞTİRME
+# ============================================================
+
+def aggregate_bist_1h_to_2h(candles):
+
+    grouped = {}
+
+    for candle in candles:
+        try:
+            dt = datetime.fromtimestamp(
+                candle["time"],
+                tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+
+            if dt.weekday() >= 5 or dt.hour < 10 or dt.hour >= 18:
+                continue
+
+            if dt.minute != 0:
+                continue
+
+            block_hour = 10 + ((dt.hour - 10) // 2) * 2
+            key = (dt.date(), block_hour)
+            grouped.setdefault(key, []).append(candle)
+
+        except Exception:
+            continue
+
+    result = []
+
+    for key in sorted(grouped):
+        bars = sorted(grouped[key], key=lambda x: x["time"])
+
+        if len(bars) != 2:
+            continue
+
+        first = bars[0]
+        last = bars[-1]
+
+        result.append({
+            "time": first["time"],
+            "open": first["open"],
+            "high": max(x["high"] for x in bars),
+            "low": min(x["low"] for x in bars),
+            "close": last["close"],
+            "volume": sum(x.get("volume", 0.0) for x in bars)
+        })
+
+    return result
 
 
 # ============================================================
@@ -1443,7 +1498,7 @@ def get_last_completed_index(
             # son seansta 17:00'de baslayabilir ve 18:00'de biter.
             # Bu son bar nominal olarak 2 saatlik degildir.
             if (
-                candle_time.hour == 17
+                candle_time.hour == 16
                 and candle_time.minute == 0
             ):
                 candle_end = candle_time.replace(
