@@ -642,7 +642,8 @@ def get_tv_candles(symbol):
 
             {
                 "symbol": symbol,
-                "adjustment": "splits"
+                "adjustment": "splits",
+                "session": "regular"
             },
 
             separators=(",", ":")
@@ -697,6 +698,17 @@ def get_tv_candles(symbol):
                     TIMEFRAME,
                     CANDLE_COUNT,
                     ""
+                ]
+            )
+        )
+
+        # TradingView chart ile aynı borsa saat dilimini kullan.
+        ws.send(
+            tv_message(
+                "switch_timezone",
+                [
+                    chart_session,
+                    "exchange"
                 ]
             )
         )
@@ -2782,22 +2794,6 @@ def main():
     )
 
     log("=" * 70)
-
-    # TEST RAPORU SADECE SON TAMAMLANMIS 2H MUMUNDA
-    # GERCEK BUY SINYALI OLANLARI GOSTERIR.
-    # State'teki mevcut AL durumu rapora dahil edilmez.
-    if SEND_SCAN_REPORT and current_buy_signal_results:
-
-        send_telegram(
-            build_telegram_message(
-                current_buy_signal_results
-            )
-        )
-
-        log(
-            "Sadece son tamamlanmis 2H mumundaki "
-            "gercek BUY sinyalleri Telegram'a gonderildi."
-        )
 
     # --------------------------------------------------------
     # SADECE TRADINGVIEW BUY RAPORU MODU
