@@ -60,7 +60,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: bist-supertrend-scanner
+  group: bist-supertrend-scanner-v2
   cancel-in-progress: true
 
 jobs:
