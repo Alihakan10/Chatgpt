@@ -35,6 +35,7 @@ import websocket
 
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
 # ============================================================
@@ -2835,12 +2836,12 @@ def main():
 
     # --------------------------------------------------------
     # TARAMA
-    # --------------------------------------------------------
+    #
+    # TradingView bağlantılarını kontrollü paralel çalıştır.
+    # Böylece 620 hisse tek tek beklemez.
 
-    for number, symbol in enumerate(
-        symbols,
-        start=1
-    ):
+    def run_one(item):
+        number, symbol = item
 
         log(
             f"[{number}/{total}] {symbol}"
@@ -2851,6 +2852,41 @@ def main():
             state
         )
 
+        time.sleep(
+            SYMBOL_DELAY
+        )
+
+        return result
+
+    scan_items = list(
+        enumerate(
+            symbols,
+            start=1
+        )
+    )
+
+    results = []
+
+    with ThreadPoolExecutor(
+        max_workers=8
+    ) as executor:
+
+        futures = [
+            executor.submit(
+                run_one,
+                item
+            )
+            for item in scan_items
+        ]
+
+        for future in as_completed(futures):
+
+            results.append(
+                future.result()
+            )
+
+    for result in results:
+
         status = result.get(
             "status"
         )
@@ -2860,17 +2896,17 @@ def main():
             error_count += 1
 
             log(
-                "    >>> HATA"
+                f"{result.get('symbol')} -> HATA"
             )
 
             continue
 
         success_count += 1
 
-        # Sadece son tamamlanmis 2H mumunda gercek
-        # TradingView BUY kosulu olusanlari rapora al.
         if result.get("buy_signal") is True:
-            current_buy_signal_results.append(result)
+            current_buy_signal_results.append(
+                result
+            )
 
         if status == "new_buy":
 
@@ -2879,29 +2915,16 @@ def main():
             )
 
             log(
-                "    >>>>>> YENI SAT -> AL <<<<<<"
-            )
-
-            log(
-                "    Fiyat: "
-                +
+                f">>>>>> YENI SAT -> AL: "
+                f"{result['symbol']} | "
                 f"{result['price']:.2f} TL"
             )
-
-        # ----------------------------------------------------
-        # STATE GUNCELLE
-        # ----------------------------------------------------
 
         update_state(
             state,
             result
         )
 
-        time.sleep(
-            SYMBOL_DELAY
-        )
-
-    # --------------------------------------------------------
     # SONUCLAR
     # --------------------------------------------------------
 
