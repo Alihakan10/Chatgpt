@@ -2179,6 +2179,133 @@ def scan_symbol(
         )
 
         # ----------------------------------------------------
+        # DEBUG: TEST MODU
+        # ----------------------------------------------------
+        if TEST_MODE:
+            debug_atr = calculate_atr(
+                calculation_candles,
+                ATR_PERIOD
+            )
+
+            debug_up = [None for _ in calculation_candles]
+            debug_dn = [None for _ in calculation_candles]
+
+            debug_first = ATR_PERIOD - 1
+
+            if (
+                debug_first < len(calculation_candles)
+                and debug_atr[debug_first] is not None
+            ):
+                debug_src = (
+                    calculation_candles[debug_first]["high"]
+                    + calculation_candles[debug_first]["low"]
+                ) / 2.0
+
+                debug_up[debug_first] = (
+                    debug_src
+                    - ATR_MULTIPLIER * debug_atr[debug_first]
+                )
+
+                debug_dn[debug_first] = (
+                    debug_src
+                    + ATR_MULTIPLIER * debug_atr[debug_first]
+                )
+
+                for debug_i in range(
+                    debug_first + 1,
+                    len(calculation_candles)
+                ):
+                    if debug_atr[debug_i] is None:
+                        continue
+
+                    debug_src = (
+                        calculation_candles[debug_i]["high"]
+                        + calculation_candles[debug_i]["low"]
+                    ) / 2.0
+
+                    debug_basic_up = (
+                        debug_src
+                        - ATR_MULTIPLIER * debug_atr[debug_i]
+                    )
+
+                    debug_basic_dn = (
+                        debug_src
+                        + ATR_MULTIPLIER * debug_atr[debug_i]
+                    )
+
+                    debug_prev_close = calculation_candles[debug_i - 1]["close"]
+                    debug_prev_up = debug_up[debug_i - 1]
+                    debug_prev_dn = debug_dn[debug_i - 1]
+
+                    if debug_prev_up is None:
+                        debug_prev_up = debug_basic_up
+
+                    if debug_prev_dn is None:
+                        debug_prev_dn = debug_basic_dn
+
+                    debug_up[debug_i] = (
+                        max(debug_basic_up, debug_prev_up)
+                        if debug_prev_close > debug_prev_up
+                        else debug_basic_up
+                    )
+
+                    debug_dn[debug_i] = (
+                        min(debug_basic_dn, debug_prev_dn)
+                        if debug_prev_close < debug_prev_dn
+                        else debug_basic_dn
+                    )
+
+            log("    ===== DEBUG SUPERTREND =====")
+            log(
+                f"    DEBUG tamamlanmis_index={completed_index} "
+                f"mum_sayisi={len(calculation_candles)}"
+            )
+
+            debug_start = max(0, completed_index - 5)
+
+            for debug_i in range(
+                debug_start,
+                completed_index + 1
+            ):
+                debug_candle = calculation_candles[debug_i]
+                debug_dt = (
+                    datetime.fromtimestamp(
+                        debug_candle["time"],
+                        tz=ZoneInfo("UTC")
+                    )
+                    .astimezone(ZoneInfo(TIMEZONE))
+                )
+
+                log(
+                    f"    DEBUG {debug_dt.strftime('%d.%m.%Y %H:%M')} | "
+                    f"O={debug_candle['open']:.4f} "
+                    f"H={debug_candle['high']:.4f} "
+                    f"L={debug_candle['low']:.4f} "
+                    f"C={debug_candle['close']:.4f} "
+                    f"ATR={debug_atr[debug_i]:.6f}"
+                    if debug_atr[debug_i] is not None
+                    else
+                    f"    DEBUG {debug_dt.strftime('%d.%m.%Y %H:%M')} | "
+                    f"O={debug_candle['open']:.4f} "
+                    f"H={debug_candle['high']:.4f} "
+                    f"L={debug_candle['low']:.4f} "
+                    f"C={debug_candle['close']:.4f} ATR=None"
+                )
+
+                if debug_atr[debug_i] is not None:
+                    log(
+                        f"    DEBUG direction={directions[debug_i]} "
+                        f"up={debug_up[debug_i]:.6f} "
+                        f"dn={debug_dn[debug_i]:.6f}"
+                    )
+
+            log(
+                f"    DEBUG PREV_DIRECTION={previous_direction} "
+                f"CURRENT_DIRECTION={current_direction}"
+            )
+            log("    ===== DEBUG SUPERTREND BITTI =====")
+
+        # ----------------------------------------------------
         # TRADINGVIEW BUY SINYALI
         #
         # Bu, son tamamlanmis 2H mumunda TradingView
