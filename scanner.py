@@ -641,7 +641,7 @@ def get_investing_instrument_id(symbol):
         response.raise_for_status()
 
         equity_match = re.search(
-            r'href=[\"\'](/equities/.[^\"\']+)[\"\']',
+            r"""href=["'](/equities/[^"']+)["']""",
             response.text,
             re.I
         )
@@ -660,12 +660,11 @@ def get_investing_instrument_id(symbol):
         page.raise_for_status()
 
         patterns = [
-            r'instrument_id\\?"\\?:\\?"(\\d+)',
-            r'instrument_id["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
-            r'pair_id["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
-            r'pairId["\\']?\\s*[:=]\\s*["\\']?(\\d+)',
-            r'name=["\\']item_ID["\\'][^>]*value=["\\'](\\d+)',
-            r'data-pair-id=["\\'](\\d+)',
+            r"""instrument_id\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
+            r"""pair_id\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
+            r"""pairId\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
+            r"""name=["']item_ID["'][^>]*value=["'](\\d+)""",
+            r"""data-pair-id=["'](\\d+)""",
         ]
 
         for pattern in patterns:
