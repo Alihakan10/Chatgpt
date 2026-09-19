@@ -31,6 +31,7 @@ import string
 import math
 import base64
 import requests
+import websocket
 
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -59,14 +60,11 @@ TV_SCANNER_URL = (
     "https://scanner.tradingview.com/turkey/scan"
 )
 
-# Investing.com HTTP veri kaynagi
-INVESTING_SEARCH_URL = "https://api.investing.com/api/search/v2/search"
-INVESTING_CHART_URL = "https://tvc6.investing.com/d8f62270e64f9eb6e4e6a07c3ffeab0b/1729428526/9/9/16/history"
-INVESTING_HISTORY_DAYS = 45
-INVESTING_TIMEOUT = 30
-INVESTING_POINTS = 120
-INVESTING_ID_FILE = "state/investing_ids.json"
+TV_WS_URL = (
+    "wss://data.tradingview.com/socket.io/websocket"
+)
 
+WS_TIMEOUT = 10
 REQUEST_TIMEOUT = 20
 SYMBOL_DELAY = 0.05
 
@@ -109,19 +107,6 @@ TEST_SYMBOLS = [
 SEND_TEST_TELEGRAM = (
     os.getenv(
         "SEND_TEST_TELEGRAM",
-        "false"
-    ).lower()
-    in (
-        "1",
-        "true",
-        "yes",
-        "on"
-    )
-)
-
-SEND_SCAN_REPORT = (
-    os.getenv(
-        "SEND_SCAN_REPORT",
         "false"
     ).lower()
     in (
@@ -542,494 +527,607 @@ def get_bist_symbols():
 
 
 # ============================================================
-# INVESTING.COM MUM VERISI
+# TRADINGVIEW MUM VERISI
 # ============================================================
 
-def _investing_headers():
-    return {
-        "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/128.0 Safari/537.36",
-        "Accept": "application/json, text/plain, */*",
-        "Referer": "https://www.investing.com/",
-        "Origin": "https://www.investing.com",
-        "domain-id": "tr",
-        "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-site",
-        "DNT": "1",
-    }
+def get_tv_candles(symbol):
 
+    ws = None
 
-def _investing_get(url, params=None):
+    chart_session = random_session("cs")
+    quote_session = random_session("qs")
+
     try:
-        from curl_cffi import requests as curl_requests
-    except ImportError:
-        raise RuntimeError(
-            "curl_cffi kurulu degil. requirements.txt kontrol edilmeli."
+
+        log(
+            f"    TradingView veri baglantisi: {symbol}"
         )
 
-    response = curl_requests.get(
-        url,
-        params=params,
-        headers=_investing_headers(),
-        impersonate="chrome",
-        timeout=INVESTING_TIMEOUT,
-    )
+        ws = websocket.create_connection(
 
-    if response.status_code != 200:
-        raise RuntimeError(
-            "Investing HTTP "
-            + str(response.status_code)
-            + ": "
-            + response.text[:300]
+            TV_WS_URL,
+
+            timeout=WS_TIMEOUT,
+
+            origin="https://data.tradingview.com"
+
         )
 
-    return response.json()
+        # ----------------------------------------------------
+        # AUTH
+        # ----------------------------------------------------
 
+        ws.send(
+            tv_message(
+                "set_auth_token",
+                [
+                    "unauthorized_user_token"
+                ]
+            )
+        )
 
-def _find_investing_quote(obj, symbol):
-    target = symbol.split(":")[-1].upper()
+        # ----------------------------------------------------
+        # CHART SESSION
+        # ----------------------------------------------------
 
-    if isinstance(obj, dict):
-        candidate_symbol = str(
-            obj.get("symbol", "")
-        ).upper()
+        ws.send(
+            tv_message(
+                "chart_create_session",
+                [
+                    chart_session,
+                    ""
+                ]
+            )
+        )
 
-        if candidate_symbol == target:
-            candidate_id = (
-                obj.get("id")
-                or obj.get("pair_ID")
-                or obj.get("pair_id")
-                or obj.get("instrument_id")
+        # ----------------------------------------------------
+        # QUOTE SESSION
+        # ----------------------------------------------------
+
+        ws.send(
+            tv_message(
+                "quote_create_session",
+                [
+                    quote_session
+                ]
+            )
+        )
+
+        # ----------------------------------------------------
+        # QUOTE FIELDS
+        # ----------------------------------------------------
+
+        ws.send(
+            tv_message(
+                "quote_set_fields",
+                [
+                    quote_session,
+                    "lp",
+                    "volume",
+                    "ch",
+                    "chp"
+                ]
+            )
+        )
+
+        # ----------------------------------------------------
+        # SYMBOL CONFIG
+        # ----------------------------------------------------
+
+        symbol_config = json.dumps(
+
+            {
+                "symbol": symbol,
+                "adjustment": "splits"
+            },
+
+            separators=(",", ":")
+
+        )
+
+        resolve_symbol = (
+            "=" + symbol_config
+        )
+
+        # ----------------------------------------------------
+        # QUOTE SYMBOL
+        # ----------------------------------------------------
+
+        ws.send(
+            tv_message(
+                "quote_add_symbols",
+                [
+                    quote_session,
+                    symbol
+                ]
+            )
+        )
+
+        # ----------------------------------------------------
+        # RESOLVE SYMBOL
+        # ----------------------------------------------------
+
+        ws.send(
+            tv_message(
+                "resolve_symbol",
+                [
+                    chart_session,
+                    "sds_sym_1",
+                    resolve_symbol
+                ]
+            )
+        )
+
+        # ----------------------------------------------------
+        # CREATE SERIES
+        # ----------------------------------------------------
+
+        ws.send(
+            tv_message(
+                "create_series",
+                [
+                    chart_session,
+                    "sds_1",
+                    "s1",
+                    "sds_sym_1",
+                    TIMEFRAME,
+                    CANDLE_COUNT,
+                    ""
+                ]
+            )
+        )
+
+        candles = {}
+        raw_buffer = ""
+
+        start_time = time.time()
+        series_completed = False
+
+        while (
+            time.time() - start_time
+            < WS_TIMEOUT
+        ):
+
+            try:
+
+                packet = ws.recv()
+
+            except websocket.WebSocketTimeoutException:
+
+                break
+
+            except Exception as e:
+
+                raise RuntimeError(
+                    "WebSocket recv hatasi: "
+                    + str(e)
+                )
+
+            if packet is None:
+                break
+
+            if isinstance(
+                packet,
+                bytes
+            ):
+
+                packet = packet.decode(
+                    "utf-8",
+                    errors="ignore"
+                )
+
+            raw_buffer += packet
+
+            messages, raw_buffer = (
+                extract_tv_messages(
+                    raw_buffer
+                )
             )
 
-            if candidate_id is not None:
-                return str(candidate_id)
+            for full_frame, payload in messages:
 
-        for value in obj.values():
-            found = _find_investing_quote(value, symbol)
-            if found:
-                return found
+                # ------------------------------------------------
+                # HEARTBEAT
+                # ------------------------------------------------
 
-    elif isinstance(obj, list):
-        for value in obj:
-            found = _find_investing_quote(value, symbol)
-            if found:
-                return found
+                if payload.startswith("~h~"):
 
-    return None
+                    try:
+                        ws.send(
+                            full_frame
+                        )
+                    except Exception:
+                        pass
 
+                    continue
 
-def get_investing_instrument_id(symbol):
-    ticker = symbol.split(":")[-1].upper()
+                # ------------------------------------------------
+                # JSON
+                # ------------------------------------------------
 
-    # Investing arama API'si GitHub Actions ortaminda 403 veriyor.
-    # Test icin ZOREN'in dogrudan hisse sayfasini kullan.
-    direct_pages = {
-        "ZOREN": "https://www.investing.com/equities/zorlu-enerji",
-    }
+                try:
 
-    page_url = direct_pages.get(ticker)
+                    obj = json.loads(
+                        payload
+                    )
 
-    if not page_url:
-        raise RuntimeError(
-            "Investing dogrudan sayfa eslesmesi yok: " + ticker
-        )
+                except Exception:
 
-    try:
-        from curl_cffi import requests as curl_requests
-        import re
+                    continue
 
-        page = curl_requests.get(
-            page_url,
-            headers=_investing_headers(),
-            impersonate="chrome",
-            timeout=INVESTING_TIMEOUT,
-        )
+                method = obj.get("m")
+                params = obj.get("p", [])
 
-        if page.status_code != 200:
+                # ------------------------------------------------
+                # DU
+                # ------------------------------------------------
+
+                if method == "du":
+
+                    if len(params) < 2:
+                        continue
+
+                    data_container = params[1]
+
+                    if not isinstance(
+                        data_container,
+                        dict
+                    ):
+                        continue
+
+                    series_data = (
+                        data_container.get(
+                            "sds_1"
+                        )
+                    )
+
+                    if series_data is None:
+
+                        for value in (
+                            data_container.values()
+                        ):
+
+                            if isinstance(
+                                value,
+                                dict
+                            ):
+
+                                if "s" in value:
+
+                                    series_data = value
+                                    break
+
+                    if not isinstance(
+                        series_data,
+                        dict
+                    ):
+                        continue
+
+                    bars = series_data.get(
+                        "s",
+                        []
+                    )
+
+                    if not isinstance(
+                        bars,
+                        list
+                    ):
+                        continue
+
+                    for bar in bars:
+
+                        if not isinstance(
+                            bar,
+                            dict
+                        ):
+                            continue
+
+                        values = bar.get("v")
+
+                        if not isinstance(
+                            values,
+                            list
+                        ):
+                            continue
+
+                        if len(values) < 5:
+                            continue
+
+                        try:
+
+                            timestamp = float(
+                                values[0]
+                            )
+
+                            open_price = float(
+                                values[1]
+                            )
+
+                            high_price = float(
+                                values[2]
+                            )
+
+                            low_price = float(
+                                values[3]
+                            )
+
+                            close_price = float(
+                                values[4]
+                            )
+
+                            volume = 0.0
+
+                            if (
+                                len(values) > 5
+                                and
+                                values[5] is not None
+                            ):
+
+                                try:
+
+                                    volume = float(
+                                        values[5]
+                                    )
+
+                                except Exception:
+
+                                    volume = 0.0
+
+                            numbers = [
+                                timestamp,
+                                open_price,
+                                high_price,
+                                low_price,
+                                close_price
+                            ]
+
+                            if not all(
+                                math.isfinite(x)
+                                for x in numbers
+                            ):
+                                continue
+
+                            if (
+                                high_price <
+                                low_price
+                            ):
+                                continue
+
+                            candles[timestamp] = {
+
+                                "time":
+                                    timestamp,
+
+                                "open":
+                                    open_price,
+
+                                "high":
+                                    high_price,
+
+                                "low":
+                                    low_price,
+
+                                "close":
+                                    close_price,
+
+                                "volume":
+                                    volume
+
+                            }
+
+                        except Exception:
+
+                            continue
+
+                # ------------------------------------------------
+                # TIMESCALE UPDATE
+                # ------------------------------------------------
+
+                elif method == "timescale_update":
+
+                    if len(params) < 2:
+                        continue
+
+                    data_container = params[1]
+
+                    if not isinstance(
+                        data_container,
+                        dict
+                    ):
+                        continue
+
+                    series_data = (
+                        data_container.get(
+                            "sds_1"
+                        )
+                    )
+
+                    if series_data is None:
+
+                        for value in (
+                            data_container.values()
+                        ):
+
+                            if isinstance(
+                                value,
+                                dict
+                            ):
+
+                                if "s" in value:
+
+                                    series_data = value
+                                    break
+
+                    if not isinstance(
+                        series_data,
+                        dict
+                    ):
+                        continue
+
+                    bars = series_data.get(
+                        "s",
+                        []
+                    )
+
+                    if not isinstance(
+                        bars,
+                        list
+                    ):
+                        continue
+
+                    for bar in bars:
+
+                        if not isinstance(
+                            bar,
+                            dict
+                        ):
+                            continue
+
+                        values = bar.get("v")
+
+                        if not isinstance(
+                            values,
+                            list
+                        ):
+                            continue
+
+                        if len(values) < 5:
+                            continue
+
+                        try:
+
+                            timestamp = float(
+                                values[0]
+                            )
+
+                            open_price = float(
+                                values[1]
+                            )
+
+                            high_price = float(
+                                values[2]
+                            )
+
+                            low_price = float(
+                                values[3]
+                            )
+
+                            close_price = float(
+                                values[4]
+                            )
+
+                            volume = 0.0
+
+                            if (
+                                len(values) > 5
+                                and
+                                values[5] is not None
+                            ):
+
+                                volume = float(
+                                    values[5]
+                                )
+
+                            candles[timestamp] = {
+
+                                "time":
+                                    timestamp,
+
+                                "open":
+                                    open_price,
+
+                                "high":
+                                    high_price,
+
+                                "low":
+                                    low_price,
+
+                                "close":
+                                    close_price,
+
+                                "volume":
+                                    volume
+
+                            }
+
+                        except Exception:
+
+                            continue
+
+                # ------------------------------------------------
+                # SERIES COMPLETED
+                # ------------------------------------------------
+
+                elif method == "series_completed":
+
+                    series_completed = True
+
+                # ------------------------------------------------
+                # HATALAR
+                # ------------------------------------------------
+
+                elif method == "symbol_error":
+
+                    raise RuntimeError(
+                        "TradingView symbol_error: "
+                        + str(params)
+                    )
+
+                elif method == "series_error":
+
+                    raise RuntimeError(
+                        "TradingView series_error: "
+                        + str(params)
+                    )
+
+                elif method == "critical_error":
+
+                    raise RuntimeError(
+                        "TradingView critical_error: "
+                        + str(params)
+                    )
+
+            if (
+                len(candles) >= 30
+                and
+                series_completed
+            ):
+                break
+
+        if not candles:
+
             raise RuntimeError(
-                "HTTP Error " + str(page.status_code)
+                "TradingView mum verisi gondermedi."
             )
 
-        patterns = [
-            r"""instrument_id\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
-            r"""pair_id\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
-            r"""pairId\\?["']?\\s*[:=]\\s*["']?(\\d+)""",
-            r"""item_ID["']?\\s*[:=]\\s*["']?(\\d+)""",
-            r"""data-pair-id=["'](\\d+)""",
-        ]
-
-        for pattern in patterns:
-            match = re.search(pattern, page.text, re.I)
-            if match:
-                return match.group(1)
-
-        # Sayfanin JSON-LD/HTML yapisinda sayisal ID ara.
-        fallback_patterns = [
-            r"""instrumentId["']?\\s*[:=]\\s*["']?(\\d+)""",
-            r"""pairID["']?\\s*[:=]\\s*["']?(\\d+)""",
-        ]
-
-        for pattern in fallback_patterns:
-            match = re.search(pattern, page.text, re.I)
-            if match:
-                return match.group(1)
-
-        raise RuntimeError(
-            "Investing enstruman ID sayfada bulunamadi."
-        )
-
-    except Exception as exc:
-        raise RuntimeError(
-            "Investing enstruman ID bulunamadi: "
-            + ticker
-            + " ("
-            + str(exc)
-            + ")"
-        )
-
-
-def load_investing_ids():
-    if not GITHUB_TOKEN or not GITHUB_REPOSITORY:
-        return {}
-
-    url = (
-        "https://api.github.com/repos/"
-        + GITHUB_REPOSITORY
-        + "/contents/"
-        + INVESTING_ID_FILE
-        + "?ref="
-        + GITHUB_REF_NAME
-    )
-
-    try:
-        response = requests.get(
-            url,
-            headers=github_headers(),
-            timeout=REQUEST_TIMEOUT
-        )
-
-        if response.status_code == 404:
-            return {}
-
-        response.raise_for_status()
-
-        encoded = response.json().get("content", "")
-        if not encoded:
-            return {}
-
-        content = base64.b64decode(encoded).decode("utf-8")
-        data = json.loads(content)
-
-        if not isinstance(data, dict):
-            return {}
-
-        return {
-            str(k): str(v)
-            for k, v in data.items()
-            if v
-        }
-
-    except Exception as exc:
-        log(
-            "Investing ID cache okunamadi: "
-            + str(exc)
-        )
-        return {}
-
-
-def save_investing_ids(ids):
-    if TEST_MODE:
-        return
-
-    if not GITHUB_TOKEN or not GITHUB_REPOSITORY:
-        return
-
-    url = (
-        "https://api.github.com/repos/"
-        + GITHUB_REPOSITORY
-        + "/contents/"
-        + INVESTING_ID_FILE
-    )
-
-    try:
-        get_response = requests.get(
-            url + "?ref=" + GITHUB_REF_NAME,
-            headers=github_headers(),
-            timeout=REQUEST_TIMEOUT
-        )
-
-        existing_sha = None
-        if get_response.status_code == 200:
-            existing_sha = get_response.json().get("sha")
-        elif get_response.status_code != 404:
-            get_response.raise_for_status()
-
-        content = json.dumps(
-            ids,
-            ensure_ascii=False,
-            indent=2,
-            sort_keys=True
-        )
-
-        payload = {
-            "message": "Update Investing instrument cache",
-            "content": base64.b64encode(
-                content.encode("utf-8")
-            ).decode("ascii"),
-            "branch": GITHUB_REF_NAME
-        }
-
-        if existing_sha:
-            payload["sha"] = existing_sha
-
-        response = requests.put(
-            url,
-            headers=github_headers(),
-            json=payload,
-            timeout=REQUEST_TIMEOUT
-        )
-        response.raise_for_status()
-
-        log(
-            "Investing ID cache kaydedildi: "
-            + str(len(ids))
-            + " hisse"
-        )
-
-    except Exception as exc:
-        log(
-            "Investing ID cache kaydedilemedi: "
-            + str(exc)
-        )
-
-
-def _aggregate_1h_to_2h(candles_1h):
-    buckets = {}
-
-    for candle in candles_1h:
-        dt = datetime.fromtimestamp(
-            candle["time"],
-            ZoneInfo(TIMEZONE)
-        )
-
-        if dt.weekday() >= 5:
-            continue
-
-        # BIST 2 saatlik barlar:
-        # 10-12, 12-14, 14-16, 16-18.
-        if dt.hour < 10 or dt.hour >= 18:
-            continue
-
-        bucket_hour = (
-            10
-            + ((dt.hour - 10) // 2) * 2
-        )
-
-        key = (
-            dt.date().isoformat(),
-            bucket_hour
-        )
-
-        buckets.setdefault(key, []).append(candle)
-
-    result = []
-
-    for (day_text, bucket_hour), items in sorted(
-        buckets.items()
-    ):
-        items.sort(
+        result = sorted(
+            candles.values(),
             key=lambda x: x["time"]
         )
 
-        # Sadece iki TAM saatlik mumdan 2H üret.
-        if len(items) < 2:
-            continue
+        if len(result) < 20:
 
-        first = items[0]
-        second = items[1]
+            raise RuntimeError(
+                "TradingView'dan sadece "
+                + str(len(result))
+                + " mum geldi."
+            )
 
-        first_dt = datetime.fromtimestamp(
-            first["time"],
-            ZoneInfo(TIMEZONE)
-        )
+        return result
 
-        second_dt = datetime.fromtimestamp(
-            second["time"],
-            ZoneInfo(TIMEZONE)
-        )
+    finally:
 
-        if first_dt.hour != bucket_hour:
-            continue
+        if ws is not None:
 
-        if second_dt.hour != bucket_hour + 1:
-            continue
-
-        result.append({
-            "time": first["time"],
-            "open": first["open"],
-            "high": max(
-                first["high"],
-                second["high"]
-            ),
-            "low": min(
-                first["low"],
-                second["low"]
-            ),
-            "close": second["close"],
-            "volume": (
-                first.get("volume", 0.0)
-                + second.get("volume", 0.0)
-            ),
-        })
-
-    return result
-
-
-def get_investing_candles(symbol, instrument_id=None):
-    log(
-        f"    Investing.com veri baglantisi: {symbol}"
-    )
-
-    if instrument_id is None:
-        instrument_id = (
-            get_investing_instrument_id(symbol)
-        )
-
-    now_ts = int(time.time())
-    from_ts = now_ts - (INVESTING_HISTORY_DAYS * 86400)
-
-    params = {
-        "symbol": str(instrument_id),
-        "resolution": "60",
-        "from": str(from_ts),
-        "to": str(now_ts),
-    }
-
-    from curl_cffi import requests as curl_requests
-
-    response = curl_requests.get(
-        INVESTING_CHART_URL,
-        params=params,
-        headers=_investing_headers(),
-        impersonate="chrome",
-        timeout=INVESTING_TIMEOUT,
-    )
-
-    if response.status_code != 200:
-        raise RuntimeError(
-            "Investing chart HTTP "
-            + str(response.status_code)
-            + ": "
-            + response.text[:300]
-        )
-
-    data = response.json()
-
-    if data.get("s") == "no_data":
-        return []
-
-    times = data.get("t", [])
-    opens = data.get("o", [])
-    highs = data.get("h", [])
-    lows = data.get("l", [])
-    closes = data.get("c", [])
-    volumes = data.get("v", [])
-
-    rows = []
-    for i in range(min(
-        len(times), len(opens), len(highs),
-        len(lows), len(closes)
-    )):
-        rows.append([
-            times[i],
-            opens[i],
-            highs[i],
-            lows[i],
-            closes[i],
-            volumes[i] if i < len(volumes) else 0,
-        ])
-
-    candles_1h = []
-
-    for row in rows:
-        if not isinstance(row, list):
-            continue
-
-        if len(row) < 5:
-            continue
-
-        try:
-            timestamp = float(row[0])
-            open_price = float(row[1])
-            high_price = float(row[2])
-            low_price = float(row[3])
-            close_price = float(row[4])
-
-            volume = 0.0
-            if len(row) > 5 and row[5] is not None:
-                try:
-                    volume = float(row[5])
-                except Exception:
-                    volume = 0.0
-
-            if timestamp > 10_000_000_000:
-                timestamp /= 1000.0
-
-            values = [
-                timestamp,
-                open_price,
-                high_price,
-                low_price,
-                close_price,
-            ]
-
-            if not all(
-                math.isfinite(x)
-                for x in values
-            ):
-                continue
-
-            if high_price < low_price:
-                continue
-
-            candles_1h.append({
-                "time": timestamp,
-                "open": open_price,
-                "high": high_price,
-                "low": low_price,
-                "close": close_price,
-                "volume": volume,
-            })
-
-        except Exception:
-            continue
-
-    candles_1h.sort(
-        key=lambda x: x["time"]
-    )
-
-    candles_2h = _aggregate_1h_to_2h(
-        candles_1h
-    )
-
-    if len(candles_2h) < 20:
-        raise RuntimeError(
-            "Investing.com'dan yeterli 2H mum gelmedi: "
-            + str(len(candles_2h))
-        )
-
-    return candles_2h
+            try:
+                ws.close()
+            except Exception:
+                pass
 
 
 # ============================================================
 # ATR
 # ============================================================
-
 
 def calculate_atr(
     candles,
@@ -1123,8 +1221,8 @@ def calculate_atr(
 # ============================================================
 # SUPERTREND YONLERI
 #
-# -1 = AL (TradingView/Pine)
-#  1 = SAT
+#  1  = AL
+# -1  = SAT
 # ============================================================
 
 def calculate_supertrend_directions(
@@ -1132,90 +1230,187 @@ def calculate_supertrend_directions(
     atr_period=10,
     multiplier=2.0
 ):
-    """
-    TradingView Kivanc SuperTrend mantigi.
 
-    Change ATR Calculation Method = ACIK:
-        ATR = Wilder/RMA(TR, period)
+    if len(candles) < (
+        atr_period + 5
+    ):
 
-    Source:
-        HL2 = (High + Low) / 2
-
-    Yon:
-        1  = AL
-        -1 = SAT
-
-    Kivanc'taki kritik nokta:
-        Trend donusu, GUNCEL bandi degil,
-        bir onceki mumun sabitlenmis bandi (up1/dn1)
-        kullanilarak yapilir.
-    """
-
-    if len(candles) < atr_period + 5:
         return None
 
-    atr = calculate_atr(candles, atr_period)
+    atr = calculate_atr(
+        candles,
+        atr_period
+    )
 
-    up = [None] * len(candles)   # lower band
-    dn = [None] * len(candles)   # upper band
-    trend = [None] * len(candles)
+    upper_band = [
+        None
+        for _ in candles
+    ]
 
-    first = atr_period - 1
+    lower_band = [
+        None
+        for _ in candles
+    ]
 
-    # Kivanc Pine:
-    # trend = 1
-    # up  = src - Multiplier * ATR
-    # dn  = src + Multiplier * ATR
-    hl2 = (candles[first]["high"] + candles[first]["low"]) / 2.0
-    up[first] = hl2 - multiplier * atr[first]
-    dn[first] = hl2 + multiplier * atr[first]
-    trend[first] = 1
+    direction = [
+        None
+        for _ in candles
+    ]
 
-    for i in range(first + 1, len(candles)):
+    for i in range(
+        len(candles)
+    ):
+
         if atr[i] is None:
             continue
 
         high = candles[i]["high"]
         low = candles[i]["low"]
         close = candles[i]["close"]
-        prev_close = candles[i - 1]["close"]
 
-        src = (high + low) / 2.0
+        # ----------------------------------------------------
+        # HL2
+        # ----------------------------------------------------
 
-        raw_up = src - multiplier * atr[i]
-        raw_dn = src + multiplier * atr[i]
+        hl2 = (
+            high + low
+        ) / 2.0
 
-        prev_up = up[i - 1]
-        prev_dn = dn[i - 1]
+        basic_upper = (
+            hl2
+            +
+            multiplier * atr[i]
+        )
 
-        # Pine:
-        # up1=nz(up[1],up)
-        # up := close[1] > up1 ? max(up,up1) : up
-        if prev_up is None:
-            prev_up = raw_up
+        basic_lower = (
+            hl2
+            -
+            multiplier * atr[i]
+        )
 
-        if prev_dn is None:
-            prev_dn = raw_dn
+        if i == atr_period - 1:
 
-        up[i] = max(raw_up, prev_up) if prev_close > prev_up else raw_up
-        dn[i] = min(raw_dn, prev_dn) if prev_close < prev_dn else raw_dn
+            upper_band[i] = (
+                basic_upper
+            )
 
-        prev_trend = trend[i - 1]
-        if prev_trend is None:
-            prev_trend = 1
+            lower_band[i] = (
+                basic_lower
+            )
 
-        # Pine:
-        # trend := trend == -1 and close > dn1 ? 1 :
-        #          trend ==  1 and close < up1 ? -1 :
-        #          trend
-        if prev_trend == -1 and close > prev_dn:
-            trend[i] = 1
-        elif prev_trend == 1 and close < prev_up:
-            trend[i] = -1
+            direction[i] = -1
+
+            continue
+
+        previous_close = (
+            candles[i - 1]["close"]
+        )
+
+        previous_upper = (
+            upper_band[i - 1]
+        )
+
+        previous_lower = (
+            lower_band[i - 1]
+        )
+
+        previous_direction = (
+            direction[i - 1]
+        )
+
+        if previous_upper is None:
+
+            previous_upper = (
+                basic_upper
+            )
+
+        if previous_lower is None:
+
+            previous_lower = (
+                basic_lower
+            )
+
+        if previous_direction is None:
+
+            previous_direction = -1
+
+        # ----------------------------------------------------
+        # UPPER BAND
+        # ----------------------------------------------------
+
+        if (
+
+            basic_upper <
+            previous_upper
+
+            or
+
+            previous_close >
+            previous_upper
+
+        ):
+
+            upper_band[i] = (
+                basic_upper
+            )
+
         else:
-            trend[i] = prev_trend
 
-    return trend
+            upper_band[i] = (
+                previous_upper
+            )
+
+        # ----------------------------------------------------
+        # LOWER BAND
+        # ----------------------------------------------------
+
+        if (
+
+            basic_lower >
+            previous_lower
+
+            or
+
+            previous_close <
+            previous_lower
+
+        ):
+
+            lower_band[i] = (
+                basic_lower
+            )
+
+        else:
+
+            lower_band[i] = (
+                previous_lower
+            )
+
+        # ----------------------------------------------------
+        # TREND
+        # ----------------------------------------------------
+
+        if previous_direction == -1:
+
+            if close > upper_band[i]:
+
+                direction[i] = 1
+
+            else:
+
+                direction[i] = -1
+
+        else:
+
+            if close < lower_band[i]:
+
+                direction[i] = -1
+
+            else:
+
+                direction[i] = 1
+
+    return direction
 
 
 # ============================================================
@@ -1826,64 +2021,6 @@ def build_telegram_message(
 
 
 # ============================================================
-# TEST TARAMA RAPORU
-# ============================================================
-def build_scan_report_message(results):
-
-    now = now_istanbul()
-
-    lines = [
-        "SUPERTREND TEST TARAMA RAPORU",
-        "",
-        "📊 BIST 2 SAATLİK SUPERTREND",
-        f"ATR Periyodu: {ATR_PERIOD}",
-        f"ATR Çarpanı: {ATR_MULTIPLIER:g}",
-        "Kaynak: HL2 = (Yüksek + Düşük) / 2",
-        "",
-        "🧪 TEST: Gerçek SAT → AL dönüşü olan hisseler",
-        "🕒 Tarama: " + now.strftime("%d.%m.%Y %H:%M"),
-        f"🟢 SAT → AL DÖNÜŞÜ: {len(results)} adet",
-        ""
-    ]
-
-    for result in results:
-
-        symbol = result["symbol"].replace("BIST:", "")
-        price = format_price(result["price"])
-
-        candle_dt = (
-            datetime.fromtimestamp(
-                result["candle_time"],
-                tz=ZoneInfo("UTC")
-            ).astimezone(ZoneInfo(TIMEZONE))
-        )
-
-        tradingview_url = (
-            "https://www.tradingview.com/chart/"
-            + "?symbol=BIST%3A"
-            + symbol
-            + "&interval=120"
-        )
-
-        lines.append(
-            '<a href="' + tradingview_url + '">'
-            + "🟢 "
-            + symbol
-            + "</a>   "
-            + price
-            + " TL"
-        )
-
-        lines.append(
-            "   Mum: " + candle_dt.strftime("%d.%m.%Y %H:%M")
-        )
-
-    lines.append("")
-    lines.append("Bu mesaj TEST RAPORUDUR; yeni SAT → AL alarmı değildir.")
-
-    return "\n".join(lines)
-
-# ============================================================
 # TEST TELEGRAM MESAJI
 # ============================================================
 
@@ -1918,23 +2055,13 @@ def build_test_message():
 
 def scan_symbol(
     symbol,
-    state,
-    investing_ids
+    state
 ):
 
     try:
 
-        ticker = symbol.split(":")[-1].upper()
-
-        instrument_id = investing_ids.get(ticker)
-
-        if instrument_id is None:
-            instrument_id = get_investing_instrument_id(symbol)
-            investing_ids[ticker] = instrument_id
-
-        candles = get_investing_candles(
-            symbol,
-            instrument_id
+        candles = get_tv_candles(
+            symbol
         )
 
         if not candles:
@@ -2092,23 +2219,13 @@ def scan_symbol(
         # Ayrica mum zamani ilerlemis olmali.
         # ----------------------------------------------------
 
-        # TradingView'deki BUY etiketi, mevcut yonun
-        # sadece AL olmasi degil, tamamlanmis mumda
-        # SAT -> AL donusu olmasidir.
-        #
-        # Bu nedenle alarm kosulu dogrudan son iki
-        # tamamlanmis mumun yonlerinden uretilir.
-        # GitHub state ise ayni BUY mumunun tekrar
-        # gonderilmesini engeller.
-
         new_buy = (
 
-            # TradingView/Pine: +1 SAT -> -1 AL
-            previous_direction == 1
+            old_direction == -1
 
             and
 
-            current_direction == -1
+            current_direction == 1
 
             and
 
@@ -2141,7 +2258,7 @@ def scan_symbol(
 
             log(
                 f"    Ilk durum: "
-                f"{'AL' if current_direction == -1 else 'SAT'}"
+                f"{'AL' if current_direction == 1 else 'SAT'}"
             )
 
         elif new_buy:
@@ -2153,9 +2270,9 @@ def scan_symbol(
         else:
 
             if (
-                old_direction == 1
+                old_direction == -1
                 and
-                current_direction == 1
+                current_direction == -1
             ):
 
                 log(
@@ -2163,9 +2280,9 @@ def scan_symbol(
                 )
 
             elif (
-                old_direction == -1
+                old_direction == 1
                 and
-                current_direction == -1
+                current_direction == 1
             ):
 
                 log(
@@ -2173,9 +2290,9 @@ def scan_symbol(
                 )
 
             elif (
-                old_direction == -1
+                old_direction == 1
                 and
-                current_direction == 1
+                current_direction == -1
             ):
 
                 log(
@@ -2341,7 +2458,6 @@ def main():
         # State degistirilmez.
 
         test_state = load_state()
-        investing_ids = load_investing_ids()
 
         success = 0
         errors = 0
@@ -2355,8 +2471,7 @@ def main():
 
             result = scan_symbol(
                 symbol,
-                test_state,
-                investing_ids
+                test_state
             )
 
             if result.get("status") == "error":
@@ -2381,13 +2496,13 @@ def main():
                     "direction"
                 )
 
-                if direction == -1:
+                if direction == 1:
 
                     log(
                         "    TEST SONUCU: AL"
                     )
 
-                elif direction == 1:
+                elif direction == -1:
 
                     log(
                         "    TEST SONUCU: SAT"
@@ -2457,13 +2572,6 @@ def main():
     # --------------------------------------------------------
 
     state = load_state()
-    investing_ids = load_investing_ids()
-
-    log(
-        "Investing ID cache: "
-        + str(len(investing_ids))
-        + " hisse"
-    )
 
     # --------------------------------------------------------
     # BIST HISSELERI
@@ -2503,8 +2611,6 @@ def main():
 
     log("")
 
-    scan_results = []
-
     new_buy_results = []
 
     success_count = 0
@@ -2525,11 +2631,8 @@ def main():
 
         result = scan_symbol(
             symbol,
-            state,
-            investing_ids
+            state
         )
-
-        scan_results.append(result)
 
         status = result.get(
             "status"
@@ -2612,43 +2715,8 @@ def main():
     log("=" * 70)
 
     # --------------------------------------------------------
-    # TEST TARAMA RAPORU
-    # --------------------------------------------------------
-
-    if SEND_SCAN_REPORT:
-
-        # TEST RAPORU SADECE GERCEK SAT -> AL
-        # DONUSLERINI GOSTERIR.
-        current_buy_results = [
-            result
-            for result in scan_results
-            if (
-                # TradingView/Pine: +1 SAT -> -1 AL
-                result.get("previous_direction") == 1
-                and
-                result.get("direction") == -1
-            )
-        ]
-
-        current_buy_results.sort(
-            key=lambda x: x["symbol"]
-        )
-
-        send_telegram(
-            build_scan_report_message(
-                current_buy_results
-            )
-        )
-
-        log(
-            "TEST tarama raporu Telegram'a gonderildi."
-        )
-
-    # --------------------------------------------------------
     # STATE KAYDET
     # --------------------------------------------------------
-    save_investing_ids(investing_ids)
-
 
     # --------------------------------------------------------
     # YENI AL YOK
