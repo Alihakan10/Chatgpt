@@ -2765,17 +2765,29 @@ def main():
 
     log("=" * 70)
 
-    if SEND_SCAN_REPORT and current_buy_results:
+    # TEST RAPORU SADECE GERCEK YENI SAT -> AL SINYALLERINI GONDERIR.
+    # Mevcut AL durumlari kesinlikle rapora dahil edilmez.
+    if SEND_SCAN_REPORT and new_buy_results:
 
         send_telegram(
-            build_current_report_message(
-                current_buy_results
+            build_telegram_message(
+                new_buy_results
             )
         )
 
-        log(
-            "Mevcut AL durum raporu Telegram'a gonderildi."
+        save_state(
+            state
         )
+
+        log(
+            "Sadece gercek yeni SAT -> AL sinyalleri Telegram'a gonderildi."
+        )
+
+        log(
+            "PROGRAM BASARIYLA TAMAMLANDI."
+        )
+
+        return
 
     # --------------------------------------------------------
     # STATE KAYDET
