@@ -2867,10 +2867,29 @@ def main():
 
         success_count += 1
 
-        # Sadece son tamamlanmis 2H mumunda gercek
-        # TradingView BUY kosulu olusanlari rapora al.
+        # Sadece son tamamlanmis 2H mumunda gerçek
+        # TradingView BUY etiketi oluşanları al.
+        # Aynı mum daha önce state'e kaydedildiyse tekrar gönderme.
         if result.get("buy_signal") is True:
-            current_buy_signal_results.append(result)
+
+            old_result = state.get(
+                result["symbol"]
+            )
+
+            old_candle_time = None
+
+            if isinstance(old_result, dict):
+                old_candle_time = old_result.get(
+                    "candle_time"
+                )
+
+            if (
+                old_candle_time is None
+                or
+                float(result["candle_time"])
+                != float(old_candle_time)
+            ):
+                current_buy_signal_results.append(result)
 
         if status == "new_buy":
 
@@ -2943,40 +2962,11 @@ def main():
     # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
     if SEND_SCAN_REPORT:
 
-        # Aynı BUY mumunu tekrar Telegram'a gönderme.
-        # State tarama sırasında güncellendiği için mevcut BUY
-        # mumunu göndermeden önce her sonuç için bir önceki
-        # kayıtlı mum zamanını kontrol et.
-        report_buy_results = []
-
-        for result in current_buy_signal_results:
-
-            old_result = state.get(
-                result["symbol"]
-            )
-
-            old_candle_time = None
-
-            if isinstance(old_result, dict):
-
-                old_candle_time = old_result.get(
-                    "candle_time"
-                )
-
-            if (
-                old_candle_time is None
-                or
-                float(result["candle_time"])
-                != float(old_candle_time)
-            ):
-
-                report_buy_results.append(result)
-
-        if report_buy_results:
+        if current_buy_signal_results:
 
             send_telegram(
                 build_telegram_message(
-                    report_buy_results
+                    current_buy_signal_results
                 )
             )
 
