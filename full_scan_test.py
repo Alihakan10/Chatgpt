@@ -2,7 +2,8 @@ import os
 import scanner
 
 def main():
-    limit = int(os.getenv("SCAN_LIMIT", "620"))
+    raw_limit = os.getenv("SCAN_LIMIT", "620").strip().lstrip("\\")
+    limit = int(raw_limit or "620")
 
     symbols = scanner.get_bist_symbols()
     if limit > 0:
