@@ -1267,141 +1267,106 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
 
-    # TradingView'in resmi Supertrend hesaplamasi:
+    # KivancOzbilgic TradingView SuperTrend mantigi.
     # Source = HL2
-    # ATR = Wilder RMA
-    # ATR hesaplanana kadar yon = SAT
-    # Bu, Kivanc scriptindeki ilk yon=AL varsayimindan farklidir.
+    # ATR = RMA (Wilder)
+    # Buy = trend == 1 and trend[1] == -1
+    # Bu, grafikteki BUY etiketinin temel kosuludur.
 
     if len(candles) < (atr_period + 2):
         return None
 
     atr = calculate_atr(candles, atr_period)
 
-    upper_band = [None for _ in candles]
-    lower_band = [None for _ in candles]
-    supertrend = [None for _ in candles]
-    direction = [None for _ in candles]
+    up = [None for _ in candles]
+    dn = [None for _ in candles]
+    trend = [None for _ in candles]
 
-    first = atr_period - 1
-
-    if atr[first] is None:
-        return None
-
-    src = (
-        candles[first]["high"]
-        + candles[first]["low"]
-    ) / 2.0
-
-    upper_band[first] = (
-        src + multiplier * atr[first]
-    )
-
-    lower_band[first] = (
-        src - multiplier * atr[first]
-    )
-
-    # TradingView resmi dokumani:
-    # ATR hesaplanana kadar trend yonu SAT.
-    direction[first] = -1
-    supertrend[first] = upper_band[first]
-
-    for i in range(first + 1, len(candles)):
+    for i in range(len(candles)):
 
         if atr[i] is None:
+            trend[i] = (
+                1
+                if i == 0
+                else trend[i - 1]
+            )
             continue
 
-        high = candles[i]["high"]
-        low = candles[i]["low"]
-        close = candles[i]["close"]
-        prev_close = candles[i - 1]["close"]
+        src = (
+            candles[i]["high"]
+            + candles[i]["low"]
+        ) / 2.0
 
-        src = (high + low) / 2.0
-
-        basic_upper = (
-            src + multiplier * atr[i]
-        )
-
-        basic_lower = (
+        raw_up = (
             src - multiplier * atr[i]
         )
 
-        prev_upper = upper_band[i - 1]
-        prev_lower = lower_band[i - 1]
+        raw_dn = (
+            src + multiplier * atr[i]
+        )
 
-        if prev_upper is None:
-            prev_upper = basic_upper
-
-        if prev_lower is None:
-            prev_lower = basic_lower
-
-        # TradingView:
-        # upperBand = basicUpper < prevUpper
-        #             OR prevClose > prevUpper
-        #             ? basicUpper : prevUpper
-        if (
-            basic_upper < prev_upper
-            or prev_close > prev_upper
-        ):
-            upper_band[i] = basic_upper
+        # Pine:
+        # up1 = nz(up[1], up)
+        # up := close[1] > up1 ? max(up, up1) : up
+        if i == 0 or up[i - 1] is None:
+            up1 = raw_up
         else:
-            upper_band[i] = prev_upper
+            up1 = up[i - 1]
 
-        # TradingView:
-        # lowerBand = basicLower > prevLower
-        #             OR prevClose < prevLower
-        #             ? basicLower : prevLower
-        if (
-            basic_lower > prev_lower
-            or prev_close < prev_lower
-        ):
-            lower_band[i] = basic_lower
+        if i == 0:
+            up[i] = raw_up
         else:
-            lower_band[i] = prev_lower
-
-        prev_direction = direction[i - 1]
-
-        if prev_direction is None:
-            prev_direction = -1
-
-        prev_supertrend = supertrend[i - 1]
-
-        if prev_supertrend is None:
-            prev_supertrend = (
-                upper_band[i - 1]
-                if prev_direction == -1
-                else lower_band[i - 1]
+            up[i] = (
+                max(raw_up, up1)
+                if candles[i - 1]["close"] > up1
+                else raw_up
             )
 
-        # TradingView resmi yon mantigi:
-        # Onceki Supertrend ust bant ise:
-        #   close > mevcut ust bant => AL
-        # Aksi durumda SAT.
-        # Onceki Supertrend alt bant ise:
-        #   close < mevcut alt bant => SAT
-        # Aksi durumda AL.
+        # Pine:
+        # dn1 = nz(dn[1], dn)
+        # dn := close[1] < dn1 ? min(dn, dn1) : dn
+        if i == 0 or dn[i - 1] is None:
+            dn1 = raw_dn
+        else:
+            dn1 = dn[i - 1]
+
+        if i == 0:
+            dn[i] = raw_dn
+        else:
+            dn[i] = (
+                min(raw_dn, dn1)
+                if candles[i - 1]["close"] < dn1
+                else raw_dn
+            )
+
+        previous_trend = (
+            1
+            if i == 0 or trend[i - 1] is None
+            else trend[i - 1]
+        )
+
+        # Pine:
+        # trend := trend == -1 and close > dn1 ? 1 :
+        #          trend == 1 and close < up1 ? -1 :
+        #          trend
+        close = candles[i]["close"]
+
         if (
-            abs(
-                prev_supertrend
-                - upper_band[i - 1]
-            ) < 1e-12
+            previous_trend == -1
+            and close > dn1
         ):
-            if close > upper_band[i]:
-                direction[i] = 1
-                supertrend[i] = lower_band[i]
-            else:
-                direction[i] = -1
-                supertrend[i] = upper_band[i]
+            trend[i] = 1
+
+        elif (
+            previous_trend == 1
+            and close < up1
+        ):
+            trend[i] = -1
 
         else:
-            if close < lower_band[i]:
-                direction[i] = -1
-                supertrend[i] = upper_band[i]
-            else:
-                direction[i] = 1
-                supertrend[i] = lower_band[i]
+            trend[i] = previous_trend
 
-    return direction
+    return trend
 
 
 # ============================================================
