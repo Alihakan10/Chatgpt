@@ -1267,139 +1267,139 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
 
-    if len(candles) < (
-        atr_period + 5
-    ):
+    # TradingView'in resmi Supertrend hesaplamasi:
+    # Source = HL2
+    # ATR = Wilder RMA
+    # ATR hesaplanana kadar yon = SAT
+    # Bu, Kivanc scriptindeki ilk yon=AL varsayimindan farklidir.
+
+    if len(candles) < (atr_period + 2):
         return None
 
-    atr = calculate_atr(
-        candles,
-        atr_period
-    )
+    atr = calculate_atr(candles, atr_period)
 
-    up_band = [
-        None
-        for _ in candles
-    ]
-
-    down_band = [
-        None
-        for _ in candles
-    ]
-
-    direction = [
-        None
-        for _ in candles
-    ]
-
-    # TradingView / KivancOzbilgic Supertrend:
-    # changeATR = true -> Wilder RMA ATR
-    # Source = HL2
-    # 1 = AL / UpTrend
-    # -1 = SAT / DownTrend
+    upper_band = [None for _ in candles]
+    lower_band = [None for _ in candles]
+    supertrend = [None for _ in candles]
+    direction = [None for _ in candles]
 
     first = atr_period - 1
 
     if atr[first] is None:
         return None
 
-    hl2 = (
+    src = (
         candles[first]["high"]
         + candles[first]["low"]
     ) / 2.0
 
-    up_band[first] = (
-        hl2
-        - multiplier * atr[first]
+    upper_band[first] = (
+        src + multiplier * atr[first]
     )
 
-    down_band[first] = (
-        hl2
-        + multiplier * atr[first]
+    lower_band[first] = (
+        src - multiplier * atr[first]
     )
 
-    # Kivanc script starts with trend = 1.
-    direction[first] = 1
+    # TradingView resmi dokumani:
+    # ATR hesaplanana kadar trend yonu SAT.
+    direction[first] = -1
+    supertrend[first] = upper_band[first]
 
-    for i in range(
-        first + 1,
-        len(candles)
-    ):
+    for i in range(first + 1, len(candles)):
 
         if atr[i] is None:
             continue
 
         high = candles[i]["high"]
         low = candles[i]["low"]
-
-        src = (
-            high + low
-        ) / 2.0
-
-        basic_up = (
-            src
-            - multiplier * atr[i]
-        )
-
-        basic_down = (
-            src
-            + multiplier * atr[i]
-        )
-
+        close = candles[i]["close"]
         prev_close = candles[i - 1]["close"]
 
-        prev_up = up_band[i - 1]
+        src = (high + low) / 2.0
 
-        prev_down = down_band[i - 1]
+        basic_upper = (
+            src + multiplier * atr[i]
+        )
 
-        if prev_up is None:
-            prev_up = basic_up
+        basic_lower = (
+            src - multiplier * atr[i]
+        )
 
-        if prev_down is None:
-            prev_down = basic_down
+        prev_upper = upper_band[i - 1]
+        prev_lower = lower_band[i - 1]
 
-        # up := close[1] > up1 ? max(up, up1) : up
-        if prev_close > prev_up:
-            up_band[i] = max(
-                basic_up,
-                prev_up
-            )
+        if prev_upper is None:
+            prev_upper = basic_upper
+
+        if prev_lower is None:
+            prev_lower = basic_lower
+
+        # TradingView:
+        # upperBand = basicUpper < prevUpper
+        #             OR prevClose > prevUpper
+        #             ? basicUpper : prevUpper
+        if (
+            basic_upper < prev_upper
+            or prev_close > prev_upper
+        ):
+            upper_band[i] = basic_upper
         else:
-            up_band[i] = basic_up
+            upper_band[i] = prev_upper
 
-        # dn := close[1] < dn1 ? min(dn, dn1) : dn
-        if prev_close < prev_down:
-            down_band[i] = min(
-                basic_down,
-                prev_down
-            )
+        # TradingView:
+        # lowerBand = basicLower > prevLower
+        #             OR prevClose < prevLower
+        #             ? basicLower : prevLower
+        if (
+            basic_lower > prev_lower
+            or prev_close < prev_lower
+        ):
+            lower_band[i] = basic_lower
         else:
-            down_band[i] = basic_down
+            lower_band[i] = prev_lower
 
         prev_direction = direction[i - 1]
 
         if prev_direction is None:
-            prev_direction = 1
+            prev_direction = -1
 
-        close = candles[i]["close"]
+        prev_supertrend = supertrend[i - 1]
 
-        # EXACT Kivanc condition:
-        # trend == -1 and close > dn1 -> AL
-        # trend ==  1 and close < up1 -> SAT
+        if prev_supertrend is None:
+            prev_supertrend = (
+                upper_band[i - 1]
+                if prev_direction == -1
+                else lower_band[i - 1]
+            )
+
+        # TradingView resmi yon mantigi:
+        # Onceki Supertrend ust bant ise:
+        #   close > mevcut ust bant => AL
+        # Aksi durumda SAT.
+        # Onceki Supertrend alt bant ise:
+        #   close < mevcut alt bant => SAT
+        # Aksi durumda AL.
         if (
-            prev_direction == -1
-            and close > prev_down
+            abs(
+                prev_supertrend
+                - upper_band[i - 1]
+            ) < 1e-12
         ):
-            direction[i] = 1
-
-        elif (
-            prev_direction == 1
-            and close < prev_up
-        ):
-            direction[i] = -1
+            if close > upper_band[i]:
+                direction[i] = 1
+                supertrend[i] = lower_band[i]
+            else:
+                direction[i] = -1
+                supertrend[i] = upper_band[i]
 
         else:
-            direction[i] = prev_direction
+            if close < lower_band[i]:
+                direction[i] = -1
+                supertrend[i] = upper_band[i]
+            else:
+                direction[i] = 1
+                supertrend[i] = lower_band[i]
 
     return direction
 
