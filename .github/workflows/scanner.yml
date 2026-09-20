@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       test_mode:
-        description: "TEST MODU: 620 HISSENIN GERCEK BUY ETIKETLERINI TELEGRAMA GONDER"
+        description: "TEST MODU: 620 HISSENIN BUY ETIKETLERINI TARA VE TELEGRAMA GONDER"
         required: true
         default: "true"
         type: choice
@@ -78,16 +78,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Node kurulumu
-        if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: TradingView study paketi
-        if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
-        run: npm install @mathieuc/tradingview
-
       - name: scanner.py guvenli yamasi
         if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
         run: python patch_scanner.py
@@ -97,8 +87,11 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
           SCAN_LIMIT: ${{ inputs.scan_limit }}
-        run: node tv_exact_buy_scan.js
+        run: python full_scan_test.py
 
       - name: BIST Supertrend taramasi
         if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
