@@ -1,7 +1,0 @@
-{
-  "name": "bist-supertrend-scanner",
-  "private": true,
-  "dependencies": {
-    "@mathieuc/tradingview": "3.5.2"
-  }
-}
