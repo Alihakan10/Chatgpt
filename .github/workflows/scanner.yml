@@ -85,26 +85,26 @@ jobs:
       - name: FULL 620 BUY TEST
         if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
         env:
-          TELEGRAM_BOT_TOKEN: \${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: \${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: \${{ github.repository }}
-          GITHUB_REF_NAME: \${{ github.ref_name }}
-          SCAN_LIMIT: \${{ inputs.scan_limit }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          SCAN_LIMIT: ${{ inputs.scan_limit }}
         run: python full_scan_test.py
 
       - name: BIST Supertrend taramasi
         if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
         env:
-          TELEGRAM_BOT_TOKEN: \${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: \${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: \${{ github.repository }}
-          GITHUB_REF_NAME: \${{ github.ref_name }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
           TEST_MODE: "false"
-          TEST_SYMBOLS: \${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
+          TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
           SEND_TEST_TELEGRAM: "false"
-          FORCE_SCAN: \${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
-          SEND_SCAN_REPORT: \${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
-          SCAN_LIMIT: \${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
+          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
+          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
+          SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
         run: python scanner.py
