@@ -10,9 +10,9 @@ def main():
         symbols = symbols[:limit]
 
     print("=" * 70)
-    print("FULL BUY TEST BASLADI")
+    print("TRADINGVIEW GERCEK BUY ETIKET TESTI BASLADI")
     print(f"Toplam taranacak hisse: {len(symbols)}")
-    print("ATR=10 | HL2 | MULTIPLIER=2.0 | 2H")
+    print("Kivanc SuperTrend: ATR=10 | HL2 | MULTIPLIER=2.0 | 2H | RMA")
     print("=" * 70)
 
     results = []
@@ -34,20 +34,20 @@ def main():
 
         if result.get("buy_signal") is True:
             results.append(result)
-            print(f"    >>> BUY: {symbol}", flush=True)
+            print(f"    >>> GERCEK BUY ETIKETI: {symbol}", flush=True)
 
     results.sort(key=lambda x: x["symbol"])
 
     print("")
     print("=" * 70)
-    print("FULL BUY TEST TAMAMLANDI")
+    print("TRADINGVIEW GERCEK BUY ETIKET TESTI TAMAMLANDI")
     print(f"Toplam hisse: {len(symbols)}")
-    print(f"BUY sinyali: {len(results)}")
+    print(f"GERCEK BUY ETIKETI: {len(results)}")
     print(f"Hata: {errors}")
     print("=" * 70)
 
     if not results:
-        print("Yeni/aktif BUY sinyali bulunamadi; Telegram gonderilmeyecek.")
+        print("GERCEK BUY ETIKETI bulunamadi; Telegram gonderilmeyecek.")
         return
 
     scanner.send_telegram(
