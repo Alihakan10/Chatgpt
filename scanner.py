@@ -2068,22 +2068,40 @@ def scan_symbol(
             ):
                 buy_signal_indexes.append(i)
 
-        # Istanbul gunu icindeki BUY'lar.
-        now = now_istanbul()
-        today_start = datetime(
-            now.year,
-            now.month,
-            now.day,
+        # En son tamamlanmis mumun ait oldugu BIST islem gununu kullan.
+        # Manuel tarama hafta sonu yapilsa bile onceki cuma gibi
+        # son islem gunundeki gun ici BUY sinyalleri taranir.
+        latest_candle_dt = (
+            datetime.fromtimestamp(
+                calculation_candles[completed_index]["time"],
+                tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+        )
+
+        latest_session_date = latest_candle_dt.date()
+
+        session_start = datetime(
+            latest_session_date.year,
+            latest_session_date.month,
+            latest_session_date.day,
             0,
             0,
             0,
             tzinfo=ZoneInfo(TIMEZONE)
         ).timestamp()
 
+        next_session_start = (
+            session_start + 24 * 60 * 60
+        )
+
         today_buy_indexes = [
             i
             for i in buy_signal_indexes
-            if calculation_candles[i]["time"] >= today_start
+            if (
+                session_start
+                <= calculation_candles[i]["time"]
+                < next_session_start
+            )
         ]
 
         old = state.get(symbol)
