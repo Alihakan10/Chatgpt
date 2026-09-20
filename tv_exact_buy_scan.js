@@ -40,9 +40,25 @@ async function main() {
   if (indicator.inputs && indicator.inputs.ATR_Multiplier) indicator.setOption("ATR_Multiplier", 2.0);
   if (indicator.inputs && indicator.inputs.Multiplier) indicator.setOption("Multiplier", 2.0);
 
-  const study = new chart.Study(indicator);
+  let study = null;
   let waiting = null;
   let currentSymbol = "";
+
+  // TradingView requires the chart market to exist before create_study.
+  await new Promise((resolve, reject) => {
+    let done = false;
+    const finish = (fn, value) => { if (!done) { done = true; fn(value); } };
+    chart.onSymbolLoaded(() => finish(resolve));
+    chart.onError((...err) => finish(reject, new Error("Initial chart: " + JSON.stringify(err))));
+    chart.setMarket(symbols[0], {timeframe:TIMEFRAME, range:RANGE, session:"regular", adjustment:"splits"});
+    setTimeout(() => finish(reject, new Error("Initial chart timeout")), 15000);
+  });
+
+  study = new chart.Study(indicator);
+
+  chart.onSymbolLoaded(() => {
+    if (chart.__tvExactLoadedHandler) chart.__tvExactLoadedHandler();
+  });
 
   study.onError((...err) => {
     if (waiting) { waiting.reject(new Error(JSON.stringify(err))); waiting = null; }
@@ -65,8 +81,19 @@ async function main() {
   const getOne = symbol => new Promise((resolve, reject) => {
     waiting = {resolve, reject};
     currentSymbol = symbol;
+
+    const timer = setTimeout(() => {
+      if (waiting) { waiting.reject(new Error("Study timeout")); waiting=null; }
+    }, 15000);
+
+    const previousLoaded = chart.__tvExactLoadedHandler;
+    chart.__tvExactLoadedHandler = () => {
+      clearTimeout(timer);
+    };
+
     chart.setMarket(symbol, {timeframe:TIMEFRAME, range:RANGE, session:"regular", adjustment:"splits"});
-    setTimeout(() => { if (waiting) { waiting.reject(new Error("Study timeout")); waiting=null; } }, 15000);
+    // Study updates are delivered after the new symbol is loaded.
+    // Keep the persistent study attached to this single chart session.
   });
 
   console.log("=".repeat(70));
