@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       test_mode:
-        description: "TEST MODU"
+        description: "TEST MODU: 620 HISSENIN BUY SINYALLERINI TELEGRAMA GONDER"
         required: true
         default: "true"
         type: choice
@@ -12,13 +12,13 @@ on:
           - "true"
           - "false"
       test_symbol:
-        description: "TEST HISSESI"
+        description: "TEST HISSESI (FULL TEST MODUNDA KULLANILMAZ)"
         required: true
-        default: "BIST:ZOREN"
+        default: "BIST:ATEKS"
       send_test_telegram:
         description: "TEST TELEGRAM MESAJI GONDER"
         required: true
-        default: "true"
+        default: "false"
         type: choice
         options:
           - "true"
@@ -32,14 +32,13 @@ on:
           - "true"
           - "false"
       send_scan_report:
-        description: "TEST RAPORU: SADECE YENI BUY SINYALLERINI TELEGRAMA GONDER"
+        description: "TEST RAPORU"
         required: true
-        default: "true"
+        default: "false"
         type: choice
         options:
           - "true"
           - "false"
-
       scan_limit:
         description: "TARAMA HISSE SAYISI"
         required: true
@@ -83,17 +82,29 @@ jobs:
         if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
         run: python patch_scanner.py
 
-      - name: BIST Supertrend taramasi
+      - name: FULL 620 BUY TEST
+        if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_mode || 'false' }}
-          TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
-          SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
-          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
-          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
-          SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
+          TELEGRAM_BOT_TOKEN: \${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: \${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: \${{ github.repository }}
+          GITHUB_REF_NAME: \${{ github.ref_name }}
+          SCAN_LIMIT: \${{ inputs.scan_limit }}
+        run: python full_scan_test.py
+
+      - name: BIST Supertrend taramasi
+        if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: \${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: \${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: \${{ github.repository }}
+          GITHUB_REF_NAME: \${{ github.ref_name }}
+          TEST_MODE: "false"
+          TEST_SYMBOLS: \${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
+          SEND_TEST_TELEGRAM: "false"
+          FORCE_SCAN: \${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
+          SEND_SCAN_REPORT: \${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
+          SCAN_LIMIT: \${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
         run: python scanner.py
