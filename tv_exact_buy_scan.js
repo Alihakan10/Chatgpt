@@ -110,7 +110,7 @@ async function main() {
     const symbol=symbols[i];
     console.log("["+(i+1)+"/"+symbols.length+"] "+symbol);
     try {
-      const r=await getOne(symbol);
+      const r=await loadSymbol(symbol);
       if (r.buy) { buys.push(r); console.log("    >>> GERCEK BUY ETIKETI: "+symbol); }
     } catch(e) { errors++; console.log("    HATA: "+String(e.message||e)); }
     await sleep(50);
