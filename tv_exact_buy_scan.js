@@ -44,57 +44,58 @@ async function main() {
   let waiting = null;
   let currentSymbol = "";
 
-  // TradingView requires the chart market to exist before create_study.
-  await new Promise((resolve, reject) => {
-    let done = false;
-    const finish = (fn, value) => { if (!done) { done = true; fn(value); } };
-    chart.onSymbolLoaded(() => finish(resolve));
-    chart.onError((...err) => finish(reject, new Error("Initial chart: " + JSON.stringify(err))));
-    chart.setMarket(symbols[0], {timeframe:TIMEFRAME, range:RANGE, session:"regular", adjustment:"splits"});
-    setTimeout(() => finish(reject, new Error("Initial chart timeout")), 15000);
-  });
-
-  study = new chart.Study(indicator);
-
-  chart.onSymbolLoaded(() => {
-    if (chart.__tvExactLoadedHandler) chart.__tvExactLoadedHandler();
-  });
-
-  study.onError((...err) => {
-    if (waiting) { waiting.reject(new Error(JSON.stringify(err))); waiting = null; }
-  });
-
-  study.onUpdate(changes => {
-    if (!waiting || !changes.includes("plots")) return;
-    const periods = Array.isArray(study.periods) ? study.periods : [];
-    const p = periods.find(completed);
-    if (!p) return;
-    const buy = Number(p.SuperTrend_Buy) === 1 && Number(p.SuperTrend_Direction_Change) === 1;
-    const value = {symbol: currentSymbol, buy, candle_time:Number(p.$time), price:Number(p.close), raw:p};
-    const w = waiting; waiting = null; w.resolve(value);
-  });
-
   chart.onError((...err) => {
-    if (waiting) { waiting.reject(new Error("Chart: " + JSON.stringify(err))); waiting = null; }
+    if (waiting) { const w = waiting; waiting = null; w.reject(new Error("Chart: " + JSON.stringify(err))); }
   });
 
-  const getOne = symbol => new Promise((resolve, reject) => {
-    waiting = {resolve, reject};
-    currentSymbol = symbol;
+  async function loadSymbol(symbol) {
+    await new Promise((resolve, reject) => {
+      let done = false;
+      const finish = (fn, value) => { if (!done) { done = true; fn(value); } };
+      const timer = setTimeout(() => finish(reject, new Error("Symbol timeout")), 15000);
+      const handler = () => { clearTimeout(timer); finish(resolve); };
+      chart.onSymbolLoaded(handler);
+      chart.setMarket(symbol, {timeframe:TIMEFRAME, range:RANGE, session:"regular", adjustment:"splits"});
+    });
 
-    const timer = setTimeout(() => {
-      if (waiting) { waiting.reject(new Error("Study timeout")); waiting=null; }
-    }, 15000);
+    if (study) {
+      try { study.remove(); } catch (_) {}
+      study = null;
+    }
 
-    const previousLoaded = chart.__tvExactLoadedHandler;
-    chart.__tvExactLoadedHandler = () => {
-      clearTimeout(timer);
-    };
+    study = new chart.Study(indicator);
 
-    chart.setMarket(symbol, {timeframe:TIMEFRAME, range:RANGE, session:"regular", adjustment:"splits"});
-    // Study updates are delivered after the new symbol is loaded.
-    // Keep the persistent study attached to this single chart session.
-  });
+    return await new Promise((resolve, reject) => {
+      let done = false;
+      const finish = (fn, value) => { if (!done) { done = true; fn(value); } };
+
+      const timer = setTimeout(() => finish(reject, new Error("Study timeout")), 15000);
+
+      study.onReady(() => {
+        clearTimeout(timer);
+        const periods = Array.isArray(study.periods) ? study.periods : [];
+        const p = periods.find(completed);
+        if (!p) return finish(reject, new Error("No completed study period"));
+
+        const buy = Number(p.SuperTrend_Buy) === 1 &&
+                    Number(p.SuperTrend_Direction_Change) === 1;
+
+        finish(resolve, {
+          symbol: currentSymbol,
+          buy,
+          candle_time: Number(p.$time),
+          price: Number(p.close),
+          raw: p
+        });
+      });
+
+      study.onError((...err) => {
+        clearTimeout(timer);
+        finish(reject, new Error(JSON.stringify(err)));
+      });
+    });
+  }
+
 
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY ETIKET TESTI");
