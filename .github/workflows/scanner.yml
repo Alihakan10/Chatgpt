@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       test_mode:
-        description: "TEST MODU: 620 HISSENIN BUY ETIKETLERINI TARA VE TELEGRAMA GONDER"
+        description: "TEST MODU: 620 HISSENIN 2H SUPERTREND BUY SINYALLERINI TARA"
         required: true
         default: "true"
         type: choice
@@ -12,7 +12,7 @@ on:
           - "true"
           - "false"
       test_symbol:
-        description: "TEST HISSESI (FULL TEST MODUNDA KULLANILMAZ)"
+        description: "TEST HISSESI (TEK HISSE TESTINDE KULLANILIR)"
         required: true
         default: "BIST:ATEKS"
       send_test_telegram:
@@ -34,7 +34,7 @@ on:
       send_scan_report:
         description: "TEST RAPORU"
         required: true
-        default: "false"
+        default: "true"
         type: choice
         options:
           - "true"
@@ -68,24 +68,7 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Node kurulumu
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Node paketleri
-        run: npm install
-
-      - name: TRADINGVIEW EXACT BUY TEST
-        if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          SCAN_LIMIT: ${{ inputs.scan_limit }}
-        run: node tv_exact_buy_scan.js
-
       - name: BIST Supertrend taramasi
-        if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -94,7 +77,7 @@ jobs:
           GITHUB_REF_NAME: ${{ github.ref_name }}
           TEST_MODE: "false"
           TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
-          SEND_TEST_TELEGRAM: "false"
+          SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
           FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
           SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
           SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
