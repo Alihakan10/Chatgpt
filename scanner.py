@@ -1404,27 +1404,16 @@ def get_last_completed_index(
                 )
             )
 
-            # TradingView BIST regular sessioninde 2H barlar
-            # son seansta 17:00'de baslayabilir ve 18:00'de biter.
-            # Bu son bar nominal olarak 2 saatlik degildir.
-            if (
-                candle_time.hour == 17
-                and candle_time.minute == 0
-            ):
-                candle_end = candle_time.replace(
-                    hour=18,
-                    minute=0,
-                    second=0,
-                    microsecond=0
+            # TradingView 2H bar zamani barin acilis zamanidir.
+            # BIST regular seansinda 2H barlar seans acilisindan
+            # hizalanir; 17:00 icin 1 saatlik ozel istisna uygulama.
+            candle_end = (
+                candle_time
+                +
+                timedelta(
+                    seconds=timeframe_seconds
                 )
-            else:
-                candle_end = (
-                    candle_time
-                    +
-                    timedelta(
-                        seconds=timeframe_seconds
-                    )
-                )
+            )
 
             if candle_end <= now:
 
