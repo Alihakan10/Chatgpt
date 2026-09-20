@@ -2122,11 +2122,16 @@ def scan_symbol(
             except Exception:
                 old_buy_time = 0.0
 
-        new_buy_indexes = [
-            i
-            for i in today_buy_indexes
-            if float(calculation_candles[i]["time"]) > old_buy_time
-        ]
+        # TEST MODUNDA state filtresi uygulanmaz.
+        # Mevcut BUY etiketi daha once kaydedilmis olsa bile raporlanir.
+        if TEST_MODE:
+            new_buy_indexes = list(today_buy_indexes)
+        else:
+            new_buy_indexes = [
+                i
+                for i in today_buy_indexes
+                if float(calculation_candles[i]["time"]) > old_buy_time
+            ]
 
         current_candle = calculation_candles[completed_index]
         previous_candle = calculation_candles[completed_index - 1]
