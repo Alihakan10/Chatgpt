@@ -68,30 +68,22 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Python kurulumu
-        uses: actions/setup-python@v5
+      - name: Node kurulumu
+        uses: actions/setup-node@v4
         with:
-          python-version: "3.11"
+          node-version: "20"
+          cache: "npm"
 
-      - name: Paketleri kur
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: Node paketleri
+        run: npm install
 
-      - name: scanner.py guvenli yamasi
-        if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
-        run: python patch_scanner.py
-
-      - name: FULL 620 BUY TEST
+      - name: TRADINGVIEW EXACT BUY TEST
         if: github.event_name == 'workflow_dispatch' && inputs.test_mode == 'true'
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
           SCAN_LIMIT: ${{ inputs.scan_limit }}
-        run: python full_scan_test.py
+        run: node tv_exact_buy_scan.js
 
       - name: BIST Supertrend taramasi
         if: github.event_name != 'workflow_dispatch' || inputs.test_mode != 'true'
