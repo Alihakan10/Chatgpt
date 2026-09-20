@@ -1972,9 +1972,8 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "Sinyal: Önceki tamamlanmış "
-        "2H mum SAT, son tamamlanmış "
-        "2H mum AL."
+        "Sinyal: Gün içindeki tamamlanmış 2H mumlarda "
+        "SAT -> AL (BUY) dönüşleri."
     )
 
     return "\n".join(lines)
@@ -2020,423 +2019,164 @@ def scan_symbol(
 
     try:
 
-        candles = get_tv_candles(
-            symbol
-        )
+        candles = get_tv_candles(symbol)
 
         if not candles:
-
             return {
                 "status": "error",
                 "symbol": symbol,
-                "error":
-                    "Mum verisi yok."
+                "error": "Mum verisi yok."
             }
 
-        # ----------------------------------------------------
-        # SON TAMAMLANMIS MUM
-        # ----------------------------------------------------
+        # Tum gun icindeki TAMAMLANMIS 2H mumlari hesaba kat.
+        # Sadece son muma bakma: gun icinde daha once olusan
+        # SAT -> AL (BUY) mumlarini da yakala.
+        completed_index = get_last_completed_index(candles)
 
-        completed_index = (
-            get_last_completed_index(
-                candles
-            )
-        )
-
-        if completed_index is None:
-
+        if completed_index is None or completed_index < 1:
             return {
                 "status": "skip",
                 "symbol": symbol,
-                "error":
-                    "Tamamlanmis mum yok."
+                "error": "Tamamlanmis mum yok."
             }
 
-        # En az onceki mum da olmali
-        if completed_index < 1:
+        calculation_candles = candles[:completed_index + 1]
 
-            return {
-                "status": "skip",
-                "symbol": symbol,
-                "error":
-                    "Onceki mum yok."
-            }
-
-        calculation_candles = (
-            candles[
-                :completed_index + 1
-            ]
-        )
-
-        directions = (
-            calculate_supertrend_directions(
-
-                calculation_candles,
-
-                ATR_PERIOD,
-
-                ATR_MULTIPLIER
-
-            )
+        directions = calculate_supertrend_directions(
+            calculation_candles,
+            ATR_PERIOD,
+            ATR_MULTIPLIER
         )
 
         if directions is None:
-
             return {
                 "status": "skip",
                 "symbol": symbol,
-                "error":
-                    "Supertrend hesaplanamadi."
+                "error": "Supertrend hesaplanamadi."
             }
 
-        # ----------------------------------------------------
-        # SON IKI TAMAMLANMIS MUM
-        # ----------------------------------------------------
+        # TradingView Kivanc BUY kosulu:
+        # onceki trend SAT (-1), sonraki trend AL (+1).
+        # Gun icindeki tum tamamlanmis mumlarda ara.
+        buy_signal_indexes = []
 
-        current_direction = (
-            directions[
-                completed_index
-            ]
-        )
-
-        previous_direction = None
-
-        # Onceki gecerli direction'i bul
-        for i in range(
-            completed_index - 1,
-            -1,
-            -1
-        ):
-
-            if directions[i] is not None:
-
-                previous_direction = (
-                    directions[i]
-                )
-
-                break
-
-        if current_direction is None:
-
-            return {
-                "status": "skip",
-                "symbol": symbol,
-                "error":
-                    "Son yon bulunamadi."
-            }
-
-        if previous_direction is None:
-
-            return {
-                "status": "skip",
-                "symbol": symbol,
-                "error":
-                    "Onceki yon bulunamadi."
-            }
-
-        current_candle = (
-            calculation_candles[
-                completed_index
-            ]
-        )
-
-        previous_candle = (
-            calculation_candles[
-                completed_index - 1
-            ]
-        )
-
-        # ----------------------------------------------------
-        # DEBUG: TEST MODU
-        # ----------------------------------------------------
-        if TEST_MODE:
-            debug_atr = calculate_atr(
-                calculation_candles,
-                ATR_PERIOD
-            )
-
-            debug_up = [None for _ in calculation_candles]
-            debug_dn = [None for _ in calculation_candles]
-
-            debug_first = ATR_PERIOD - 1
+        for i in range(1, len(directions)):
 
             if (
-                debug_first < len(calculation_candles)
-                and debug_atr[debug_first] is not None
+                directions[i - 1] == -1
+                and directions[i] == 1
             ):
-                debug_src = (
-                    calculation_candles[debug_first]["high"]
-                    + calculation_candles[debug_first]["low"]
-                ) / 2.0
+                buy_signal_indexes.append(i)
 
-                debug_up[debug_first] = (
-                    debug_src
-                    - ATR_MULTIPLIER * debug_atr[debug_first]
-                )
+        # Istanbul gunu icindeki BUY'lar.
+        now = now_istanbul()
+        today_start = datetime(
+            now.year,
+            now.month,
+            now.day,
+            0,
+            0,
+            0,
+            tzinfo=ZoneInfo(TIMEZONE)
+        ).timestamp()
 
-                debug_dn[debug_first] = (
-                    debug_src
-                    + ATR_MULTIPLIER * debug_atr[debug_first]
-                )
+        today_buy_indexes = [
+            i
+            for i in buy_signal_indexes
+            if calculation_candles[i]["time"] >= today_start
+        ]
 
-                for debug_i in range(
-                    debug_first + 1,
-                    len(calculation_candles)
-                ):
-                    if debug_atr[debug_i] is None:
-                        continue
+        old = state.get(symbol)
+        if not isinstance(old, dict):
+            old = {}
 
-                    debug_src = (
-                        calculation_candles[debug_i]["high"]
-                        + calculation_candles[debug_i]["low"]
-                    ) / 2.0
+        old_direction = old.get("direction")
+        old_candle_time = old.get("candle_time")
+        old_buy_time = old.get("last_buy_candle_time")
 
-                    debug_basic_up = (
-                        debug_src
-                        - ATR_MULTIPLIER * debug_atr[debug_i]
-                    )
+        # Ilk kurulumda eski state'te BUY zamani yoksa,
+        # mevcut gunun BUY sinyallerini degerlendir.
+        if old_buy_time is None:
+            old_buy_time = 0.0
+        else:
+            try:
+                old_buy_time = float(old_buy_time)
+            except Exception:
+                old_buy_time = 0.0
 
-                    debug_basic_dn = (
-                        debug_src
-                        + ATR_MULTIPLIER * debug_atr[debug_i]
-                    )
+        new_buy_indexes = [
+            i
+            for i in today_buy_indexes
+            if float(calculation_candles[i]["time"]) > old_buy_time
+        ]
 
-                    debug_prev_close = calculation_candles[debug_i - 1]["close"]
-                    debug_prev_up = debug_up[debug_i - 1]
-                    debug_prev_dn = debug_dn[debug_i - 1]
+        current_candle = calculation_candles[completed_index]
+        previous_candle = calculation_candles[completed_index - 1]
 
-                    if debug_prev_up is None:
-                        debug_prev_up = debug_basic_up
+        current_direction = directions[completed_index]
+        previous_direction = directions[completed_index - 1]
 
-                    if debug_prev_dn is None:
-                        debug_prev_dn = debug_basic_dn
+        # En son BUY'i state'e kaydetmek icin ayri alan.
+        latest_buy_time = None
+        latest_buy_index = None
 
-                    debug_up[debug_i] = (
-                        max(debug_basic_up, debug_prev_up)
-                        if debug_prev_close > debug_prev_up
-                        else debug_basic_up
-                    )
+        if buy_signal_indexes:
+            latest_buy_index = buy_signal_indexes[-1]
+            latest_buy_time = calculation_candles[latest_buy_index]["time"]
 
-                    debug_dn[debug_i] = (
-                        min(debug_basic_dn, debug_prev_dn)
-                        if debug_prev_close < debug_prev_dn
-                        else debug_basic_dn
-                    )
+        buy_results = []
 
-            log("    ===== DEBUG SUPERTREND =====")
-            log(
-                f"    DEBUG tamamlanmis_index={completed_index} "
-                f"mum_sayisi={len(calculation_candles)}"
-            )
+        for i in new_buy_indexes:
+            buy_results.append({
+                "status": "new_buy",
+                "symbol": symbol,
+                "price": calculation_candles[i]["close"],
+                "candle_time": calculation_candles[i]["time"],
+                "direction": 1,
+                "previous_direction": -1,
+                "buy_signal": True,
+                "previous_candle_time": calculation_candles[i - 1]["time"]
+            })
 
-            debug_start = max(0, completed_index - 5)
+        new_buy = bool(buy_results)
 
-            for debug_i in range(
-                debug_start,
-                completed_index + 1
-            ):
-                debug_candle = calculation_candles[debug_i]
-                debug_dt = (
-                    datetime.fromtimestamp(
-                        debug_candle["time"],
-                        tz=ZoneInfo("UTC")
-                    )
-                    .astimezone(ZoneInfo(TIMEZONE))
-                )
-
+        if old:
+            if new_buy:
                 log(
-                    f"    DEBUG {debug_dt.strftime('%d.%m.%Y %H:%M')} | "
-                    f"O={debug_candle['open']:.4f} "
-                    f"H={debug_candle['high']:.4f} "
-                    f"L={debug_candle['low']:.4f} "
-                    f"C={debug_candle['close']:.4f} "
-                    f"ATR={debug_atr[debug_i]:.6f}"
-                    if debug_atr[debug_i] is not None
-                    else
-                    f"    DEBUG {debug_dt.strftime('%d.%m.%Y %H:%M')} | "
-                    f"O={debug_candle['open']:.4f} "
-                    f"H={debug_candle['high']:.4f} "
-                    f"L={debug_candle['low']:.4f} "
-                    f"C={debug_candle['close']:.4f} ATR=None"
-                )
-
-                if debug_atr[debug_i] is not None:
-                    log(
-                        f"    DEBUG direction={directions[debug_i]} "
-                        f"up={debug_up[debug_i]:.6f} "
-                        f"dn={debug_dn[debug_i]:.6f}"
+                    f"    >>> {len(buy_results)} YENI BUY: "
+                    + ", ".join(
+                        datetime.fromtimestamp(
+                            r["candle_time"],
+                            tz=ZoneInfo("UTC")
+                        ).astimezone(ZoneInfo(TIMEZONE)).strftime("%H:%M")
+                        for r in buy_results
                     )
-
-            log(
-                f"    DEBUG PREV_DIRECTION={previous_direction} "
-                f"CURRENT_DIRECTION={current_direction}"
-            )
-            log("    ===== DEBUG SUPERTREND BITTI =====")
-
-        # ----------------------------------------------------
-        # TRADINGVIEW BUY SINYALI
-        #
-        # Bu, son tamamlanmis 2H mumunda TradingView
-        # Supertrend BUY etiketinin kosuludur.
-        # State'ten bagimsiz hesaplanir.
-        # ----------------------------------------------------
-
-        buy_signal = (
-            previous_direction == -1
-            and current_direction == 1
-        )
-
-        # ----------------------------------------------------
-        # GITHUB'TAN ONCEKI DURUM
-        # ----------------------------------------------------
-
-        old = state.get(
-            symbol
-        )
-
-        old_direction = None
-        old_candle_time = None
-
-        if isinstance(
-            old,
-            dict
-        ):
-
-            old_direction = old.get(
-                "direction"
-            )
-
-            old_candle_time = old.get(
-                "candle_time"
-            )
-
-        # ----------------------------------------------------
-        # GERCEK SAT -> AL
-        #
-        # Onceki taramada SAT
-        # Simdiki tamamlanmis mum AL
-        #
-        # Ayrica mum zamani ilerlemis olmali.
-        # ----------------------------------------------------
-
-        new_buy = (
-
-            old_direction == -1
-
-            and
-
-            current_direction == 1
-
-            and
-
-            (
-                old_candle_time is None
-                or
-                float(
-                    current_candle["time"]
                 )
-                >
-                float(
-                    old_candle_time
-                )
-            )
-
-        )
-
-        # ----------------------------------------------------
-        # ILK KEZ GORULEN HISSE
-        #
-        # Ilk calismada AL ise alarm verme.
-        # Sadece mevcut durumu kaydet.
-        # ----------------------------------------------------
-
-        first_seen = (
-            old is None
-        )
-
-        if first_seen:
-
+            elif old_direction == -1 and current_direction == -1:
+                log("    SAT -> SAT")
+            elif old_direction == 1 and current_direction == 1:
+                log("    AL -> AL")
+            elif old_direction == 1 and current_direction == -1:
+                log("    >>> YENI SAT")
+            else:
+                log("    Durum degismedi.")
+        else:
             log(
                 f"    Ilk durum: "
                 f"{'AL' if current_direction == 1 else 'SAT'}"
             )
 
-        elif new_buy:
-
-            log(
-                "    >>> YENI SAT -> AL <<<"
-            )
-
-        else:
-
-            if (
-                old_direction == -1
-                and
-                current_direction == -1
-            ):
-
-                log(
-                    "    SAT -> SAT"
-                )
-
-            elif (
-                old_direction == 1
-                and
-                current_direction == 1
-            ):
-
-                log(
-                    "    AL -> AL"
-                )
-
-            elif (
-                old_direction == 1
-                and
-                current_direction == -1
-            ):
-
-                log(
-                    "    >>> YENI SAT"
-                )
-
-            else:
-
-                log(
-                    "    Durum degismedi."
-                )
-
-        # ----------------------------------------------------
-        # RESULT
-        # ----------------------------------------------------
-
         return {
-
-            "status":
-                "new_buy"
-                if new_buy
-                else "ok",
-
-            "symbol":
-                symbol,
-
-            "price":
-                current_candle["close"],
-
-            "candle_time":
-                current_candle["time"],
-
-            "direction":
-                current_direction,
-
-            "previous_direction":
-                previous_direction,
-
-            "buy_signal":
-                buy_signal,
-
-            "previous_candle_time":
-                previous_candle["time"]
-
+            "status": "new_buy" if new_buy else "ok",
+            "symbol": symbol,
+            "price": current_candle["close"],
+            "candle_time": current_candle["time"],
+            "direction": current_direction,
+            "previous_direction": previous_direction,
+            "buy_signal": bool(today_buy_indexes),
+            "previous_candle_time": previous_candle["time"],
+            "buy_results": buy_results,
+            "latest_buy_time": latest_buy_time
         }
 
     except Exception as e:
@@ -2446,16 +2186,9 @@ def scan_symbol(
         )
 
         return {
-
-            "status":
-                "error",
-
-            "symbol":
-                symbol,
-
-            "error":
-                str(e)
-
+            "status": "error",
+            "symbol": symbol,
+            "error": str(e)
         }
 
 
@@ -2476,18 +2209,38 @@ def update_state(
 
     symbol = result["symbol"]
 
-    state[symbol] = {
+    old = state.get(symbol)
+    if not isinstance(old, dict):
+        old = {}
 
-        "direction":
-            result["direction"],
-
-        "candle_time":
-            result["candle_time"],
-
-        "updated_at":
-            now_istanbul().isoformat()
-
+    new_state = {
+        "direction": result["direction"],
+        "candle_time": result["candle_time"],
+        "updated_at": now_istanbul().isoformat()
     }
+
+    # Son yakalanmis BUY mumunu ayri sakla.
+    # Boylece ayni gun icindeki daha eski BUY tekrar gonderilmez.
+    previous_buy_time = old.get("last_buy_candle_time")
+    latest_buy_time = result.get("latest_buy_time")
+
+    if latest_buy_time is not None:
+        try:
+            latest_buy_time = float(latest_buy_time)
+            if (
+                previous_buy_time is None
+                or latest_buy_time > float(previous_buy_time)
+            ):
+                new_state["last_buy_candle_time"] = latest_buy_time
+            else:
+                new_state["last_buy_candle_time"] = float(previous_buy_time)
+        except Exception:
+            if previous_buy_time is not None:
+                new_state["last_buy_candle_time"] = previous_buy_time
+    elif previous_buy_time is not None:
+        new_state["last_buy_candle_time"] = previous_buy_time
+
+    state[symbol] = new_state
 
 
 
@@ -2821,50 +2574,33 @@ def main():
 
         success_count += 1
 
-        # Sadece son tamamlanmis 2H mumunda gerçek
-        # TradingView BUY etiketi oluşanları al.
-        # Aynı mum daha önce state'e kaydedildiyse tekrar gönderme.
-        if result.get("buy_signal") is True:
+        # Gun icinde olusan ve state'te daha once kaydedilmemis
+        # tum BUY mumlarini Telegram listesine ekle.
+        buy_results = result.get(
+            "buy_results",
+            []
+        )
 
-            old_result = state.get(
-                result["symbol"]
+        if buy_results:
+            new_buy_results.extend(
+                buy_results
+            )
+            current_buy_signal_results.extend(
+                buy_results
             )
 
-            old_candle_time = None
-
-            if isinstance(old_result, dict):
-                old_candle_time = old_result.get(
-                    "candle_time"
+            for buy_result in buy_results:
+                log(
+                    "    >>>>>> YENI BUY <<<<<< "
+                    + datetime.fromtimestamp(
+                        buy_result["candle_time"],
+                        tz=ZoneInfo("UTC")
+                    ).astimezone(
+                        ZoneInfo(TIMEZONE)
+                    ).strftime("%d.%m.%Y %H:%M")
                 )
 
-            if (
-                old_candle_time is None
-                or
-                float(result["candle_time"])
-                != float(old_candle_time)
-            ):
-                current_buy_signal_results.append(result)
-
-        if status == "new_buy":
-
-            new_buy_results.append(
-                result
-            )
-
-            log(
-                "    >>>>>> YENI SAT -> AL <<<<<<"
-            )
-
-            log(
-                "    Fiyat: "
-                +
-                f"{result['price']:.2f} TL"
-            )
-
-        # ----------------------------------------------------
-        # STATE GUNCELLE
-        # ----------------------------------------------------
-
+        # Son durumu ve son BUY zamanini kaydet.
         update_state(
             state,
             result
