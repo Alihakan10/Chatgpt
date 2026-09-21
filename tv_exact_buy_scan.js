@@ -185,7 +185,7 @@ function createClient() {
         if (packet.m === "symbol_resolved") {
           const resolvedId = p[1];
           if (pendingSymbol && resolvedId === pendingSymbol.nodeId) {
-            send("modify_series", [cs, series, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE, ""]);
+            send("modify_series", [cs, series, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE]);
           }
           continue;
         }
@@ -270,19 +270,20 @@ async function main() {
       const now=Math.floor(Date.now()/1000);
       const completed=candles.filter(c=>c.time + 7200 <= now);
       const buys=calculateBuySignals(completed);
-      const day=completed.length ? localDate(completed[completed.length-1].time) : null;
-      const todays=buys.filter(x=>localDate(x.candle_time)===day);
+      const last=completed[completed.length-1];
+      const lastBuy=buys.find(x=>x.candle_time===last.time);
 
       const old=state[symbol]&&typeof state[symbol]==="object"?state[symbol]:{};
       const oldBuy=Number(old.last_buy_candle_time||0);
 
-      for (const r of todays) {
-        const x={...r,symbol,already:r.candle_time<=oldBuy};
+      if (lastBuy) {
+        const x={...lastBuy,symbol,already:lastBuy.candle_time<=oldBuy};
         current.push(x);
-        console.log("["+(i+1)+"/"+symbols.length+"] GERCEK BUY | "+symbol+" | "+fmt(r.candle_time)+" | "+(x.already?"MEVCUT":"YENI"));
+        console.log("["+(i+1)+"/"+symbols.length+"] SON MUM BUY | "+symbol+" | "+fmt(lastBuy.candle_time)+" | "+(x.already?"MEVCUT":"YENI"));
         if (!x.already) fresh.push(x);
+      } else {
+        console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | SON MUM BUY yok");
       }
-      if (!todays.length) console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | BUY yok");
     } catch(e) {
       errors++;
       console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | HATA: "+String(e.message||e));
