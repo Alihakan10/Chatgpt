@@ -17,16 +17,19 @@ const ID = "PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45";
   console.log("PLOTS:");
   console.log(JSON.stringify(indicator.plots || {}, null, 2));
 
-  for (const key of ["metainfo","script","source","description","name","shortName","id","version","options"]) {
+  console.log("SCRIPT:");
+  if (typeof indicator.script === "string") {
+    console.log(indicator.script);
     try {
-      if (indicator[key] !== undefined) {
-        console.log("\n" + key.toUpperCase() + ":");
-        if (typeof indicator[key] === "string") {\n        console.log(indicator[key]);\n        if (key === "script") {\n          try { console.log("SCRIPT_DECODED:\\n" + Buffer.from(indicator[key], "base64").toString("utf8")); } catch (_) {}\n        }\n      } else {\n        console.log(JSON.stringify(indicator[key], null, 2));\n      }
-      }
-    } catch (e) {
-      console.log(key + ": <okunamadi>");
-    }
+      console.log("SCRIPT_DECODED:");
+      console.log(Buffer.from(indicator.script, "base64").toString("utf8"));
+    } catch (_) {}
+  } else {
+    console.log(JSON.stringify(indicator.script || null, null, 2));
   }
+
+  console.log("DESCRIPTION:");
+  console.log(indicator.description || "");
 
   console.log("METADATA TEST TAMAMLANDI.");
 })().catch(err => {
