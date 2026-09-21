@@ -152,6 +152,21 @@ except ValueError:
 # ------------------------------------------------------------
 
 # SAFE_MANUAL_SCAN_PATCH_V2
+# Manuel workflow testinde seans hizali 2H mumlari kullan.
+# Otomatik schedule taramalarinin veri yapisi degismez.
+MANUAL_TEST_RUN = (
+    os.getenv(
+        "MANUAL_TEST_RUN",
+        "false"
+    ).lower()
+    in (
+        "1",
+        "true",
+        "yes",
+        "on"
+    )
+)
+
 FORCE_SCAN = (
     os.getenv(
         "FORCE_SCAN",
@@ -2169,8 +2184,8 @@ def scan_symbol(
     try:
 
         # Otomatik tarama native TradingView 2H olarak aynen kalir.
-        # Sadece TEST_MODE'da BIST seansina hizalanmis 2H mumlar kullanilir.
-        candle_mode = "session_merged" if TEST_MODE else "native_2h"
+        # Sadece manuel workflow testinde BIST seansina hizalanmis 2H mumlar kullanilir.
+        candle_mode = "session_merged" if MANUAL_TEST_RUN else "native_2h"
         candles = get_tv_candles(symbol, candle_mode)
 
 
