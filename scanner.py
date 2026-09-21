@@ -2168,7 +2168,10 @@ def scan_symbol(
 
     try:
 
-        candles = get_tv_candles(symbol, "native_2h")
+        # Otomatik tarama native TradingView 2H olarak aynen kalir.
+        # Sadece TEST_MODE'da BIST seansina hizalanmis 2H mumlar kullanilir.
+        candle_mode = "session_merged" if TEST_MODE else "native_2h"
+        candles = get_tv_candles(symbol, candle_mode)
 
 
 
