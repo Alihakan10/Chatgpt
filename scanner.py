@@ -2252,6 +2252,20 @@ def scan_symbol(
                     + " C=" + format_price(native_calc[nci]["close"])
                     + " | ST=" + str(native_dirs[nci])
                 )
+        if TEST_MODE:
+            history_buys = history_window_buy_times(calculation_candles)
+            log("    HISTORY WINDOW BUY KARSILASTIRMA | " + symbol)
+            for hw in (3000, 5000, 10000, 15000, 20000):
+                if hw not in history_buys:
+                    continue
+                times = []
+                for ts in history_buys[hw][-5:]:
+                    dt = datetime.fromtimestamp(
+                        ts, tz=ZoneInfo("UTC")
+                    ).astimezone(ZoneInfo(TIMEZONE))
+                    times.append(dt.strftime("%d.%m.%Y %H:%M"))
+                log("      " + str(hw) + " BAR | " + (", ".join(times) if times else "YOK"))
+
         # TradingView Kivanc BUY kosulu:
         # onceki trend SAT (-1), sonraki trend AL (+1).
         # Gun icindeki tum tamamlanmis mumlarda ara.
