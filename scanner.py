@@ -6,7 +6,7 @@
 # OZELLIKLER
 #
 # 1) Tum BIST hisselerini TradingView Scanner ile bulur
-# 2) TradingView WebSocket ile 2 saatlik mumlari alir
+# 2) TradingView WebSocket ile 1 saatlik veriyi alir ve BIST seansina gore 2 saatlik mumlara birlestirir
 # 3) Supertrend:
 #       ATR Period     = 10
 #       Source         = HL2
@@ -50,9 +50,10 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 5000
+CANDLE_COUNT = 10000
 HISTORY_TARGET = 20000
 HISTORY_REQUEST_SIZE = 5000
+DATA_TIMEFRAME = "60"
 
 
 # ------------------------------------------------------------
@@ -566,7 +567,7 @@ def get_tv_candles(symbol):
     try:
 
         log(
-            f"    TradingView veri baglantisi: {symbol}"
+            f"    TradingView 1H veri baglantisi + BIST 2H birlestirme: {symbol}"
         )
 
         # SAFE_WEBSOCKET_PATCH_V3
@@ -698,7 +699,7 @@ def get_tv_candles(symbol):
                     "sds_1",
                     "s1",
                     "sds_sym_1",
-                    TIMEFRAME,
+                    DATA_TIMEFRAME,
                     CANDLE_COUNT,
                     ""
                 ]
@@ -1166,6 +1167,49 @@ def get_tv_candles(symbol):
             candles.values(),
             key=lambda x: x["time"]
         )
+
+        # TradingView'in BIST 2H grafiğindeki seans hizasını koru.
+        # WebSocket'in native 120 dakikalık serisi UTC/24 saat hizalı
+        # olabildiği için 09:00/11:00 gibi kaymış barlar üretebilir.
+        # BIST seansı 10:00-18:00 olduğundan 1H veriyi
+        # 10-12, 12-14, 14-16 ve 16-18 olarak birleştir.
+        one_hour = result
+        grouped = {}
+        for bar in one_hour:
+            local_dt = datetime.fromtimestamp(
+                bar["time"], tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+            if local_dt.hour not in (10, 11, 12, 13, 14, 15, 16, 17):
+                continue
+            if local_dt.minute != 0:
+                continue
+            if local_dt.hour % 2 == 0:
+                start_hour = local_dt.hour
+            else:
+                start_hour = local_dt.hour - 1
+            key = (local_dt.date(), start_hour)
+            grouped.setdefault(key, []).append(bar)
+
+        merged = []
+        for (day, start_hour), bars in sorted(grouped.items()):
+            bars = sorted(bars, key=lambda x: x["time"])
+            if len(bars) != 2:
+                continue
+            if [
+                datetime.fromtimestamp(b["time"], tz=ZoneInfo("UTC")).astimezone(ZoneInfo(TIMEZONE)).hour
+                for b in bars
+            ] != [start_hour, start_hour + 1]:
+                continue
+            merged.append({
+                "time": bars[0]["time"],
+                "open": bars[0]["open"],
+                "high": max(bars[0]["high"], bars[1]["high"]),
+                "low": min(bars[0]["low"], bars[1]["low"]),
+                "close": bars[1]["close"],
+                "volume": bars[0]["volume"] + bars[1]["volume"]
+            })
+
+        result = merged
 
         if len(result) < 20:
 
