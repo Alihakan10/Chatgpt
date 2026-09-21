@@ -89,18 +89,3 @@ jobs:
           git add state/supertrend_state.json
           git diff --cached --quiet || git commit -m "Update Supertrend BUY state"
           git push
-
-      - name: BIST Supertrend taramasi
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.test_mode || 'false' }}
-          TEST_SYMBOLS: ${{ github.event_name == 'workflow_dispatch' && inputs.test_symbol || 'BIST:ZOREN' }}
-          SEND_TEST_TELEGRAM: ${{ github.event_name == 'workflow_dispatch' && inputs.send_test_telegram || 'false' }}
-          FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_scan || 'false' }}
-          SEND_SCAN_REPORT: ${{ github.event_name == 'workflow_dispatch' && inputs.send_scan_report || 'true' }}
-          SCAN_LIMIT: ${{ github.event_name == 'workflow_dispatch' && inputs.scan_limit || '620' }}
-        run: python scanner.py
