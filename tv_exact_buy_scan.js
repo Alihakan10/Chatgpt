@@ -70,7 +70,7 @@ async function main() {
       chart.onSymbolLoaded(() => {
         try {
           if (!shared.study) {
-            shared.study = chart.Study(indicator);
+            shared.study = new chart.Study(indicator);
             shared.study.onError((...err) => {
               reject(new Error("Study: " + JSON.stringify(err)));
             });
