@@ -2372,22 +2372,30 @@ def scan_symbol(
             except Exception:
                 old_buy_time = 0.0
 
-        # TEST MODUNDA state filtresi uygulanmaz.
-        # Mevcut BUY etiketi daha once kaydedilmis olsa bile raporlanir.
-        if TEST_MODE:
-            new_buy_indexes = list(today_buy_indexes)
-        else:
-            new_buy_indexes = [
-                i
-                for i in today_buy_indexes
-                if float(calculation_candles[i]["time"]) > old_buy_time
-            ]
-
+        # KRITIK: SADECE SON TAMAMLANMIS 2H MUMU BUY ISE SINYAL KABUL ET.
+        # Gun icindeki daha eski SAT -> AL donusleri CURRENT BUY degildir.
         current_candle = calculation_candles[completed_index]
         previous_candle = calculation_candles[completed_index - 1]
 
         current_direction = directions[completed_index]
         previous_direction = directions[completed_index - 1]
+
+        current_buy_signal = (
+            previous_direction == -1
+            and current_direction == 1
+        )
+
+        if current_buy_signal:
+            if TEST_MODE:
+                new_buy_indexes = [completed_index]
+            else:
+                new_buy_indexes = (
+                    [completed_index]
+                    if float(current_candle["time"]) > old_buy_time
+                    else []
+                )
+        else:
+            new_buy_indexes = []
 
         # TradingView Kivanc scriptindeki alternatif ATR (SMA) yolunu
         # da aynı OHLC üzerinde hesapla; hangi hesap yolunun grafikteki
@@ -2456,13 +2464,12 @@ def scan_symbol(
                 )
             })
 
-        # En son BUY'i state'e kaydetmek icin ayri alan.
+        # State'e yalnizca SON TAMAMLANMIS mumdaki BUY'i kaydet.
+        # Eski gun ici BUY'ler tekrar current signal olarak kullanilmaz.
         latest_buy_time = None
-        latest_buy_index = None
 
-        if buy_signal_indexes:
-            latest_buy_index = buy_signal_indexes[-1]
-            latest_buy_time = calculation_candles[latest_buy_index]["time"]
+        if current_buy_signal:
+            latest_buy_time = current_candle["time"]
 
         buy_results = []
 
@@ -2478,23 +2485,22 @@ def scan_symbol(
                 "previous_candle_time": calculation_candles[i - 1]["time"]
             })
 
-        # Gun icindeki tum BUY sinyallerini ayri listele.
-        # Manuel raporda mevcut / daha once gonderildi / YENI ayrimi icin kullanilir.
+        # Manuel rapor icin SADECE SON TAMAMLANMIS mumdaki BUY'i goster.
         all_buy_results = []
 
-        for i in today_buy_indexes:
-            candle_time = float(calculation_candles[i]["time"])
+        if current_buy_signal:
+            candle_time = float(current_candle["time"])
             already_sent = candle_time <= float(old_buy_time)
 
             all_buy_results.append({
                 "status": "previously_sent" if already_sent else "new_buy",
                 "symbol": symbol,
-                "price": calculation_candles[i]["close"],
-                "candle_time": calculation_candles[i]["time"],
+                "price": current_candle["close"],
+                "candle_time": current_candle["time"],
                 "direction": 1,
                 "previous_direction": -1,
                 "buy_signal": True,
-                "previous_candle_time": calculation_candles[i - 1]["time"],
+                "previous_candle_time": previous_candle["time"],
                 "already_sent": already_sent
             })
 
@@ -2533,7 +2539,7 @@ def scan_symbol(
             "candle_time": current_candle["time"],
             "direction": current_direction,
             "previous_direction": previous_direction,
-            "buy_signal": bool(today_buy_indexes),
+            "buy_signal": current_buy_signal,
             "previous_candle_time": previous_candle["time"],
             "buy_results": buy_results,
             "all_buy_results": all_buy_results,
