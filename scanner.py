@@ -2165,6 +2165,35 @@ def scan_symbol(
         current_direction = directions[completed_index]
         previous_direction = directions[completed_index - 1]
 
+        # TEST MODU icin TradingView mum zamanlamasi ve
+        # Supertrend gecisini birebir incelemeye yarayan tanilama.
+        debug_bars = []
+        debug_start = max(0, completed_index - 5)
+
+        for debug_i in range(
+            debug_start,
+            completed_index + 1
+        ):
+            debug_dt = (
+                datetime.fromtimestamp(
+                    calculation_candles[debug_i]["time"],
+                    tz=ZoneInfo("UTC")
+                )
+                .astimezone(ZoneInfo(TIMEZONE))
+            )
+
+            debug_bars.append({
+                "time": debug_dt.strftime("%d.%m.%Y %H:%M"),
+                "open": calculation_candles[debug_i]["open"],
+                "high": calculation_candles[debug_i]["high"],
+                "low": calculation_candles[debug_i]["low"],
+                "close": calculation_candles[debug_i]["close"],
+                "direction": directions[debug_i],
+                "buy": (
+                    debug_i in buy_signal_indexes
+                )
+            })
+
         # En son BUY'i state'e kaydetmek icin ayri alan.
         latest_buy_time = None
         latest_buy_index = None
@@ -2246,7 +2275,8 @@ def scan_symbol(
             "previous_candle_time": previous_candle["time"],
             "buy_results": buy_results,
             "all_buy_results": all_buy_results,
-            "latest_buy_time": latest_buy_time
+            "latest_buy_time": latest_buy_time,
+            "debug_bars": debug_bars
         }
 
     except Exception as e:
@@ -2485,6 +2515,29 @@ def main():
                 direction = result.get(
                     "direction"
                 )
+
+                debug_bars = result.get(
+                    "debug_bars",
+                    []
+                )
+
+                for debug_bar in debug_bars:
+                    log(
+                        "    MUM | "
+                        + debug_bar["time"]
+                        + " | O="
+                        + format_price(debug_bar["open"])
+                        + " H="
+                        + format_price(debug_bar["high"])
+                        + " L="
+                        + format_price(debug_bar["low"])
+                        + " C="
+                        + format_price(debug_bar["close"])
+                        + " | ST="
+                        + str(debug_bar["direction"])
+                        + " | BUY="
+                        + str(debug_bar["buy"])
+                    )
 
                 if direction == 1:
 
