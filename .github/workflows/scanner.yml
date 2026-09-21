@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TEST_MODE: "false"
-      TEST_SYMBOLS: "BIST:BALSU,BIST:ERCB,BIST:INVEO"
-      FORCE_SCAN: "false"
+      TEST_MODE: "true"
+      TEST_SYMBOLS: "BIST:ASTOR"
+      FORCE_SCAN: "true"
       SEND_SCAN_REPORT: "false"
       SEND_TEST_TELEGRAM: "false"
       SCAN_LIMIT: "3"
@@ -34,12 +34,12 @@ jobs:
       - name: Node paketleri
         run: npm install
 
-      - name: TradingView indicator metadata testi
+      - name: TradingView Supertrend ASTOR testi
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
-        run: node tv_indicator_meta.js
+        run: python scanner.py
 
