@@ -21,9 +21,7 @@ const ID = "PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45";
     try {
       if (indicator[key] !== undefined) {
         console.log("\n" + key.toUpperCase() + ":");
-        console.log(typeof indicator[key] === "string"
-          ? indicator[key]
-          : JSON.stringify(indicator[key], null, 2));
+        if (typeof indicator[key] === "string") {\n        console.log(indicator[key]);\n        if (key === "script") {\n          try { console.log("SCRIPT_DECODED:\\n" + Buffer.from(indicator[key], "base64").toString("utf8")); } catch (_) {}\n        }\n      } else {\n        console.log(JSON.stringify(indicator[key], null, 2));\n      }
       }
     } catch (e) {
       console.log(key + ": <okunamadi>");
