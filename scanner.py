@@ -2161,6 +2161,26 @@ def scan_symbol(
                 "previous_candle_time": calculation_candles[i - 1]["time"]
             })
 
+        # Gun icindeki tum BUY sinyallerini ayri listele.
+        # Manuel raporda mevcut / daha once gonderildi / YENI ayrimi icin kullanilir.
+        all_buy_results = []
+
+        for i in today_buy_indexes:
+            candle_time = float(calculation_candles[i]["time"])
+            already_sent = candle_time <= float(old_buy_time)
+
+            all_buy_results.append({
+                "status": "previously_sent" if already_sent else "new_buy",
+                "symbol": symbol,
+                "price": calculation_candles[i]["close"],
+                "candle_time": calculation_candles[i]["time"],
+                "direction": 1,
+                "previous_direction": -1,
+                "buy_signal": True,
+                "previous_candle_time": calculation_candles[i - 1]["time"],
+                "already_sent": already_sent
+            })
+
         new_buy = bool(buy_results)
 
         if old:
@@ -2199,6 +2219,7 @@ def scan_symbol(
             "buy_signal": bool(today_buy_indexes),
             "previous_candle_time": previous_candle["time"],
             "buy_results": buy_results,
+            "all_buy_results": all_buy_results,
             "latest_buy_time": latest_buy_time
         }
 
@@ -2559,6 +2580,8 @@ def main():
 
     new_buy_results = []
     current_buy_signal_results = []
+    existing_buy_results = []
+    previously_sent_buy_results = []
 
     success_count = 0
     error_count = 0
@@ -2603,6 +2626,17 @@ def main():
             "buy_results",
             []
         )
+
+        all_buy_results = result.get(
+            "all_buy_results",
+            []
+        )
+
+        for buy_result in all_buy_results:
+            if buy_result.get("already_sent"):
+                previously_sent_buy_results.append(buy_result)
+            else:
+                existing_buy_results.append(buy_result)
 
         if buy_results:
             new_buy_results.extend(
@@ -2665,6 +2699,48 @@ def main():
         f"YENI SAT -> AL: "
         f"{len(new_buy_results)}"
     )
+
+    # Manuel taramada BUY durumlarini acikca ayir.
+    if FORCE_SCAN:
+        log("")
+        log("MANUEL TARAMA BUY RAPORU")
+        log(f"MEVCUT BUY: {len(existing_buy_results)}")
+        for item in sorted(existing_buy_results, key=lambda x: x["symbol"]):
+            dt = datetime.fromtimestamp(
+                item["candle_time"], tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+            log(
+                f"    MEVCUT BUY | {item['symbol']} | "
+                f"{dt.strftime('%d.%m.%Y %H:%M')} | "
+                f"YENI"
+            )
+
+        log(
+            f"DAHA ONCE TELEGRAM'A GONDERILEN BUY: "
+            f"{len(previously_sent_buy_results)}"
+        )
+        for item in sorted(previously_sent_buy_results, key=lambda x: x["symbol"]):
+            dt = datetime.fromtimestamp(
+                item["candle_time"], tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+            log(
+                f"    MEVCUT BUY | {item['symbol']} | "
+                f"{dt.strftime('%d.%m.%Y %H:%M')} | "
+                f"DAHA ONCE GONDERILDI"
+            )
+
+        log(
+            f"YENI BUY: {len(new_buy_results)}"
+        )
+        for item in sorted(new_buy_results, key=lambda x: x["symbol"]):
+            dt = datetime.fromtimestamp(
+                item["candle_time"], tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+            log(
+                f"    YENI BUY | {item['symbol']} | "
+                f"{dt.strftime('%d.%m.%Y %H:%M')} | "
+                f"TELEGRAM'A GONDERILECEK"
+            )
 
     log("=" * 70)
 
