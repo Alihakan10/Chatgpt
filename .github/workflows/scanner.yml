@@ -17,8 +17,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TEST_MODE: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
-      TEST_SYMBOLS: "BIST:ADGYO,BIST:AKSGY,BIST:ESCOM,BIST:MHRGY,BIST:MNDTR,BIST:OYLUM,BIST:OZSUB,BIST:TUCLK,BIST:TURSG,BIST:USHOL"
+      # KRITIK: TradingView Study KULLANILMIYOR.
+      # workflow_dispatch dahil tum taramalar scanner.py tarafindan
+      # OHLC verisi + Supertrend hesabiyla yapilir.
+      TEST_MODE: "false"
+      TEST_SYMBOLS: ""
       MANUAL_TEST_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
       FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
       SEND_SCAN_REPORT: "true"
@@ -31,14 +34,19 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Node paketleri
-        run: npm install
+      - name: Python kurulumu
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: TradingView gercek BUY testi
+      - name: Python paketleri
+        run: pip install -r requirements.txt
+
+      - name: BIST Supertrend taramasi
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: node tv_exact_buy_scan.js
+        run: python scanner.py
 
       - name: State kaydet
         run: |
