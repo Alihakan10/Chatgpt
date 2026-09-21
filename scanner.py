@@ -1478,6 +1478,47 @@ def calculate_supertrend_directions(
 
 
 # ============================================================
+# TRADINGVIEW TARIHCE BASLANGICI DIAGNOSTIGI
+#
+# Kivanc SuperTrend stateful oldugu icin, TradingView chartinin
+# yukledigi tarih miktari ile fark olusup olusmadigini TEST_MODE'da
+# ayni veri setinin farkli tarihce pencerelerinde karsilastirir.
+# ============================================================
+
+def history_window_buy_times(candles, window_sizes=(3000, 5000, 10000, 15000, 20000)):
+    if not candles:
+        return {}
+
+    results = {}
+
+    for size in window_sizes:
+        subset = candles[-size:] if len(candles) > size else candles
+
+        directions = calculate_supertrend_directions(
+            subset,
+            ATR_PERIOD,
+            ATR_MULTIPLIER
+        )
+
+        if not directions:
+            results[size] = []
+            continue
+
+        buys = []
+
+        for i in range(1, len(subset)):
+            if (
+                directions[i - 1] == -1
+                and directions[i] == 1
+            ):
+                buys.append(subset[i]["time"])
+
+        results[size] = buys
+
+    return results
+
+
+# ============================================================
 # SON TAMAMLANMIS MUM
 # ============================================================
 
