@@ -2239,7 +2239,7 @@ def scan_symbol(
         sma_atr = calculate_atr_sma(
             calculation_candles, ATR_PERIOD
         )
-        sma_dirs = []
+        sma_dirs = [None for _ in calculation_candles]
         up_sma = [None for _ in calculation_candles]
         dn_sma = [None for _ in calculation_candles]
         tr_sma = [None for _ in calculation_candles]
@@ -2263,7 +2263,7 @@ def scan_symbol(
             prev_s = 1 if si == 0 or tr_sma[si - 1] is None else tr_sma[si - 1]
             close_s = calculation_candles[si]["close"]
             tr_sma[si] = 1 if (prev_s == -1 and close_s > dn1_s) else (-1 if (prev_s == 1 and close_s < up1_s) else prev_s)
-            sma_dirs.append(tr_sma[si])
+            sma_dirs[si] = tr_sma[si]
 
         # TEST MODU icin TradingView mum zamanlamasi ve
         # Supertrend gecisini birebir incelemeye yarayan tanilama.
