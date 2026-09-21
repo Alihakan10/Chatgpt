@@ -32,6 +32,7 @@ import math
 import base64
 import requests
 import websocket
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -2098,15 +2099,7 @@ def build_telegram_message(
             result["price"]
         )
 
-        candle_dt = (
-            datetime.fromtimestamp(
-                result["candle_time"],
-                tz=ZoneInfo("UTC")
-            )
-            .astimezone(
-                ZoneInfo(TIMEZONE)
-            )
-        )
+        candle_dt = candle_close_datetime(result["candle_time"])
 
         ticker = symbol.split(":", 1)[-1]
         tradingview_url = (
@@ -2141,6 +2134,18 @@ def build_telegram_message(
     )
 
     return "\n".join(lines)
+
+
+def candle_close_datetime(candle_time):
+
+    return (
+        datetime.fromtimestamp(
+            candle_time,
+            tz=ZoneInfo("UTC")
+        )
+        .astimezone(ZoneInfo(TIMEZONE))
+        + timedelta(hours=2)
+    )
 
 
 # ============================================================
@@ -2913,48 +2918,50 @@ def main():
     # --------------------------------------------------------
     # TARAMA
     # --------------------------------------------------------
+    # TradingView baglantilari paralel calisir. State guncellemesi
+    # sonuclar geldikten sonra tek thread'de yapilir.
 
-    for number, symbol in enumerate(
-        symbols,
-        start=1
-    ):
+    scan_workers = 12
+    scan_results = []
 
-        log(
-            f"[{number}/{total}] {symbol}"
-        )
+    scan_started = time.time()
 
-        result = scan_symbol(
-            symbol,
-            state
-        )
+    with ThreadPoolExecutor(max_workers=scan_workers) as executor:
+        future_map = {
+            executor.submit(scan_symbol, symbol, state): (number, symbol)
+            for number, symbol in enumerate(symbols, start=1)
+        }
 
-        status = result.get(
-            "status"
-        )
+        for future in as_completed(future_map):
+            number, symbol = future_map[future]
+
+            try:
+                result = future.result()
+            except Exception as e:
+                result = {
+                    "status": "error",
+                    "symbol": symbol,
+                    "error": str(e)
+                }
+
+            scan_results.append((number, symbol, result))
+
+    # Sonuclari hisse sirasina gore isle; state yazimi deterministic kalir.
+    scan_results.sort(key=lambda x: x[0])
+
+    for number, symbol, result in scan_results:
+
+        status = result.get("status")
 
         if status == "error":
-
             error_count += 1
-
-            log(
-                "    >>> HATA"
-            )
-
+            log(f"[{number}/{total}] {symbol} -> HATA: {result.get('error')}")
             continue
 
         success_count += 1
 
-        # Gun icinde olusan ve state'te daha once kaydedilmemis
-        # tum BUY mumlarini Telegram listesine ekle.
-        buy_results = result.get(
-            "buy_results",
-            []
-        )
-
-        all_buy_results = result.get(
-            "all_buy_results",
-            []
-        )
+        buy_results = result.get("buy_results", [])
+        all_buy_results = result.get("all_buy_results", [])
 
         for buy_result in all_buy_results:
             if buy_result.get("already_sent"):
@@ -2963,33 +2970,17 @@ def main():
                 existing_buy_results.append(buy_result)
 
         if buy_results:
-            new_buy_results.extend(
-                buy_results
-            )
-            current_buy_signal_results.extend(
-                buy_results
-            )
+            new_buy_results.extend(buy_results)
+            current_buy_signal_results.extend(buy_results)
 
             for buy_result in buy_results:
                 log(
-                    "    >>>>>> YENI BUY <<<<<< "
-                    + datetime.fromtimestamp(
-                        buy_result["candle_time"],
-                        tz=ZoneInfo("UTC")
-                    ).astimezone(
-                        ZoneInfo(TIMEZONE)
-                    ).strftime("%d.%m.%Y %H:%M")
+                    f"[{number}/{total}] {symbol} >>>>>> YENI BUY <<<<<< "
+                    + candle_close_datetime(buy_result["candle_time"]).strftime("%d.%m.%Y %H:%M")
+                    + " KAPANIS"
                 )
 
-        # Son durumu ve son BUY zamanini kaydet.
-        update_state(
-            state,
-            result
-        )
-
-        time.sleep(
-            SYMBOL_DELAY
-        )
+        update_state(state, result)
 
     # --------------------------------------------------------
     # SONUCLAR
