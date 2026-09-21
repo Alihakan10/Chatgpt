@@ -132,7 +132,6 @@ function createClient() {
     });
 
     const cs = "cs_" + Math.random().toString(36).slice(2,14);
-    const sym = "symbol_1";
     let activeSeries = null;
     let seriesSeq = 1;
     let buffer = "";
@@ -144,6 +143,7 @@ function createClient() {
     let symbolSeq = 1;
     let pendingSymbol = null;
     let seriesActive = false;
+    let completedReady = false;
 
     const send = (m,p) => {
       if (ws.readyState === WebSocket.OPEN) ws.send(frame({m,p}));
@@ -191,6 +191,9 @@ function createClient() {
             send("resolve_symbol", [cs, pendingSymbol.nodeId, "=" + JSON.stringify({
               symbol: pendingSymbol.symbol, adjustment:"splits", session:"regular"
             })]);
+          } else if (completedReady) {
+            completedReady = false;
+            finishWait();
           }
           continue;
         }
@@ -209,8 +212,8 @@ function createClient() {
             send("request_more_data", [cs, activeSeries, 1000]);
           } else {
             ready = true;
-            seriesActive = false;
-            finishWait();
+            completedReady = true;
+            send("remove_series", [cs, activeSeries]);
           }
         }
         if (packet.m === "timescale_update" || packet.m === "du") {
