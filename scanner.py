@@ -2204,7 +2204,9 @@ def scan_symbol(
 
         # Otomatik tarama native TradingView 2H olarak aynen kalir.
         # Sadece manuel workflow testinde BIST seansina hizalanmis 2H mumlar kullanilir.
-        candle_mode = "session_merged" if MANUAL_TEST_RUN else "native_2h"
+        # TradingView grafikle birebir karsilastirma icin manuel testte de native 2H kullan.
+        # Seans birlestirmesi BUY etiketlerini TradingView grafiginden ayirabiliyor.
+        candle_mode = "native_2h"
         candles = get_tv_candles(symbol, candle_mode)
 
 
