@@ -269,10 +269,12 @@ async function main() {
     if (!token || !chat) throw new Error("Telegram secret eksik.");
     const lines=["TRADINGVIEW SUPERTREND BUY","","BIST 2 SAATLIK SUPERTREND","ATR 10 | HL2 | 2.0 | 2H","","BUY SINYALI: "+fresh.length+" adet",""];
     for (const x of fresh) {
-      lines.push("🟢 "+x.symbol.replace("BIST:","")+"   "+Number(x.price).toFixed(2)+" TL");
-      lines.push("   Mum: "+fmt(x.candle_time));
+      const ticker = x.symbol.replace("BIST","");
+      const tvUrl = "https://tr.tradingview.com/symbols/BIST-" + encodeURIComponent(ticker) + "/";
+      lines.push("🟢 <a href=\"" + tvUrl + "\">" + ticker + "</a>   " + Number(x.price).toFixed(2) + " TL");
+      lines.push("   Mum: " + fmt(x.candle_time));
     }
-    const resp=await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:chat,text:lines.join("\n"),disable_web_page_preview:true})});
+    const resp=await fetch("https://api.telegram.org/bot"+token+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:chat,text:lines.join("\n"),parse_mode:"HTML",disable_web_page_preview:true})});
     const tg=await resp.json();
     if (!resp.ok || !tg.ok) throw new Error("Telegram HTTP "+resp.status+": "+JSON.stringify(tg));
     console.log("BUY LISTESI TELEGRAM'A GONDERILDI.");
