@@ -31,8 +31,8 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Python paketleri
-        run: pip install requests websocket-client
+      - name: Node paketleri
+        run: npm install
 
       - name: TradingView Supertrend taramasi
         env:
