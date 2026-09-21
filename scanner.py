@@ -2143,8 +2143,8 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "Sinyal: Gün içindeki tamamlanmış 2H mumlarda "
-        "SAT -> AL (BUY) dönüşleri."
+        "Sinyal: Yalnızca SON TAMAMLANMIŞ 2H mumunda "
+        "SAT -> AL (BUY) dönüşü."
     )
 
     return "\n".join(lines)
