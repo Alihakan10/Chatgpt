@@ -214,9 +214,8 @@ function mergeBistSession2H(candles) {
   }
 
   const out = [];
-  for (const [date, starts] of [
-    [10,11],[12,13],[14,15],[16,17]
-  ]) {
+  const dates = [...new Set([...byKey.keys()].map(k => k.split("|")[0]))];
+  for (const date of dates) {
     for (const h of [10,12,14,16]) {
       const c1 = byKey.get(date+"|"+h);
       const c2 = byKey.get(date+"|"+(h+1));
