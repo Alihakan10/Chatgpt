@@ -246,7 +246,7 @@ function createClient() {
 }
 
 async function main() {
-  const symbols = TEST_MODE && TEST_SYMBOLS.length ? TEST_SYMBOLS : await getSymbols();
+  const symbols = await getSymbols();
   const state = (() => { try { return JSON.parse(fs.readFileSync(STATE_FILE,"utf8")); } catch (_) { return {}; } })();
 
   console.log("=".repeat(70));
