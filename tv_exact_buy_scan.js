@@ -56,104 +56,104 @@ async function main() {
     if (indicator.inputs?.Source) indicator.setOption("Source", "hl2");
   }
 
-  async function scanOne(symbol) {
-    let client = null;
-    let chart = null;
-    let study = null;
+  async function createSharedStudy(firstSymbol) {
+    const client = new TradingView.Client();
+    const chart = new client.Session.Chart();
+    const indicator = await TradingView.getIndicator(INDICATOR_ID);
+    applyIndicatorOptions(indicator);
 
-    try {
-      client = new TradingView.Client();
-      chart = new client.Session.Chart();
+    const shared = { client, chart, indicator, study: null };
 
-      const indicator = await TradingView.getIndicator(INDICATOR_ID);
-      applyIndicatorOptions(indicator);
+    await new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error("Chart timeout")), 30000);
 
-      return await new Promise((resolve, reject) => {
-        let done = false;
-
-        const finish = (fn, value) => {
-          if (!done) {
-            done = true;
-            clearTimeout(timer);
-            fn(value);
-          }
-        };
-
-        const timer = setTimeout(
-          () => finish(reject, new Error("Study timeout")),
-          30000
-        );
-
-        const readPeriods = () => {
-          try {
-            const ps = (Array.isArray(study?.periods) ? study.periods : [])
-              .filter(completed);
-
-            if (!ps.length) return;
-
-            const latestDay = new Date(
-              ps[ps.length - 1].$time * 1000
-            ).toLocaleDateString("en-CA", { timeZone: TZ });
-
-            const out = ps
-              .filter(p =>
-                new Date(p.$time * 1000).toLocaleDateString("en-CA", {
-                  timeZone: TZ
-                }) === latestDay
-              )
-              .filter(p =>
-                Number(p.SuperTrend_Buy) === 1 &&
-                Number(p.SuperTrend_Direction_Change) === 1
-              )
-              .map(p => ({
-                symbol,
-                candle_time: Number(p.$time),
-                price: Number(p.close)
-              }));
-
-            finish(resolve, out);
-          } catch (e) {
-            finish(reject, e);
-          }
-        };
-
-        chart.onSymbolLoaded(() => {
-          try {
-            study = new chart.Study(indicator);
-
-            study.onError((...e) => {
-              finish(reject, new Error("Study: " + JSON.stringify(e)));
+      chart.onSymbolLoaded(() => {
+        try {
+          if (!shared.study) {
+            shared.study = chart.Study(indicator);
+            shared.study.onError((...err) => {
+              reject(new Error("Study: " + JSON.stringify(err)));
             });
-
-            study.onReady(() => readPeriods());
-            study.onUpdate(() => readPeriods());
-
-            chart.setMarket(symbol, {
-              timeframe: TIMEFRAME,
-              range: RANGE,
-              session: "regular",
-              adjustment: "splits"
+            shared.study.onReady(() => {
+              clearTimeout(timer);
+              resolve();
             });
-          } catch (e) {
-            finish(reject, e);
           }
-        });
-
-        chart.setMarket(symbol, {
-          timeframe: TIMEFRAME,
-          range: RANGE,
-          session: "regular",
-          adjustment: "splits"
-        });
+        } catch (err) {
+          clearTimeout(timer);
+          reject(err);
+        }
       });
-    } finally {
-      try {
-        if (chart && typeof chart.delete === "function") chart.delete();
-      } catch (_) {}
-      try {
-        if (client) client.end();
-      } catch (_) {}
-    }
+
+      chart.setMarket(firstSymbol, {
+        timeframe: TIMEFRAME,
+        range: RANGE,
+        session: "regular",
+        adjustment: "splits"
+      });
+    });
+
+    return shared;
+  }
+
+  async function scanOne(symbol, shared) {
+    return await new Promise((resolve, reject) => {
+      let done = false;
+
+      const finish = (fn, value) => {
+        if (!done) {
+          done = true;
+          clearTimeout(timer);
+          fn(value);
+        }
+      };
+
+      const timer = setTimeout(
+        () => finish(reject, new Error("Study timeout")),
+        30000
+      );
+
+      const readPeriods = () => {
+        try {
+          const ps = (Array.isArray(shared.study?.periods) ? shared.study.periods : [])
+            .filter(completed);
+
+          if (!ps.length) return;
+
+          const latestDay = new Date(ps[ps.length - 1].$time * 1000)
+            .toLocaleDateString("en-CA", { timeZone: TZ });
+
+          const out = ps
+            .filter(p =>
+              new Date(p.$time * 1000).toLocaleDateString("en-CA", {
+                timeZone: TZ
+              }) === latestDay
+            )
+            .filter(p =>
+              Number(p.SuperTrend_Buy) === 1 &&
+              Number(p.SuperTrend_Direction_Change) === 1
+            )
+            .map(p => ({
+              symbol,
+              candle_time: Number(p.$time),
+              price: Number(p.close)
+            }));
+
+          finish(resolve, out);
+        } catch (err) {
+          finish(reject, err);
+        }
+      };
+
+      shared.chart.setMarket(symbol, {
+        timeframe: TIMEFRAME,
+        range: RANGE,
+        session: "regular",
+        adjustment: "splits"
+      });
+
+      setTimeout(readPeriods, 5000);
+    });
   }
 
   console.log("=".repeat(70));
@@ -300,6 +300,9 @@ async function main() {
     STATE_FILE,
     JSON.stringify(state, null, 2) + "\n"
   );
+
+  try { shared.chart.delete(); } catch (_) {}
+  try { shared.client.end(); } catch (_) {}
 }
 
 main().catch(e => {
