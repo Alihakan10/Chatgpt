@@ -1,8 +1,9 @@
 const WebSocket = require("ws");
 const fs = require("fs");
 
-const TIMEFRAME = "60";
-const RANGE = 6000;
+const TIMEFRAME = "120";
+const RANGE = 3000;
+const MANUAL_TEST_RUN = process.env.MANUAL_TEST_RUN === "true";
 const LIMIT = Number(process.env.SCAN_LIMIT || "620");
 const TEST_MODE = process.env.TEST_MODE === "true";
 const TEST_SYMBOLS = (process.env.TEST_SYMBOLS || "").split(",").map(s => s.trim()).filter(Boolean);
@@ -239,7 +240,9 @@ async function main() {
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY TARAMASI - STUDY YOK");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("TradingView 1H OHLC -> BIST seansina gore 10-12 / 12-14 / 14-16 / 16-18 birlestirilmis 2H mum.");
+  console.log(MANUAL_TEST_RUN
+    ? "MANUEL TEST: TradingView 1H OHLC -> BIST seansina gore 10-12 / 12-14 / 14-16 / 16-18 birlestirilmis 2H mum."
+    : "OTOMATIK TARAMA: TradingView native 2H mumlari kullanilir.");
   console.log("Kivanc SuperTrend RMA + HL2 BUY mantigi uygulanir.");
   console.log("HER HISSE ICIN AYRI WEBSOCKET + AYRI SERIES + STUDY YOK");
   console.log("=".repeat(70));
@@ -255,9 +258,9 @@ async function main() {
       if (i >= symbols.length) return;
       const symbol = symbols[i];
       try {
-        const hourlyCandles = await getSymbolCandles(symbol);
-      const candles = mergeBistSession2H(hourlyCandles);
-      if (candles.length < 20) throw new Error("Yetersiz BIST 2H mum: " + candles.length);
+        const rawCandles = await getSymbolCandles(symbol);
+        const candles = MANUAL_TEST_RUN ? mergeBistSession2H(rawCandles) : rawCandles;
+        if (candles.length < 20) throw new Error("Yetersiz 2H mum: " + candles.length);
 
       const now=Math.floor(Date.now()/1000);
       const completed=candles.filter(c=>c.time + 7200 <= now);
