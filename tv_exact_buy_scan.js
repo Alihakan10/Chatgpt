@@ -125,7 +125,7 @@ function createClient(indicator) {
         symbol:"BIST:ASTOR", adjustment:"splits", session:"regular"
       })]);
       send("create_series", [cs, "s1", "s1", sym, TIMEFRAME, RANGE]);
-      send("create_study", [cs, st, "st1", "$prices", "Script@tv-scripting-101!", indicatorInputs(indicator)]);
+      send("create_study", [cs, st, "st1", "s1", "Script@tv-scripting-101!", indicatorInputs(indicator)]);
     });
 
     ws.on("message", data => {
@@ -206,7 +206,7 @@ async function main() {
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY ETIKET TARAMASI");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("TEK STUDY + AYNI SERIES + modify_series");
+  console.log("TEK STUDY + AYNI SERIES + modify_series | study parent=s1");
   console.log("=".repeat(70));
 
   const indicator = await TradingView.getIndicator(INDICATOR_ID);
