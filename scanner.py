@@ -2643,6 +2643,10 @@ def main():
                         + str(debug_bar["direction"])
                         + " | BUY="
                         + str(debug_bar["buy"])
+                        + " | SMA_ST="
+                        + str(debug_bar["sma_direction"])
+                        + " | SMA_BUY="
+                        + str(debug_bar["sma_buy"])
                     )
 
                 if direction == 1:
