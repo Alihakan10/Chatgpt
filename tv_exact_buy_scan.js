@@ -141,6 +141,7 @@ function createClient() {
     let moreRequests = 0;
     let waiting = null;
     let symbolSeq = 1;
+    let pendingSymbol = null;
 
     const send = (m,p) => {
       if (ws.readyState === WebSocket.OPEN) ws.send(frame({m,p}));
@@ -181,6 +182,13 @@ function createClient() {
           fail(new Error(packet.m + ": " + JSON.stringify(p)));
           return;
         }
+        if (packet.m === "symbol_resolved") {
+          const resolvedId = p[1];
+          if (pendingSymbol && resolvedId === pendingSymbol.nodeId) {
+            send("modify_series", [cs, series, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE, ""]);
+          }
+          continue;
+        }
         if (packet.m === "series_completed") {
           if (candles.size < 100 && moreRequests < 3) {
             moreRequests++;
@@ -217,11 +225,11 @@ function createClient() {
         moreRequests = 0;
         await new Promise((resolve,reject) => {
           waiting = {resolve,reject,timer:setTimeout(()=>{waiting=null;reject(new Error("Symbol timeout"));},20000)};
-          // Her hisse icin benzersiz symbol ID kullan; series ID sabit kalsin.
-          // Ayni symbol ID ile tekrar resolve_symbol yapmak "duplicate id" uretiyor.
+          // Once symbol'u resolve et, sonra symbol_resolved cevabinda series'i bagla.
+          // TradingView modify_series, resolve edilmis symbol node'u bekler.
           const nextSym = "symbol_" + (++symbolSeq);
+          pendingSymbol = {nodeId: nextSym};
           send("resolve_symbol", [cs, nextSym, "=" + JSON.stringify({symbol,adjustment:"splits",session:"regular"})]);
-          send("modify_series", [cs, series, "s1", nextSym, TIMEFRAME, RANGE, ""]);
         });
         await sleep(150);
       },
