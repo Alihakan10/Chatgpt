@@ -2123,6 +2123,42 @@ def scan_symbol(
 
         candles = get_tv_candles(symbol)
 
+
+
+        if not candles:
+            return {
+                "status": "error",
+                "symbol": symbol,
+                "error": "Mum verisi yok."
+            }
+
+        # Tum gun icindeki TAMAMLANMIS 2H mumlari hesaba kat.
+        # Sadece son muma bakma: gun icinde daha once olusan
+        # SAT -> AL (BUY) mumlarini da yakala.
+        completed_index = get_last_completed_index(candles)
+
+        if completed_index is None or completed_index < 1:
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error": "Tamamlanmis mum yok."
+            }
+
+        calculation_candles = candles[:completed_index + 1]
+
+        directions = calculate_supertrend_directions(
+            calculation_candles,
+            ATR_PERIOD,
+            ATR_MULTIPLIER
+        )
+
+        if directions is None:
+            return {
+                "status": "skip",
+                "symbol": symbol,
+                "error": "Supertrend hesaplanamadi."
+            }
+
         # TEST MODU: ayni sembol icin TradingView'in native 2H serisini
         # de hesapla. Boylece seans birlestirmesi ile native 2H arasindaki
         # BUY farki dogrudan gorulur.
@@ -2169,41 +2205,6 @@ def scan_symbol(
                     + " C=" + format_price(native_calc[nci]["close"])
                     + " | ST=" + str(native_dirs[nci])
                 )
-
-        if not candles:
-            return {
-                "status": "error",
-                "symbol": symbol,
-                "error": "Mum verisi yok."
-            }
-
-        # Tum gun icindeki TAMAMLANMIS 2H mumlari hesaba kat.
-        # Sadece son muma bakma: gun icinde daha once olusan
-        # SAT -> AL (BUY) mumlarini da yakala.
-        completed_index = get_last_completed_index(candles)
-
-        if completed_index is None or completed_index < 1:
-            return {
-                "status": "skip",
-                "symbol": symbol,
-                "error": "Tamamlanmis mum yok."
-            }
-
-        calculation_candles = candles[:completed_index + 1]
-
-        directions = calculate_supertrend_directions(
-            calculation_candles,
-            ATR_PERIOD,
-            ATR_MULTIPLIER
-        )
-
-        if directions is None:
-            return {
-                "status": "skip",
-                "symbol": symbol,
-                "error": "Supertrend hesaplanamadi."
-            }
-
         # TradingView Kivanc BUY kosulu:
         # onceki trend SAT (-1), sonraki trend AL (+1).
         # Gun icindeki tum tamamlanmis mumlarda ara.
