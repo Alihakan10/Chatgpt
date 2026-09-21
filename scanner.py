@@ -2134,27 +2134,41 @@ def scan_symbol(
                 native_dirs = calculate_supertrend_directions(
                     native_calc, ATR_PERIOD, ATR_MULTIPLIER
                 )
-                log("    NATIVE 2H KARSILASTIRMA:")
-                native_start = max(0, native_completed_index - 5)
-                for ni in range(native_start, native_completed_index + 1):
-                    ndt = datetime.fromtimestamp(
-                        native_calc[ni]["time"], tz=ZoneInfo("UTC")
-                    ).astimezone(ZoneInfo(TIMEZONE))
-                    nbuy = (
-                        ni > 0
-                        and native_dirs[ni - 1] == -1
-                        and native_dirs[ni] == 1
-                    )
-                    log(
-                        "    NATIVE | "
-                        + ndt.strftime("%d.%m.%Y %H:%M")
-                        + " | O=" + format_price(native_calc[ni]["open"])
-                        + " H=" + format_price(native_calc[ni]["high"])
-                        + " L=" + format_price(native_calc[ni]["low"])
-                        + " C=" + format_price(native_calc[ni]["close"])
-                        + " | ST=" + str(native_dirs[ni])
-                        + " | BUY=" + str(nbuy)
-                    )
+                native_buy_times = []
+                for ni in range(1, len(native_dirs)):
+                    if native_dirs[ni - 1] == -1 and native_dirs[ni] == 1:
+                        ndt = datetime.fromtimestamp(
+                            native_calc[ni]["time"], tz=ZoneInfo("UTC")
+                        ).astimezone(ZoneInfo(TIMEZONE))
+                        native_buy_times.append(ndt.strftime("%d.%m.%Y %H:%M"))
+                session_buy_times = []
+                for si in range(1, len(directions)):
+                    if directions[si - 1] == -1 and directions[si] == 1:
+                        sdt = datetime.fromtimestamp(
+                            calculation_candles[si]["time"], tz=ZoneInfo("UTC")
+                        ).astimezone(ZoneInfo(TIMEZONE))
+                        session_buy_times.append(sdt.strftime("%d.%m.%Y %H:%M"))
+                log(
+                    "    BUY KARSILASTIRMA | "
+                    + symbol
+                    + " | SESSION_2H="
+                    + (", ".join(session_buy_times) if session_buy_times else "YOK")
+                    + " | NATIVE_2H="
+                    + (", ".join(native_buy_times) if native_buy_times else "YOK")
+                )
+                nci = native_completed_index
+                ndt = datetime.fromtimestamp(
+                    native_calc[nci]["time"], tz=ZoneInfo("UTC")
+                ).astimezone(ZoneInfo(TIMEZONE))
+                log(
+                    "    NATIVE SON MUM | "
+                    + ndt.strftime("%d.%m.%Y %H:%M")
+                    + " | O=" + format_price(native_calc[nci]["open"])
+                    + " H=" + format_price(native_calc[nci]["high"])
+                    + " L=" + format_price(native_calc[nci]["low"])
+                    + " C=" + format_price(native_calc[nci]["close"])
+                    + " | ST=" + str(native_dirs[nci])
+                )
 
         if not candles:
             return {
