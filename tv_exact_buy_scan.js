@@ -133,7 +133,8 @@ function createClient() {
 
     const cs = "cs_" + Math.random().toString(36).slice(2,14);
     const sym = "symbol_1";
-    const series = "s1";
+    let activeSeries = null;
+    let seriesSeq = 1;
     let buffer = "";
     let candles = new Map();
     let ready = false;
@@ -196,7 +197,8 @@ function createClient() {
         if (packet.m === "symbol_resolved") {
           const resolvedId = p[1];
           if (pendingSymbol && resolvedId === pendingSymbol.nodeId) {
-            send("create_series", [cs, series, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE]);
+            activeSeries = "s" + (++seriesSeq);
+            send("create_series", [cs, activeSeries, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE]);
             seriesActive = true;
           }
           continue;
@@ -204,15 +206,16 @@ function createClient() {
         if (packet.m === "series_completed") {
           if (candles.size < 100 && moreRequests < 3) {
             moreRequests++;
-            send("request_more_data", [cs, series, 1000]);
+            send("request_more_data", [cs, activeSeries, 1000]);
           } else {
             ready = true;
+            seriesActive = false;
             finishWait();
           }
         }
         if (packet.m === "timescale_update" || packet.m === "du") {
           const box = p[1];
-          const sd = box && box[series];
+          const sd = box && box[activeSeries];
           const bars = sd && sd.s;
           if (!Array.isArray(bars)) continue;
           for (const bar of bars) {
@@ -240,7 +243,7 @@ function createClient() {
           const nextSym = "symbol_" + (++symbolSeq);
           pendingSymbol = {nodeId: nextSym, symbol, waitingForDelete: seriesActive};
           if (seriesActive) {
-            send("remove_series", [cs, series]);
+            send("remove_series", [cs, activeSeries]);
           } else {
             send("resolve_symbol", [cs, nextSym, "=" + JSON.stringify({symbol,adjustment:"splits",session:"regular"})]);
           }
