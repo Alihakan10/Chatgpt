@@ -1,8 +1,8 @@
 const WebSocket = require("ws");
 const fs = require("fs");
 
-const TIMEFRAME = "120";
-const RANGE = 3000;
+const TIMEFRAME = "60";
+const RANGE = 6000;
 const LIMIT = Number(process.env.SCAN_LIMIT || "620");
 const TEST_MODE = process.env.TEST_MODE === "true";
 const TEST_SYMBOLS = (process.env.TEST_SYMBOLS || "").split(",").map(s => s.trim()).filter(Boolean);
@@ -200,6 +200,39 @@ function getSymbolCandles(symbol) {
   });
 }
 
+function mergeBistSession2H(candles) {
+  const byKey = new Map();
+  for (const c of candles) {
+    const parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: TZ, year:"numeric", month:"2-digit", day:"2-digit", hour:"2-digit", hour12:false
+    }).formatToParts(new Date(c.time * 1000));
+    const get = t => parts.find(x => x.type === t)?.value;
+    const date = get("year")+"-"+get("month")+"-"+get("day");
+    const hour = Number(get("hour"));
+    if (![10,11,12,13,14,15,16,17].includes(hour)) continue;
+    byKey.set(date+"|"+hour, c);
+  }
+
+  const out = [];
+  for (const [date, starts] of [
+    [10,11],[12,13],[14,15],[16,17]
+  ]) {
+    for (const h of [10,12,14,16]) {
+      const c1 = byKey.get(date+"|"+h);
+      const c2 = byKey.get(date+"|"+(h+1));
+      if (!c1 || !c2) continue;
+      out.push({
+        time:c1.time,
+        open:c1.open,
+        high:Math.max(c1.high,c2.high),
+        low:Math.min(c1.low,c2.low),
+        close:c2.close
+      });
+    }
+  }
+  return out.sort((a,b)=>a.time-b.time);
+}
+
 async function main() {
   const symbols = await getSymbols();
   const state = (() => { try { return JSON.parse(fs.readFileSync(STATE_FILE,"utf8")); } catch (_) { return {}; } })();
@@ -207,7 +240,8 @@ async function main() {
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY TARAMASI - STUDY YOK");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("Pine SuperTrend mantigi dogrudan TradingView OHLC verisine uygulanir.");
+  console.log("TradingView 1H OHLC -> BIST seansina gore 10-12 / 12-14 / 14-16 / 16-18 birlestirilmis 2H mum.");
+  console.log("Kivanc SuperTrend RMA + HL2 BUY mantigi uygulanir.");
   console.log("HER HISSE ICIN AYRI WEBSOCKET + AYRI SERIES + STUDY YOK");
   console.log("=".repeat(70));
 
@@ -222,8 +256,9 @@ async function main() {
       if (i >= symbols.length) return;
       const symbol = symbols[i];
       try {
-        const candles = await getSymbolCandles(symbol);
-      if (candles.length < 20) throw new Error("Yetersiz 2H mum: " + candles.length);
+        const hourlyCandles = await getSymbolCandles(symbol);
+      const candles = mergeBistSession2H(hourlyCandles);
+      if (candles.length < 20) throw new Error("Yetersiz BIST 2H mum: " + candles.length);
 
       const now=Math.floor(Date.now()/1000);
       const completed=candles.filter(c=>c.time + 7200 <= now);
