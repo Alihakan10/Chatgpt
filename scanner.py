@@ -586,16 +586,30 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
             f"    TradingView 1H veri baglantisi + BIST 2H birlestirme: {symbol}"
         )
 
-        # SAFE_WEBSOCKET_PATCH_V3
-        ws = websocket.create_connection(
+        # TradingView el sikma korumasi: baglantiyi kontrollu yeniden dene.
+        ws = None
+        for connect_attempt in range(1, 4):
+            try:
+                ws = websocket.create_connection(
+                    TV_WS_URL,
+                    timeout=WS_TIMEOUT,
+                    origin="https://www.tradingview.com"
+                )
+                break
+            except Exception as connect_error:
+                error_text = str(connect_error)
+                if "429" not in error_text or connect_attempt >= 3:
+                    raise
+                wait_seconds = 3 * connect_attempt
+                log(
+                    f"    TradingView 429: {symbol} | "
+                    f"{wait_seconds}s sonra tekrar deneme "
+                    f"({connect_attempt}/3)"
+                )
+                time.sleep(wait_seconds)
 
-            TV_WS_URL,
-
-            timeout=WS_TIMEOUT,
-
-            origin="https://www.tradingview.com"
-
-        )
+        if ws is None:
+            raise RuntimeError("TradingView WebSocket baglantisi kurulamadi.")
 
         # ----------------------------------------------------
         # AUTH
@@ -2921,7 +2935,7 @@ def main():
     # TradingView baglantilari paralel calisir. State guncellemesi
     # sonuclar geldikten sonra tek thread'de yapilir.
 
-    scan_workers = 24
+    scan_workers = 6
     scan_results = []
 
     scan_started = time.time()
