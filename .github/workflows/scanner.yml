@@ -18,12 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TEST_MODE: "false"
-      TEST_SYMBOLS: ""
+      TEST_MODE: "true"
+      TEST_SYMBOLS: "BIST:BALSU,BIST:ERCB,BIST:INVEO"
       FORCE_SCAN: "true"
       SEND_SCAN_REPORT: "true"
       SEND_TEST_TELEGRAM: "false"
-      SCAN_LIMIT: "620"
+      SCAN_LIMIT: "3"
 
     steps:
       - name: Repository checkout
