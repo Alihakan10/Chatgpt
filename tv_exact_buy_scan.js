@@ -34,22 +34,23 @@ async function getSymbols() {
 async function main() {
   const symbols=TEST_MODE&&TEST_SYMBOL?[TEST_SYMBOL]:await getSymbols();
   const state=(()=>{try{return JSON.parse(fs.readFileSync(STATE_FILE,"utf8"));}catch(_){return {};}})();
-  const client=new TradingView.Client();
-  const indicator=await TradingView.getIndicator(INDICATOR_ID);
-  if(indicator.inputs?.ATR_Multiplier)indicator.setOption("ATR_Multiplier",2.0);
-  if(indicator.inputs?.Multiplier)indicator.setOption("Multiplier",2.0);
-  if(indicator.inputs?.ATR_Period)indicator.setOption("ATR_Period",10);
-  if(indicator.inputs?.Periods)indicator.setOption("Periods",10);
-  if(indicator.inputs?.Period)indicator.setOption("Period",10);
-
   async function scanOne(symbol){
+    // Her sembol icin AYRI TradingView client + chart + study baglantisi.
+    // Free hesapta study_limit_exceeded durumunu onceki sembolden tasimaz.
+    const client=new TradingView.Client();
     const chart=new client.Session.Chart(); let study=null;
     try{return await new Promise((resolve,reject)=>{
       let done=false; const finish=(fn,v)=>{if(!done){done=true;fn(v);}};
       const timer=setTimeout(()=>finish(reject,new Error("Study timeout")),20000);
       chart.onError((...e)=>finish(reject,new Error("Chart: "+JSON.stringify(e))));
-      chart.onSymbolLoaded(()=>{
+      chart.onSymbolLoaded(async ()=>{
         try{
+          const indicator=await TradingView.getIndicator(INDICATOR_ID);
+          if(indicator.inputs?.ATR_Multiplier)indicator.setOption("ATR_Multiplier",2.0);
+          if(indicator.inputs?.Multiplier)indicator.setOption("Multiplier",2.0);
+          if(indicator.inputs?.ATR_Period)indicator.setOption("ATR_Period",10);
+          if(indicator.inputs?.Periods)indicator.setOption("Periods",10);
+          if(indicator.inputs?.Period)indicator.setOption("Period",10);
           study=new chart.Study(indicator);
           study.onError((...e)=>finish(reject,new Error("Study: "+JSON.stringify(e))));
           study.onReady(()=>{
