@@ -51,6 +51,9 @@ ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
 CANDLE_COUNT = 5000
+HISTORY_TARGET = 20000
+HISTORY_REQUEST_SIZE = 5000
+
 
 # ------------------------------------------------------------
 # TRADINGVIEW
@@ -718,6 +721,7 @@ def get_tv_candles(symbol):
 
         start_time = time.time()
         series_completed = False
+        history_requests = 0
 
         while (
             time.time() - start_time
@@ -1123,12 +1127,34 @@ def get_tv_candles(symbol):
                         + str(params)
                     )
 
-            if (
-                len(candles) >= 30
-                and
-                series_completed
-            ):
-                break
+            if series_completed:
+                if (
+                    len(candles) < HISTORY_TARGET
+                    and history_requests < 3
+                ):
+                    history_requests += 1
+                    series_completed = False
+                    try:
+                        ws.send(
+                            tv_message(
+                                "request_more_data",
+                                [
+                                    chart_session,
+                                    "sds_1",
+                                    HISTORY_REQUEST_SIZE
+                                ]
+                            )
+                        )
+                        log(
+                            f"    TradingView gecmis veri genisletiliyor: "
+                            f"{len(candles)} mum -> istek {history_requests}/3"
+                        )
+                        continue
+                    except Exception:
+                        pass
+
+                if len(candles) >= 30:
+                    break
 
         if not candles:
 
