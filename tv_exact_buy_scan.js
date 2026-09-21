@@ -34,36 +34,61 @@ async function getSymbols() {
 async function main() {
   const symbols=TEST_MODE&&TEST_SYMBOL?[TEST_SYMBOL]:await getSymbols();
   const state=(()=>{try{return JSON.parse(fs.readFileSync(STATE_FILE,"utf8"));}catch(_){return {};}})();
+  // Free TradingView hesaplarinda chart/study limiti sembol basina degil
+  // ayni anda acik chart oturumlarina da uygulanabildigi icin TEK chart + TEK study
+  // yeniden kullanilir. Her sembolde sadece chart.setMarket() ile sembol degistirilir.
+  const client=new TradingView.Client();
+  const chart=new client.Session.Chart();
+  const indicator=await TradingView.getIndicator(INDICATOR_ID);
+  if(indicator.inputs?.ATR_Multiplier)indicator.setOption("ATR_Multiplier",2.0);
+  if(indicator.inputs?.Multiplier)indicator.setOption("Multiplier",2.0);
+  if(indicator.inputs?.ATR_Period)indicator.setOption("ATR_Period",10);
+  if(indicator.inputs?.Periods)indicator.setOption("Periods",10);
+  if(indicator.inputs?.Period)indicator.setOption("Period",10);
+
+  let study=null;
+  let studyReady=false;
+  let pendingUpdate=null;
+  let pendingError=null;
+
   async function scanOne(symbol){
-    // Her sembol icin AYRI TradingView client + chart + study baglantisi.
-    // Free hesapta study_limit_exceeded durumunu onceki sembolden tasimaz.
-    const client=new TradingView.Client();
-    const chart=new client.Session.Chart(); let study=null;
-    try{return await new Promise((resolve,reject)=>{
-      let done=false; const finish=(fn,v)=>{if(!done){done=true;fn(v);}};
-      const timer=setTimeout(()=>finish(reject,new Error("Study timeout")),20000);
-      chart.onError((...e)=>finish(reject,new Error("Chart: "+JSON.stringify(e))));
-      chart.onSymbolLoaded(async ()=>{
-        try{
-          const indicator=await TradingView.getIndicator(INDICATOR_ID);
-          if(indicator.inputs?.ATR_Multiplier)indicator.setOption("ATR_Multiplier",2.0);
-          if(indicator.inputs?.Multiplier)indicator.setOption("Multiplier",2.0);
-          if(indicator.inputs?.ATR_Period)indicator.setOption("ATR_Period",10);
-          if(indicator.inputs?.Periods)indicator.setOption("Periods",10);
-          if(indicator.inputs?.Period)indicator.setOption("Period",10);
-          study=new chart.Study(indicator);
-          study.onError((...e)=>finish(reject,new Error("Study: "+JSON.stringify(e))));
-          study.onReady(()=>{
-            const ps=(Array.isArray(study.periods)?study.periods:[]).filter(completed);
-            if(!ps.length)return finish(reject,new Error("No completed study period"));
-            const d=new Date(ps[ps.length-1].$time*1000).toLocaleDateString("en-CA",{timeZone:TZ});
-            const out=ps.filter(p=>new Date(p.$time*1000).toLocaleDateString("en-CA",{timeZone:TZ})===d).filter(p=>Number(p.SuperTrend_Buy)===1&&Number(p.SuperTrend_Direction_Change)===1).map(p=>({symbol,candle_time:Number(p.$time),price:Number(p.close)}));
-            clearTimeout(timer); finish(resolve,out);
-          });
-        }catch(e){finish(reject,e);}
+    return await new Promise((resolve,reject)=>{
+      let done=false;
+      const finish=(fn,v)=>{if(!done){done=true;fn(v);}};
+      const timer=setTimeout(()=>finish(reject,new Error("Study timeout")),25000);
+      const waitUpdate=()=>new Promise((res,rej)=>{
+        pendingUpdate=res; pendingError=rej;
+        setTimeout(()=>{if(pendingUpdate===res){pendingUpdate=null;pendingError=null;rej(new Error("Study update timeout"));}},20000);
       });
-      chart.setMarket(symbol,{timeframe:TIMEFRAME,range:RANGE,session:"regular",adjustment:"splits"});
-    });}finally{try{if(study)study.remove();}catch(_){} try{chart.delete();}catch(_){}}
+
+      const handlePeriods=()=>{
+        try{
+          const ps=(Array.isArray(study?.periods)?study.periods:[]).filter(completed);
+          if(!ps.length)return finish(reject,new Error("No completed study period"));
+          const d=new Date(ps[ps.length-1].$time*1000).toLocaleDateString("en-CA",{timeZone:TZ});
+          const out=ps.filter(p=>new Date(p.$time*1000).toLocaleDateString("en-CA",{timeZone:TZ})===d)
+            .filter(p=>Number(p.SuperTrend_Buy)===1&&Number(p.SuperTrend_Direction_Change)===1)
+            .map(p=>({symbol,candle_time:Number(p.$time),price:Number(p.close)}));
+          clearTimeout(timer); finish(resolve,out);
+        }catch(e){finish(reject,e);}
+      };
+
+      if(!studyReady){
+        chart.onSymbolLoaded(async()=>{
+          if(studyReady)return;
+          try{
+            study=new chart.Study(indicator);
+            study.onError((...e)=>{if(pendingError)pendingError(new Error("Study: "+JSON.stringify(e)));finish(reject,new Error("Study: "+JSON.stringify(e)));});
+            study.onUpdate(()=>{if(pendingUpdate){const r=pendingUpdate;pendingUpdate=null;pendingError=null;r();} if(studyReady)handlePeriods();});
+            study.onReady(()=>{studyReady=true;handlePeriods();});
+          }catch(e){finish(reject,e);}
+        });
+        chart.setMarket(symbol,{timeframe:TIMEFRAME,range:RANGE,session:"regular",adjustment:"splits"});
+      }else{
+        waitUpdate().then(handlePeriods).catch(e=>finish(reject,e));
+        chart.setMarket(symbol,{timeframe:TIMEFRAME,range:RANGE,session:"regular",adjustment:"splits"});
+      }
+    });
   }
 
   console.log("=".repeat(70));
