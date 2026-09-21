@@ -1324,6 +1324,30 @@ def calculate_atr(
     return atr
 
 
+def calculate_atr_sma(candles, period=10):
+
+    if len(candles) < period:
+        return [None for _ in candles]
+
+    tr = []
+    for i, candle in enumerate(candles):
+        if i == 0:
+            value = candle["high"] - candle["low"]
+        else:
+            pc = candles[i - 1]["close"]
+            value = max(
+                candle["high"] - candle["low"],
+                abs(candle["high"] - pc),
+                abs(candle["low"] - pc)
+            )
+        tr.append(value)
+
+    out = [None for _ in candles]
+    for i in range(period - 1, len(candles)):
+        out[i] = sum(tr[i - period + 1:i + 1]) / period
+    return out
+
+
 # ============================================================
 # SUPERTREND YONLERI
 #
@@ -2209,6 +2233,38 @@ def scan_symbol(
         current_direction = directions[completed_index]
         previous_direction = directions[completed_index - 1]
 
+        # TradingView Kivanc scriptindeki alternatif ATR (SMA) yolunu
+        # da aynı OHLC üzerinde hesapla; hangi hesap yolunun grafikteki
+        # dönüşe uyduğunu doğrudan logdan karşılaştır.
+        sma_atr = calculate_atr_sma(
+            calculation_candles, ATR_PERIOD
+        )
+        sma_dirs = []
+        up_sma = [None for _ in calculation_candles]
+        dn_sma = [None for _ in calculation_candles]
+        tr_sma = [None for _ in calculation_candles]
+        for si in range(len(calculation_candles)):
+            if sma_atr[si] is None:
+                tr_sma[si] = 1 if si == 0 else tr_sma[si - 1]
+                continue
+            src_s = (calculation_candles[si]["high"] + calculation_candles[si]["low"]) / 2.0
+            ru = src_s - ATR_MULTIPLIER * sma_atr[si]
+            rd = src_s + ATR_MULTIPLIER * sma_atr[si]
+            if si == 0 or up_sma[si - 1] is None:
+                up1_s = ru
+            else:
+                up1_s = up_sma[si - 1]
+            up_sma[si] = max(ru, up1_s) if si > 0 and calculation_candles[si - 1]["close"] > up1_s else ru
+            if si == 0 or dn_sma[si - 1] is None:
+                dn1_s = rd
+            else:
+                dn1_s = dn_sma[si - 1]
+            dn_sma[si] = min(rd, dn1_s) if si > 0 and calculation_candles[si - 1]["close"] < dn1_s else rd
+            prev_s = 1 if si == 0 or tr_sma[si - 1] is None else tr_sma[si - 1]
+            close_s = calculation_candles[si]["close"]
+            tr_sma[si] = 1 if (prev_s == -1 and close_s > dn1_s) else (-1 if (prev_s == 1 and close_s < up1_s) else prev_s)
+            sma_dirs.append(tr_sma[si])
+
         # TEST MODU icin TradingView mum zamanlamasi ve
         # Supertrend gecisini birebir incelemeye yarayan tanilama.
         debug_bars = []
@@ -2235,6 +2291,12 @@ def scan_symbol(
                 "direction": directions[debug_i],
                 "buy": (
                     debug_i in buy_signal_indexes
+                ),
+                "sma_direction": sma_dirs[debug_i] if debug_i < len(sma_dirs) else None,
+                "sma_buy": (
+                    debug_i > 0 and debug_i < len(sma_dirs)
+                    and sma_dirs[debug_i - 1] == -1
+                    and sma_dirs[debug_i] == 1
                 )
             })
 
