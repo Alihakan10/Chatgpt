@@ -89,7 +89,7 @@ async function scanOne(symbol, attempt = 1) {
               if (settled) return;
               try {
                 const periods = (Array.isArray(study.periods) ? study.periods : []).filter(completed);
-                if (!periods.length) return fail(new Error("Tamamlanmis 2H mum yok"));
+                if (!periods.length) return;
 
                 const latestDay = new Date(Number(periods[periods.length - 1].$time) * 1000)
                   .toLocaleDateString("en-CA", {timeZone: TZ});
@@ -97,7 +97,6 @@ async function scanOne(symbol, attempt = 1) {
                 const buys = periods
                   .filter(p => new Date(Number(p.$time) * 1000)
                     .toLocaleDateString("en-CA", {timeZone: TZ}) === latestDay)
-                  // plot_2 of the TradingView indicator is the visible "Buy" label.
                   .filter(p => Number.isFinite(Number(p.Buy)) && Number(p.Buy) !== 0)
                   .map(p => ({
                     symbol,
@@ -118,16 +117,17 @@ async function scanOne(symbol, attempt = 1) {
             if (Array.isArray(study.periods) && study.periods.length) readStudy();
           });
           study.onReady(readStudy);
-
-          chart.setMarket(symbol, {
-            timeframe: TIMEFRAME,
-            range: RANGE,
-            session: "regular",
-            adjustment: "splits"
-          });
         } catch (e) {
           fail(e);
         }
+      });
+
+      // setMarket must happen first; onSymbolLoaded is triggered by resolve_symbol.
+      chart.setMarket(symbol, {
+        timeframe: TIMEFRAME,
+        range: RANGE,
+        session: "regular",
+        adjustment: "splits"
       });
     });
   } catch (e) {
