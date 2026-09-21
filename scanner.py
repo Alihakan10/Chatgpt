@@ -2702,40 +2702,45 @@ def main():
 
     # Manuel taramada BUY durumlarini acikca ayir.
     if FORCE_SCAN:
+        all_current_buys = (
+            existing_buy_results
+            +
+            previously_sent_buy_results
+        )
+
         log("")
         log("MANUEL TARAMA BUY RAPORU")
-        log(f"MEVCUT BUY: {len(existing_buy_results)}")
-        for item in sorted(existing_buy_results, key=lambda x: x["symbol"]):
+        log(f"MEVCUT BUY: {len(all_current_buys)}")
+
+        for item in sorted(all_current_buys, key=lambda x: x["symbol"]):
             dt = datetime.fromtimestamp(
                 item["candle_time"], tz=ZoneInfo("UTC")
             ).astimezone(ZoneInfo(TIMEZONE))
+
+            if item.get("already_sent"):
+                label = "DAHA ONCE GONDERILDI"
+            else:
+                label = "YENI"
+
             log(
                 f"    MEVCUT BUY | {item['symbol']} | "
-                f"{dt.strftime('%d.%m.%Y %H:%M')} | "
-                f"YENI"
+                f"{dt.strftime('%d.%m.%Y %H:%M')} | {label}"
             )
 
         log(
             f"DAHA ONCE TELEGRAM'A GONDERILEN BUY: "
             f"{len(previously_sent_buy_results)}"
         )
-        for item in sorted(previously_sent_buy_results, key=lambda x: x["symbol"]):
-            dt = datetime.fromtimestamp(
-                item["candle_time"], tz=ZoneInfo("UTC")
-            ).astimezone(ZoneInfo(TIMEZONE))
-            log(
-                f"    MEVCUT BUY | {item['symbol']} | "
-                f"{dt.strftime('%d.%m.%Y %H:%M')} | "
-                f"DAHA ONCE GONDERILDI"
-            )
 
         log(
             f"YENI BUY: {len(new_buy_results)}"
         )
+
         for item in sorted(new_buy_results, key=lambda x: x["symbol"]):
             dt = datetime.fromtimestamp(
                 item["candle_time"], tz=ZoneInfo("UTC")
             ).astimezone(ZoneInfo(TIMEZONE))
+
             log(
                 f"    YENI BUY | {item['symbol']} | "
                 f"{dt.strftime('%d.%m.%Y %H:%M')} | "
