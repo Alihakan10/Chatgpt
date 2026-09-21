@@ -20,6 +20,7 @@ jobs:
     env:
       TEST_MODE: "false"
       TEST_SYMBOLS: "BIST:ASTOR"
+      MANUAL_TEST_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
       FORCE_SCAN: "false"
       SEND_SCAN_REPORT: "true"
       SEND_TEST_TELEGRAM: "false"
