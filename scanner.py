@@ -557,7 +557,7 @@ def get_bist_symbols():
 # TRADINGVIEW MUM VERISI
 # ============================================================
 
-def get_tv_candles(symbol):
+def get_tv_candles(symbol, candle_mode="session_merged"):
 
     ws = None
 
@@ -699,7 +699,7 @@ def get_tv_candles(symbol):
                     "sds_1",
                     "s1",
                     "sds_sym_1",
-                    DATA_TIMEFRAME,
+                    ("120" if candle_mode == "native_2h" else DATA_TIMEFRAME),
                     CANDLE_COUNT,
                     ""
                 ]
@@ -1167,6 +1167,14 @@ def get_tv_candles(symbol):
             candles.values(),
             key=lambda x: x["time"]
         )
+
+        if candle_mode == "native_2h":
+            if len(result) < 20:
+                raise RuntimeError(
+                    "TradingView native 2H verisi yetersiz: "
+                    + str(len(result)) + " mum"
+                )
+            return result
 
         # TradingView'in BIST 2H grafiğindeki seans hizasını koru.
         # WebSocket'in native 120 dakikalık serisi UTC/24 saat hizalı
@@ -2114,6 +2122,39 @@ def scan_symbol(
     try:
 
         candles = get_tv_candles(symbol)
+
+        # TEST MODU: ayni sembol icin TradingView'in native 2H serisini
+        # de hesapla. Boylece seans birlestirmesi ile native 2H arasindaki
+        # BUY farki dogrudan gorulur.
+        if TEST_MODE:
+            native_candles = get_tv_candles(symbol, "native_2h")
+            native_completed_index = get_last_completed_index(native_candles)
+            if native_completed_index is not None and native_completed_index >= 1:
+                native_calc = native_candles[:native_completed_index + 1]
+                native_dirs = calculate_supertrend_directions(
+                    native_calc, ATR_PERIOD, ATR_MULTIPLIER
+                )
+                log("    NATIVE 2H KARSILASTIRMA:")
+                native_start = max(0, native_completed_index - 5)
+                for ni in range(native_start, native_completed_index + 1):
+                    ndt = datetime.fromtimestamp(
+                        native_calc[ni]["time"], tz=ZoneInfo("UTC")
+                    ).astimezone(ZoneInfo(TIMEZONE))
+                    nbuy = (
+                        ni > 0
+                        and native_dirs[ni - 1] == -1
+                        and native_dirs[ni] == 1
+                    )
+                    log(
+                        "    NATIVE | "
+                        + ndt.strftime("%d.%m.%Y %H:%M")
+                        + " | O=" + format_price(native_calc[ni]["open"])
+                        + " H=" + format_price(native_calc[ni]["high"])
+                        + " L=" + format_price(native_calc[ni]["low"])
+                        + " C=" + format_price(native_calc[ni]["close"])
+                        + " | ST=" + str(native_dirs[ni])
+                        + " | BUY=" + str(nbuy)
+                    )
 
         if not candles:
             return {
