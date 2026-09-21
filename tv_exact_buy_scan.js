@@ -140,6 +140,7 @@ function createClient() {
     let failed = false;
     let moreRequests = 0;
     let waiting = null;
+    let symbolSeq = 1;
 
     const send = (m,p) => {
       if (ws.readyState === WebSocket.OPEN) ws.send(frame({m,p}));
@@ -216,9 +217,11 @@ function createClient() {
         moreRequests = 0;
         await new Promise((resolve,reject) => {
           waiting = {resolve,reject,timer:setTimeout(()=>{waiting=null;reject(new Error("Symbol timeout"));},20000)};
-          // Aynı symbol node'u tekrar resolve etmek TradingView'da "duplicate id" üretir.
-          // Tek resolve_symbol yeterli; sonraki hisselerde sadece mevcut series modify edilir.
-          send("modify_series", [cs, series, "s1", symbol, TIMEFRAME, RANGE, ""]);
+          // Her hisse icin benzersiz symbol ID kullan; series ID sabit kalsin.
+          // Ayni symbol ID ile tekrar resolve_symbol yapmak "duplicate id" uretiyor.
+          const nextSym = "symbol_" + (++symbolSeq);
+          send("resolve_symbol", [cs, nextSym, "=" + JSON.stringify({symbol,adjustment:"splits",session:"regular"})]);
+          send("modify_series", [cs, series, "s1", nextSym, TIMEFRAME, RANGE, ""]);
         });
         await sleep(150);
       },
