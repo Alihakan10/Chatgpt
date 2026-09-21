@@ -52,7 +52,6 @@ function applyIndicatorOptions(indicator) {
   indicator.setOption("Change_ATR_Calculation_Method_", true);
   indicator.setOption("Show_BuySell_Signals_", true);
   indicator.setOption("Highlighter_OnOff_", true);
-  indicator.setOption("Indicator_Timeframe", "");
 }
 
 async function scanOne(symbol, attempt = 1) {
@@ -69,7 +68,7 @@ async function scanOne(symbol, attempt = 1) {
       let settled = false;
       const timer = setTimeout(() => {
         if (!settled) { settled = true; reject(new Error("Study timeout")); }
-      }, 30000);
+      }, 20000);
 
       const fail = err => {
         if (!settled) {
@@ -85,7 +84,7 @@ async function scanOne(symbol, attempt = 1) {
 
           study.onError((...err) => fail(new Error("Study: " + JSON.stringify(err))));
 
-          study.onReady(() => {
+          const readStudy = () => {
             setTimeout(() => {
               if (settled) return;
               try {
@@ -112,8 +111,13 @@ async function scanOne(symbol, attempt = 1) {
               } catch (e) {
                 fail(e);
               }
-            }, 1200);
+            }, 800);
+          };
+
+          study.onUpdate(() => {
+            if (Array.isArray(study.periods) && study.periods.length) readStudy();
           });
+          study.onReady(readStudy);
 
           chart.setMarket(symbol, {
             timeframe: TIMEFRAME,
