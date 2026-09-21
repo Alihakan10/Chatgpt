@@ -18,12 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TEST_MODE: "true"
+      TEST_MODE: "false"
       TEST_SYMBOLS: "BIST:ASTOR"
-      FORCE_SCAN: "true"
-      SEND_SCAN_REPORT: "false"
+      FORCE_SCAN: "false"
+      SEND_SCAN_REPORT: "true"
       SEND_TEST_TELEGRAM: "false"
-      SCAN_LIMIT: "3"
+      SCAN_LIMIT: "620"
 
     steps:
       - name: Repository checkout
@@ -31,8 +31,8 @@ jobs:
         with:
           persist-credentials: true
 
-      - name: Node paketleri
-        run: npm install
+      - name: Python paketleri
+        run: pip install requests websocket-client
 
       - name: TradingView Supertrend ASTOR testi
         env:
