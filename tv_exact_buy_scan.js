@@ -121,8 +121,8 @@ function calculateBuySignals(candles) {
   return buys;
 }
 
-function createClient() {
-  return new Promise((resolve,reject) => {
+function getSymbolCandles(symbol) {
+  return new Promise((resolve, reject) => {
     const ws = new WebSocket(WS_URL, {
       origin:"https://www.tradingview.com",
       headers:{
@@ -132,44 +132,31 @@ function createClient() {
     });
 
     const cs = "cs_" + Math.random().toString(36).slice(2,14);
-    let activeSeries = null;
-    let seriesSeq = 1;
+    const sym = "symbol_1";
+    const series = "s1";
     let buffer = "";
-    let candles = new Map();
-    let ready = false;
-    let failed = false;
-    let moreRequests = 0;
-    let waiting = null;
-    let symbolSeq = 1;
-    let pendingSymbol = null;
-    let seriesActive = false;
-    let completedReady = false;
+    const candles = new Map();
+    let done = false;
+    let timer = null;
 
     const send = (m,p) => {
       if (ws.readyState === WebSocket.OPEN) ws.send(frame({m,p}));
     };
-
-    const fail = e => {
-      if (failed) return;
-      failed = true;
-      if (waiting) waiting.reject(e instanceof Error ? e : new Error(String(e)));
-      reject(e instanceof Error ? e : new Error(String(e)));
-    };
-
-    const finishWait = () => {
-      if (waiting) {
-        const w = waiting;
-        waiting = null;
-        clearTimeout(w.timer);
-        w.resolve();
-      }
+    const finish = (err) => {
+      if (done) return;
+      done = true;
+      if (timer) clearTimeout(timer);
+      try { ws.close(); } catch (_) {}
+      if (err) reject(err); else resolve([...candles.values()].sort((a,b)=>a.time-b.time));
     };
 
     ws.on("open", () => {
       send("set_auth_token", ["unauthorized_user_token"]);
       send("chart_create_session", [cs, ""]);
       send("switch_timezone", [cs, TZ]);
-      send("resolve_symbol", [cs, sym, "=" + JSON.stringify({symbol:"BIST:ASTOR",adjustment:"splits",session:"regular"})]);
+      send("resolve_symbol", [cs, sym, "=" + JSON.stringify({
+        symbol, adjustment:"splits", session:"regular"
+      })]);
       send("create_series", [cs, series, "s1", sym, TIMEFRAME, RANGE, ""]);
     });
 
@@ -181,87 +168,35 @@ function createClient() {
       for (const packet of parsed.messages) {
         const p = packet.p || [];
         if (packet.m === "critical_error" || packet.m === "series_error" || packet.m === "symbol_error") {
-          fail(new Error(packet.m + ": " + JSON.stringify(p)));
+          finish(new Error(packet.m + ": " + JSON.stringify(p)));
           return;
-        }
-        if (packet.m === "series_deleted") {
-          seriesActive = false;
-          if (pendingSymbol && pendingSymbol.waitingForDelete) {
-            pendingSymbol.waitingForDelete = false;
-            send("resolve_symbol", [cs, pendingSymbol.nodeId, "=" + JSON.stringify({
-              symbol: pendingSymbol.symbol, adjustment:"splits", session:"regular"
-            })]);
-          } else if (completedReady) {
-            completedReady = false;
-            finishWait();
-          }
-          continue;
-        }
-        if (packet.m === "symbol_resolved") {
-          const resolvedId = p[1];
-          if (pendingSymbol && resolvedId === pendingSymbol.nodeId) {
-            activeSeries = "s" + (++seriesSeq);
-            send("create_series", [cs, activeSeries, "s1", pendingSymbol.nodeId, TIMEFRAME, RANGE]);
-            seriesActive = true;
-          }
-          continue;
-        }
-        if (packet.m === "series_completed") {
-          if (candles.size < 100 && moreRequests < 3) {
-            moreRequests++;
-            send("request_more_data", [cs, activeSeries, 1000]);
-          } else {
-            ready = true;
-            completedReady = true;
-            send("remove_series", [cs, activeSeries]);
-          }
         }
         if (packet.m === "timescale_update" || packet.m === "du") {
           const box = p[1];
-          const sd = box && box[activeSeries];
+          const sd = box && box[series];
           const bars = sd && sd.s;
           if (!Array.isArray(bars)) continue;
           for (const bar of bars) {
             const v = bar && bar.v;
             if (!Array.isArray(v) || v.length < 5) continue;
-            const t = Number(v[0]), o=Number(v[1]), h=Number(v[2]), l=Number(v[3]), c=Number(v[4]);
-            if ([t,o,h,l,c].every(Number.isFinite)) candles.set(t,{time:t,open:o,high:h,low:l,close:c});
+            const t=Number(v[0]), o=Number(v[1]), h=Number(v[2]), l=Number(v[3]), cl=Number(v[4]);
+            if ([t,o,h,l,cl].every(Number.isFinite)) {
+              candles.set(t,{time:t,open:o,high:h,low:l,close:cl});
+            }
           }
+        }
+        if (packet.m === "series_completed") {
+          finish(null);
+          return;
         }
       }
     });
 
-    ws.on("error", fail);
+    ws.on("error", e => finish(e instanceof Error ? e : new Error(String(e))));
     ws.on("close", () => {
-      if (!failed && waiting) fail(new Error("TradingView websocket closed"));
+      if (!done) finish(new Error("TradingView websocket closed"));
     });
-
-    const api = {
-      async setSymbol(symbol) {
-        candles = new Map();
-        ready = false;
-        moreRequests = 0;
-        await new Promise((resolve,reject) => {
-          waiting = {resolve,reject,timer:setTimeout(()=>{waiting=null;reject(new Error("Symbol timeout"));},20000)};
-          const nextSym = "symbol_" + (++symbolSeq);
-          pendingSymbol = {nodeId: nextSym, symbol, waitingForDelete: seriesActive};
-          if (seriesActive) {
-            send("remove_series", [cs, activeSeries]);
-          } else {
-            send("resolve_symbol", [cs, nextSym, "=" + JSON.stringify({symbol,adjustment:"splits",session:"regular"})]);
-          }
-        });
-        await sleep(150);
-      },
-      getCandles() {
-        return [...candles.values()].sort((a,b)=>a.time-b.time);
-      },
-      close() { try { ws.close(); } catch (_) {} }
-    };
-
-    setTimeout(() => {
-      if (!failed) resolve(api);
-    }, 1000);
+    timer = setTimeout(() => finish(new Error("Symbol timeout")), 20000);
   });
 }
 
@@ -273,18 +208,21 @@ async function main() {
   console.log("TRADINGVIEW GERCEK BUY TARAMASI - STUDY YOK");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
   console.log("Pine SuperTrend mantigi dogrudan TradingView OHLC verisine uygulanir.");
-  console.log("TEK WEBSOCKET + TEK SERIES + modify_series");
+  console.log("HER HISSE ICIN AYRI WEBSOCKET + AYRI SERIES + STUDY YOK");
   console.log("=".repeat(70));
 
-  const tv = await createClient();
   const current=[], fresh=[];
   let errors=0;
+  const concurrency = 5;
+  let nextIndex = 0;
 
-  for (let i=0;i<symbols.length;i++) {
-    const symbol=symbols[i];
-    try {
-      await tv.setSymbol(symbol);
-      const candles=tv.getCandles();
+  async function worker() {
+    while (true) {
+      const i = nextIndex++;
+      if (i >= symbols.length) return;
+      const symbol = symbols[i];
+      try {
+        const candles = await getSymbolCandles(symbol);
       if (candles.length < 20) throw new Error("Yetersiz 2H mum: " + candles.length);
 
       const now=Math.floor(Date.now()/1000);
@@ -304,13 +242,14 @@ async function main() {
       } else {
         console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | SON MUM BUY yok");
       }
-    } catch(e) {
-      errors++;
-      console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | HATA: "+String(e.message||e));
+      } catch(e) {
+        errors++;
+        console.log("["+(i+1)+"/"+symbols.length+"] "+symbol+" | HATA: "+String(e.message||e));
+      }
     }
   }
 
-  tv.close();
+  await Promise.all(Array.from({length:concurrency}, () => worker()));
 
   console.log("=".repeat(70));
   console.log("TARAMA TAMAMLANDI");
