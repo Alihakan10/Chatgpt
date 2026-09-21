@@ -1176,11 +1176,17 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
                 )
             return result
 
-        # TradingView'in BIST 2H grafiğindeki seans hizasını koru.
-        # WebSocket'in native 120 dakikalık serisi UTC/24 saat hizalı
-        # olabildiği için 09:00/11:00 gibi kaymış barlar üretebilir.
-        # BIST seansı 10:00-18:00 olduğundan 1H veriyi
-        # 10-12, 12-14, 14-16 ve 16-18 olarak birleştir.
+        # TradingView'in native 120 dakikalık serisini kullan.
+        # Görünen TradingView 2H grafiği ile birebir aynı mum zamanlarını
+        # ve OHLC değerlerini korumak için 1H seans birleştirmesi kullanılmaz.
+        if candle_mode == "native_2h":
+            if len(result) < 20:
+                raise RuntimeError(
+                    "TradingView native 2H verisi yetersiz: "
+                    + str(len(result)) + " mum"
+                )
+            return result
+
         one_hour = result
         grouped = {}
         for bar in one_hour:
@@ -2121,7 +2127,7 @@ def scan_symbol(
 
     try:
 
-        candles = get_tv_candles(symbol)
+        candles = get_tv_candles(symbol, "native_2h")
 
 
 
