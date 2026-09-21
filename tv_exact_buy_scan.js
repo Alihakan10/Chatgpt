@@ -40,8 +40,8 @@ async function main() {
     catch (_) { return {}; }
   })();
 
-  const BATCH_SIZE = 100;
-  const BATCH_DELAY = 2000;
+  const BATCH_SIZE = 1;
+  const BATCH_DELAY = 1500;
 
   const current = [];
   const fresh = [];
@@ -53,130 +53,14 @@ async function main() {
     if (indicator.inputs?.ATR_Period) indicator.setOption("ATR_Period", 10);
     if (indicator.inputs?.Periods) indicator.setOption("Periods", 10);
     if (indicator.inputs?.Period) indicator.setOption("Period", 10);
+    if (indicator.inputs?.src) indicator.setOption("src", "hl2");
+    if (indicator.inputs?.Source) indicator.setOption("Source", "hl2");
   }
 
-  async function scanOne(chart, indicator, symbol, studyRef) {
-    return await new Promise((resolve, reject) => {
-      let done = false;
-      let study = studyRef.value;
-      let firstLoad = !study;
-
-      const finish = (fn, value) => {
-        if (!done) {
-          done = true;
-          clearTimeout(timer);
-          fn(value);
-        }
-      };
-
-      const timer = setTimeout(
-        () => finish(reject, new Error("Study timeout")),
-        25000
-      );
-
-      const readPeriods = () => {
-        try {
-          const ps = (Array.isArray(study?.periods) ? study.periods : [])
-            .filter(completed);
-
-          if (!ps.length) return;
-
-          const latestDay = new Date(
-            ps[ps.length - 1].$time * 1000
-          ).toLocaleDateString("en-CA", { timeZone: TZ });
-
-          const out = ps
-            .filter(p =>
-              new Date(p.$time * 1000).toLocaleDateString("en-CA", {
-                timeZone: TZ
-              }) === latestDay
-            )
-            .filter(
-              p =>
-                Number(p.SuperTrend_Buy) === 1 &&
-                Number(p.SuperTrend_Direction_Change) === 1
-            )
-            .map(p => ({
-              symbol,
-              candle_time: Number(p.$time),
-              price: Number(p.close)
-            }));
-
-          finish(resolve, out);
-        } catch (e) {
-          finish(reject, e);
-        }
-      };
-
-      const onSymbolLoaded = () => {
-        try {
-          if (firstLoad) {
-            study = new chart.Study(indicator);
-            studyRef.value = study;
-
-            study.onError((...e) => {
-              finish(
-                reject,
-                new Error("Study: " + JSON.stringify(e))
-              );
-            });
-
-            study.onReady(() => readPeriods());
-            study.onUpdate(() => readPeriods());
-          } else {
-            // Study remains attached to this chart while the market changes.
-            // Wait for the new calculation before reading periods.
-            if (study && typeof study.onUpdate === "function") {
-              const originalPeriods = study.periods;
-              let settled = false;
-
-              const waitForNewData = () => {
-                if (settled) return;
-                const nowPeriods = study.periods;
-                if (nowPeriods !== originalPeriods || Array.isArray(nowPeriods)) {
-                  settled = true;
-                  readPeriods();
-                }
-              };
-
-              study.onUpdate(waitForNewData);
-            }
-          }
-        } catch (e) {
-          finish(reject, e);
-        }
-      };
-
-      chart.onSymbolLoaded(onSymbolLoaded);
-      chart.setMarket(symbol, {
-        timeframe: TIMEFRAME,
-        range: RANGE,
-        session: "regular",
-        adjustment: "splits"
-      });
-    });
-  }
-
-  console.log("=".repeat(70));
-  console.log("TRADINGVIEW GERCEK BUY ETIKET TARAMASI");
-  console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("HER CHARTTA SADECE 1 STUDY KULLANILIYOR");
-  console.log("=".repeat(70));
-
-  for (let start = 0; start < symbols.length; start += BATCH_SIZE) {
-    const batch = symbols.slice(start, start + BATCH_SIZE);
-    const batchNo = Math.floor(start / BATCH_SIZE) + 1;
-    const batchTotal = Math.ceil(symbols.length / BATCH_SIZE);
-
-    console.log("");
-    console.log(
-      ">>> BATCH " + batchNo + "/" + batchTotal +
-      " | " + batch.length + " hisse | 1 study"
-    );
-
+  async function scanOne(symbol) {
     let client = null;
     let chart = null;
-    const studyRef = { value: null };
+    let study = null;
 
     try {
       client = new TradingView.Client();
@@ -185,81 +69,132 @@ async function main() {
       const indicator = await TradingView.getIndicator(INDICATOR_ID);
       applyIndicatorOptions(indicator);
 
-      for (let j = 0; j < batch.length; j++) {
-        const symbol = batch[j];
-        const index = start + j + 1;
+      return await new Promise((resolve, reject) => {
+        let done = false;
 
-        console.log("[" + index + "/" + symbols.length + "] " + symbol);
-
-        try {
-          const results = await scanOne(
-            chart,
-            indicator,
-            symbol,
-            studyRef
-          );
-
-          const old = state[symbol] &&
-            typeof state[symbol] === "object"
-            ? state[symbol]
-            : {};
-
-          const oldBuy = Number(old.last_buy_candle_time || 0);
-
-          for (const r of results) {
-            const already = r.candle_time <= oldBuy;
-            current.push({ ...r, already });
-
-            if (already) {
-              console.log(
-                "    MEVCUT BUY | " +
-                fmt(r.candle_time) +
-                " | DAHA ONCE GONDERILDI"
-              );
-            } else {
-              fresh.push(r);
-              console.log(
-                "    >>> GERCEK BUY | " +
-                fmt(r.candle_time)
-              );
-            }
-
-            state[symbol] = {
-              ...old,
-              direction: 1,
-              candle_time: r.candle_time,
-              last_buy_candle_time: Math.max(
-                oldBuy,
-                r.candle_time
-              )
-            };
+        const finish = (fn, value) => {
+          if (!done) {
+            done = true;
+            clearTimeout(timer);
+            fn(value);
           }
-        } catch (e) {
-          errors++;
-          console.log(
-            "    HATA: " + String(e.message || e)
-          );
-        }
-      }
-    } catch (e) {
-      console.log(
-        "BATCH HATASI: " + String(e.message || e)
-      );
-      errors += batch.length;
+        };
+
+        const timer = setTimeout(
+          () => finish(reject, new Error("Study timeout")),
+          30000
+        );
+
+        const readPeriods = () => {
+          try {
+            const ps = (Array.isArray(study?.periods) ? study.periods : [])
+              .filter(completed);
+
+            if (!ps.length) return;
+
+            const latestDay = new Date(
+              ps[ps.length - 1].$time * 1000
+            ).toLocaleDateString("en-CA", { timeZone: TZ });
+
+            const out = ps
+              .filter(p =>
+                new Date(p.$time * 1000).toLocaleDateString("en-CA", {
+                  timeZone: TZ
+                }) === latestDay
+              )
+              .filter(p =>
+                Number(p.SuperTrend_Buy) === 1 &&
+                Number(p.SuperTrend_Direction_Change) === 1
+              )
+              .map(p => ({
+                symbol,
+                candle_time: Number(p.$time),
+                price: Number(p.close)
+              }));
+
+            finish(resolve, out);
+          } catch (e) {
+            finish(reject, e);
+          }
+        };
+
+        chart.onSymbolLoaded(() => {
+          try {
+            study = new chart.Study(indicator);
+
+            study.onError((...e) => {
+              finish(reject, new Error("Study: " + JSON.stringify(e)));
+            });
+
+            study.onReady(() => readPeriods());
+            study.onUpdate(() => readPeriods());
+
+            chart.setMarket(symbol, {
+              timeframe: TIMEFRAME,
+              range: RANGE,
+              session: "regular",
+              adjustment: "splits"
+            });
+          } catch (e) {
+            finish(reject, e);
+          }
+        });
+
+        chart.setMarket(symbol, {
+          timeframe: TIMEFRAME,
+          range: RANGE,
+          session: "regular",
+          adjustment: "splits"
+        });
+      });
     } finally {
       try {
-        if (chart && typeof chart.delete === "function") {
-          chart.delete();
-        }
+        if (chart && typeof chart.delete === "function") chart.delete();
       } catch (_) {}
       try {
         if (client) client.end();
       } catch (_) {}
     }
+  }
 
-    if (start + BATCH_SIZE < symbols.length) {
-      await sleep(BATCH_DELAY);
+  console.log("=".repeat(70));
+  console.log("TRADINGVIEW GERCEK BUY ETIKET TARAMASI");
+  console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
+  console.log("HER HISSE ICIN YENI CHART + 1 STUDY");
+  console.log("=".repeat(70));
+
+  for (let j = 0; j < symbols.length; j++) {
+    const symbol = symbols[j];
+
+    console.log("[" + (j + 1) + "/" + symbols.length + "] " + symbol);
+
+    try {
+      const results = await scanOne(symbol);
+
+      const old = state[symbol] &&
+        typeof state[symbol] === "object"
+        ? state[symbol]
+        : {};
+
+      const oldBuy = Number(old.last_buy_candle_time || 0);
+
+      for (const r of results) {
+        const already = r.candle_time <= oldBuy;
+        current.push({ ...r, already });
+
+        console.log(
+          "    GERCEK BUY | " + fmt(r.candle_time) +
+          " | " + (already ? "MEVCUT" : "YENI")
+        );
+
+        if (!already) fresh.push(r);
+      }
+    } catch (e) {
+      errors++;
+      console.log("    HATA: " + String(e.message || e));
     }
+
+    if (j + 1 < symbols.length) await sleep(BATCH_DELAY);
   }
 
   console.log("=".repeat(70));
