@@ -1,9 +1,9 @@
 const WebSocket = require("ws");
 const fs = require("fs");
 
-const TIMEFRAME = "120";
-const RANGE = 3000;
 const MANUAL_TEST_RUN = process.env.MANUAL_TEST_RUN === "true";
+const TIMEFRAME = MANUAL_TEST_RUN ? "60" : "120";
+const RANGE = MANUAL_TEST_RUN ? 6000 : 3000;
 const LIMIT = Number(process.env.SCAN_LIMIT || "620");
 const TEST_MODE = process.env.TEST_MODE === "true";
 const TEST_SYMBOLS = (process.env.TEST_SYMBOLS || "").split(",").map(s => s.trim()).filter(Boolean);
@@ -162,19 +162,27 @@ function getSymbolCandles(symbol) {
     });
 
     ws.on("message", data => {
-      buffer += data.toString();
+      const raw = data.toString();
+      if (/^~m~\d+~m~~h~\d+$/.test(raw)) {
+        if (ws.readyState === WebSocket.OPEN) ws.send(raw);
+        return;
+      }
+      buffer += raw;
       const parsed = parseFrames(buffer);
       buffer = parsed.rest;
 
       for (const packet of parsed.messages) {
         const p = packet.p || [];
-        if (packet.m === "critical_error" || packet.m === "series_error" || packet.m === "symbol_error") {
+        if (packet.m === "protocol_error" || packet.m === "critical_error" || packet.m === "series_error" || packet.m === "symbol_error") {
           finish(new Error(packet.m + ": " + JSON.stringify(p)));
           return;
         }
         if (packet.m === "timescale_update" || packet.m === "du") {
           const box = p[1];
-          const sd = box && box[series];
+          let sd = box && box[series];
+          if (!sd && box && typeof box === "object") {
+            sd = Object.values(box).find(v => v && Array.isArray(v.s));
+          }
           const bars = sd && sd.s;
           if (!Array.isArray(bars)) continue;
           for (const bar of bars) {
@@ -187,8 +195,13 @@ function getSymbolCandles(symbol) {
           }
         }
         if (packet.m === "series_completed") {
-          finish(null);
-          return;
+          if (candles.size > 0) {
+            finish(null);
+            return;
+          }
+          setTimeout(() => {
+            if (!done) finish(null);
+          }, 1500);
         }
       }
     });
