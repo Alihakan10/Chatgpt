@@ -1,17 +1,30 @@
 const TradingView = require("@mathieuc/tradingview");
+const fs = require("fs");
 
 const INDICATOR_ID = "PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45";
 const TIMEFRAME = "120";
 const RANGE = 500;
 const LIMIT = Number(process.env.SCAN_LIMIT || "620");
-const TEST_MODE=process.env.TEST_MODE==="true"; const TEST_SYMBOL=process.env.TEST_SYMBOL||""; const FORCE_SCAN=process.env.FORCE_SCAN==="true"; const SEND_SCAN_REPORT=process.env.SEND_SCAN_REPORT!=="false"; const fs=require("fs"); const STATE_FILE="state/supertrend_state.json"; const TZ="Europe/Istanbul"; const fmt=ts=>new Intl.DateTimeFormat("tr-TR",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(Number(ts)*1000));
+const WORKERS = 4;
+const TEST_MODE = process.env.TEST_MODE === "true";
+const TEST_SYMBOLS = (process.env.TEST_SYMBOLS || "").split(",").map(s => s.trim()).filter(Boolean);
+const FORCE_SCAN = process.env.FORCE_SCAN === "true";
+const SEND_SCAN_REPORT = process.env.SEND_SCAN_REPORT !== "false";
+const STATE_FILE = "state/supertrend_state.json";
+const TZ = "Europe/Istanbul";
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+function fmt(ts) {
+  return new Intl.DateTimeFormat("tr-TR", {
+    timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hour12: false
+  }).format(new Date(Number(ts) * 1000));
+}
+
 function completed(period) {
   if (!period || period.$time == null) return false;
-  const t = Number(period.$time);
-  return t + 2 * 60 * 60 <= Math.floor(Date.now() / 1000);
+  return Number(period.$time) + 2 * 60 * 60 <= Math.floor(Date.now() / 1000);
 }
 
 async function getSymbols() {
@@ -28,284 +41,203 @@ async function getSymbols() {
   });
   if (!response.ok) throw new Error("Scanner HTTP " + response.status);
   const data = await response.json();
-  return [...new Set((data.data || []).map(x => x.s).filter(x => typeof x === "string" && x.startsWith("BIST:")))].slice(0, LIMIT);
+  return [...new Set((data.data || []).map(x => x.s)
+    .filter(x => typeof x === "string" && x.startsWith("BIST:")))].slice(0, LIMIT);
 }
 
+function applyIndicatorOptions(indicator) {
+  indicator.setOption("ATR_Period", 10);
+  indicator.setOption("Source", "hl2");
+  indicator.setOption("ATR_Multiplier", 2.0);
+  indicator.setOption("Change_ATR_Calculation_Method_", true);
+  indicator.setOption("Show_BuySell_Signals_", true);
+  indicator.setOption("Highlighter_OnOff_", true);
+  indicator.setOption("Indicator_Timeframe", "");
+}
 
+async function scanOne(symbol, attempt = 1) {
+  let client = null, chart = null, study = null;
+  try {
+    client = new TradingView.Client();
+    client.onError(() => {});
+    chart = new client.Session.Chart();
+
+    const indicator = await TradingView.getIndicator(INDICATOR_ID);
+    applyIndicatorOptions(indicator);
+
+    return await new Promise((resolve, reject) => {
+      let settled = false;
+      const timer = setTimeout(() => {
+        if (!settled) { settled = true; reject(new Error("Study timeout")); }
+      }, 30000);
+
+      const fail = err => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          reject(err instanceof Error ? err : new Error(String(err)));
+        }
+      };
+
+      chart.onSymbolLoaded(() => {
+        try {
+          study = new chart.Study(indicator);
+
+          study.onError((...err) => fail(new Error("Study: " + JSON.stringify(err))));
+
+          study.onReady(() => {
+            setTimeout(() => {
+              if (settled) return;
+              try {
+                const periods = (Array.isArray(study.periods) ? study.periods : []).filter(completed);
+                if (!periods.length) return fail(new Error("Tamamlanmis 2H mum yok"));
+
+                const latestDay = new Date(Number(periods[periods.length - 1].$time) * 1000)
+                  .toLocaleDateString("en-CA", {timeZone: TZ});
+
+                const buys = periods
+                  .filter(p => new Date(Number(p.$time) * 1000)
+                    .toLocaleDateString("en-CA", {timeZone: TZ}) === latestDay)
+                  // plot_2 of the TradingView indicator is the visible "Buy" label.
+                  .filter(p => Number.isFinite(Number(p.Buy)) && Number(p.Buy) !== 0)
+                  .map(p => ({
+                    symbol,
+                    candle_time: Number(p.$time),
+                    price: Number(p.close)
+                  }));
+
+                settled = true;
+                clearTimeout(timer);
+                resolve(buys);
+              } catch (e) {
+                fail(e);
+              }
+            }, 1200);
+          });
+
+          chart.setMarket(symbol, {
+            timeframe: TIMEFRAME,
+            range: RANGE,
+            session: "regular",
+            adjustment: "splits"
+          });
+        } catch (e) {
+          fail(e);
+        }
+      });
+    });
+  } catch (e) {
+    const msg = String(e && e.message ? e.message : e);
+    if (attempt < 3 && /429|Too Many|rate limit|study_limit/i.test(msg)) {
+      await sleep(attempt * 5000);
+      return scanOne(symbol, attempt + 1);
+    }
+    throw e;
+  } finally {
+    try { if (study) study.remove(); } catch (_) {}
+    try { if (chart) chart.delete(); } catch (_) {}
+    try { if (client) await client.end(); } catch (_) {}
+  }
+}
 
 async function main() {
-  const symbols = TEST_MODE && TEST_SYMBOL ? [TEST_SYMBOL] : await getSymbols();
+  const symbols = TEST_MODE && TEST_SYMBOLS.length ? TEST_SYMBOLS : await getSymbols();
   const state = (() => {
     try { return JSON.parse(fs.readFileSync(STATE_FILE, "utf8")); }
     catch (_) { return {}; }
   })();
 
-  const BATCH_DELAY = 1500;
-
-  const current = [];
-  const fresh = [];
-  let errors = 0;
-
-  function applyIndicatorOptions(indicator) {
-    if (indicator.inputs?.ATR_Multiplier) indicator.setOption("ATR_Multiplier", 2.0);
-    if (indicator.inputs?.Multiplier) indicator.setOption("Multiplier", 2.0);
-    if (indicator.inputs?.ATR_Period) indicator.setOption("ATR_Period", 10);
-    if (indicator.inputs?.Periods) indicator.setOption("Periods", 10);
-    if (indicator.inputs?.Period) indicator.setOption("Period", 10);
-    if (indicator.inputs?.src) indicator.setOption("src", "hl2");
-    if (indicator.inputs?.Source) indicator.setOption("Source", "hl2");
-  }
-
-  async function createSharedStudy(firstSymbol) {
-    const client = new TradingView.Client();
-    const chart = new client.Session.Chart();
-    const indicator = await TradingView.getIndicator(INDICATOR_ID);
-    applyIndicatorOptions(indicator);
-
-    const shared = { client, chart, indicator, study: null };
-
-    await new Promise((resolve, reject) => {
-      const timer = setTimeout(() => reject(new Error("Chart timeout")), 30000);
-
-      chart.onSymbolLoaded(() => {
-        try {
-          if (!shared.study) {
-            shared.study = new chart.Study(indicator);
-            shared.study.onError((...err) => {
-              reject(new Error("Study: " + JSON.stringify(err)));
-            });
-            shared.study.onReady(() => {
-              clearTimeout(timer);
-              resolve();
-            });
-          }
-        } catch (err) {
-          clearTimeout(timer);
-          reject(err);
-        }
-      });
-
-      chart.setMarket(firstSymbol, {
-        timeframe: TIMEFRAME,
-        range: RANGE,
-        session: "regular",
-        adjustment: "splits"
-      });
-    });
-
-    return shared;
-  }
-
-  async function scanOne(symbol, shared) {
-    return await new Promise((resolve, reject) => {
-      let done = false;
-
-      const finish = (fn, value) => {
-        if (!done) {
-          done = true;
-          clearTimeout(timer);
-          fn(value);
-        }
-      };
-
-      const timer = setTimeout(
-        () => finish(reject, new Error("Study timeout")),
-        30000
-      );
-
-      const readPeriods = () => {
-        try {
-          const ps = (Array.isArray(shared.study?.periods) ? shared.study.periods : [])
-            .filter(completed);
-
-          if (!ps.length) return;
-
-          const latestDay = new Date(ps[ps.length - 1].$time * 1000)
-            .toLocaleDateString("en-CA", { timeZone: TZ });
-
-          const out = ps
-            .filter(p =>
-              new Date(p.$time * 1000).toLocaleDateString("en-CA", {
-                timeZone: TZ
-              }) === latestDay
-            )
-            .filter(p =>
-              Number(p.SuperTrend_Buy) === 1 &&
-              Number(p.SuperTrend_Direction_Change) === 1
-            )
-            .map(p => ({
-              symbol,
-              candle_time: Number(p.$time),
-              price: Number(p.close)
-            }));
-
-          finish(resolve, out);
-        } catch (err) {
-          finish(reject, err);
-        }
-      };
-
-      shared.chart.setMarket(symbol, {
-        timeframe: TIMEFRAME,
-        range: RANGE,
-        session: "regular",
-        adjustment: "splits"
-      });
-
-      setTimeout(readPeriods, 5000);
-    });
-  }
+  const current = [], fresh = [];
+  let errors = 0, next = 0;
 
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY ETIKET TARAMASI");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("TEK CHART + TEK STUDY, HISSELER SIRAYLA DEGISTIRILIYOR");
+  console.log("VISIBLE BUY PLOT: Buy | AYRI CLIENT/CHART/STUDY");
   console.log("=".repeat(70));
 
-  const shared = await createSharedStudy(symbols[0]);
+  async function worker() {
+    while (true) {
+      const i = next++;
+      if (i >= symbols.length) return;
+      const symbol = symbols[i];
 
-  for (let j = 0; j < symbols.length; j++) {
-    const symbol = symbols[j];
+      try {
+        const results = await scanOne(symbol);
+        const old = state[symbol] && typeof state[symbol] === "object" ? state[symbol] : {};
+        const oldBuy = Number(old.last_buy_candle_time || 0);
 
-    console.log("[" + (j + 1) + "/" + symbols.length + "] " + symbol);
-
-    try {
-      const results = await scanOne(symbol, shared);
-
-      const old = state[symbol] &&
-        typeof state[symbol] === "object"
-        ? state[symbol]
-        : {};
-
-      const oldBuy = Number(old.last_buy_candle_time || 0);
-
-      for (const r of results) {
-        const already = r.candle_time <= oldBuy;
-        current.push({ ...r, already });
-
-        console.log(
-          "    GERCEK BUY | " + fmt(r.candle_time) +
-          " | " + (already ? "MEVCUT" : "YENI")
-        );
-
-        if (!already) fresh.push(r);
+        for (const r of results) {
+          const already = r.candle_time <= oldBuy;
+          current.push({...r, already});
+          console.log("[" + (i + 1) + "/" + symbols.length + "] GERCEK BUY | " +
+            symbol + " | " + fmt(r.candle_time) + " | " + (already ? "MEVCUT" : "YENI"));
+          if (!already) fresh.push(r);
+        }
+        if (!results.length) console.log("[" + (i + 1) + "/" + symbols.length + "] " + symbol + " | BUY yok");
+      } catch (e) {
+        errors++;
+        console.log("[" + (i + 1) + "/" + symbols.length + "] " + symbol +
+          " | HATA: " + String(e.message || e));
       }
-    } catch (e) {
-      errors++;
-      console.log("    HATA: " + String(e.message || e));
+      await sleep(500);
     }
-
-    if (j + 1 < symbols.length) await sleep(BATCH_DELAY);
   }
+
+  await Promise.all(Array.from({length: Math.min(WORKERS, symbols.length)}, worker));
+
+  current.sort((a,b) => a.candle_time - b.candle_time || a.symbol.localeCompare(b.symbol));
+  fresh.sort((a,b) => a.candle_time - b.candle_time || a.symbol.localeCompare(b.symbol));
 
   console.log("=".repeat(70));
   console.log("TARAMA TAMAMLANDI");
   console.log("Toplam hisse: " + symbols.length);
   console.log("Basarili cevap: " + (symbols.length - errors));
   console.log("Hata: " + errors);
-  console.log("GERCEK BUY: " + current.length);
+  console.log("GERCEK VISIBLE BUY: " + current.length);
   console.log("YENI BUY: " + fresh.length);
 
   if (FORCE_SCAN || TEST_MODE) {
     console.log("MANUEL TARAMA BUY RAPORU");
-    console.log("MEVCUT BUY: " + current.length);
-
     for (const x of current) {
-      console.log(
-        "    MEVCUT BUY | " +
-        x.symbol + " | " +
-        fmt(x.candle_time) + " | " +
-        (x.already
-          ? "DAHA ONCE GONDERILDI"
-          : "YENI")
-      );
+      console.log("    " + x.symbol + " | " + fmt(x.candle_time) +
+        " | " + (x.already ? "DAHA ONCE GONDERILDI" : "YENI"));
     }
-
-    console.log(
-      "DAHA ONCE TELEGRAM'A GONDERILEN BUY: " +
-      current.filter(x => x.already).length
-    );
-
-    console.log("YENI BUY: " + fresh.length);
   }
 
   if (fresh.length && SEND_SCAN_REPORT) {
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chat = process.env.TELEGRAM_CHAT_ID;
-
-    if (!token || !chat) {
-      throw new Error("Telegram secret eksik.");
-    }
+    const token = process.env.TELEGRAM_BOT_TOKEN, chat = process.env.TELEGRAM_CHAT_ID;
+    if (!token || !chat) throw new Error("Telegram secret eksik.");
 
     const lines = [
-      "TRADINGVIEW GERCEK BUY ETIKETI",
-      "",
+      "TRADINGVIEW GERCEK BUY ETIKETI", "",
       "BIST 2 SAATLIK SUPERTREND",
-      "ATR 10 | HL2 | 2.0 | 2H",
-      "",
-      "BUY SINYALI: " + fresh.length + " adet",
-      ""
+      "ATR 10 | HL2 | 2.0 | 2H", "",
+      "BUY SINYALI: " + fresh.length + " adet", ""
     ];
-
     for (const x of fresh) {
-      lines.push(
-        "🟢 " +
-        x.symbol.replace("BIST:", "") +
-        "   " +
-        Number(x.price).toFixed(2) +
-        " TL"
-      );
+      lines.push("🟢 " + x.symbol.replace("BIST:", "") + "   " + Number(x.price).toFixed(2) + " TL");
       lines.push("   Mum: " + fmt(x.candle_time));
     }
 
-    const resp = await fetch(
-      "https://api.telegram.org/bot" +
-      token +
-      "/sendMessage",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          chat_id: chat,
-          text: lines.join("\n"),
-          disable_web_page_preview: true
-        })
-      }
-    );
-
+    const resp = await fetch("https://api.telegram.org/bot" + token + "/sendMessage", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({chat_id: chat, text: lines.join("\n"), disable_web_page_preview: true})
+    });
     const tg = await resp.json();
-
-    if (!resp.ok || !tg.ok) {
-      throw new Error(
-        "Telegram HTTP " +
-        resp.status +
-        ": " +
-        JSON.stringify(tg)
-      );
-    }
-
-    console.log(
-      "GERCEK BUY LISTESI TELEGRAM'A GONDERILDI."
-    );
+    if (!resp.ok || !tg.ok) throw new Error("Telegram HTTP " + resp.status + ": " + JSON.stringify(tg));
+    console.log("GERCEK BUY LISTESI TELEGRAM'A GONDERILDI.");
   } else {
-    console.log(
-      "Yeni gercek BUY yok; Telegram gonderilmeyecek."
-    );
+    console.log("Yeni gercek BUY yok; Telegram gonderilmeyecek.");
   }
 
-  fs.mkdirSync("state", { recursive: true });
-  fs.writeFileSync(
-    STATE_FILE,
-    JSON.stringify(state, null, 2) + "\n"
-  );
-
-  try { shared.chart.delete(); } catch (_) {}
-  try { shared.client.end(); } catch (_) {}
+  fs.mkdirSync("state", {recursive:true});
+  for (const x of current) {
+    const old = state[x.symbol] && typeof state[x.symbol] === "object" ? state[x.symbol] : {};
+    state[x.symbol] = {...old, last_buy_candle_time: Math.max(Number(old.last_buy_candle_time || 0), x.candle_time)};
+  }
+  fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2) + "\n");
 }
 
-main().catch(e => {
-  console.error(e);
-  process.exit(1);
-});
+main().catch(e => { console.error(e); process.exit(1); });
