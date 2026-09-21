@@ -51,9 +51,9 @@ TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 10000
-HISTORY_TARGET = 20000
-HISTORY_REQUEST_SIZE = 5000
+CANDLE_COUNT = 3000
+HISTORY_TARGET = 3000
+HISTORY_REQUEST_SIZE = 1000
 DATA_TIMEFRAME = "60"
 
 
@@ -2921,7 +2921,7 @@ def main():
     # TradingView baglantilari paralel calisir. State guncellemesi
     # sonuclar geldikten sonra tek thread'de yapilir.
 
-    scan_workers = 12
+    scan_workers = 24
     scan_results = []
 
     scan_started = time.time()
