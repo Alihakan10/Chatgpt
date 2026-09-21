@@ -40,7 +40,6 @@ async function main() {
     catch (_) { return {}; }
   })();
 
-  const BATCH_SIZE = 1;
   const BATCH_DELAY = 1500;
 
   const current = [];
@@ -160,8 +159,10 @@ async function main() {
   console.log("=".repeat(70));
   console.log("TRADINGVIEW GERCEK BUY ETIKET TARAMASI");
   console.log("Hisse: " + symbols.length + " | ATR 10 | Carp 2.0 | HL2 | 2H");
-  console.log("HER HISSE ICIN YENI CHART + 1 STUDY");
+  console.log("TEK CHART + TEK STUDY, HISSELER SIRAYLA DEGISTIRILIYOR");
   console.log("=".repeat(70));
+
+  const shared = await createSharedStudy(symbols[0]);
 
   for (let j = 0; j < symbols.length; j++) {
     const symbol = symbols[j];
@@ -169,7 +170,7 @@ async function main() {
     console.log("[" + (j + 1) + "/" + symbols.length + "] " + symbol);
 
     try {
-      const results = await scanOne(symbol);
+      const results = await scanOne(symbol, shared);
 
       const old = state[symbol] &&
         typeof state[symbol] === "object"
