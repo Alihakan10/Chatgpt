@@ -1409,30 +1409,10 @@ def calculate_supertrend_directions(
     Study kullanmadan yeniden uygular.
 
     Ayarlar:
-      - ATR = RMA (TradingView varsayilani)
-      - Source = HL2
-      - ATR length = 10
-      - Multiplier = 2.0
-
-    TradingView formulu:
-      hl2 = (high + low) / 2
-      basicUpperBand = hl2 + multiplier * ATR
-      basicLowerBand = hl2 - multiplier * ATR
-
-      upperBand = basicUpperBand < prevUpperBand
-                   or prevClose > prevUpperBand
-                   ? basicUpperBand : prevUpperBand
-
-      lowerBand = basicLowerBand > prevLowerBand
-                   or prevClose < prevLowerBand
-                   ? basicLowerBand : prevLowerBand
-
-    Yon:
-      - ATR olusana kadar SAT (-1)
-      - Onceki Supertrend ust bant ise:
-          close > upperBand -> AL, aksi SAT
-      - Aksi durumda:
-          close < lowerBand -> SAT, aksi AL
+      ATR = RMA
+      Source = HL2
+      ATR length = 10
+      Multiplier = 2.0
 
     BUY = onceki yon SAT (-1), mevcut yon AL (+1).
     """
@@ -1448,7 +1428,7 @@ def calculate_supertrend_directions(
     direction = [None for _ in candles]
 
     for i in range(len(candles)):
-        # TradingView: ATR hesaplanana kadar trend down/SAT.
+        # TradingView: ATR hesaplanana kadar downtrend/SAT.
         if atr[i] is None:
             direction[i] = -1
             continue
@@ -1489,45 +1469,30 @@ def calculate_supertrend_directions(
                 else prev_lower
             )
 
-        if i == 0 or direction[i - 1] is None:
-            # ATR'in ilk olustugu noktada onceki Supertrend yoktur.
-            # TradingView'in down/SAT baslangic durumunu koru.
-            previous_direction = -1
-            previous_supertrend = upper_band[i]
-        else:
-            previous_direction = direction[i - 1]
-            previous_supertrend = supertrend[i - 1]
+        previous_direction = (
+            direction[i - 1]
+            if i > 0 and direction[i - 1] is not None
+            else -1
+        )
 
+        # TradingView'in yon mantigi:
+        # onceki Supertrend ust banttaysa fiyat mevcut ust banti
+        # yukari kirinca AL; aksi halde SAT.
+        #
+        # Onceki Supertrend alt banttaysa fiyat mevcut alt banti
+        # asagi kirinca SAT; aksi halde AL.
         if previous_direction == -1:
-            # Onceki Supertrend ust bantta ise fiyat ust banti
-            # yukari kirinca AL'a doner.
-            if previous_supertrend == upper_band[i - 1] if i > 0 and upper_band[i - 1] is not None else True:
-                direction[i] = (
-                    1
-                    if candles[i]["close"] > upper_band[i]
-                    else -1
-                )
-            else:
-                direction[i] = (
-                    -1
-                    if candles[i]["close"] < lower_band[i]
-                    else 1
-                )
+            direction[i] = (
+                1
+                if candles[i]["close"] > upper_band[i]
+                else -1
+            )
         else:
-            # Onceki Supertrend alt bantta ise fiyat alt bandi
-            # asagi kirinca SAT'a doner.
-            if previous_supertrend == lower_band[i - 1] if i > 0 and lower_band[i - 1] is not None else False:
-                direction[i] = (
-                    -1
-                    if candles[i]["close"] < lower_band[i]
-                    else 1
-                )
-            else:
-                direction[i] = (
-                    1
-                    if candles[i]["close"] > upper_band[i]
-                    else -1
-                )
+            direction[i] = (
+                -1
+                if candles[i]["close"] < lower_band[i]
+                else 1
+            )
 
         supertrend[i] = (
             lower_band[i]
@@ -1541,7 +1506,7 @@ def calculate_supertrend_directions(
 # ============================================================
 # TRADINGVIEW TARIHCE BASLANGICI DIAGNOSTIGI
 #
-# Kivanc SuperTrend stateful oldugu icin, TradingView chartinin
+# Supertrend stateful oldugu icin, TradingView chartinin
 # yukledigi tarih miktari ile fark olusup olusmadigini TEST_MODE'da
 # ayni veri setinin farkli tarihce pencerelerinde karsilastirir.
 # ============================================================
@@ -1586,24 +1551,22 @@ def history_window_buy_times(candles, window_sizes=(3000, 5000, 10000, 15000, 20
 def get_last_completed_index(
     candles
 ):
+    """
+    Native TradingView 2H serisinde BIST regular seansinin son parcali
+    2H barini da tamamlanmis kabul eder.
+
+    BIST seansi 10:00-18:00 oldugu icin 17:00 barinin gercek seans
+    kapanisi 18:00'dir; 19:00'i beklemek yanlistir.
+    """
 
     if not candles:
         return None
 
     now = now_istanbul()
-
-    timeframe_seconds = (
-        2 * 60 * 60
-    )
-
     candidates = []
 
-    for i, candle in enumerate(
-        candles
-    ):
-
+    for i, candle in enumerate(candles):
         try:
-
             candle_time = (
                 datetime.fromtimestamp(
                     candle["time"],
@@ -1614,23 +1577,25 @@ def get_last_completed_index(
                 )
             )
 
-            # TradingView 2H bar zamani barin acilis zamanidir.
-            # BIST regular seansinda 2H barlar seans acilisindan
-            # hizalanir; 17:00 icin 1 saatlik ozel istisna uygulama.
-            candle_end = (
-                candle_time
-                +
-                timedelta(
-                    seconds=timeframe_seconds
+            # TradingView session bazli barlarda son bar, seans
+            # bitiminde kapanir. 17:00 -> 18:00 parcali 2H bardir.
+            if (
+                candle_time.hour == 17
+                and candle_time.minute == 0
+            ):
+                candle_end = candle_time.replace(
+                    hour=18,
+                    minute=0,
+                    second=0,
+                    microsecond=0
                 )
-            )
+            else:
+                candle_end = candle_time + timedelta(hours=2)
 
             if candle_end <= now:
-
                 candidates.append(i)
 
         except Exception:
-
             continue
 
     if not candidates:
@@ -2183,14 +2148,19 @@ def build_telegram_message(
 
 def candle_close_datetime(candle_time):
 
-    return (
+    dt = (
         datetime.fromtimestamp(
             candle_time,
             tz=ZoneInfo("UTC")
         )
         .astimezone(ZoneInfo(TIMEZONE))
-        + timedelta(hours=2)
     )
+
+    # BIST'in 17:00-18:00 son parcali 2H bari 18:00'de kapanir.
+    if dt.hour == 17 and dt.minute == 0:
+        return dt + timedelta(hours=1)
+
+    return dt + timedelta(hours=2)
 
 
 # ============================================================
