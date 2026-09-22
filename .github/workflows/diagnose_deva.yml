@@ -1,8 +1,7 @@
 name: Diagnose DEVA Supertrend
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   diagnose:
