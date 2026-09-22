@@ -19,15 +19,25 @@ def label(d):
 
 
 def independent_directions(candles, period=10, multiplier=2.0):
+    """
+    Production hesabından tamamen ayrı bir TradingView Supertrend
+    uygulaması.
+
+    TradingView resmi tanımı:
+      hl2 = (high + low) / 2
+      upper/lower trailing bands
+      trend, önceki Supertrend bandına göre belirlenir.
+
+    Bu fonksiyon bağımsız doğrulama için +1=AL / -1=SAT
+    iç standardına çevrilmiş sonucu döndürür.
+    """
+
     n = len(candles)
     if n < period + 2:
         return None
 
-    tr = [None] * n
+    tr = [0.0] * n
     atr = [None] * n
-    upper = [None] * n
-    lower = [None] * n
-    direction = [None] * n
 
     for i, c in enumerate(candles):
         if i == 0:
@@ -46,40 +56,72 @@ def independent_directions(candles, period=10, multiplier=2.0):
             atr[i - 1] * (period - 1) + tr[i]
         ) / period
 
-    for i in range(period - 1, n):
-        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
-        raw_upper = hl2 + multiplier * atr[i]
-        raw_lower = hl2 - multiplier * atr[i]
+    upper = [None] * n
+    lower = [None] * n
+    tv_direction = [None] * n
 
-        if i == period - 1:
-            upper[i] = raw_upper
-            lower[i] = raw_lower
-            direction[i] = -1
+    for i in range(n):
+        if atr[i] is None:
+            tv_direction[i] = 1  # TradingView: DOWN/SAT
             continue
 
-        prev_close = candles[i - 1]["close"]
+        hl2 = (
+            candles[i]["high"] + candles[i]["low"]
+        ) / 2.0
 
-        upper[i] = (
-            raw_upper
-            if raw_upper < upper[i - 1] or prev_close > upper[i - 1]
-            else upper[i - 1]
-        )
-        lower[i] = (
-            raw_lower
-            if raw_lower > lower[i - 1] or prev_close < lower[i - 1]
+        basic_upper = hl2 + multiplier * atr[i]
+        basic_lower = hl2 - multiplier * atr[i]
+
+        if i == 0 or upper[i - 1] is None:
+            upper[i] = basic_upper
+        else:
+            prev_upper = upper[i - 1]
+            prev_close = candles[i - 1]["close"]
+            upper[i] = (
+                basic_upper
+                if basic_upper < prev_upper or prev_close > prev_upper
+                else prev_upper
+            )
+
+        if i == 0 or lower[i - 1] is None:
+            lower[i] = basic_lower
+        else:
+            prev_lower = lower[i - 1]
+            prev_close = candles[i - 1]["close"]
+            lower[i] = (
+                basic_lower
+                if basic_lower > prev_lower or prev_close < prev_lower
+                else prev_lower
+            )
+
+        if i == 0 or tv_direction[i - 1] is None:
+            tv_direction[i] = 1
+            continue
+
+        prev_direction = tv_direction[i - 1]
+        prev_supertrend = (
+            upper[i - 1]
+            if prev_direction == 1
             else lower[i - 1]
         )
 
-        if direction[i - 1] == -1:
-            direction[i] = (
-                1 if candles[i]["close"] > upper[i - 1] else -1
+        if prev_supertrend == upper[i - 1]:
+            tv_direction[i] = (
+                -1 if candles[i]["close"] > upper[i]
+                else 1
             )
         else:
-            direction[i] = (
-                -1 if candles[i]["close"] < lower[i - 1] else 1
+            tv_direction[i] = (
+                1 if candles[i]["close"] < lower[i]
+                else -1
             )
 
-    return direction
+    # TradingView: -1=UP/AL, +1=DOWN/SAT.
+    # Our scanner: +1=AL, -1=SAT.
+    return [
+        None if value is None else -value
+        for value in tv_direction
+    ]
 
 
 _original_scan_symbol = scanner.scan_symbol
