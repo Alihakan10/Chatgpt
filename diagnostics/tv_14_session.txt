@@ -1,6 +1,8 @@
 
 === BIST:CLEBI ===
-[2026-09-22 21:20:52]     TradingView native 2H veri: BIST:CLEBI
+[2026-09-22 21:21:33]     TradingView native 2H veri: BIST:CLEBI
+[2026-09-22 21:21:33] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:33] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=1418.00 H=1440.00 L=1407.00 C=1436.00
 2026-09-22 11:00 O=1437.00 H=1450.00 L=1422.00 C=1432.00
@@ -9,7 +11,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=1449.00 H=1450.00 L=1428.00 C=1429.00
 
 === BIST:EMNIS ===
-[2026-09-22 21:20:53]     TradingView native 2H veri: BIST:EMNIS
+[2026-09-22 21:21:34]     TradingView native 2H veri: BIST:EMNIS
+[2026-09-22 21:21:34] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:34] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-21 17:00 O=132.00 H=135.00 L=132.00 C=135.00
 2026-09-22 09:00 O=136.00 H=136.00 L=136.00 C=136.00
@@ -18,7 +22,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=142.00 H=142.00 L=139.30 C=139.30
 
 === BIST:EUHOL ===
-[2026-09-22 21:20:54]     TradingView native 2H veri: BIST:EUHOL
+[2026-09-22 21:21:35]     TradingView native 2H veri: BIST:EUHOL
+[2026-09-22 21:21:35] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:35] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-21 17:00 O=7.22 H=7.22 L=7.21 C=7.21
 2026-09-22 09:00 O=7.10 H=7.10 L=7.10 C=7.10
@@ -27,7 +33,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=7.15 H=7.15 L=7.15 C=7.15
 
 === BIST:KENT ===
-[2026-09-22 21:20:55]     TradingView native 2H veri: BIST:KENT
+[2026-09-22 21:21:35]     TradingView native 2H veri: BIST:KENT
+[2026-09-22 21:21:36] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:36] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= 1 CUR= -1 BUY= True
 2026-09-21 17:00 O=297.00 H=305.75 L=297.00 C=305.75
 2026-09-22 09:00 O=304.00 H=304.00 L=304.00 C=304.00
@@ -36,7 +44,9 @@ DIRECTION: PREV= 1 CUR= -1 BUY= True
 2026-09-22 17:00 O=300.00 H=300.00 L=300.00 C=300.00
 
 === BIST:KERVN ===
-[2026-09-22 21:20:56]     TradingView native 2H veri: BIST:KERVN
+[2026-09-22 21:21:36]     TradingView native 2H veri: BIST:KERVN
+[2026-09-22 21:21:36] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:36] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-21 17:00 O=6.75 H=6.95 L=6.75 C=6.95
 2026-09-22 09:00 O=7.64 H=7.64 L=7.64 C=7.64
@@ -45,10 +55,12 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=7.64 H=7.64 L=7.64 C=7.64
 
 === BIST:KLYPV ===
-[2026-09-22 21:20:57]     TradingView native 2H veri: BIST:KLYPV
-[2026-09-22 21:20:58]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 1/3
-[2026-09-22 21:20:58]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 2/3
-[2026-09-22 21:20:58]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 3/3
+[2026-09-22 21:21:37]     TradingView native 2H veri: BIST:KLYPV
+[2026-09-22 21:21:37] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:37] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 21:21:38]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 1/3
+[2026-09-22 21:21:38]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 2/3
+[2026-09-22 21:21:38]     TradingView gecmis veri genisletiliyor: 1993 mum -> istek 3/3
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=56.95 H=57.50 L=56.15 C=57.10
 2026-09-22 11:00 O=57.15 H=57.95 L=56.65 C=57.05
@@ -57,7 +69,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=57.00 H=57.20 L=56.00 C=56.00
 
 === BIST:KRPLS ===
-[2026-09-22 21:20:58]     TradingView native 2H veri: BIST:KRPLS
+[2026-09-22 21:21:38]     TradingView native 2H veri: BIST:KRPLS
+[2026-09-22 21:21:38] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:38] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=11.61 H=11.72 L=11.43 C=11.48
 2026-09-22 11:00 O=11.48 H=11.75 L=11.34 C=11.67
@@ -66,7 +80,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=11.61 H=11.81 L=11.54 C=11.75
 
 === BIST:KSTUR ===
-[2026-09-22 21:20:59]     TradingView native 2H veri: BIST:KSTUR
+[2026-09-22 21:21:39]     TradingView native 2H veri: BIST:KSTUR
+[2026-09-22 21:21:39] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:39] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-21 17:00 O=2089.00 H=2100.00 L=2089.00 C=2100.00
 2026-09-22 09:00 O=2100.00 H=2100.00 L=2100.00 C=2100.00
@@ -75,7 +91,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=2100.00 H=2100.00 L=2100.00 C=2100.00
 
 === BIST:OYLUM ===
-[2026-09-22 21:21:00]     TradingView native 2H veri: BIST:OYLUM
+[2026-09-22 21:21:39]     TradingView native 2H veri: BIST:OYLUM
+[2026-09-22 21:21:40] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:40] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=6.30 H=6.30 L=6.01 C=6.22
 2026-09-22 11:00 O=6.22 H=6.50 L=6.13 C=6.29
@@ -84,7 +102,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=6.39 H=6.39 L=6.31 C=6.37
 
 === BIST:SODSN ===
-[2026-09-22 21:21:01]     TradingView native 2H veri: BIST:SODSN
+[2026-09-22 21:21:41]     TradingView native 2H veri: BIST:SODSN
+[2026-09-22 21:21:41] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:41] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-21 17:00 O=6.01 H=6.18 L=6.01 C=6.18
 2026-09-22 09:00 O=6.09 H=6.09 L=6.09 C=6.09
@@ -93,7 +113,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=6.04 H=6.04 L=6.03 C=6.03
 
 === BIST:TUCLK ===
-[2026-09-22 21:21:02]     TradingView native 2H veri: BIST:TUCLK
+[2026-09-22 21:21:41]     TradingView native 2H veri: BIST:TUCLK
+[2026-09-22 21:21:42] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:42] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=3.59 H=3.95 L=3.56 C=3.77
 2026-09-22 11:00 O=3.76 H=3.83 L=3.70 C=3.81
@@ -102,7 +124,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=3.89 H=4.00 L=3.86 C=3.97
 
 === BIST:TURSG ===
-[2026-09-22 21:21:03]     TradingView native 2H veri: BIST:TURSG
+[2026-09-22 21:21:42]     TradingView native 2H veri: BIST:TURSG
+[2026-09-22 21:21:43] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:43] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=6.15 H=6.20 L=6.12 C=6.15
 2026-09-22 11:00 O=6.16 H=6.20 L=6.15 C=6.19
@@ -111,7 +135,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=6.14 H=6.14 L=6.08 C=6.08
 
 === BIST:ULUFA ===
-[2026-09-22 21:21:04]     TradingView native 2H veri: BIST:ULUFA
+[2026-09-22 21:21:43]     TradingView native 2H veri: BIST:ULUFA
+[2026-09-22 21:21:43] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:43] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=1.50 H=1.51 L=1.47 C=1.48
 2026-09-22 11:00 O=1.49 H=1.50 L=1.48 C=1.49
@@ -120,7 +146,9 @@ DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 17:00 O=1.50 H=1.55 L=1.50 C=1.50
 
 === BIST:USHOL ===
-[2026-09-22 21:21:05]     TradingView native 2H veri: BIST:USHOL
+[2026-09-22 21:21:44]     TradingView native 2H veri: BIST:USHOL
+[2026-09-22 21:21:44] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 21:21:44] TradingView auth: session cookie mevcut, token alinamadi.
 DIRECTION: PREV= -1 CUR= -1 BUY= False
 2026-09-22 09:00 O=66.10 H=66.10 L=61.45 C=62.35
 2026-09-22 11:00 O=62.45 H=66.05 L=61.45 C=63.30
