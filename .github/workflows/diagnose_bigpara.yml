@@ -1,0 +1,33 @@
+name: Bigpara 14 Stock Diagnostic
+
+on:
+  push:
+    paths:
+      - "diagnose_bigpara.py"
+      - ".github/workflows/diagnose_bigpara.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests
+      - run: mkdir -p diagnostics && python diagnose_bigpara.py
+      - name: Save diagnostic
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add diagnostics/bigpara_14.json
+          if git diff --cached --quiet; then
+            echo "No diagnostic change"
+          else
+            git commit -m "Add Bigpara 14 stock diagnostic"
+            git push
+          fi
