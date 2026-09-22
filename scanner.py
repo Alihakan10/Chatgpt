@@ -300,13 +300,23 @@ def get_tradingview_auth_token():
             if sessionid_sign:
                 cookies["sessionid_sign"] = sessionid_sign
 
-            response = requests.post(
-                "https://www.tradingview.com/quote_token/",
+            # TradingView'in guncel quote_token endpointi GET ile
+            # de sunuluyor. Once GET dene; eski istemciler icin POST fallback.
+            response = requests.get(
+                "https://www.tradingview.com/quote_token",
                 headers=headers,
                 cookies=cookies,
-                json={"grabSession": True},
                 timeout=REQUEST_TIMEOUT,
             )
+
+            if not response.ok:
+                response = requests.post(
+                    "https://www.tradingview.com/quote_token/",
+                    headers=headers,
+                    cookies=cookies,
+                    json={"grabSession": True},
+                    timeout=REQUEST_TIMEOUT,
+                )
 
             if response.ok:
                 token = None
