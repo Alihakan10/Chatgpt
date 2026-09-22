@@ -661,7 +661,7 @@ def get_bist_symbols():
 # TRADINGVIEW MUM VERISI
 # ============================================================
 
-def get_tv_candles(symbol, candle_mode="native_2h"):
+def get_tv_candles(symbol, candle_mode="native_2h", candle_session="regular"):
 
     if candle_mode not in ("native_2h", "native_1h"):
         raise RuntimeError("Desteklenmeyen TradingView candle modu: " + str(candle_mode))
@@ -779,7 +779,7 @@ def get_tv_candles(symbol, candle_mode="native_2h"):
             {
                 "symbol": symbol,
                 "adjustment": "splits",
-                "session": "regular"
+                "session": candle_session
             },
 
             separators=(",", ":")
@@ -2336,7 +2336,7 @@ DATA_RETRY_COUNT = 3
 DATA_RETRY_DELAYS = (2, 5, 10)
 
 
-def get_tv_candles_with_retry(symbol, candle_mode="native_2h"):
+def get_tv_candles_with_retry(symbol, candle_mode="native_2h", candle_session="regular"):
     """
     TradingView gecici veri/429 sorunlarinda ayni hissenin verisini
     kontrollu sekilde tekrar ister.
@@ -2350,7 +2350,7 @@ def get_tv_candles_with_retry(symbol, candle_mode="native_2h"):
 
     for attempt in range(1, DATA_RETRY_COUNT + 1):
         try:
-            candles = get_tv_candles(symbol, candle_mode)
+            candles = get_tv_candles(symbol, candle_mode, candle_session)
 
             if candles:
                 return candles
