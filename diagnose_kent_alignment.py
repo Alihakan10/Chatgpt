@@ -100,3 +100,5 @@ os.makedirs("diagnostics",exist_ok=True)
 with open("diagnostics/kent_alignment.json","w",encoding="utf-8") as f:
     json.dump(out,f,ensure_ascii=False,indent=2)
 print(json.dumps(out,ensure_ascii=False,indent=2))
+
+# trigger alignment diagnostic
