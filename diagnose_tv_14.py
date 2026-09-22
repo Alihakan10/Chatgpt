@@ -15,7 +15,7 @@ TZ = ZoneInfo("Europe/Istanbul")
 for symbol in SYMBOLS:
     print("\n===", symbol, "===")
     try:
-        bars = scanner.get_tv_candles_with_retry(symbol, "native_2h")
+        bars = scanner.get_tv_candles_with_retry(symbol, "session_merged")
         bars = sorted(bars, key=lambda x: x["time"])
         for b in bars[-5:]:
             d = datetime.fromtimestamp(b["time"], tz=ZoneInfo("UTC")).astimezone(TZ)
