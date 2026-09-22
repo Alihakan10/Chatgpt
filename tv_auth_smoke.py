@@ -1,75 +1,76 @@
 import os, json, time
-import requests
 import websocket
 
-sessionid = os.getenv("TV_SESSIONID", "").strip()
-sessionid_sign = os.getenv("TV_SESSIONID_SIGN", "").strip()
-device_t = os.getenv("TV_DEVICE_T", "").strip()
-fallback = os.getenv("TRADINGVIEW_AUTH_TOKEN", "").strip()
+sid=os.getenv("TV_SESSIONID","").strip()
+sign=os.getenv("TV_SESSIONID_SIGN","").strip()
+fallback=os.getenv("TRADINGVIEW_AUTH_TOKEN","").strip()
 
-lines=[]
-def out(s):
-    print(s); lines.append(s)
+print("SESSIONID_PRESENT:", bool(sid))
+print("SESSIONID_SIGN_PRESENT:", bool(sign))
+print("DEVICE_T_PRESENT:", bool(os.getenv("TV_DEVICE_T","").strip()))
+print("FALLBACK_TOKEN_PRESENT:", bool(fallback))
 
-out("SESSIONID_PRESENT: "+str(bool(sessionid)))
-out("SESSIONID_SIGN_PRESENT: "+str(bool(sessionid_sign)))
-out("DEVICE_T_PRESENT: "+str(bool(device_t)))
-out("FALLBACK_TOKEN_PRESENT: "+str(bool(fallback)))
+if not sid:
+    raise SystemExit("No TV_SESSIONID")
 
-if not sessionid:
-    out("AUTH_RESULT: FAILED - TV_SESSIONID missing")
-    open("auth_smoke_result.txt","w").write("\n".join(lines)+"\n")
-    raise SystemExit(1)
+cookie=f"sessionid={sid};"
+if sign:
+    cookie += f" sessionid_sign={sign};"
 
-cookies = ["sessionid="+sessionid]
-if sessionid_sign: cookies.append("sessionid_sign="+sessionid_sign)
-if device_t: cookies.append("device_t="+device_t)
-cookie_header="; ".join(cookies)
+url="wss://data.tradingview.com/socket.io/websocket"
+headers=[
+    "Origin: https://www.tradingview.com",
+    "User-Agent: Mozilla/5.0",
+    "Cookie: "+cookie,
+]
 
-# Test A: documented quote-token exchange, form body.
-try:
-    r=requests.post("https://www.tradingview.com/quote_token/",
-        headers={"Origin":"https://www.tradingview.com","Referer":"https://www.tradingview.com/","User-Agent":"Mozilla/5.0","Accept":"*/*"},
-        cookies={"sessionid":sessionid, **({"sessionid_sign":sessionid_sign} if sessionid_sign else {}), **({"device_t":device_t} if device_t else {})},
-        data={"grabSession":"true"}, timeout=20)
-    out("QUOTE_FORM_STATUS: "+str(r.status_code))
-except Exception as e:
-    out("QUOTE_FORM_ERROR: "+type(e).__name__)
+def msg(m,p):
+    return json.dumps({"m":m,"p":p},separators=(",",":"))
 
-# Test B: same endpoint, JSON body.
-try:
-    r=requests.post("https://www.tradingview.com/quote_token/",
-        headers={"Origin":"https://www.tradingview.com","Referer":"https://www.tradingview.com/","User-Agent":"Mozilla/5.0","Accept":"application/json","Content-Type":"application/json"},
-        cookies={"sessionid":sessionid, **({"sessionid_sign":sessionid_sign} if sessionid_sign else {}), **({"device_t":device_t} if device_t else {})},
-        json={"grabSession":True}, timeout=20)
-    out("QUOTE_JSON_STATUS: "+str(r.status_code))
-except Exception as e:
-    out("QUOTE_JSON_ERROR: "+type(e).__name__)
+def parse(buf):
+    out=[]
+    pos=0
+    while pos < len(buf):
+        if not buf.startswith("~m~",pos): break
+        a=buf.find("~m~",pos+3)
+        if a<0: break
+        n=int(buf[pos+3:a])
+        start=a+3; end=start+n
+        if end>len(buf): break
+        try: out.append(json.loads(buf[start:end]))
+        except: pass
+        pos=end
+    return out
 
-# Test C: direct authenticated websocket handshake with the actual cookies.
-direct_ok=False
-try:
-    ws=websocket.create_connection(
-        "wss://data.tradingview.com/socket.io/websocket",
-        cookie=cookie_header,
-        origin="https://www.tradingview.com",
-        host="data.tradingview.com",
-        timeout=15,
-        suppress_origin=True,
-    )
-    ws.send('~m~'+str(len(json.dumps({"m":"set_auth_token","p":[fallback or "unauthorized_user_token"]})))+'~m~'+json.dumps({"m":"set_auth_token","p":[fallback or "unauthorized_user_token"]}))
-    deadline=time.time()+8
-    while time.time()<deadline:
-        msg=ws.recv()
-        if msg:
-            direct_ok=True
+ws=websocket.create_connection(url,header=headers,timeout=12,origin="https://www.tradingview.com")
+if fallback:
+    ws.send("~m~"+str(len(msg("set_auth_token",[fallback])))+"~m~"+msg("set_auth_token",[fallback]))
+else:
+    # Test cookie-authenticated socket directly, without /quote_token/ and without Study.
+    ws.send("~m~"+str(len(msg("set_auth_token",["unauthorized_user_token"])))+"~m~"+msg("set_auth_token",["unauthorized_user_token"]))
+
+ws.send("~m~"+str(len(msg("chart_create_session",["auth_smoke",""])))+"~m~"+msg("chart_create_session",["auth_smoke",""]))
+ws.send("~m~"+str(len(msg("switch_timezone",["auth_smoke","Europe/Istanbul"])))+"~m~"+msg("switch_timezone",["auth_smoke","Europe/Istanbul"]))
+ws.send("~m~"+str(len(msg("resolve_symbol",["auth_smoke","s",json.dumps({"symbol":"BIST:KENT","adjustment":"splits","session":"regular"})])))+"~m~"+msg("resolve_symbol",["auth_smoke","s",json.dumps({"symbol":"BIST:KENT","adjustment":"splits","session":"regular"})]))
+ws.send("~m~"+str(len(msg("create_series",["auth_smoke","s1","s","s",100])))+"~m~"+msg("create_series",["auth_smoke","s1","s","s",100]))
+
+got=False
+buf=""
+deadline=time.time()+12
+while time.time()<deadline:
+    try:
+        data=ws.recv()
+    except Exception:
+        break
+    if not data: break
+    buf += data
+    for x in parse(buf):
+        if isinstance(x,list) and len(x)>=2 and x[0]=="timescale_update":
+            got=True
             break
-    ws.close()
-except Exception as e:
-    out("DIRECT_WS_ERROR: "+type(e).__name__+":"+str(e)[:80])
+    if got: break
 
-out("DIRECT_WS_HANDSHAKE: "+str(direct_ok))
-out("AUTH_RESULT: "+("SUCCESS" if direct_ok else "FAILED"))
-open("auth_smoke_result.txt","w").write("\n".join(lines)+"\n")
-if not direct_ok:
-    raise SystemExit(1)
+print("DIRECT_WS_CANDLE_DATA:", got)
+print("AUTH_TEST_RESULT:", "SUCCESS" if got else "FAILED")
+ws.close()
+if not got: raise SystemExit(1)
