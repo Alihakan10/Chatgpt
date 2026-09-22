@@ -28,7 +28,7 @@ def extract(raw):
         out.append(raw[js:je]); pos=je
     return out,raw[pos:]
 
-def fetch(order):
+def fetch(order, interval="120"):
     cs,qs=sess("cs"),sess("qs")
     headers=[]
     sid=os.getenv("TV_SESSIONID","").strip()
@@ -95,7 +95,7 @@ def fmt(b):
 out={"auth":bool(os.getenv("TRADINGVIEW_AUTH_TOKEN") or os.getenv("TV_SESSIONID"))}
 out["current_order"]=[fmt(x) for x in scanner.get_tv_candles("BIST:KENT","native_2h")[-12:]]
 out["timezone_before"]=[fmt(x) for x in fetch("timezone_before")]
-out["timezone_after_custom"]=[fmt(x) for x in fetch("timezone_after")]
+out["timezone_after_custom"]=[fmt(x) for x in fetch("timezone_after")]\n\none=[x for x in fetch("timezone_before","60")]\nmerged=[]\nby={}\nfor b in one:\n    dt=datetime.fromtimestamp(b["time"],tz=ZoneInfo("UTC")).astimezone(ZoneInfo(TZ))\n    if dt.hour < 10 or dt.hour >= 18 or dt.minute != 0: continue\n    start=10 + ((dt.hour-10)//2)*2\n    by.setdefault((dt.date(),start),[]).append(b)\nfor (day,start),bs in sorted(by.items()):\n    bs=sorted(bs,key=lambda x:x["time"])\n    if len(bs)!=2: continue\n    merged.append({"time":bs[0]["time"],"open":bs[0]["open"],"high":max(x["high"] for x in bs),"low":min(x["low"] for x in bs),"close":bs[-1]["close"]})\nout["session_merged_1h"]=[fmt(x) for x in merged[-8:]]
 os.makedirs("diagnostics",exist_ok=True)
 with open("diagnostics/kent_alignment.json","w",encoding="utf-8") as f:
     json.dump(out,f,ensure_ascii=False,indent=2)
