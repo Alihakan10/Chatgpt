@@ -1,86 +1,58 @@
 [
   {
     "symbol": "CLEBI",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "EMNIS",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "EUHOL",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "KENT",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "KERVN",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "KLYPV",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "KRPLS",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "KSTUR",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "OYLUM",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "SODSN",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "TUCLK",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "TURSG",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "ULUFA",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   },
   {
     "symbol": "USHOL",
-    "status": 404,
-    "content_type": "",
-    "text_head": ""
+    "error": "Bigpara listesinde ID bulunamadi"
   }
 ]
