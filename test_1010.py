@@ -45,29 +45,63 @@ def direction_text(direction):
 
 def find_reference_bars(candles):
     """
-    Son onceki islem gununun 18:00 kapanis barini ve bugunun 10:00
-    baslangicli 2H barini bulur.
+    TradingView native 2H serisindeki GERCEK bar zamanlarini kullanir.
 
-    Native TradingView 2H BIST seansinda:
-      17:00 timestamp -> 18:00 kapanis
-      10:00 timestamp -> 10:00-12:00 bar
+    Sabit olarak "10:00" veya "17:00" timestamp varsaymaz.
+    TradingView'in seans icinde dondurdugu:
+      - onceki islem gununun SON barini = 18:00 kapanis referansi
+      - bugunun SON barini = 10:10 anindaki mevcut 2H bar
+
+    Boylece TradingView timestamp hizalamasindaki farklar testi bozmaz.
     """
     now = scanner.now_istanbul()
     today = now.date()
 
-    previous_close = None
-    current_10 = None
+    session_bars = []
 
     for bar in candles:
         dt = local_dt(bar["time"])
 
-        if dt.hour == 17 and dt.minute == 0 and dt.date() < today:
-            if previous_close is None or bar["time"] > previous_close["time"]:
-                previous_close = bar
+        # BIST normal seansinin 10:00-18:00 araligindaki barlar.
+        if 10 <= dt.hour <= 17 and dt.minute == 0:
+            session_bars.append((bar, dt))
 
-        if dt.date() == today and dt.hour == 10 and dt.minute == 0:
-            if current_10 is None or bar["time"] > current_10["time"]:
-                current_10 = bar
+    if not session_bars:
+        return None, None
+
+    previous_dates = sorted({
+        dt.date()
+        for _, dt in session_bars
+        if dt.date() < today
+    })
+
+    previous_close = None
+    if previous_dates:
+        prev_date = previous_dates[-1]
+        prev_bars = [
+            (bar, dt)
+            for bar, dt in session_bars
+            if dt.date() == prev_date
+        ]
+        if prev_bars:
+            previous_close = max(
+                prev_bars,
+                key=lambda x: x[0]["time"]
+            )[0]
+
+    today_bars = [
+        (bar, dt)
+        for bar, dt in session_bars
+        if dt.date() == today
+        and bar["time"] <= now.timestamp()
+    ]
+
+    current_10 = None
+    if today_bars:
+        current_10 = max(
+            today_bars,
+            key=lambda x: x[0]["time"]
+        )[0]
 
     return previous_close, current_10
 
