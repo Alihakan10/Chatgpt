@@ -19,6 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: pip install websocket-client requests
+
       - name: Run DEVA comparison
         run: |
           python - <<'PY'
