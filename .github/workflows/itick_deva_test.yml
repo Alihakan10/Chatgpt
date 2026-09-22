@@ -3,10 +3,15 @@ name: iTick DEVA 60m Diagnostic
 on:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Fetch DEVA 60-minute data from iTick
         env:
           ITICK_TOKEN: ${{ secrets.ITICK_TOKEN }}
@@ -20,6 +25,16 @@ jobs:
           params={"region":"TR","code":"DEVA","kType":"5","limit":"100"}
           r=requests.get(url,params=params,headers={"accept":"application/json","token":token},timeout=30)
           print("HTTP",r.status_code)
-          print(json.dumps(r.json(),ensure_ascii=False,indent=2))
+          data=r.json()
+          print(json.dumps(data,ensure_ascii=False,indent=2))
           r.raise_for_status()
+          open("itick_deva_result.json","w",encoding="utf-8").write(json.dumps(data,ensure_ascii=False,indent=2))
           PY
+
+      - name: Save result to repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add itick_deva_result.json
+          git commit -m "Diagnostic: save iTick DEVA 60m data" || exit 0
+          git push
