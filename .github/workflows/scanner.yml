@@ -1,6 +1,8 @@
 name: BIST Supertrend Scanner
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: "10 7-15 * * 1-5"
