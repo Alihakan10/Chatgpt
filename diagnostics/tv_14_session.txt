@@ -1,8 +1,8 @@
 
 ================ BIST:KENT ================
-[2026-09-22 22:12:43]     TradingView native veri (native_1h): BIST:KENT
-[2026-09-22 22:12:44] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:44] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:01]     TradingView native veri (native_1h): BIST:KENT
+[2026-09-22 22:14:01] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:01] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- REGULAR NATIVE_1H: 3000 bars ---
 2026-09-18 17:00 ts=1789740000 O=316.00 H=316.00 L=316.00 C=316.00
@@ -17,9 +17,9 @@
 2026-09-22 13:00 ts=1790071200 O=288.50 H=288.50 L=288.50 C=288.50
 2026-09-22 17:00 ts=1790085600 O=300.00 H=300.00 L=300.00 C=300.00
 2026-09-22 18:00 ts=1790089200 O=300.00 H=300.00 L=300.00 C=300.00
-[2026-09-22 22:12:44]     TradingView native veri (native_2h): BIST:KENT
-[2026-09-22 22:12:45] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:45] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:02]     TradingView native veri (native_2h): BIST:KENT
+[2026-09-22 22:14:02] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:02] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- REGULAR NATIVE_2H: 3000 bars ---
 2026-09-18 09:00 ts=1789711200 O=320.50 H=320.50 L=320.50 C=320.50
@@ -34,9 +34,9 @@
 2026-09-22 11:00 ts=1790064000 O=285.00 H=285.00 L=285.00 C=285.00
 2026-09-22 13:00 ts=1790071200 O=288.50 H=288.50 L=288.50 C=288.50
 2026-09-22 17:00 ts=1790085600 O=300.00 H=300.00 L=300.00 C=300.00
-[2026-09-22 22:12:45]     TradingView native veri (native_1h): BIST:KENT
-[2026-09-22 22:12:46] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:46] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:03]     TradingView native veri (native_1h): BIST:KENT
+[2026-09-22 22:14:03] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:03] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- EXTENDED NATIVE_1H: 3000 bars ---
 2026-09-18 17:00 ts=1789740000 O=316.00 H=316.00 L=316.00 C=316.00
@@ -51,9 +51,9 @@
 2026-09-22 13:00 ts=1790071200 O=288.50 H=288.50 L=288.50 C=288.50
 2026-09-22 17:00 ts=1790085600 O=300.00 H=300.00 L=300.00 C=300.00
 2026-09-22 18:00 ts=1790089200 O=300.00 H=300.00 L=300.00 C=300.00
-[2026-09-22 22:12:46]     TradingView native veri (native_2h): BIST:KENT
-[2026-09-22 22:12:46] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:46] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:04]     TradingView native veri (native_2h): BIST:KENT
+[2026-09-22 22:14:04] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:04] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- EXTENDED NATIVE_2H: 3000 bars ---
 2026-09-18 09:00 ts=1789711200 O=320.50 H=320.50 L=320.50 C=320.50
@@ -70,9 +70,9 @@
 2026-09-22 17:00 ts=1790085600 O=300.00 H=300.00 L=300.00 C=300.00
 
 ================ BIST:DEVA ================
-[2026-09-22 22:12:47]     TradingView native veri (native_1h): BIST:DEVA
-[2026-09-22 22:12:47] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:47] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:04]     TradingView native veri (native_1h): BIST:DEVA
+[2026-09-22 22:14:05] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:05] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- REGULAR NATIVE_1H: 3000 bars ---
 2026-09-21 17:00 ts=1789999200 O=96.70 H=97.50 L=96.50 C=97.25
@@ -87,9 +87,9 @@
 2026-09-22 16:00 ts=1790082000 O=99.70 H=101.50 L=99.40 C=99.80
 2026-09-22 17:00 ts=1790085600 O=99.85 H=101.90 L=99.85 C=101.80
 2026-09-22 18:00 ts=1790089200 O=102.20 H=102.20 L=102.20 C=102.20
-[2026-09-22 22:12:48]     TradingView native veri (native_2h): BIST:DEVA
-[2026-09-22 22:12:48] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:48] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:05]     TradingView native veri (native_2h): BIST:DEVA
+[2026-09-22 22:14:06] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:06] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- REGULAR NATIVE_2H: 3000 bars ---
 2026-09-18 15:00 ts=1789732800 O=97.85 H=98.35 L=97.35 C=97.95
@@ -104,9 +104,9 @@
 2026-09-22 13:00 ts=1790071200 O=99.20 H=99.90 L=98.85 C=99.80
 2026-09-22 15:00 ts=1790078400 O=99.80 H=101.50 L=99.30 C=99.80
 2026-09-22 17:00 ts=1790085600 O=99.85 H=102.20 L=99.85 C=102.20
-[2026-09-22 22:12:49]     TradingView native veri (native_1h): BIST:DEVA
-[2026-09-22 22:12:49] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:49] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:06]     TradingView native veri (native_1h): BIST:DEVA
+[2026-09-22 22:14:06] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:06] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- EXTENDED NATIVE_1H: 3000 bars ---
 2026-09-21 17:00 ts=1789999200 O=96.70 H=97.50 L=96.50 C=97.25
@@ -121,9 +121,9 @@
 2026-09-22 16:00 ts=1790082000 O=99.70 H=101.50 L=99.40 C=99.80
 2026-09-22 17:00 ts=1790085600 O=99.85 H=101.90 L=99.85 C=101.80
 2026-09-22 18:00 ts=1790089200 O=102.20 H=102.20 L=102.20 C=102.20
-[2026-09-22 22:12:50]     TradingView native veri (native_2h): BIST:DEVA
-[2026-09-22 22:12:50] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
-[2026-09-22 22:12:50] TradingView auth: session cookie mevcut, token alinamadi.
+[2026-09-22 22:14:07]     TradingView native veri (native_2h): BIST:DEVA
+[2026-09-22 22:14:07] TradingView auth token yenileme basarisiz; mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak.
+[2026-09-22 22:14:07] TradingView auth: session cookie mevcut, token alinamadi.
 
 --- EXTENDED NATIVE_2H: 3000 bars ---
 2026-09-18 15:00 ts=1789732800 O=97.85 H=98.35 L=97.35 C=97.95
