@@ -1,0 +1,58 @@
+
+=== BIST:CLEBI ===
+[2026-09-22 21:13:16]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:CLEBI
+ERROR: TradingView critical_error: ['qs_av4akqri3bxj', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:EMNIS ===
+[2026-09-22 21:13:17]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:EMNIS
+ERROR: TradingView critical_error: ['qs_dunx29jxnasm', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:EUHOL ===
+[2026-09-22 21:13:18]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:EUHOL
+ERROR: TradingView critical_error: ['qs_eu7sqjcroyen', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:KENT ===
+[2026-09-22 21:13:18]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:KENT
+ERROR: TradingView critical_error: ['qs_42va7kcolo8n', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:KERVN ===
+[2026-09-22 21:13:19]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:KERVN
+ERROR: TradingView critical_error: ['qs_722alz6lrg6x', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:KLYPV ===
+[2026-09-22 21:13:20]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:KLYPV
+ERROR: TradingView critical_error: ['qs_gnwlkzqsfsk4', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:KRPLS ===
+[2026-09-22 21:13:21]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:KRPLS
+ERROR: TradingView critical_error: ['qs_fqjjp1qe187n', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:KSTUR ===
+[2026-09-22 21:13:21]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:KSTUR
+ERROR: TradingView critical_error: ['qs_f1qynmrw6kt8', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:OYLUM ===
+[2026-09-22 21:13:22]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:OYLUM
+ERROR: TradingView critical_error: ['qs_kr4ltl4cckid', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:SODSN ===
+[2026-09-22 21:13:22]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:SODSN
+ERROR: TradingView critical_error: ['qs_0b50hjzue9ea', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:TUCLK ===
+[2026-09-22 21:13:23]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:TUCLK
+ERROR: TradingView critical_error: ['qs_o3nocf35su5x', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:TURSG ===
+[2026-09-22 21:13:24]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:TURSG
+ERROR: TradingView critical_error: ['qs_e41vh1ue3e7x', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:ULUFA ===
+[2026-09-22 21:13:24]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:ULUFA
+ERROR: TradingView critical_error: ['qs_6a9isfednac3', 'invalid_parameters', 'quote_add_symbols']
+
+=== BIST:USHOL ===
+[2026-09-22 21:13:25]     TradingView 1H veri + seans-hizali 2H birlestirme: BIST:USHOL
+ERROR: TradingView critical_error: ['qs_zluzehg4gl4d', 'invalid_parameters', 'quote_add_symbols']
+
+AUTH MODE: YES
