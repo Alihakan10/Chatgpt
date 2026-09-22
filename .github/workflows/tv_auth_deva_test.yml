@@ -1,0 +1,71 @@
+name: TradingView Authenticated DEVA Diagnostic
+
+on:
+  push:
+    paths:
+      - ".github/workflows/tv_auth_deva_test.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch authenticated TradingView DEVA candles
+        env:
+          TV_SESSION: ${{ secrets.TV_SESSION }}
+          TV_SESSION_SIGN: ${{ secrets.TV_SESSION_SIGN }}
+        run: |
+          python - <<'PY'
+          import os, json, time, requests
+
+          session=os.getenv("TV_SESSION")
+          sign=os.getenv("TV_SESSION_SIGN")
+          if not session or not sign:
+              raise SystemExit(
+                  "TV_SESSION and TV_SESSION_SIGN GitHub Secrets are required"
+              )
+
+          s=requests.Session()
+          s.cookies.set("sessionid", session, domain=".tradingview.com")
+          s.cookies.set("sessionid_sign", sign, domain=".tradingview.com")
+
+          url="https://data.tradingview.com/history"
+          params={
+              "symbol":"BIST:DEVA",
+              "resolution":"60",
+              "from":int(time.time())-7*86400,
+              "to":int(time.time()),
+          }
+
+          r=s.get(url,params=params,headers={
+              "User-Agent":"Mozilla/5.0",
+              "Referer":"https://www.tradingview.com/"
+          },timeout=30)
+
+          print("HTTP",r.status_code)
+          print(r.text[:20000])
+
+          if r.status_code != 200:
+              raise SystemExit("TradingView authenticated history request failed")
+
+          try:
+              data=r.json()
+          except Exception:
+              raise SystemExit("TradingView returned non-JSON response")
+
+          with open("tv_auth_deva_result.json","w",encoding="utf-8") as f:
+              json.dump(data,f,ensure_ascii=False,indent=2)
+
+          PY
+
+      - name: Save diagnostic
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tv_auth_deva_result.json
+          git commit -m "Diagnostic: authenticated TradingView DEVA candles" || exit 0
+          git push
