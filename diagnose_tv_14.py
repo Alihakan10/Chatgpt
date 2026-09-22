@@ -11,8 +11,11 @@ def show(label, bars):
     print(f"\n--- {label}: {len(bars)} bars ---")
     for b in bars[-12:]:
         dt = datetime.fromtimestamp(b["time"], tz=ZoneInfo("UTC")).astimezone(TZ)
-        print(dt.strftime("%Y-%m-%d %H:%M"), f"ts={int(b['time'])}",
-              f"O={b['open']:.2f} H={b['high']:.2f} L={b['low']:.2f} C={b['close']:.2f}")
+        print(
+            dt.strftime("%Y-%m-%d %H:%M"),
+            f"ts={int(b['time'])}",
+            f"O={b['open']:.2f} H={b['high']:.2f} L={b['low']:.2f} C={b['close']:.2f}"
+        )
 
 for symbol in SYMBOLS:
     print("\n================", symbol, "================")
