@@ -271,6 +271,84 @@ def random_session(prefix):
 
 
 # ============================================================
+# TRADINGVIEW AUTH TOKEN
+# ============================================================
+
+def get_tradingview_auth_token():
+    """
+    Session cookie varsa her workflow calismasinda taze WebSocket
+    auth token almaya calisir. Basarisiz olursa secret olarak verilen
+    TRADINGVIEW_AUTH_TOKEN'a geri doner.
+    """
+    sessionid = os.getenv("TV_SESSIONID", "").strip()
+    sessionid_sign = os.getenv("TV_SESSIONID_SIGN", "").strip()
+    fallback = os.getenv("TRADINGVIEW_AUTH_TOKEN", "").strip()
+
+    if sessionid:
+        try:
+            headers = {
+                "Origin": "https://www.tradingview.com",
+                "Referer": "https://www.tradingview.com/",
+                "User-Agent": (
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 Chrome/128.0 Safari/537.36"
+                ),
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            }
+            cookies = {"sessionid": sessionid}
+            if sessionid_sign:
+                cookies["sessionid_sign"] = sessionid_sign
+
+            response = requests.post(
+                "https://www.tradingview.com/quote_token/",
+                headers=headers,
+                cookies=cookies,
+                json={"grabSession": True},
+                timeout=REQUEST_TIMEOUT,
+            )
+
+            if response.ok:
+                token = None
+                try:
+                    data = response.json()
+                    if isinstance(data, dict):
+                        token = data.get("token")
+                    elif isinstance(data, str):
+                        token = data.split(":", 1)[0].strip()
+                except Exception:
+                    raw = response.text.strip()
+                    if raw:
+                        token = raw.split(":", 1)[0].strip()
+
+                if token:
+                    log("TradingView auth token session cookie'dan yenilendi.")
+                    return token
+
+            log(
+                "TradingView auth token yenileme basarisiz; "
+                "mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak."
+            )
+
+        except Exception as exc:
+            log(
+                "TradingView auth token yenileme hatasi; "
+                "mevcut token kullanilacak: "
+                + str(exc)
+            )
+
+    if fallback:
+        log("TradingView auth: secret token kullaniliyor.")
+        return fallback
+
+    if sessionid:
+        log("TradingView auth: session cookie mevcut, token alinamadi.")
+    else:
+        log("TradingView auth: anonim mod.")
+    return "unauthorized_user_token"
+
+
+# ============================================================
 # TRADINGVIEW MESAJI
 # ============================================================
 
@@ -625,12 +703,12 @@ def get_tv_candles(symbol, candle_mode="native_2h"):
         # AUTH
         # ----------------------------------------------------
 
-        tv_auth_token = os.getenv("TRADINGVIEW_AUTH_TOKEN", "").strip()
+        tv_auth_token = get_tradingview_auth_token()
         ws.send(
             tv_message(
                 "set_auth_token",
                 [
-                    tv_auth_token or "unauthorized_user_token"
+                    tv_auth_token
                 ]
             )
         )
