@@ -12,6 +12,7 @@ SYMBOLS = [
 
 TZ = ZoneInfo("Europe/Istanbul")
 
+print("TEST VERSION: NATIVE_2H_SUPERTREND_FORMULA_V2")
 print("AUTH MODE:", "YES" if os.getenv("TV_SESSIONID") or os.getenv("TRADINGVIEW_AUTH_TOKEN") else "NO")
 print("SETTINGS: ATR=10 MULTIPLIER=2.0 SOURCE=HL2 TIMEFRAME=2H")
 print("BUY RULE: previous=-1 (SAT) -> current=+1 (AL)")
