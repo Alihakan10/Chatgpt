@@ -1,0 +1,282 @@
+# ============================================================
+# BIST 18:00 -> 10:00 SUPERTREND TESTI
+# ============================================================
+# scanner.py'ye DOKUNMAZ.
+# Study kullanmaz.
+# TradingView WebSocket OHLC + scanner.py Supertrend formulu kullanilir.
+#
+# TEST MANTIĞI
+# 18:00 kapanisli BIST 2H bar = TradingView native 2H serisindeki 17:00 bar
+# 10:00 bar = TradingView native 2H serisindeki 10:00 bar
+#
+# 10:10 testinde 10:00 bar henuz kapanmamis olabilir.
+# Bu nedenle 10:00 barinin O/H/L/C'si o anda TradingView'in verdigi
+# GUNCEL OHLC olarak kullanilir. Bu bir "intrabar" testidir.
+#
+# Sonuc:
+#   18:00 ST = SAT (-1)
+#   10:00 ST = AL  (+1)
+#       -> 10:10 ADAY YENI AL
+#
+# State degistirmez, Telegram gondermez.
+# ============================================================
+
+import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import scanner
+
+
+TZ = ZoneInfo(scanner.TIMEZONE)
+
+
+def local_dt(timestamp):
+    return datetime.fromtimestamp(timestamp, tz=ZoneInfo("UTC")).astimezone(TZ)
+
+
+def direction_text(direction):
+    if direction == 1:
+        return "AL"
+    if direction == -1:
+        return "SAT"
+    return "?"
+
+
+def find_reference_bars(candles):
+    """
+    Son onceki islem gununun 18:00 kapanis barini ve bugunun 10:00
+    baslangicli 2H barini bulur.
+
+    Native TradingView 2H BIST seansinda:
+      17:00 timestamp -> 18:00 kapanis
+      10:00 timestamp -> 10:00-12:00 bar
+    """
+    now = scanner.now_istanbul()
+    today = now.date()
+
+    previous_close = None
+    current_10 = None
+
+    for bar in candles:
+        dt = local_dt(bar["time"])
+
+        if dt.hour == 17 and dt.minute == 0 and dt.date() < today:
+            if previous_close is None or bar["time"] > previous_close["time"]:
+                previous_close = bar
+
+        if dt.date() == today and dt.hour == 10 and dt.minute == 0:
+            if current_10 is None or bar["time"] > current_10["time"]:
+                current_10 = bar
+
+    return previous_close, current_10
+
+
+def calculate_at_18_and_10(candles, previous_close, current_10):
+    """
+    Supertrend dizisini ortak tarihceden bir kez hesaplar.
+    Böylece 18:00 ve 10:00 degerleri ayni stateful Supertrend
+    zincirinden gelir.
+    """
+    ordered = sorted(candles, key=lambda x: x["time"])
+
+    target_times = {
+        previous_close["time"],
+        current_10["time"],
+    }
+
+    selected = []
+    for i, bar in enumerate(ordered):
+        if bar["time"] in target_times:
+            selected.append(i)
+
+    if len(selected) != 2:
+        raise RuntimeError("18:00 ve 10:00 bar indeksleri bulunamadi.")
+
+    directions = scanner.calculate_supertrend_directions(
+        ordered,
+        scanner.ATR_PERIOD,
+        scanner.ATR_MULTIPLIER
+    )
+
+    if directions is None:
+        raise RuntimeError("Supertrend hesaplanamadi.")
+
+    idx_18 = selected[0]
+    idx_10 = selected[1]
+
+    if ordered[idx_18]["time"] > ordered[idx_10]["time"]:
+        idx_18, idx_10 = idx_10, idx_18
+
+    return (
+        ordered[idx_18],
+        directions[idx_18],
+        ordered[idx_10],
+        directions[idx_10],
+        ordered,
+        directions,
+    )
+
+
+def run_symbol(symbol):
+    print("")
+    print("=" * 72)
+    print(f"{symbol} | 18:00 -> 10:00 TEST")
+
+    try:
+        candles = scanner.get_tv_candles(symbol, "native_2h")
+
+        previous_close, current_10 = find_reference_bars(candles)
+
+        if previous_close is None:
+            print("SON ONCEKI ISLEM GUNUNUN 18:00 BAR'I BULUNAMADI.")
+            return {"status": "skip", "symbol": symbol}
+
+        if current_10 is None:
+            print("BUGUNUN 10:00 BAR'I BULUNAMADI.")
+            print("Bu durum 10:10'dan once veya TradingView'in current bar'i vermemesi halinde gorulebilir.")
+            return {"status": "skip", "symbol": symbol}
+
+        (
+            bar18,
+            dir18,
+            bar10,
+            dir10,
+            ordered,
+            directions,
+        ) = calculate_at_18_and_10(
+            candles,
+            previous_close,
+            current_10,
+        )
+
+        dt18 = local_dt(bar18["time"])
+        dt10 = local_dt(bar10["time"])
+
+        is_candidate = dir18 == -1 and dir10 == 1
+
+        print("")
+        print(
+            f"18:00 BAR | {dt18.strftime('%d.%m.%Y %H:%M')} kapanis"
+        )
+        print(
+            f"  O={bar18['open']:.4f} "
+            f"H={bar18['high']:.4f} "
+            f"L={bar18['low']:.4f} "
+            f"C={bar18['close']:.4f}"
+        )
+        print(f"  SUPERTREND = {dir18} ({direction_text(dir18)})")
+
+        print("")
+        print(
+            f"10:00 BAR | {dt10.strftime('%d.%m.%Y %H:%M')} baslangic"
+        )
+        print(
+            f"  O={bar10['open']:.4f} "
+            f"H={bar10['high']:.4f} "
+            f"L={bar10['low']:.4f} "
+            f"C={bar10['close']:.4f}"
+        )
+        print(f"  SUPERTREND = {dir10} ({direction_text(dir10)})")
+
+        print("")
+        if is_candidate:
+            print(">>> 10:10 ADAY YENI AL <<<")
+            print(">>> 18:00 SAT -> 10:00 AL <<<")
+        else:
+            print("10:10 ADAY YENI AL YOK.")
+            print(
+                f"Durum: {direction_text(dir18)} -> {direction_text(dir10)}"
+            )
+
+        # 10:00 barinin onceki bar ile gercek bir SAT->AL donusu
+        # olup olmadigini da ayrica goster.
+        idx10 = next(
+            i for i, b in enumerate(ordered)
+            if b["time"] == bar10["time"]
+        )
+
+        prev10_dir = (
+            directions[idx10 - 1]
+            if idx10 > 0
+            else None
+        )
+
+        print(
+            "10:00 mum icindeki anlik donus: "
+            f"{direction_text(prev10_dir)} -> {direction_text(dir10)}"
+        )
+
+        return {
+            "status": "ok",
+            "symbol": symbol,
+            "direction_18": dir18,
+            "direction_10": dir10,
+            "candidate": is_candidate,
+            "bar18_time": bar18["time"],
+            "bar10_time": bar10["time"],
+        }
+
+    except Exception as exc:
+        print(f"HATA: {exc}")
+        return {
+            "status": "error",
+            "symbol": symbol,
+            "error": str(exc),
+        }
+
+
+def main():
+    text = os.getenv(
+        "TEST_1010_SYMBOLS",
+        "BIST:ZOREN"
+    )
+
+    symbols = [
+        x.strip()
+        for x in text.split(",")
+        if x.strip()
+    ]
+
+    print("=" * 72)
+    print("BIST 18:00 -> 10:00 SUPERTREND 10:10 TESTI")
+    print("=" * 72)
+    print(
+        f"Ayarlar: ATR={scanner.ATR_PERIOD} | "
+        f"Multiplier={scanner.ATR_MULTIPLIER} | "
+        "Source=HL2 | Timeframe=Native 2H"
+    )
+    print(
+        "TEST: State YOK | Telegram YOK | Study YOK"
+    )
+    print(
+        "Semboller: " + ", ".join(symbols)
+    )
+
+    results = []
+
+    for symbol in symbols:
+        results.append(run_symbol(symbol))
+
+    print("")
+    print("=" * 72)
+    print("OZET")
+    print("=" * 72)
+
+    ok = [r for r in results if r["status"] == "ok"]
+    candidates = [r for r in ok if r.get("candidate")]
+
+    print(f"Basarili: {len(ok)}")
+    print(f"10:10 ADAY YENI AL: {len(candidates)}")
+
+    for r in candidates:
+        print(
+            f"  >>> {r['symbol']} | "
+            "18:00 SAT -> 10:00 AL"
+        )
+
+    print("=" * 72)
+
+
+if __name__ == "__main__":
+    main()
