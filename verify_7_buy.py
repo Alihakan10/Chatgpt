@@ -15,6 +15,12 @@ SYMBOLS = [
     "BIST:VANGD",
 ]
 
+# The production scan at 13:02 reported these BUYs on the
+# 11:00 native 2H candle. Verify that exact historical candle,
+# not whichever candle happens to be the latest when this test runs.
+TARGET_DATE = "22.09.2026"
+TARGET_HOUR = 11
+
 
 def local_dt(ts):
     return datetime.fromtimestamp(ts, tz=ZoneInfo("UTC")).astimezone(TZ)
@@ -25,7 +31,6 @@ def label(direction):
 
 
 def independent_directions(candles, period=10, multiplier=2.0):
-    # Independent Wilder/RMA ATR + HL2 Supertrend implementation.
     n = len(candles)
     if n < period + 2:
         raise RuntimeError(f"yetersiz mum: {n}")
@@ -37,18 +42,14 @@ def independent_directions(candles, period=10, multiplier=2.0):
     direction = [None] * n
 
     for i in range(n):
-        h = candles[i]["high"]
-        l = candles[i]["low"]
+        h, l = candles[i]["high"], candles[i]["low"]
         if i == 0:
             tr[i] = h - l
         else:
             pc = candles[i - 1]["close"]
             tr[i] = max(h - l, abs(h - pc), abs(l - pc))
 
-    # Wilder RMA: first ATR is SMA, then recursive RMA.
-    first = sum(tr[:period]) / period
-    atr[period - 1] = first
-
+    atr[period - 1] = sum(tr[:period]) / period
     for i in range(period, n):
         atr[i] = ((atr[i - 1] * (period - 1)) + tr[i]) / period
 
@@ -65,15 +66,16 @@ def independent_directions(candles, period=10, multiplier=2.0):
 
         prev_close = candles[i - 1]["close"]
 
-        if basic_upper < final_upper[i - 1] or prev_close > final_upper[i - 1]:
-            final_upper[i] = basic_upper
-        else:
-            final_upper[i] = final_upper[i - 1]
-
-        if basic_lower > final_lower[i - 1] or prev_close < final_lower[i - 1]:
-            final_lower[i] = basic_lower
-        else:
-            final_lower[i] = final_lower[i - 1]
+        final_upper[i] = (
+            basic_upper
+            if basic_upper < final_upper[i - 1] or prev_close > final_upper[i - 1]
+            else final_upper[i - 1]
+        )
+        final_lower[i] = (
+            basic_lower
+            if basic_lower > final_lower[i - 1] or prev_close < final_lower[i - 1]
+            else final_lower[i - 1]
+        )
 
         if direction[i - 1] == -1:
             direction[i] = 1 if candles[i]["close"] > final_upper[i - 1] else -1
@@ -84,15 +86,34 @@ def independent_directions(candles, period=10, multiplier=2.0):
 
 
 def run_symbol(symbol):
-    candles = sorted(scanner.get_tv_candles(symbol, "native_2h"), key=lambda x: x["time"])
+    candles = sorted(
+        scanner.get_tv_candles(symbol, "native_2h"),
+        key=lambda x: x["time"]
+    )
     if len(candles) < 20:
         raise RuntimeError(f"native 2H veri yetersiz: {len(candles)}")
 
-    completed = scanner.get_last_completed_index(candles)
-    if completed is None or completed < 1:
-        raise RuntimeError("tamamlanmis 2H mum bulunamadi")
+    target = None
+    target_i = None
 
-    calc = candles[:completed + 1]
+    for i, candle in enumerate(candles):
+        dt = local_dt(candle["time"])
+        if (
+            dt.strftime("%d.%m.%Y") == TARGET_DATE
+            and dt.hour == TARGET_HOUR
+            and dt.minute == 0
+        ):
+            target = candle
+            target_i = i
+            break
+
+    if target_i is None or target_i < 1:
+        raise RuntimeError(f"{TARGET_DATE} {TARGET_HOUR:02d}:00 native 2H bari bulunamadi")
+
+    # Calculate only with data up through the exact BUY candle,
+    # matching the production calculation at that moment.
+    calc = candles[:target_i + 1]
+
     prod_dirs = scanner.calculate_supertrend_directions(
         calc, scanner.ATR_PERIOD, scanner.ATR_MULTIPLIER
     )
@@ -100,31 +121,35 @@ def run_symbol(symbol):
         calc, scanner.ATR_PERIOD, scanner.ATR_MULTIPLIER
     )
 
-    i = len(calc) - 1
-    p = i - 1
+    p = target_i - 1
 
     return {
         "symbol": symbol,
         "previous": calc[p],
-        "current": calc[i],
+        "target": calc[target_i],
         "previous_dir_prod": prod_dirs[p],
-        "current_dir_prod": prod_dirs[i],
+        "target_dir_prod": prod_dirs[target_i],
         "previous_dir_ind": ind_dirs[p],
-        "current_dir_ind": ind_dirs[i],
-        "atr": atr[i],
-        "fu": fu[i],
-        "fl": fl[i],
-        "prod_match_independent": prod_dirs[p] == ind_dirs[p] and prod_dirs[i] == ind_dirs[i],
-        "buy": prod_dirs[p] == -1 and prod_dirs[i] == 1,
+        "target_dir_ind": ind_dirs[target_i],
+        "atr": atr[target_i],
+        "fu": fu[target_i],
+        "fl": fl[target_i],
+        "prod_match_independent": (
+            prod_dirs[p] == ind_dirs[p]
+            and prod_dirs[target_i] == ind_dirs[target_i]
+        ),
+        "buy": prod_dirs[p] == -1 and prod_dirs[target_i] == 1,
     }
 
 
 def main():
-    print("=" * 86)
-    print("7 BUY ADAYI - TRADINGVIEW NATIVE 2H BIREBIR OHLC/SUPERTREND DOGRULAMA")
+    print("=" * 88)
+    print("7 BUY ADAYI - URETIMDEKI TAM 11:00 MUMUN BIREBIR DOGRULAMASI")
     print("Study YOK | ATR 10 | Multiplier 2.0 | HL2 | Native 2H")
-    print("Uretim scanner.py + bagimsiz ayni formulle ikinci hesap karsilastiriliyor.")
-    print("=" * 86)
+    print(f"Hedef mum: {TARGET_DATE} {TARGET_HOUR:02d}:00")
+    print("Not: Daha sonra 13:00 mumu olustuğu icin son mumu degil,")
+    print("uretim taramasinin BUY bildirdigi TAM 11:00 MUMUNU kontrol ediyoruz.")
+    print("=" * 88)
 
     results = []
     errors = []
@@ -133,7 +158,7 @@ def main():
         print(f"\n[{n}/7] {symbol}")
         try:
             a = run_symbol(symbol)
-            pc, cc = a["previous"], a["current"]
+            pc, tc = a["previous"], a["target"]
 
             print(
                 f"ONCEKI {local_dt(pc['time']).strftime('%d.%m.%Y %H:%M')} | "
@@ -142,10 +167,10 @@ def main():
                 f"ST={label(a['previous_dir_prod'])}"
             )
             print(
-                f"CURRENT {local_dt(cc['time']).strftime('%d.%m.%Y %H:%M')} | "
-                f"O={cc['open']:.4f} H={cc['high']:.4f} "
-                f"L={cc['low']:.4f} C={cc['close']:.4f} | "
-                f"ST={label(a['current_dir_prod'])}"
+                f"BUY MUMU {local_dt(tc['time']).strftime('%d.%m.%Y %H:%M')} | "
+                f"O={tc['open']:.4f} H={tc['high']:.4f} "
+                f"L={tc['low']:.4f} C={tc['close']:.4f} | "
+                f"ST={label(a['target_dir_prod'])}"
             )
             print(
                 f"ATR10={a['atr']:.6f} | "
@@ -153,8 +178,8 @@ def main():
                 f"FINAL_LOWER={a['fl']:.6f}"
             )
             print(
-                f"PROD={label(a['previous_dir_prod'])}->{label(a['current_dir_prod'])} | "
-                f"INDEPENDENT={label(a['previous_dir_ind'])}->{label(a['current_dir_ind'])} | "
+                f"PROD={label(a['previous_dir_prod'])}->{label(a['target_dir_prod'])} | "
+                f"INDEPENDENT={label(a['previous_dir_ind'])}->{label(a['target_dir_ind'])} | "
                 f"HESAP_ESLESMESI={a['prod_match_independent']} | "
                 f"BUY={a['buy']}"
             )
@@ -163,20 +188,23 @@ def main():
             print(f"HATA: {exc}")
             errors.append((symbol, str(exc)))
 
-    print("\n" + "=" * 86)
+    print("\n" + "=" * 88)
     print("SONUC")
-    print("=" * 86)
+    print("=" * 88)
     print(f"Kontrol edilen: {len(results)}/7")
     print(f"Hata: {len(errors)}")
-    print(f"SAT -> AL BUY: {sum(a['buy'] for a in results)}/{len(results)}")
-    print(f"Uretim ve bagimsiz hesap tamamen ayni: {sum(a['prod_match_independent'] for a in results)}/{len(results)}")
+    print(f"11:00 SAT -> AL BUY: {sum(a['buy'] for a in results)}/{len(results)}")
+    print(
+        "Uretim ve bagimsiz hesap tamamen ayni: "
+        f"{sum(a['prod_match_independent'] for a in results)}/{len(results)}"
+    )
 
     if errors:
         print("\nHATALAR:")
         for symbol, error in errors:
             print(f"  !!! {symbol} | {error}")
 
-    print("=" * 86)
+    print("=" * 88)
 
 
 if __name__ == "__main__":
