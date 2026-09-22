@@ -1445,106 +1445,41 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
     """
-    TradingView/Kivanc SuperTrend formulu.
-    Study kullanilmaz; yalnizca TradingView OHLC verisi kullanilir.
+    URETIM Supertrend hesabı.
 
-    Settings:
-      ATR = RMA (Wilder)
-      Source = HL2
-      ATR length = 10
-      Multiplier = 2.0
+    TradingView'in resmi Supertrend tanımını kullanır:
+      - Source = HL2
+      - ATR = RMA / Wilder
+      - upper/lower trailing bands
+      - yön değişimi önceki Supertrend bandına göre
 
-    Pine mantiginin Python karsiligi:
-      up = hl2 - multiplier * ATR
-      up1 = nz(up[1], up)
-      up := close[1] > up1 ? max(up, up1) : up
+    TradingView yön kodu:
+      -1 = UP / AL
+      +1 = DOWN / SAT
 
-      dn = hl2 + multiplier * ATR
-      dn1 = nz(dn[1], dn)
-      dn := close[1] < dn1 ? min(dn, dn1) : dn
+    Uygulamanın mevcut iç standardı:
+      +1 = AL
+      -1 = SAT
 
-      trend = 1
-      trend := trend == -1 and close > dn1 ? 1 :
-               trend == 1 and close < up1 ? -1 :
-               trend
+    Bu nedenle resmi yön değeri ters çevrilir.
 
-      BUY = trend == 1 and trend[1] == -1
+    Study / Pine Study / broker entegrasyonu kullanılmaz.
+    Yalnızca TradingView native 2H OHLC verisi kullanılır.
     """
 
-    if len(candles) < (atr_period + 2):
+    tv_direction = calculate_tradingview_supertrend_directions(
+        candles,
+        atr_period,
+        multiplier
+    )
+
+    if tv_direction is None:
         return None
 
-    atr = calculate_atr(candles, atr_period)
-
-    up = [None for _ in candles]
-    dn = [None for _ in candles]
-    trend = [None for _ in candles]
-
-    for i in range(len(candles)):
-        if atr[i] is None:
-            # Pine'daki "trend = 1" baslangic durumunu koru.
-            trend[i] = 1 if i == 0 else trend[i - 1]
-            continue
-
-        src = (
-            candles[i]["high"]
-            + candles[i]["low"]
-        ) / 2.0
-
-        raw_up = src - multiplier * atr[i]
-        raw_dn = src + multiplier * atr[i]
-
-        if i == 0 or up[i - 1] is None:
-            up1 = raw_up
-        else:
-            up1 = up[i - 1]
-
-        if i == 0:
-            up[i] = raw_up
-        else:
-            up[i] = (
-                max(raw_up, up1)
-                if candles[i - 1]["close"] > up1
-                else raw_up
-            )
-
-        if i == 0 or dn[i - 1] is None:
-            dn1 = raw_dn
-        else:
-            dn1 = dn[i - 1]
-
-        if i == 0:
-            dn[i] = raw_dn
-        else:
-            dn[i] = (
-                min(raw_dn, dn1)
-                if candles[i - 1]["close"] < dn1
-                else raw_dn
-            )
-
-        previous_trend = (
-            1
-            if i == 0 or trend[i - 1] is None
-            else trend[i - 1]
-        )
-
-        close = candles[i]["close"]
-
-        if (
-            previous_trend == -1
-            and close > dn1
-        ):
-            trend[i] = 1
-        elif (
-            previous_trend == 1
-            and close < up1
-        ):
-            trend[i] = -1
-        else:
-            trend[i] = previous_trend
-
-    return trend
-
+    return [
+        None if value is None else -value
+        for value in tv_direction
+    ]
 
 
 # ============================================================
