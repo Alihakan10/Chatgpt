@@ -14,13 +14,13 @@ TZ = ZoneInfo("Europe/Istanbul")
 for symbol in SYMBOLS:
     print("\n===", symbol, "===")
     try:
-        bars = sorted(scanner.get_tv_candles_with_retry(symbol, "native_2h"), key=lambda x: x["time"])
+        bars = sorted(scanner.get_tv_candles_with_retry(symbol, "native_1h"), key=lambda x: x["time"])
         idx = scanner.get_last_completed_index(bars)
         if idx is not None and idx >= 1:
             dirs = scanner.calculate_tradingview_supertrend_directions(bars[:idx+1])
-            print("DIRECTION:", "PREV=", dirs[-2], "CUR=", dirs[-1],
+            print("1H DIRECTION:", "PREV=", dirs[-2], "CUR=", dirs[-1],
                   "BUY=", dirs[-2] == 1 and dirs[-1] == -1)
-        for b in bars[-5:]:
+        for b in bars[-8:]:
             d = datetime.fromtimestamp(b["time"], tz=ZoneInfo("UTC")).astimezone(TZ)
             print(d.strftime("%Y-%m-%d %H:%M"),
                   f"O={b['open']:.2f} H={b['high']:.2f} L={b['low']:.2f} C={b['close']:.2f}")
