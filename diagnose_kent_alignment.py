@@ -51,7 +51,7 @@ def fetch(order, interval="120"):
         ws.send(msg("resolve_symbol",[cs,"sds_sym_1","="+cfg]))
         if order=="timezone_after":
             ws.send(msg("switch_timezone",[cs,"exchange"]))
-        ws.send(msg("create_series",[cs,"sds_1","s1","sds_sym_1","120",3000,""]))
+        ws.send(msg("create_series",[cs,"sds_1","s1","sds_sym_1",interval,3000,""]))
         candles={}; raw=""
         start=time.time()
         while time.time()-start<15:
