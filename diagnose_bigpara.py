@@ -3,17 +3,36 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 SYMBOLS = ["CLEBI","EMNIS","EUHOL","KENT","KERVN","KLYPV","KRPLS","KSTUR","OYLUM","SODSN","TUCLK","TURSG","ULUFA","USHOL"]
-URL = "https://bigpara.hurriyet.com.tr/api/v1/chart/tradingviewlight/history"
+URL = "https://bigpara.hurriyet.com.tr/api/v1/chart/hisse/{id}/1"
+LIST_URL = "https://bigpara.hurriyet.com.tr/api/v1/hisse/list"
 
 def main():
     out=[]
     s=requests.Session()
     s.headers.update({"User-Agent":"Mozilla/5.0","Referer":"https://bigpara.hurriyet.com.tr/"})
+    try:
+        lr=s.get(LIST_URL,timeout=20)
+        print("LIST",lr.status_code,lr.text[:2000])
+        ld=lr.json() if lr.ok else None
+        items=ld.get("data",ld) if isinstance(ld,dict) else ld
+        if isinstance(items,dict): items=items.get("data",items.get("value",[]))
+        mapping={}
+        if isinstance(items,list):
+            for x in items:
+                if isinstance(x,dict):
+                    code=str(x.get("kod") or x.get("Code") or x.get("code") or x.get("HisseKodu") or x.get("symbol") or "").upper()
+                    ident=x.get("id") or x.get("_id") or x.get("HisseId") or x.get("ID")
+                    if code and ident: mapping[code]=ident
+        print("MAPPING_SAMPLE",list(mapping.items())[:10])
+    except Exception as e:
+        print("LIST ERROR",e); mapping={}
     for sym in SYMBOLS:
         try:
-            r=s.get(URL,params={"symbol":sym},timeout=20)
+            ident=mapping.get(sym)
+            if not ident: raise RuntimeError("Bigpara listesinde ID bulunamadi")
+            r=s.get(URL.format(id=ident),timeout=20)
             text=r.text[:5000]
-            item={"symbol":sym,"status":r.status_code,"content_type":r.headers.get("content-type",""),"text_head":text[:1500]}
+            item={"symbol":sym,"id":ident,"status":r.status_code,"content_type":r.headers.get("content-type",""),"text_head":text[:1500]}
             if r.ok:
                 try:
                     data=r.json()
