@@ -4,9 +4,58 @@ from zoneinfo import ZoneInfo
 
 SYMBOL = "BIST:DEVA"
 
-def tv_official(candles, period=10, mult=2.0):
-    # TradingView help-center band logic, with Wilder/RMA ATR.
-    atr = scanner.calculate_atr(candles, period)
+def calculate_atr_sma(candles, period=10):
+    tr = []
+    for i, c in enumerate(candles):
+        if i == 0:
+            tr.append(c["high"] - c["low"])
+        else:
+            pc = candles[i-1]["close"]
+            tr.append(max(
+                c["high"] - c["low"],
+                abs(c["high"] - pc),
+                abs(c["low"] - pc),
+            ))
+    atr = [None] * len(candles)
+    for i in range(period - 1, len(candles)):
+        atr[i] = sum(tr[i-period+1:i+1]) / period
+    return atr
+
+def kivanc_with_atr(candles, atr, period=10, mult=2.0):
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [None] * len(candles)
+
+    for i, c in enumerate(candles):
+        if atr[i] is None:
+            trend[i] = 1 if i == 0 else trend[i-1]
+            continue
+
+        src = (c["high"] + c["low"]) / 2.0
+        raw_up = src - mult * atr[i]
+        raw_dn = src + mult * atr[i]
+
+        up1 = raw_up if i == 0 or up[i-1] is None else up[i-1]
+        dn1 = raw_dn if i == 0 or dn[i-1] is None else dn[i-1]
+
+        up[i] = raw_up if i == 0 else (
+            max(raw_up, up1) if candles[i-1]["close"] > up1 else raw_up
+        )
+        dn[i] = raw_dn if i == 0 else (
+            min(raw_dn, dn1) if candles[i-1]["close"] < dn1 else raw_dn
+        )
+
+        prev = 1 if i == 0 or trend[i-1] is None else trend[i-1]
+        if prev == -1 and c["close"] > dn1:
+            trend[i] = 1
+        elif prev == 1 and c["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = prev
+
+    return trend, up, dn, atr
+
+def tv_official(candles, atr, mult=2.0):
     upper = [None] * len(candles)
     lower = [None] * len(candles)
     direction = [None] * len(candles)
@@ -42,55 +91,59 @@ def tv_official(candles, period=10, mult=2.0):
     return direction, st, atr, upper, lower
 
 def dt(ts):
-    return datetime.fromtimestamp(ts, tz=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Istanbul")).strftime("%d.%m.%Y %H:%M")
+    return datetime.fromtimestamp(ts, tz=ZoneInfo("UTC")).astimezone(
+        ZoneInfo("Europe/Istanbul")
+    ).strftime("%d.%m.%Y %H:%M")
 
 candles = scanner.get_tv_candles_with_retry(SYMBOL, candle_mode="native_2h")
 idx = scanner.get_last_completed_index(candles)
-if idx is None or idx < 1:
-    raise RuntimeError("Tamamlanmis mum bulunamadi")
+if idx is None or idx < 2:
+    raise RuntimeError("Yeterli tamamlanmis mum bulunamadi")
 
-# Current production/Kivanc logic.
-k = scanner.calculate_supertrend_directions(candles)
-o_dir, o_st, o_atr, o_upper, o_lower = tv_official(candles)
+k_rma, k_up, k_dn, rma_atr = kivanc_with_atr(
+    candles, scanner.calculate_atr(candles, 10), 10, 2.0
+)
+k_sma, s_up, s_dn, sma_atr = kivanc_with_atr(
+    candles, calculate_atr_sma(candles, 10), 10, 2.0
+)
+o_rma, _, _, o_up, o_low = tv_official(
+    candles, scanner.calculate_atr(candles, 10), 2.0
+)
+o_sma, _, _, _, _ = tv_official(candles, calculate_atr_sma(candles, 10), 2.0)
+prod = scanner.calculate_supertrend_directions(candles)
 
-print("=== DEVA SUPERTREND FARK DIAGNOSTIGI ===")
+print("=== DEVA SUPERTREND FARK TESTI 2 ===")
 print("Mum sayisi:", len(candles))
 print("Son tamamlanmis:", dt(candles[idx]["time"]))
-print("Onceki:", dt(candles[idx-1]["time"]))
+print("NOT: Study yok. Sadece TradingView OHLC + yerel hesap.")
 
 for j in [idx-2, idx-1, idx]:
     c = candles[j]
     print(
         f"MUM {dt(c['time'])} | O={c['open']:.4f} H={c['high']:.4f} "
-        f"L={c['low']:.4f} C={c['close']:.4f} | "
-        f"KIVANC={k[j]} | OFFICIAL={o_dir[j]} | "
-        f"ATR={o_atr[j] if o_atr[j] is not None else None}"
+        f"L={c['low']:.4f} C={c['close']:.4f}"
+    )
+    print(
+        f"  PROD/KIVANC-RMA={prod[j]} | KIVANC-SMA={k_sma[j]} | "
+        f"OFFICIAL-RMA={o_rma[j]} | OFFICIAL-SMA={o_sma[j]}"
+    )
+    print(
+        f"  RMA_ATR={rma_atr[j]:.9f} | SMA_ATR={sma_atr[j]:.9f} | "
+        f"RMA_UP={k_up[j]} | RMA_DN={k_dn[j]} | "
+        f"SMA_UP={s_up[j]} | SMA_DN={s_dn[j]}"
     )
 
-print(
-    "KIVANC DONUS:",
-    k[idx-1], "->", k[idx],
-    "BUY=", (k[idx-1] == -1 and k[idx] == 1)
-)
-print(
-    "OFFICIAL DONUS:",
-    o_dir[idx-1], "->", o_dir[idx],
-    "BUY=", (o_dir[idx-1] == -1 and o_dir[idx] == 1)
-)
-
-# History-window sensitivity: same Kivanc formula, different available history.
-for size in [300, 500, 1000, 2000, 3000]:
-    sub = candles[-size:] if len(candles) > size else candles
-    d = scanner.calculate_supertrend_directions(sub)
-    if len(d) >= 2:
-        print(
-            f"HISTORY {size}: last={d[-1]} prev={d[-2]} "
-            f"BUY={d[-2] == -1 and d[-1] == 1}"
-        )
-
-# Print exact bands for the two latest bars.
-print(
-    "CURRENT CLOSE:",
-    candles[idx]["close"],
-    "KIVANC BUY FORMULU: previous/current SAT->AL"
-)
+for name, arr in [
+    ("PROD/KIVANC-RMA", prod),
+    ("KIVANC-SMA", k_sma),
+    ("OFFICIAL-RMA", o_rma),
+    ("OFFICIAL-SMA", o_sma),
+]:
+    print(
+        f"{name} 11->13: {arr[idx-2]} -> {arr[idx-1]} "
+        f"BUY={arr[idx-2] == -1 and arr[idx-1] == 1}"
+    )
+    print(
+        f"{name} 13->15: {arr[idx-1]} -> {arr[idx]} "
+        f"BUY={arr[idx-1] == -1 and arr[idx] == 1}"
+    )
