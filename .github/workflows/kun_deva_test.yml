@@ -1,0 +1,43 @@
+name: Kunpeng BIST DEVA Diagnostic
+
+on:
+  push:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch DEVA 60m and 2H candles
+        env:
+          KUN_TOKEN: ${{ secrets.KUN_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os, requests, json
+          token=os.getenv("KUN_TOKEN")
+          if not token:
+              raise SystemExit("KUN_TOKEN GitHub Secret is missing")
+          headers={"Authorization":f"Bearer {token}","Accept":"application/json"}
+          out={}
+          for interval in ("60","240"):
+              url="https://kun.pro/api/history"
+              params={"market":"TR","symbol":"BIST:DEVA","interval":interval,"count":"100"}
+              r=requests.get(url,params=params,headers=headers,timeout=30)
+              print("INTERVAL",interval,"HTTP",r.status_code)
+              print(r.text)
+              out[interval]={"status":r.status_code,"body":r.json()}
+              r.raise_for_status()
+          open("kun_deva_result.json","w",encoding="utf-8").write(json.dumps(out,ensure_ascii=False,indent=2))
+          PY
+
+      - name: Save diagnostic
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kun_deva_result.json
+          git commit -m "Diagnostic: save Kunpeng DEVA candles" || exit 0
+          git push
