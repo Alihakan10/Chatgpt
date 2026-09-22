@@ -7,6 +7,9 @@ on:
       - "tv_auth_smoke.py"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   auth:
     runs-on: ubuntu-latest
