@@ -22,6 +22,7 @@
 # ============================================================
 
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -261,16 +262,21 @@ def run_symbol(symbol):
 
 
 def main():
-    text = os.getenv(
-        "TEST_1010_SYMBOLS",
-        "BIST:ZOREN"
-    )
+    all_bist = os.getenv("TEST_1010_ALL_BIST", "false").lower() in ("1", "true", "yes", "on")
 
-    symbols = [
-        x.strip()
-        for x in text.split(",")
-        if x.strip()
-    ]
+    if all_bist:
+        symbols = scanner.get_bist_symbols()
+        print(f"TradingView Scanner'dan toplam {len(symbols)} BIST hissesi alindi.")
+    else:
+        text = os.getenv(
+            "TEST_1010_SYMBOLS",
+            "BIST:ZOREN"
+        )
+        symbols = [
+            x.strip()
+            for x in text.split(",")
+            if x.strip()
+        ]
 
     print("=" * 72)
     print("BIST 18:00 -> 10:00 SUPERTREND 10:10 TESTI")
@@ -289,8 +295,22 @@ def main():
 
     results = []
 
-    for symbol in symbols:
-        results.append(run_symbol(symbol))
+    # Tum BIST taramasinda TradingView baglantilarini paralel calistir.
+    workers = int(os.getenv("TEST_1010_WORKERS", "8"))
+    workers = max(1, min(workers, 12))
+
+    if all_bist:
+        print(f"Paralel worker sayisi: {workers}")
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            future_map = {
+                executor.submit(run_symbol, symbol): symbol
+                for symbol in symbols
+            }
+            for future in as_completed(future_map):
+                results.append(future.result())
+    else:
+        for symbol in symbols:
+            results.append(run_symbol(symbol))
 
     print("")
     print("=" * 72)
