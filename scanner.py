@@ -6,7 +6,7 @@
 # OZELLIKLER
 #
 # 1) Tum BIST hisselerini TradingView Scanner ile bulur
-# 2) TradingView WebSocket ile 1 saatlik veriyi alir ve BIST seansina gore 2 saatlik mumlara birlestirir
+# 2) TradingView WebSocket ile native 2 saatlik (120 dakika) mum verisini alir
 # 3) Supertrend:
 #       ATR Period     = 10
 #       Source         = HL2
@@ -152,9 +152,9 @@ except ValueError:
 # BIST saatleri disinda da tam tarama yapilabilmesini saglar.
 # ------------------------------------------------------------
 
-# SAFE_MANUAL_SCAN_PATCH_V2
-# Manuel workflow testinde seans hizali 2H mumlari kullan.
-# Otomatik schedule taramalarinin veri yapisi degismez.
+# NATIVE_2H_ONLY
+# Tum taramalar TradingView native 120 dakikalik seri ile yapilir.
+# 1H -> 2H manuel birlestirme KULLANILMAZ.
 MANUAL_TEST_RUN = (
     os.getenv(
         "MANUAL_TEST_RUN",
@@ -573,7 +573,7 @@ def get_bist_symbols():
 # TRADINGVIEW MUM VERISI
 # ============================================================
 
-def get_tv_candles(symbol, candle_mode="session_merged"):
+def get_tv_candles(symbol, candle_mode="native_2h"):
 
     ws = None
 
@@ -583,7 +583,7 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
     try:
 
         log(
-            f"    TradingView 1H veri + seans-hizali 2H birlestirme: {symbol}"
+            f"    TradingView native 2H veri: {symbol}"
         )
 
         # TradingView el sikma korumasi: baglantiyi kontrollu yeniden dene.
@@ -1208,70 +1208,15 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
             candles.values(),
             key=lambda x: x["time"]
         )
-
-        if candle_mode == "native_2h":
-            if len(result) < 20:
-                raise RuntimeError(
-                    "TradingView native 2H verisi yetersiz: "
-                    + str(len(result)) + " mum"
-                )
-            return result
-
-        # TradingView'in native 120 dakikalık serisini kullan.
-        # Görünen TradingView 2H grafiği ile birebir aynı mum zamanlarını
-        # ve OHLC değerlerini korumak için 1H seans birleştirmesi kullanılmaz.
-        if candle_mode == "native_2h":
-            if len(result) < 20:
-                raise RuntimeError(
-                    "TradingView native 2H verisi yetersiz: "
-                    + str(len(result)) + " mum"
-                )
-            return result
-
-        one_hour = result
-        grouped = {}
-        for bar in one_hour:
-            local_dt = datetime.fromtimestamp(
-                bar["time"], tz=ZoneInfo("UTC")
-            ).astimezone(ZoneInfo(TIMEZONE))
-            if local_dt.hour not in (10, 11, 12, 13, 14, 15, 16, 17):
-                continue
-            if local_dt.minute != 0:
-                continue
-            if local_dt.hour % 2 == 0:
-                start_hour = local_dt.hour
-            else:
-                start_hour = local_dt.hour - 1
-            key = (local_dt.date(), start_hour)
-            grouped.setdefault(key, []).append(bar)
-
-        merged = []
-        for (day, start_hour), bars in sorted(grouped.items()):
-            bars = sorted(bars, key=lambda x: x["time"])
-            if len(bars) != 2:
-                continue
-            if [
-                datetime.fromtimestamp(b["time"], tz=ZoneInfo("UTC")).astimezone(ZoneInfo(TIMEZONE)).hour
-                for b in bars
-            ] != [start_hour, start_hour + 1]:
-                continue
-            merged.append({
-                "time": bars[0]["time"],
-                "open": bars[0]["open"],
-                "high": max(bars[0]["high"], bars[1]["high"]),
-                "low": min(bars[0]["low"], bars[1]["low"]),
-                "close": bars[1]["close"],
-                "volume": bars[0]["volume"] + bars[1]["volume"]
-            })
-
-        result = merged
+        if candle_mode != "native_2h":
+            raise RuntimeError(
+                "Yalnizca TradingView native 2H veri modu destekleniyor."
+            )
 
         if len(result) < 20:
-
             raise RuntimeError(
-                "TradingView'dan sadece "
-                + str(len(result))
-                + " mum geldi."
+                "TradingView native 2H verisi yetersiz: "
+                + str(len(result)) + " mum"
             )
 
         return result
@@ -2302,7 +2247,7 @@ DATA_RETRY_COUNT = 3
 DATA_RETRY_DELAYS = (2, 5, 10)
 
 
-def get_tv_candles_with_retry(symbol, candle_mode="session_merged"):
+def get_tv_candles_with_retry(symbol, candle_mode="native_2h"):
     """
     TradingView gecici veri/429 sorunlarinda ayni hissenin verisini
     kontrollu sekilde tekrar ister.
@@ -2405,52 +2350,6 @@ def scan_symbol(
                 "error": "Supertrend hesaplanamadi."
             }
 
-        # TEST MODU: ayni sembol icin TradingView'in native 2H serisini
-        # de hesapla. Boylece seans birlestirmesi ile native 2H arasindaki
-        # BUY farki dogrudan gorulur.
-        if TEST_MODE:
-            native_candles = get_tv_candles(symbol, "session_merged")
-            native_completed_index = get_last_completed_index(native_candles)
-            if native_completed_index is not None and native_completed_index >= 1:
-                native_calc = native_candles[:native_completed_index + 1]
-                native_dirs = calculate_supertrend_directions(
-                    native_calc, ATR_PERIOD, ATR_MULTIPLIER
-                )
-                native_buy_times = []
-                for ni in range(1, len(native_dirs)):
-                    if native_dirs[ni - 1] == -1 and native_dirs[ni] == 1:
-                        ndt = datetime.fromtimestamp(
-                            native_calc[ni]["time"], tz=ZoneInfo("UTC")
-                        ).astimezone(ZoneInfo(TIMEZONE))
-                        native_buy_times.append(ndt.strftime("%d.%m.%Y %H:%M"))
-                session_buy_times = []
-                for si in range(1, len(directions)):
-                    if directions[si - 1] == -1 and directions[si] == 1:
-                        sdt = datetime.fromtimestamp(
-                            calculation_candles[si]["time"], tz=ZoneInfo("UTC")
-                        ).astimezone(ZoneInfo(TIMEZONE))
-                        session_buy_times.append(sdt.strftime("%d.%m.%Y %H:%M"))
-                log(
-                    "    BUY KARSILASTIRMA | "
-                    + symbol
-                    + " | SESSION_2H="
-                    + (", ".join(session_buy_times) if session_buy_times else "YOK")
-                    + " | NATIVE_2H="
-                    + (", ".join(native_buy_times) if native_buy_times else "YOK")
-                )
-                nci = native_completed_index
-                ndt = datetime.fromtimestamp(
-                    native_calc[nci]["time"], tz=ZoneInfo("UTC")
-                ).astimezone(ZoneInfo(TIMEZONE))
-                log(
-                    "    NATIVE SON MUM | "
-                    + ndt.strftime("%d.%m.%Y %H:%M")
-                    + " | O=" + format_price(native_calc[nci]["open"])
-                    + " H=" + format_price(native_calc[nci]["high"])
-                    + " L=" + format_price(native_calc[nci]["low"])
-                    + " C=" + format_price(native_calc[nci]["close"])
-                    + " | ST=" + str(native_dirs[nci])
-                )
         if TEST_MODE:
             history_buys = history_window_buy_times(calculation_candles)
             log("    HISTORY WINDOW BUY KARSILASTIRMA | " + symbol)
