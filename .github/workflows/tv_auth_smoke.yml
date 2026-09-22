@@ -1,0 +1,21 @@
+name: TradingView Auth Smoke Test
+
+on:
+  push:
+    paths:
+      - ".github/workflows/tv_auth_smoke.yml"
+      - "tv_auth_smoke.py"
+  workflow_dispatch:
+
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    env:
+      TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+      TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+      TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+      TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run auth smoke test
+        run: python tv_auth_smoke.py
