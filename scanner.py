@@ -709,7 +709,6 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
                 [
                     quote_session,
                     symbol,
-                    {"flags": ["force_permission"]}
                 ]
             )
         )
