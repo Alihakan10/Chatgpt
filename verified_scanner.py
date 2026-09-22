@@ -2,7 +2,7 @@
 BIST Supertrend tek tarama + otomatik BUY dogrulama.
 
 scanner.py normal BIST taramasini yapar. Her BUY adayi icin
-ayni TradingView seans-hizalı 2H serisi tekrar alinip bagimsiz
+ayni TradingView native 2H serisi tekrar alinip bagimsiz
 Wilder/RMA + HL2 Supertrend hesabi ile kontrol edilir.
 Uyusmayan BUY Telegram'a gonderilmez.
 
@@ -101,12 +101,12 @@ def verified_scan_symbol(symbol, state):
 
     try:
         candles = sorted(
-            scanner.get_tv_candles_with_retry(symbol, "session_merged"),
+            scanner.get_tv_candles_with_retry(symbol, "native_2h"),
             key=lambda x: x["time"],
         )
 
         if len(candles) < scanner.ATR_PERIOD + 2:
-            raise RuntimeError("dogrulama icin native 2H veri yetersiz")
+            raise RuntimeError("dogrulama icin TradingView native 2H veri yetersiz")
 
         completed_index = scanner.get_last_completed_index(candles)
         if completed_index is None or completed_index < 1:
