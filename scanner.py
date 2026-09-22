@@ -1506,6 +1506,94 @@ def calculate_supertrend_directions(
     return trend
 
 
+
+# ============================================================
+# TRADINGVIEW RESMI SUPERTREND YONU
+#
+# TradingView ta.supertrend() convention:
+#   -1 = UP / AL
+#   +1 = DOWN / SAT
+#
+# Formula follows TradingView's documented Supertrend logic.
+# ============================================================
+
+def calculate_tradingview_supertrend_directions(
+    candles,
+    atr_period=10,
+    multiplier=2.0
+):
+    if len(candles) < (atr_period + 2):
+        return None
+
+    atr = calculate_atr(candles, atr_period)
+
+    upper = [None for _ in candles]
+    lower = [None for _ in candles]
+    direction = [None for _ in candles]
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            direction[i] = 1  # TradingView: initial/down trend
+            continue
+
+        hl2 = (
+            candles[i]["high"] + candles[i]["low"]
+        ) / 2.0
+
+        basic_upper = hl2 + multiplier * atr[i]
+        basic_lower = hl2 - multiplier * atr[i]
+
+        if i == 0 or upper[i - 1] is None:
+            upper[i] = basic_upper
+        else:
+            prev_upper = upper[i - 1]
+            prev_close = candles[i - 1]["close"]
+            upper[i] = (
+                basic_upper
+                if (
+                    basic_upper < prev_upper
+                    or prev_close > prev_upper
+                )
+                else prev_upper
+            )
+
+        if i == 0 or lower[i - 1] is None:
+            lower[i] = basic_lower
+        else:
+            prev_lower = lower[i - 1]
+            prev_close = candles[i - 1]["close"]
+            lower[i] = (
+                basic_lower
+                if (
+                    basic_lower > prev_lower
+                    or prev_close < prev_lower
+                )
+                else prev_lower
+            )
+
+        if i == 0 or direction[i - 1] is None:
+            direction[i] = 1
+            continue
+
+        prev_direction = direction[i - 1]
+        prev_supertrend = (
+            upper[i - 1]
+            if prev_direction == 1
+            else lower[i - 1]
+        )
+
+        if prev_supertrend == upper[i - 1]:
+            direction[i] = (
+                -1 if candles[i]["close"] > upper[i] else 1
+            )
+        else:
+            direction[i] = (
+                1 if candles[i]["close"] < lower[i] else -1
+            )
+
+    return direction
+
+
 # ============================================================
 # TRADINGVIEW TARIHCE BASLANGICI DIAGNOSTIGI
 #
