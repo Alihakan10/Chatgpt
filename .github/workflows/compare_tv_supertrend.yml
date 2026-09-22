@@ -1,0 +1,94 @@
+# TradingView native Supertrend direction diagnostic.
+# This workflow compares the current Python/Kivanc implementation
+# with the official TradingView direction convention on the same OHLC data.
+
+name: Compare Python vs TradingView Supertrend
+
+on:
+  push:
+    paths:
+      - ".github/workflows/compare_tv_supertrend.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run DEVA comparison
+        run: |
+          python - <<'PY'
+          import json
+          import scanner
+
+          symbol = "BIST:DEVA"
+          candles = scanner.get_tv_candles_with_retry(symbol, candle_mode="native_2h")
+          if not candles:
+              raise SystemExit("DEVA candles could not be fetched")
+
+          old = scanner.calculate_supertrend_directions(candles, 10, 2.0)
+          tv = scanner.calculate_tradingview_supertrend_directions(candles, 10, 2.0)
+
+          print("=== PYTHON vs TRADINGVIEW CONVENTION ===")
+          print("Old Python: +1=AL, -1=SAT")
+          print("TV native:  -1=AL, +1=SAT")
+          print("")
+
+          n = min(len(candles), len(old), len(tv))
+          for i in range(max(1, n-8), n):
+              from datetime import datetime
+              from zoneinfo import ZoneInfo
+              dt = datetime.fromtimestamp(candles[i]["time"], tz=ZoneInfo("UTC")).astimezone(ZoneInfo("Europe/Istanbul"))
+              print(
+                  dt.strftime("%d.%m.%Y %H:%M"),
+                  "O=", candles[i]["open"],
+                  "H=", candles[i]["high"],
+                  "L=", candles[i]["low"],
+                  "C=", candles[i]["close"],
+                  "| OLD=", old[i],
+                  "| TV=", tv[i]
+              )
+
+          old_buys=[]
+          tv_buys=[]
+          for i in range(1,n):
+              if old[i-1] == -1 and old[i] == 1:
+                  old_buys.append(candles[i]["time"])
+              if tv[i-1] == 1 and tv[i] == -1:
+                  tv_buys.append(candles[i]["time"])
+
+          print("")
+          print("OLD BUY count:", len(old_buys))
+          print("TV BUY count:", len(tv_buys))
+          print("OLD BUY times:", old_buys[-10:])
+          print("TV BUY times:", tv_buys[-10:])
+
+          if any(old[i] != -tv[i] for i in range(n) if old[i] is not None and tv[i] is not None):
+              print("RESULT: FORMULA/INITIALIZATION DIFFERENCE EXISTS")
+          else:
+              print("RESULT: DIRECTIONS ARE EXACT OPPOSITES ON THIS DATA")
+
+          result={
+              "symbol":symbol,
+              "old_buy_times":old_buys,
+              "tv_buy_times":tv_buys,
+              "directions_exact_opposites": all(
+                  old[i] == -tv[i]
+                  for i in range(n)
+                  if old[i] is not None and tv[i] is not None
+              )
+          }
+          with open("tv_supertrend_compare.json","w") as f:
+              json.dump(result,f,indent=2)
+          PY
+
+      - name: Save diagnostic
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tv_supertrend_compare.json
+          git commit -m "Diagnostic: compare Python and TradingView Supertrend" || exit 0
+          git push
