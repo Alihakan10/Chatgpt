@@ -17,6 +17,8 @@ jobs:
 
     env:
       TEST_1010_SYMBOLS: ${{ inputs.test_symbols }}
+      TEST_1010_ALL_BIST: "true"
+      TEST_1010_WORKERS: "8"
 
     steps:
       - name: Repository checkout
