@@ -101,7 +101,7 @@ def verified_scan_symbol(symbol, state):
 
     try:
         candles = sorted(
-            scanner.get_tv_candles(symbol, "native_2h"),
+            scanner.get_tv_candles_with_retry(symbol, "native_2h"),
             key=lambda x: x["time"],
         )
 
