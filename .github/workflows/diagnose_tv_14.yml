@@ -27,6 +27,7 @@ jobs:
       - name: Check 14 stocks
         run: |
           mkdir -p diagnostics
+          set -o pipefail
           python diagnose_tv_14.py | tee diagnostics/tv_14_session.txt
       - name: Save 14-stock result
         run: |
