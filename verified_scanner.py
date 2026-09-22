@@ -88,10 +88,15 @@ _original_scan_symbol = scanner.scan_symbol
 def verified_scan_symbol(symbol, state):
     result = _original_scan_symbol(symbol, state)
 
-    # Sadece normal taramanin BUY olarak isaretledigi hisselerde
-    # ikinci hesap yap. BUY yoksa ek TradingView istegi yapma.
+    # Normal taramada BUY durumu olan her hisseyi dogrula.
+    # Hem YENI BUY (buy_results) hem daha once gonderilmis
+    # mevcut BUY (all_buy_results) burada kontrol edilir.
+    # Boylece her taramada BUY listesinin gercekten SAT -> AL
+    # oldugu yeniden kontrol edilmis olur.
     buy_results = result.get("buy_results", [])
-    if not buy_results:
+    all_buy_results = result.get("all_buy_results", [])
+    buy_candidates = buy_results or all_buy_results
+    if not buy_candidates:
         return result
 
     try:
