@@ -6,8 +6,6 @@ import scanner
 
 TZ = ZoneInfo(scanner.TIMEZONE)
 
-# Onceki kontrolde current native 2H bari eksik kalan 3 hisse
-# + referans olarak iki kez SAT->AL dogrulanan SMRTG.
 SYMBOLS = [
     "BIST:QNBTR",
     "BIST:SNPAM",
@@ -15,52 +13,65 @@ SYMBOLS = [
     "BIST:SMRTG",
 ]
 
-MAX_DATA_ATTEMPTS = 4
-RETRY_DELAY = 4.0
+MAX_DATA_ATTEMPTS = 2
+RETRY_DELAY = 3.0
+DIAGNOSTIC_BARS = 10
 
 
 def local_dt(ts):
     return datetime.fromtimestamp(ts, tz=ZoneInfo("UTC")).astimezone(TZ)
 
 
-def fetch_native_2h_with_retry(symbol):
+def label(direction):
+    if direction == 1:
+        return "AL"
+    if direction == -1:
+        return "SAT"
+    return "BELIRSIZ"
+
+
+def print_last_bars(symbol, ordered):
+    print(f"\n--- {symbol} SON {DIAGNOSTIC_BARS} NATIVE 2H BAR ---")
+    for b in ordered[-DIAGNOSTIC_BARS:]:
+        dt = local_dt(b["time"])
+        print(
+            f"{dt.strftime('%d.%m.%Y %H:%M %Z')} | "
+            f"UTC={datetime.fromtimestamp(b['time'], tz=ZoneInfo('UTC')).strftime('%H:%M')} | "
+            f"O={b['open']:.4f} H={b['high']:.4f} "
+            f"L={b['low']:.4f} C={b['close']:.4f}"
+        )
+
+
+def fetch_native_2h(symbol):
     last_error = None
+
     for attempt in range(1, MAX_DATA_ATTEMPTS + 1):
         try:
             candles = scanner.get_tv_candles(symbol, "native_2h")
             ordered = sorted(candles, key=lambda x: x["time"])
-            now = scanner.now_istanbul()
-            today = now.date()
 
-            today_session = [
-                b for b in ordered
-                if local_dt(b["time"]).date() == today
-                and 10 <= local_dt(b["time"]).hour <= 17
-                and local_dt(b["time"]).minute == 0
-                and b["time"] <= now.timestamp()
-            ]
+            if not ordered:
+                raise RuntimeError("TradingView hic bar dondurmedi")
 
-            if today_session:
-                return ordered, attempt
+            print(f"veri denemesi={attempt} | toplam native 2H bar={len(ordered)}")
+            print_last_bars(symbol, ordered)
 
-            last_error = RuntimeError("bugunun current native 2H bari bulunamadi")
+            return ordered, attempt
+
         except Exception as exc:
             last_error = exc
-
-        if attempt < MAX_DATA_ATTEMPTS:
             print(
-                f"  RETRY {attempt}/{MAX_DATA_ATTEMPTS}: {last_error} | "
-                f"{RETRY_DELAY:.0f}s sonra tekrar"
+                f"  RETRY {attempt}/{MAX_DATA_ATTEMPTS}: {exc}"
             )
-            time.sleep(RETRY_DELAY)
+            if attempt < MAX_DATA_ATTEMPTS:
+                time.sleep(RETRY_DELAY)
 
     raise RuntimeError(
-        f"{MAX_DATA_ATTEMPTS} denemede current native 2H alinamadi: {last_error}"
+        f"{MAX_DATA_ATTEMPTS} denemede native 2H veri alinamadi: {last_error}"
     )
 
 
-def analyze(symbol):
-    ordered, attempts = fetch_native_2h_with_retry(symbol)
+def find_bars(ordered):
     now = scanner.now_istanbul()
     today = now.date()
 
@@ -71,7 +82,10 @@ def analyze(symbol):
         and local_dt(b["time"]).minute == 0
     ]
 
-    prev_dates = sorted({dt.date() for _, dt in session if dt.date() < today})
+    prev_dates = sorted(
+        {dt.date() for _, dt in session if dt.date() < today}
+    )
+
     if not prev_dates:
         raise RuntimeError("onceki islem gunu bulunamadi")
 
@@ -85,10 +99,26 @@ def analyze(symbol):
         b for b, dt in session
         if dt.date() == today and b["time"] <= now.timestamp()
     ]
-    if not today_bars:
-        raise RuntimeError("bugunun current 2H bari bulunamadi")
 
-    current_bar = max(today_bars, key=lambda b: b["time"])
+    current_bar = (
+        max(today_bars, key=lambda b: b["time"])
+        if today_bars else None
+    )
+
+    return prev_bar, current_bar, now
+
+
+def analyze(symbol):
+    ordered, attempts = fetch_native_2h(symbol)
+    prev_bar, current_bar, now = find_bars(ordered)
+
+    if current_bar is None:
+        print(
+            f"AKTIF BAR YOK | Simdi={now.strftime('%d.%m.%Y %H:%M:%S %Z')}"
+        )
+        raise RuntimeError(
+            "bugunun current native 2H bari bulunamadi"
+        )
 
     directions = scanner.calculate_supertrend_directions(
         ordered,
@@ -117,19 +147,11 @@ def analyze(symbol):
     }
 
 
-def label(direction):
-    if direction == 1:
-        return "AL"
-    if direction == -1:
-        return "SAT"
-    return "BELIRSIZ"
-
-
 def main():
     print("=" * 78)
-    print("EKSIK 3 HISSE + SMRTG - TRADINGVIEW NATIVE 2H RETRY KONTROL")
+    print("TRADINGVIEW NATIVE 2H BAR ZAMAN DAMGASI TESPİTI")
     print("Study YOK | ATR 10 | Multiplier 2.0 | HL2 | Native 2H")
-    print(f"Her hisse icin en fazla {MAX_DATA_ATTEMPTS} veri denemesi")
+    print("Amac: QNBTR/SNPAM/YYAPI current bar neden yok? SMRTG ile karsilastir.")
     print("=" * 78)
 
     results = []
@@ -137,9 +159,10 @@ def main():
 
     for n, symbol in enumerate(SYMBOLS, 1):
         print(f"\n[{n}/{len(SYMBOLS)}] {symbol}")
+
         try:
             a = analyze(symbol)
-            print(f"veri denemesi={a['attempts']}")
+
             print(
                 f"18:00={label(a['dir18'])} | "
                 f"CURRENT={label(a['dir_cur'])} | "
@@ -158,6 +181,7 @@ def main():
                 f"GERCEK_INTRABAR_SAT_AL={a['intrabar_reversal']}"
             )
             results.append(a)
+
         except Exception as exc:
             print(f"HATA: {exc}")
             errors.append((symbol, str(exc)))
@@ -186,7 +210,7 @@ def main():
             )
 
     if errors:
-        print("\nHALA VERI ALINAMAYAN:")
+        print("\nHALA AKTIF BAR BULUNAMAYAN:")
         for symbol, error in errors:
             print(f"  !!! {symbol} | {error}")
 
