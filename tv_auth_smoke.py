@@ -8,13 +8,19 @@ sessionid_sign = os.getenv("TV_SESSIONID_SIGN", "").strip()
 device_t = os.getenv("TV_DEVICE_T", "").strip()
 fallback = os.getenv("TRADINGVIEW_AUTH_TOKEN", "").strip()
 
-print("SESSIONID_PRESENT:", bool(sessionid))
-print("SESSIONID_SIGN_PRESENT:", bool(sessionid_sign))
-print("DEVICE_T_PRESENT:", bool(device_t))
-print("FALLBACK_TOKEN_PRESENT:", bool(fallback))
+lines = []
+def out(s):
+    print(s)
+    lines.append(s)
+
+out("SESSIONID_PRESENT: " + str(bool(sessionid)))
+out("SESSIONID_SIGN_PRESENT: " + str(bool(sessionid_sign)))
+out("DEVICE_T_PRESENT: " + str(bool(device_t)))
+out("FALLBACK_TOKEN_PRESENT: " + str(bool(fallback)))
 
 if not sessionid:
-    print("AUTH_RESULT: FAILED - TV_SESSIONID secret missing")
+    out("AUTH_RESULT: FAILED - TV_SESSIONID secret missing")
+    open("auth_smoke_result.txt","w").write("\n".join(lines)+"\n")
     raise SystemExit(1)
 
 headers = {
@@ -37,7 +43,7 @@ try:
         data={"grabSession": "true"},
         timeout=20,
     )
-    print("HTTP_STATUS:", r.status_code)
+    out("HTTP_STATUS: " + str(r.status_code))
     token = None
     try:
         data = r.json()
@@ -51,11 +57,13 @@ try:
             token = raw.split(":", 1)[0].strip()
 
     valid = bool(token) and token not in ("null", "None", "undefined")
-    print("AUTH_RESULT:", "SUCCESS" if valid else "FAILED")
-    print("TOKEN_RECEIVED:", valid)
+    out("AUTH_RESULT: " + ("SUCCESS" if valid else "FAILED"))
+    out("TOKEN_RECEIVED: " + str(valid))
+    open("auth_smoke_result.txt","w").write("\n".join(lines)+"\n")
     if not valid:
         raise SystemExit(1)
 except requests.RequestException as e:
-    print("HTTP_ERROR_TYPE:", type(e).__name__)
-    print("AUTH_RESULT: FAILED")
+    out("HTTP_ERROR_TYPE: " + type(e).__name__)
+    out("AUTH_RESULT: FAILED")
+    open("auth_smoke_result.txt","w").write("\n".join(lines)+"\n")
     raise SystemExit(1)
