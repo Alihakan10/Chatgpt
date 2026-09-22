@@ -14,7 +14,7 @@ TZ = ZoneInfo("Europe/Istanbul")
 for symbol in SYMBOLS:
     print("\n===", symbol, "===")
     try:
-        bars = sorted(scanner.get_tv_candles_with_retry(symbol, "session_merged"), key=lambda x: x["time"])
+        bars = sorted(scanner.get_tv_candles_with_retry(symbol, "native_2h"), key=lambda x: x["time"])
         idx = scanner.get_last_completed_index(bars)
         if idx is not None and idx >= 1:
             dirs = scanner.calculate_tradingview_supertrend_directions(bars[:idx+1])
