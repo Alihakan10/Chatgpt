@@ -1,6 +1,10 @@
 name: Diagnose BIST MIXED Feed
 
 on:
+  push:
+    paths:
+      - diagnose_bist_mixed.py
+      - .github/workflows/diagnose_bist_mixed.yml
   workflow_dispatch:
 
 jobs:
