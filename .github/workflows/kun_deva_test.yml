@@ -20,20 +20,43 @@ jobs:
         run: |
           python - <<'PY'
           import os, requests, json
-          token=os.getenv("KUN_TOKEN")
+          token = os.getenv("KUN_TOKEN")
           if not token:
               raise SystemExit("KUN_TOKEN GitHub Secret is missing")
-          headers={"Authorization":f"Bearer {token}","Accept":"application/json"}
-          out={}
-          for interval in ("60","240"):
-              url="https://kun.pro/api/history"
-              params={"market":"TR","symbol":"BIST:DEVA","interval":interval,"count":"100"}
-              r=requests.get(url,params=params,headers=headers,timeout=30)
-              print("INTERVAL",interval,"HTTP",r.status_code)
-              print(r.text)
-              out[interval]={"status":r.status_code,"body":r.json()}
-              r.raise_for_status()
-          open("kun_deva_result.json","w",encoding="utf-8").write(json.dumps(out,ensure_ascii=False,indent=2))
+
+          base = "https://kun.pro/api/history"
+          headers = {
+              "Authorization": f"Bearer {token}",
+              "Accept": "application/json",
+              "User-Agent": "Mozilla/5.0",
+          }
+          out = {}
+
+          for interval in ("60", "240"):
+              params = {
+                  "market": "TR",
+                  "symbol": "BIST:DEVA",
+                  "interval": interval,
+                  "count": "100",
+                  "token": token,
+              }
+              r = requests.get(base, params=params, headers=headers, timeout=30)
+              print("INTERVAL", interval, "HTTP", r.status_code)
+              print("FINAL URL", r.url)
+              print(r.text[:12000])
+
+              try:
+                  body = r.json()
+              except Exception:
+                  body = {"raw": r.text}
+
+              out[interval] = {"status": r.status_code, "body": body}
+
+              if r.status_code != 200:
+                  raise SystemExit(f"Kunpeng request failed: HTTP {r.status_code}")
+
+          with open("kun_deva_result.json", "w", encoding="utf-8") as f:
+              json.dump(out, f, ensure_ascii=False, indent=2)
           PY
 
       - name: Save diagnostic
