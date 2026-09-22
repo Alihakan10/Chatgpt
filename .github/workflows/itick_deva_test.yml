@@ -1,0 +1,25 @@
+name: iTick DEVA 60m Diagnostic
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch DEVA 60-minute data from iTick
+        env:
+          ITICK_TOKEN: ${{ secrets.ITICK_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os, requests, json
+          token=os.getenv("ITICK_TOKEN")
+          if not token:
+              raise SystemExit("ITICK_TOKEN GitHub Secret is missing")
+          url="https://api.itick.net/stock/kline"
+          params={"region":"TR","code":"DEVA","kType":"5","limit":"100"}
+          r=requests.get(url,params=params,headers={"accept":"application/json","token":token},timeout=30)
+          print("HTTP",r.status_code)
+          print(json.dumps(r.json(),ensure_ascii=False,indent=2))
+          r.raise_for_status()
+          PY
