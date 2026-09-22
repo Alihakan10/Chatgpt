@@ -1,0 +1,21 @@
+name: Diagnose Investing DEVA
+
+on:
+  push:
+    paths:
+      - "diagnose_investing_deva.py"
+      - ".github/workflows/diagnose_investing_deva.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install
+        run: pip install requests
+      - name: Test Investing DEVA 1H
+        run: python diagnose_investing_deva.py
