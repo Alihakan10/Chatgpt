@@ -1,7 +1,9 @@
 name: iTick DEVA 60m Diagnostic
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/itick_deva_test.yml"
 
 jobs:
   test:
