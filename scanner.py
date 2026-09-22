@@ -276,12 +276,13 @@ def random_session(prefix):
 
 def get_tradingview_auth_token():
     """
-    Session cookie varsa her workflow calismasinda taze WebSocket
-    auth token almaya calisir. Basarisiz olursa secret olarak verilen
-    TRADINGVIEW_AUTH_TOKEN'a geri doner.
+    Session cookie varsa TradingView'in quote_token endpointinden
+    WebSocket auth token almaya calisir. Basarisiz olursa mevcut
+    TRADINGVIEW_AUTH_TOKEN secret'ina geri doner.
     """
     sessionid = os.getenv("TV_SESSIONID", "").strip()
     sessionid_sign = os.getenv("TV_SESSIONID_SIGN", "").strip()
+    device_t = os.getenv("TV_DEVICE_T", "").strip()
     fallback = os.getenv("TRADINGVIEW_AUTH_TOKEN", "").strip()
 
     if sessionid:
@@ -293,32 +294,26 @@ def get_tradingview_auth_token():
                     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                     "AppleWebKit/537.36 Chrome/128.0 Safari/537.36"
                 ),
-                "Content-Type": "application/json",
-                "Accept": "application/json",
+                "Accept": "*/*",
             }
             cookies = {"sessionid": sessionid}
             if sessionid_sign:
                 cookies["sessionid_sign"] = sessionid_sign
+            if device_t:
+                cookies["device_t"] = device_t
 
-            # TradingView'in guncel quote_token endpointi GET ile
-            # de sunuluyor. Once GET dene; eski istemciler icin POST fallback.
-            response = requests.get(
-                "https://www.tradingview.com/quote_token",
+            # TradingView quote_token akisinda grabSession form
+            # alani kullanilir. JSON body kullanmiyoruz.
+            response = requests.post(
+                "https://www.tradingview.com/quote_token/",
                 headers=headers,
                 cookies=cookies,
+                data={"grabSession": "true"},
                 timeout=REQUEST_TIMEOUT,
             )
 
-            if not response.ok:
-                response = requests.post(
-                    "https://www.tradingview.com/quote_token/",
-                    headers=headers,
-                    cookies=cookies,
-                    json={"grabSession": True},
-                    timeout=REQUEST_TIMEOUT,
-                )
-
             if response.ok:
+                raw = response.text.strip()
                 token = None
                 try:
                     data = response.json()
@@ -327,22 +322,22 @@ def get_tradingview_auth_token():
                     elif isinstance(data, str):
                         token = data.split(":", 1)[0].strip()
                 except Exception:
-                    raw = response.text.strip()
                     if raw:
                         token = raw.split(":", 1)[0].strip()
 
-                if token:
+                if token and token not in ("null", "None", "undefined"):
                     log("TradingView auth token session cookie'dan yenilendi.")
                     return token
 
             log(
-                "TradingView auth token yenileme basarisiz; "
-                "mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak."
+                "TradingView quote_token basarisiz; "
+                f"HTTP {response.status_code}. "
+                "Mevcut TRADINGVIEW_AUTH_TOKEN kullanilacak."
             )
 
         except Exception as exc:
             log(
-                "TradingView auth token yenileme hatasi; "
+                "TradingView quote_token hatasi; "
                 "mevcut token kullanilacak: "
                 + str(exc)
             )
