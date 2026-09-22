@@ -2,6 +2,8 @@ name: Kunpeng BIST DEVA Diagnostic
 
 on:
   push:
+    paths:
+      - ".github/workflows/kun_deva_test.yml"
 
 permissions:
   contents: write
