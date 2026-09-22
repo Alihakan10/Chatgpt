@@ -663,6 +663,9 @@ def get_bist_symbols():
 
 def get_tv_candles(symbol, candle_mode="native_2h"):
 
+    if candle_mode not in ("native_2h", "native_1h"):
+        raise RuntimeError("Desteklenmeyen TradingView candle modu: " + str(candle_mode))
+
     ws = None
 
     chart_session = random_session("cs")
@@ -671,7 +674,7 @@ def get_tv_candles(symbol, candle_mode="native_2h"):
     try:
 
         log(
-            f"    TradingView native 2H veri: {symbol}"
+            f"    TradingView native veri ({candle_mode}): {symbol}"
         )
 
         # TradingView el sikma korumasi: baglantiyi kontrollu yeniden dene.
@@ -828,7 +831,7 @@ def get_tv_candles(symbol, candle_mode="native_2h"):
                     "sds_1",
                     "s1",
                     "sds_sym_1",
-                    ("120" if candle_mode == "native_2h" else DATA_TIMEFRAME),
+                    ("120" if candle_mode == "native_2h" else "60"),
                     CANDLE_COUNT,
                     ""
                 ]
@@ -1296,10 +1299,8 @@ def get_tv_candles(symbol, candle_mode="native_2h"):
             candles.values(),
             key=lambda x: x["time"]
         )
-        if candle_mode != "native_2h":
-            raise RuntimeError(
-                "Yalnizca TradingView native 2H veri modu destekleniyor."
-            )
+        if candle_mode not in ("native_2h", "native_1h"):
+            raise RuntimeError("Gecersiz TradingView native veri modu: " + str(candle_mode))
 
         if len(result) < 20:
             raise RuntimeError(
