@@ -13,8 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Query TradingView Scanner
-        env:
-          URL: https://scanner.tradingview.com/turkey/scan
         run: |
           python - <<'PY'
           import json, urllib.request
@@ -34,7 +32,6 @@ jobs:
           print(raw)
           open("scanner_deva_result.json","w",encoding="utf-8").write(raw)
           PY
-
       - name: Save result
         run: |
           git config user.name "github-actions[bot]"
