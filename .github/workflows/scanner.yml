@@ -17,9 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # KRITIK: TradingView Study KULLANILMIYOR.
-      # workflow_dispatch dahil tum taramalar scanner.py tarafindan
-      # OHLC verisi + Supertrend hesabiyla yapilir.
       TEST_MODE: "false"
       TEST_SYMBOLS: ""
       MANUAL_TEST_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
@@ -42,14 +39,14 @@ jobs:
       - name: Python paketleri
         run: pip install -r requirements.txt
 
-      - name: BIST Supertrend taramasi
+      - name: BIST Supertrend taramasi + BUY dogrulama
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scanner.py
+        run: python verified_scanner.py
 
       - name: State kaydet
         run: |
