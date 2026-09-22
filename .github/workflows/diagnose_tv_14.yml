@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   check:
@@ -25,4 +25,13 @@ jobs:
           python-version: "3.11"
       - run: pip install -r requirements.txt
       - name: Check 14 stocks
-        run: python diagnose_tv_14.py
+        run: |
+          mkdir -p diagnostics
+          python diagnose_tv_14.py | tee diagnostics/tv_14_session.txt
+      - name: Save 14-stock result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add diagnostics/tv_14_session.txt
+          git commit -m "Save 14-stock session feed result" || true
+          git push || true
