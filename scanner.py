@@ -583,7 +583,7 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
     try:
 
         log(
-            f"    TradingView 1H veri baglantisi + BIST 2H birlestirme: {symbol}"
+            f"    TradingView 1H veri + seans-hizali 2H birlestirme: {symbol}"
         )
 
         # TradingView el sikma korumasi: baglantiyi kontrollu yeniden dene.
@@ -2302,7 +2302,7 @@ DATA_RETRY_COUNT = 3
 DATA_RETRY_DELAYS = (2, 5, 10)
 
 
-def get_tv_candles_with_retry(symbol, candle_mode="native_2h"):
+def get_tv_candles_with_retry(symbol, candle_mode="session_merged"):
     """
     TradingView gecici veri/429 sorunlarinda ayni hissenin verisini
     kontrollu sekilde tekrar ister.
@@ -2409,7 +2409,7 @@ def scan_symbol(
         # de hesapla. Boylece seans birlestirmesi ile native 2H arasindaki
         # BUY farki dogrudan gorulur.
         if TEST_MODE:
-            native_candles = get_tv_candles(symbol, "native_2h")
+            native_candles = get_tv_candles(symbol, "session_merged")
             native_completed_index = get_last_completed_index(native_candles)
             if native_completed_index is not None and native_completed_index >= 1:
                 native_calc = native_candles[:native_completed_index + 1]
