@@ -1,6 +1,6 @@
 import os, json, time
 from tradingviewApiPython import Client
-SYMBOLS=["CLEBI","EMNIS","EUHOL","KENT","KERVN","KLYPV","KRPLS","KSTUR","OYLUM","SODSN","TUCLK","TURSG","ULUFA","USHOL"]
+SYMBOLS=["DEVA","CLEBI","EMNIS","EUHOL","KENT","KERVN","KLYPV","KRPLS","KSTUR","OYLUM","SODSN","TUCLK","TURSG","ULUFA","USHOL"]
 def fetch(client,sym):
     chart=client.Session.Chart()
     try:
