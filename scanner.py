@@ -2196,6 +2196,64 @@ def build_test_message():
 
 
 # ============================================================
+# TRADINGVIEW KONTROLLU VERI RETRY
+# ============================================================
+
+DATA_RETRY_COUNT = 3
+DATA_RETRY_DELAYS = (2, 5, 10)
+
+
+def get_tv_candles_with_retry(symbol, candle_mode="native_2h"):
+    """
+    TradingView gecici veri/429 sorunlarinda ayni hissenin verisini
+    kontrollu sekilde tekrar ister.
+
+    Kalici veri yetersizligini sonsuza kadar denemez:
+      1. deneme -> 2 sn
+      2. deneme -> 5 sn
+      3. deneme -> hata
+    """
+    last_error = None
+
+    for attempt in range(1, DATA_RETRY_COUNT + 1):
+        try:
+            candles = get_tv_candles(symbol, candle_mode)
+
+            if candles:
+                return candles
+
+            last_error = "TradingView mum verisi gondermedi."
+
+        except Exception as exc:
+            last_error = str(exc)
+
+        error_text = str(last_error)
+
+        transient = (
+            "429" in error_text
+            or "Too Many Requests" in error_text
+            or "mum verisi gondermedi" in error_text
+            or "verisi yetersiz" in error_text
+            or "WebSocket" in error_text
+            or "timed out" in error_text
+            or "timeout" in error_text.lower()
+        )
+
+        if not transient or attempt >= DATA_RETRY_COUNT:
+            break
+
+        delay = DATA_RETRY_DELAYS[attempt - 1]
+        log(
+            f"    TradingView gecici veri hatasi: {symbol} | "
+            f"{delay}s sonra tekrar deneme ({attempt}/{DATA_RETRY_COUNT}) | "
+            f"{error_text}"
+        )
+        time.sleep(delay)
+
+    raise RuntimeError(last_error or "TradingView verisi alinamadi.")
+
+
+# ============================================================
 # TEK HISSE TARAMA
 # ============================================================
 
@@ -2210,7 +2268,7 @@ def scan_symbol(
         # 1H mumlari manuel olarak birlestirmiyoruz; boylece TradingView
         # grafigindeki 2H bar sinirlarini bozmayiz.
         candle_mode = "native_2h"
-        candles = get_tv_candles(symbol, candle_mode)
+        candles = get_tv_candles_with_retry(symbol, candle_mode)
 
 
 
@@ -2946,7 +3004,8 @@ def main():
     # TradingView baglantilari paralel calisir. State guncellemesi
     # sonuclar geldikten sonra tek thread'de yapilir.
 
-    scan_workers = 6
+    # TradingView 429 baskisini azaltmak icin kontrollu paralellik.
+    scan_workers = 5
     scan_results = []
 
     scan_started = time.time()
