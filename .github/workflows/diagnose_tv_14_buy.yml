@@ -1,4 +1,4 @@
-name: TradingView 14 Stock BUY Check
+name: TradingView 14 Stock BUY Check - FREE DELAYED ANONYMOUS
 
 on:
   push:
@@ -14,10 +14,6 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    env:
-      TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
-      TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
-      TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
