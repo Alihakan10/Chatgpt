@@ -20,6 +20,8 @@ jobs:
       TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      - name: Install WebSocket client
+        run: pip install websocket-client requests
       - name: Run auth smoke test
         run: python tv_auth_smoke.py
 
