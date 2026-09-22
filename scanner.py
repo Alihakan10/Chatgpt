@@ -1227,10 +1227,16 @@ def get_tv_candles(symbol, candle_mode="session_merged"):
                 continue
             if local_dt.minute != 0:
                 continue
-            if local_dt.hour % 2 == 0:
-                start_hour = local_dt.hour
+            if candle_mode == "session_merged_odd":
+                if local_dt.hour % 2 == 1:
+                    start_hour = local_dt.hour
+                else:
+                    start_hour = local_dt.hour - 1
             else:
-                start_hour = local_dt.hour - 1
+                if local_dt.hour % 2 == 0:
+                    start_hour = local_dt.hour
+                else:
+                    start_hour = local_dt.hour - 1
             key = (local_dt.date(), start_hour)
             grouped.setdefault(key, []).append(bar)
 
