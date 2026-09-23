@@ -24,7 +24,7 @@ jobs:
       SEND_SCAN_REPORT: "true"
       SEND_TEST_TELEGRAM: "false"
       SCAN_LIMIT: "620"
-          BUY_STABILIZATION_SECONDS: "960"
+          BUY_STABILIZATION_SECONDS: "30"
 
     steps:
       - name: Repository checkout
