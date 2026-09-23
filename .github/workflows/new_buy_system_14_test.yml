@@ -27,5 +27,4 @@ jobs:
           TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
           TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
           TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
-        working-directory: new_buy_system
-        run: python test_14.py
+        run: python new_buy_system/test_14.py
