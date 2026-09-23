@@ -1,0 +1,33 @@
+name: New BUY System - Filter Measurement
+
+on:
+  push:
+    paths:
+      - "new_buy_system/filter_measurement.py"
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Measure filters on 10 BUY stocks
+        env:
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+        run: python new_buy_system/filter_measurement.py
+      - name: Save measurement
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add new_buy_system/filter_measurement_result.txt
+          git diff --cached --quiet || git commit -m "Save BUY filter measurement"
+          git push
