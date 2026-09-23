@@ -7,15 +7,10 @@ import math, sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scanner import get_tv_candles
+from scanner import get_tv_candles, get_bist_symbols
 from new_buy_system.buy_engine import Candle, latest_result
 
-SYMBOLS = [
-    "BIST:CLEBI","BIST:EMNIS","BIST:EUHOL","BIST:KENT",
-    "BIST:KERVN","BIST:KLYPV","BIST:KRPLS","BIST:KSTUR",
-    "BIST:OYLUM","BIST:SODSN","BIST:TUCLK","BIST:TURSG",
-    "BIST:ULUFA","BIST:USHOL",
-]
+SYMBOLS = []  # populated from TradingView scanner at runtime
 P=10; M=2.0
 
 def rma(v,p):
@@ -56,11 +51,12 @@ def fmt(ts):
         ZoneInfo("Europe/Istanbul")).strftime("%d.%m.%Y %H:%M")
 
 def main():
-    lines=["=== 14 STOCK INDEPENDENT BUY VERIFICATION ===",
+    symbols = get_bist_symbols()[:620]
+    lines=[f"=== {len(symbols)} STOCK INDEPENDENT BUY VERIFICATION ===",
            "Native 2H | ATR 10 | Multiplier 2.0 | HL2 | Wilder RMA",
            "No Study | production scanner/state/Telegram untouched",""]
     ok=errors=buys=matches=0
-    for s in SYMBOLS:
+    for s in symbols:
         try:
             raw=sorted(get_tv_candles(s,candle_mode="native_2h",candle_session="regular"),
                        key=lambda x:float(x["time"]))
@@ -73,7 +69,7 @@ def main():
             lines.append(f"{s}: ENGINE={e['previous_direction']}->{e['current_direction']} BUY={e['buy']} | REF={rp}->{rc} BUY={rb} | MATCH={same} | CANDLE={fmt(c[-1].timestamp)}")
         except Exception as ex:
             errors+=1; lines.append(f"{s}: ERROR={ex}")
-    lines += ["",f"SUMMARY OK={ok} ERRORS={errors} BUY={buys} MATCH={matches}/{ok}"]
+    lines += ["",f"SUMMARY OK={ok} ERRORS={errors} BUY={buys} MATCH={matches}/{ok} TOTAL={len(symbols)}"]
     Path("new_buy_system/verification_14_result.txt").write_text("\n".join(lines)+"\n",encoding="utf-8")
     print("\n".join(lines))
 
