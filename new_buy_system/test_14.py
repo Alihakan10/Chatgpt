@@ -1,7 +1,12 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
+import sys
+from pathlib import Path
 
-from buy_engine import Candle, latest_result
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from new_buy_system.buy_engine import Candle, latest_result
 from scanner import get_tv_candles
 
 SYMBOLS = [
@@ -22,9 +27,7 @@ def main():
     print("Production scanner/state/Telegram are NOT modified.")
     print()
 
-    ok = 0
-    errors = 0
-    buys = 0
+    ok = errors = buys = 0
 
     for symbol in SYMBOLS:
         try:
@@ -43,14 +46,11 @@ def main():
 
             result = latest_result(candles)
             ok += 1
-            if result["buy"]:
-                buys += 1
+            buys += int(result["buy"])
 
             print(
-                f"{symbol}: "
-                f"PREV={result['previous_direction']} "
-                f"CUR={result['current_direction']} "
-                f"BUY={result['buy']} "
+                f"{symbol}: PREV={result['previous_direction']} "
+                f"CUR={result['current_direction']} BUY={result['buy']} "
                 f"CANDLE={fmt(result['candle_timestamp']) if result['candle_timestamp'] else '-'} "
                 f"CANDLES={len(candles)}"
             )
