@@ -1497,6 +1497,22 @@ def calculate_tradingview_supertrend_directions(
     atr_period=10,
     multiplier=2.0
 ):
+    """
+    TradingView Supertrend ile birebir state mantigi.
+
+    TradingView dokumani:
+      - HL2
+      - ATR = RMA / Wilder
+      - ATR hesaplanana kadar yon = DOWN (+1)
+      - ilk ATR barinda onceki ATR'nin NA olmasi nedeniyle
+        yon yine DOWN (+1)
+      - sonraki barlarda onceki Supertrend'in onceki upper
+        banda esit olup olmadigina gore yon degisir.
+
+    TradingView convention:
+      -1 = UP / AL
+      +1 = DOWN / SAT
+    """
     if len(candles) < (atr_period + 2):
         return None
 
@@ -1505,69 +1521,53 @@ def calculate_tradingview_supertrend_directions(
     upper = [None for _ in candles]
     lower = [None for _ in candles]
     direction = [None for _ in candles]
+    supertrend = [None for _ in candles]
 
     for i in range(len(candles)):
+        # TradingView: ATR hesaplanana kadar DOWN.
         if atr[i] is None:
-            direction[i] = 1  # TradingView: initial/down trend
-            continue
-
-        hl2 = (
-            candles[i]["high"] + candles[i]["low"]
-        ) / 2.0
-
-        basic_upper = hl2 + multiplier * atr[i]
-        basic_lower = hl2 - multiplier * atr[i]
-
-        if i == 0 or upper[i - 1] is None:
-            upper[i] = basic_upper
-        else:
-            prev_upper = upper[i - 1]
-            prev_close = candles[i - 1]["close"]
-            upper[i] = (
-                basic_upper
-                if (
-                    basic_upper < prev_upper
-                    or prev_close > prev_upper
-                )
-                else prev_upper
-            )
-
-        if i == 0 or lower[i - 1] is None:
-            lower[i] = basic_lower
-        else:
-            prev_lower = lower[i - 1]
-            prev_close = candles[i - 1]["close"]
-            lower[i] = (
-                basic_lower
-                if (
-                    basic_lower > prev_lower
-                    or prev_close < prev_lower
-                )
-                else prev_lower
-            )
-
-        if i == 0 or direction[i - 1] is None:
             direction[i] = 1
             continue
 
-        prev_direction = direction[i - 1]
-        prev_supertrend = (
-            upper[i - 1]
-            if prev_direction == 1
-            else lower[i - 1]
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        basic_upper = hl2 + multiplier * atr[i]
+        basic_lower = hl2 - multiplier * atr[i]
+
+        # Pine ta.supertrend() mantiginda [1] degeri NA ise
+        # nz(NA) = 0 kabul edilir.
+        prev_upper = 0.0 if i == 0 or upper[i - 1] is None else upper[i - 1]
+        prev_lower = 0.0 if i == 0 or lower[i - 1] is None else lower[i - 1]
+        prev_close = candles[i - 1]["close"] if i > 0 else None
+
+        upper[i] = (
+            basic_upper
+            if i == 0 or basic_upper < prev_upper or (prev_close is not None and prev_close > prev_upper)
+            else prev_upper
         )
 
-        if prev_supertrend == upper[i - 1]:
-            direction[i] = (
-                -1 if candles[i]["close"] > upper[i] else 1
-            )
+        lower[i] = (
+            basic_lower
+            if i == 0 or basic_lower > prev_lower or (prev_close is not None and prev_close < prev_lower)
+            else prev_lower
+        )
+
+        # ATR'in ilk gecerli oldugu bar: ta.supertrend() DOWN ile baslar.
+        if i == atr_period - 1:
+            direction[i] = 1
         else:
-            direction[i] = (
-                1 if candles[i]["close"] < lower[i] else -1
-            )
+            prev_st = supertrend[i - 1]
+            prev_up = upper[i - 1]
+
+            if prev_st is None:
+                direction[i] = 1
+            elif prev_st == prev_up:
+                direction[i] = -1 if candles[i]["close"] > upper[i] else 1
+            else:
+                direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+
+        supertrend[i] = lower[i] if direction[i] == -1 else upper[i]
 
     return direction
-
 
 # ============================================================
 # TRADINGVIEW TARIHCE BASLANGICI DIAGNOSTIGI
