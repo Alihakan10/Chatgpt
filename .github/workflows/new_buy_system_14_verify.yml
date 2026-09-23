@@ -1,0 +1,35 @@
+name: New BUY System - 14 Independent Verification
+
+on:
+  push:
+    paths:
+      - "new_buy_system/verify_14.py"
+      - ".github/workflows/new_buy_system_14_verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Verify 14 stocks
+        env:
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+        run: python new_buy_system/verify_14.py
+      - name: Save result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add new_buy_system/verification_14_result.txt
+          git diff --cached --quiet || git commit -m "Add 14-stock BUY verification result"
+          git push
