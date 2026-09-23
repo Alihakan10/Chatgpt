@@ -19,8 +19,10 @@ jobs:
         with:
           python-version: "3.11"
       - run: python -m py_compile scanner.py verified_scanner.py
-      - run: python - <<'PY'
+      - name: Import and freeze check
+        run: |
+          python - <<'PY'
           import verified_scanner
           print("BUY_FREEZE_IMPORT_OK")
           print("SNAPSHOT_COUNT=3")
-        PY
+          PY
