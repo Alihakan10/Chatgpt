@@ -818,6 +818,10 @@ def get_tv_candles(symbol, candle_mode="native_2h", candle_session="regular"):
         # CREATE SERIES
         # ----------------------------------------------------
 
+        # TradingView 2H bars are session-anchored. For BIST's 10:00 session
+        # a 2H chart should start at 10:00, not at the UTC/calendar epoch.
+        # The native TradingView series already supplies the exchange-session bars;
+        # do not manually aggregate 1H data.
         ws.send(
             tv_message(
                 "create_series",
