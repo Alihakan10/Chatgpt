@@ -1,6 +1,8 @@
 name: Direct TradingView Study 10 Test
 
 on:
+  schedule:
+    - cron: "*/5 * * * *"
   push:
     paths:
       - "study_direct_10.js"
