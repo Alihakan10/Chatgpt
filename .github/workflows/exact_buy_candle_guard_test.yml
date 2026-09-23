@@ -54,7 +54,11 @@ jobs:
               "latest_buy_time": 12.0,
           }
           scanner.get_tv_candles_with_retry = lambda symbol, mode: list(candles)
-          scanner.get_last_completed_index = lambda cs: 11
+          completed_calls = {"n": 0}
+          def completed_index(cs):
+              completed_calls["n"] += 1
+              return 10 if completed_calls["n"] == 1 else 11
+          scanner.get_last_completed_index = completed_index
           scanner.calculate_supertrend_directions = lambda cs, p, m: (
               [-1] * (len(cs) - 1) + [1]
           )
