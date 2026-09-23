@@ -3,7 +3,7 @@ BIST Supertrend tek tarama + otomatik BUY dogrulama.
 
 scanner.py normal BIST taramasini yapar. Her BUY adayi icin
 ayni TradingView native 2H serisi tekrar alinip bagimsiz
-Wilder/RMA + HL2 Supertrend hesabi ile kontrol edilir.
+TradingView public Supertrend (Kivanc) mantigi ile kontrol edilir.
 Uyusmayan BUY Telegram'a gonderilmez.
 
 Study YOK.
@@ -22,8 +22,20 @@ def label(d):
 
 def independent_directions(candles, period=10, multiplier=2.0):
     """
-    Bagimsiz kopya: TradingView Supertrend'in documented state
-    mantigini uygular. +1=AL / -1=SAT.
+    Bagimsiz kopya: TradingView public Supertrend
+    (PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45) BUY mantigi.
+
+    Indicator metadata:
+      ATR Period=10, Source=HL2, ATR Multiplier=2,
+      Change ATR Calculation Method=true.
+
+    KivancOzbilgic state mantigi:
+      atr=RMA/Wilder
+      up=HL2-mult*ATR; up := close[1] > up1 ? max(up,up1) : up
+      dn=HL2+mult*ATR; dn := close[1] < dn1 ? min(dn,dn1) : dn
+      trend flipleri kapanisa gore.
+
+    +1=AL, -1=SAT.
     """
     n = len(candles)
     if n < period + 2:
@@ -35,46 +47,45 @@ def independent_directions(candles, period=10, multiplier=2.0):
             tr[i] = c["high"] - c["low"]
         else:
             pc = candles[i - 1]["close"]
-            tr[i] = max(c["high"] - c["low"], abs(c["high"] - pc), abs(c["low"] - pc))
+            tr[i] = max(
+                c["high"] - c["low"],
+                abs(c["high"] - pc),
+                abs(c["low"] - pc),
+            )
 
     atr = [None] * n
     atr[period - 1] = sum(tr[:period]) / period
     for i in range(period, n):
         atr[i] = (atr[i - 1] * (period - 1) + tr[i]) / period
 
-    upper = [None] * n
-    lower = [None] * n
-    direction = [None] * n
-    st = [None] * n
+    up = [None] * n
+    dn = [None] * n
+    trend = [1] * n
 
-    for i in range(n):
+    for i, c in enumerate(candles):
         if atr[i] is None:
-            direction[i] = 1
+            trend[i] = 1
             continue
 
-        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
-        bu = hl2 + multiplier * atr[i]
-        bl = hl2 - multiplier * atr[i]
+        src = (c["high"] + c["low"]) / 2.0
 
-        pu = 0.0 if i == 0 or upper[i - 1] is None else upper[i - 1]
-        pl = 0.0 if i == 0 or lower[i - 1] is None else lower[i - 1]
-        pc = candles[i - 1]["close"] if i > 0 else None
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
 
-        upper[i] = bu if i == 0 or bu < pu or (pc is not None and pc > pu) else pu
-        lower[i] = bl if i == 0 or bl > pl or (pc is not None and pc < pl) else pl
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
 
-        if i == period - 1:
-            direction[i] = 1
-        elif st[i - 1] is None:
-            direction[i] = 1
-        elif st[i - 1] == upper[i - 1]:
-            direction[i] = -1 if candles[i]["close"] > upper[i] else 1
-        else:
-            direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+        prev = trend[i - 1] if i > 0 else 1
+        trend[i] = (
+            1 if prev == -1 and c["close"] > dn1
+            else -1 if prev == 1 and c["close"] < up1
+            else prev
+        )
 
-        st[i] = lower[i] if direction[i] == -1 else upper[i]
+    return trend
 
-    return [None if d is None else -d for d in direction]
 
 _original_scan_symbol = scanner.scan_symbol
 
