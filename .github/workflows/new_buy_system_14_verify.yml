@@ -1,35 +1,38 @@
-name: New BUY System - 14 Independent Verification
+name: New BUY System - Manual Telegram Scan
 
 on:
-  push:
-    paths:
-      - "new_buy_system/verify_14.py"
-      - ".github/workflows/new_buy_system_14_verify.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  verify:
+  scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -r requirements.txt
-      - name: Verify 14 stocks
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Manual 620-stock BUY scan
         env:
           TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
           TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
           TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
           TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python new_buy_system/verify_14.py
-      - name: Save result
+
+      - name: Save scan result
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add new_buy_system/verification_14_result.txt
-          git diff --cached --quiet || git commit -m "Add 14-stock BUY verification result"
+          git diff --cached --quiet || git commit -m "Save manual BUY scan result"
           git push
