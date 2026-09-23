@@ -46,3 +46,4 @@ for s in SYMBOLS:
         print(f"{s} | TARGET=23.09.2026 17:00 | OHLC={cs[idx]['open']},{cs[idx]['high']},{cs[idx]['low']},{cs[idx]['close']} | KIVANC={k[idx-1]}->{k[idx]} BUY={k[idx-1]==-1 and k[idx]==1} | OFFICIAL_TV={tv[idx-1]}->{tv[idx]} | APP={app[idx-1]}->{app[idx]} BUY={app[idx-1]==-1 and app[idx]==1}")
     except Exception as e:
         print(f"{s} | ERROR={e}")
+
