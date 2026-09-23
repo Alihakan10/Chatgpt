@@ -87,8 +87,9 @@ def verified_scan_symbol(symbol, state):
     # oldugu yeniden kontrol edilmis olur.
     buy_results = result.get("buy_results", [])
     all_buy_results = result.get("all_buy_results", [])
-    buy_candidates = buy_results or all_buy_results
-    if not buy_candidates:
+    # Sadece YENI BUY adaylari stabilizasyon kontrolune girer.
+    # Daha once Telegram'a gonderilmis BUY'lar yeniden bekletilmez.
+    if not buy_results:
         return result
 
     try:
@@ -99,6 +100,95 @@ def verified_scan_symbol(symbol, state):
 
         if len(candles) < scanner.ATR_PERIOD + 2:
             raise RuntimeError("dogrulama icin TradingView native 2H veri yetersiz")
+
+        # ------------------------------------------------------------
+        # 16 DAKIKA VERI STABILIZASYONU
+        # ------------------------------------------------------------
+        # TradingView ayni tamamlanmis 2H mumun OHLC degerlerini
+        # gecikmeli veri nedeniyle sonradan duzeltebiliyor. Ilk BUY
+        # goruldugu anda Telegram'a gondermek yerine ayni mum 16 dk
+        # sonra tekrar okunur. OHLC degismisse BUY iptal edilir.
+        stabilization_seconds = int(
+            os.getenv("BUY_STABILIZATION_SECONDS", "960")
+        )
+
+        first_completed_index = scanner.get_last_completed_index(candles)
+        if first_completed_index is None or first_completed_index < 1:
+            raise RuntimeError("stabilizasyon icin tamamlanmis 2H mum yok")
+
+        first_bar = candles[first_completed_index]
+        first_bar_time = first_bar["time"]
+        first_ohlc = (
+            first_bar["open"],
+            first_bar["high"],
+            first_bar["low"],
+            first_bar["close"],
+        )
+
+        scanner.log(
+            "    BUY STABILIZASYON BASLADI | "
+            + symbol
+            + " | "
+            + datetime.fromtimestamp(
+                first_bar_time,
+                tz=ZoneInfo("UTC"),
+            ).astimezone(ZoneInfo(scanner.TIMEZONE)).strftime("%d.%m.%Y %H:%M")
+            + " | "
+            + str(stabilization_seconds)
+            + " saniye bekleniyor"
+        )
+
+        time.sleep(stabilization_seconds)
+
+        candles2 = sorted(
+            scanner.get_tv_candles_with_retry(symbol, "native_2h"),
+            key=lambda x: x["time"],
+        )
+        second_completed_index = scanner.get_last_completed_index(candles2)
+        if second_completed_index is None or second_completed_index < 1:
+            raise RuntimeError("ikinci okumada tamamlanmis 2H mum yok")
+
+        second_bar = candles2[second_completed_index]
+        if second_bar["time"] != first_bar_time:
+            raise RuntimeError(
+                "stabilizasyon hedef mumu degisti: ilk="
+                + str(first_bar_time)
+                + " ikinci="
+                + str(second_bar["time"])
+            )
+
+        second_ohlc = (
+            second_bar["open"],
+            second_bar["high"],
+            second_bar["low"],
+            second_bar["close"],
+        )
+
+        if first_ohlc != second_ohlc:
+            scanner.log(
+                "    !!! BUY STABILIZASYON BASARISIZ | "
+                + symbol
+                + " | OHLC DEGISTI | "
+                + str(first_ohlc)
+                + " -> "
+                + str(second_ohlc)
+                + " | TELEGRAM'A GONDERILMEYECEK"
+            )
+            result["status"] = "ok"
+            result["buy_results"] = []
+            result["all_buy_results"] = []
+            result["latest_buy_time"] = None
+            result["buy_signal"] = False
+            return result
+
+        # Stabil kalan ayni mumun BUY durumunu yeniden hesapla.
+        candles = candles2
+        completed_index = second_completed_index
+        scanner.log(
+            "    BUY STABILIZASYON BASARILI | "
+            + symbol
+            + " | OHLC DEGİSMEDI"
+        )
 
         completed_index = scanner.get_last_completed_index(candles)
         if completed_index is None or completed_index < 1:
