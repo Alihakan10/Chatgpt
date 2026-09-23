@@ -29,6 +29,31 @@ def buy_times(candles, directions):
             out.append(candles[i]["time"])
     return out
 
+print("\n" + "=" * 90)
+print("NEW TEST: NATIVE 2H SESSION MODE COMPARISON")
+print("This is a data-alignment test only; no Study, no broker, no 1H->2H merge.")
+for symbol in SYMBOLS:
+    print("\nSESSION CHECK", symbol)
+    for sess in ("regular", "extended"):
+        try:
+            bars = sorted(
+                scanner.get_tv_candles_with_retry(symbol, "native_2h", sess),
+                key=lambda x: x["time"]
+            )
+            if not bars:
+                print(f"  {sess}: NO DATA")
+                continue
+            tail = bars[-5:]
+            print(
+                f"  {sess}: " +
+                " | ".join(
+                    f"{dt(b['time'])} O={b['open']:.2f} H={b['high']:.2f} L={b['low']:.2f} C={b['close']:.2f}"
+                    for b in tail
+                )
+            )
+        except Exception as e:
+            print(f"  {sess}: ERROR {e}")
+
 for symbol in SYMBOLS:
     print("\n" + "=" * 90)
     print(symbol)
