@@ -3,11 +3,12 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import math, sys
+from html import escape
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scanner import get_tv_candles, get_bist_symbols
+from scanner import get_tv_candles, get_bist_symbols, send_telegram
 from new_buy_system.buy_engine import Candle, latest_result
 
 SYMBOLS = []  # populated from TradingView scanner at runtime
@@ -56,6 +57,7 @@ def main():
            "Native 2H | ATR 10 | Multiplier 2.0 | HL2 | Wilder RMA",
            "No Study | production scanner/state/Telegram untouched",""]
     ok=errors=buys=matches=0
+    buy_rows=[]
     for s in symbols:
         try:
             raw=sorted(get_tv_candles(s,candle_mode="native_2h",candle_session="regular"),
@@ -66,11 +68,51 @@ def main():
             rp,rc=d[-2],d[-1]; rb=(rp==-1 and rc==1)
             same=(e["previous_direction"]==rp and e["current_direction"]==rc and e["buy"]==rb)
             ok+=1; buys+=int(e["buy"]); matches+=int(same)
+            if e["buy"]:
+                buy_rows.append((s, c[-1].close, fmt(c[-1].timestamp)))
             lines.append(f"{s}: ENGINE={e['previous_direction']}->{e['current_direction']} BUY={e['buy']} | REF={rp}->{rc} BUY={rb} | MATCH={same} | CANDLE={fmt(c[-1].timestamp)}")
         except Exception as ex:
             errors+=1; lines.append(f"{s}: ERROR={ex}")
-    lines += ["",f"SUMMARY OK={ok} ERRORS={errors} BUY={buys} MATCH={matches}/{ok} TOTAL={len(symbols)}"]
+    summary = f"SUMMARY OK={ok} ERRORS={errors} BUY={buys} MATCH={matches}/{ok} TOTAL={len(symbols)}"
+    lines += ["", summary]
     Path("new_buy_system/verification_14_result.txt").write_text("\n".join(lines)+"\n",encoding="utf-8")
     print("\n".join(lines))
+
+    telegram_lines = [
+        "🔔 <b>BIST YENİ BUY TARAMASI</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "⏱ <b>2H</b> | ATR 10 | Çarpan 2.0 | HL2",
+        f"📊 Tarama: <b>{ok}/{len(symbols)}</b> hisse",
+        f"✅ BUY: <b>{buys}</b>",
+        ""
+    ]
+
+    if buy_rows:
+        for idx, (symbol, close, candle_time) in enumerate(buy_rows, 1):
+            ticker = symbol.split(":", 1)[-1]
+            tv_url = f"https://www.tradingview.com/symbols/BIST-{ticker}/"
+            telegram_lines.append(
+                f'{idx}. <a href="{tv_url}"><b>{escape(ticker)}</b></a> — {close:.2f} TL'
+            )
+        telegram_lines += [
+            "",
+            "📌 Sinyal: <b>SAT → AL</b>",
+            f"🕯 Son tamamlanan 2H mum: <b>{escape(buy_rows[0][2])}</b>"
+        ]
+    else:
+        telegram_lines.append("🟢 Son tamamlanan 2H mumda yeni BUY yok.")
+
+    telegram_lines += [
+        "",
+        f"🔍 Doğrulama: <b>{matches}/{ok}</b> birebir eşleşme",
+        "⚙️ Study kullanılmadı."
+    ]
+
+    try:
+        send_telegram("\n".join(telegram_lines))
+        print("TELEGRAM: BUY tarama sonucu gönderildi.")
+    except Exception as exc:
+        print("TELEGRAM ERROR:", exc)
+        raise
 
 if __name__=="__main__": main()
