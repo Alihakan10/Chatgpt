@@ -10,3 +10,4 @@ for s in SYMBOLS:
     i=next(i for i,c in enumerate(cs) if float(c["time"])==TARGET)
     d=scanner.calculate_supertrend_directions(cs,10,2.0)
     print(f"{s} | PROD={d[i-1]}->{d[i]} BUY={d[i-1]==-1 and d[i]==1}")
+
