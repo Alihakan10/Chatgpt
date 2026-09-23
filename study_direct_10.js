@@ -83,3 +83,5 @@ async function one(symbol) {
   console.log("SUMMARY | OK="+ok+" | ERRORS="+errors+" | REAL_STUDY_BUY="+buys);
   if(errors) process.exit(2);
 })().catch(e=>{console.error(e);process.exit(1);});
+
+// trigger study test
