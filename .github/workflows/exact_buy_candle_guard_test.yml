@@ -1,0 +1,87 @@
+name: Exact BUY Candle Guard Test
+
+on:
+  push:
+    paths:
+      - "verified_scanner.py"
+      - ".github/workflows/exact_buy_candle_guard_test.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Guard unit test
+        run: |
+          python - <<'PY'
+          import os
+          import scanner
+          import verified_scanner
+
+          os.environ["BUY_STABILIZATION_SECONDS"] = "0"
+
+          candles = [
+              {"time": 1.0, "open": 10.0, "high": 11.0, "low": 9.0, "close": 10.0},
+              {"time": 2.0, "open": 10.0, "high": 12.0, "low": 9.5, "close": 11.0},
+              {"time": 3.0, "open": 11.0, "high": 13.0, "low": 10.5, "close": 12.0},
+          ]
+
+          state = {}
+          verified_scanner._original_scan_symbol = lambda symbol, state: {
+              "status": "new_buy",
+              "symbol": symbol,
+              "price": 11.0,
+              "candle_time": 3.0,
+              "buy_signal": True,
+              "buy_results": [{
+                  "status": "new_buy",
+                  "symbol": symbol,
+                  "price": 11.0,
+                  "candle_time": 3.0,
+                  "direction": 1,
+                  "previous_direction": -1,
+                  "buy_signal": True,
+              }],
+              "all_buy_results": [],
+              "latest_buy_time": 3.0,
+          }
+          scanner.get_tv_candles_with_retry = lambda symbol, mode: list(candles)
+          scanner.get_last_completed_index = lambda cs: 1
+          scanner.calculate_supertrend_directions = lambda cs, p, m: [-1, 1, 1]
+          verified_scanner.independent_directions = lambda cs, p, m: [-1, 1, 1]
+
+          blocked = verified_scanner.verified_scan_symbol("BIST:TEST", state)
+          assert blocked["buy_results"] == [], "INCOMPLETE TARGET WAS NOT BLOCKED"
+          print("INCOMPLETE_TARGET_BLOCK_OK")
+
+          verified_scanner._original_scan_symbol = lambda symbol, state: {
+              "status": "new_buy",
+              "symbol": symbol,
+              "price": 11.0,
+              "candle_time": 2.0,
+              "buy_signal": True,
+              "buy_results": [{
+                  "status": "new_buy",
+                  "symbol": symbol,
+                  "price": 11.0,
+                  "candle_time": 2.0,
+                  "direction": 1,
+                  "previous_direction": -1,
+                  "buy_signal": True,
+              }],
+              "all_buy_results": [],
+              "latest_buy_time": 2.0,
+          }
+          allowed = verified_scanner.verified_scan_symbol("BIST:TEST", state)
+          assert allowed.get("verification", {}).get("candle_time") == 2.0, "COMPLETED TARGET WAS NOT VERIFIED"
+          print("COMPLETED_TARGET_VERIFY_OK")
+          PY
