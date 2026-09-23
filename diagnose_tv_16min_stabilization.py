@@ -102,7 +102,8 @@ def snapshot(symbols):
         # At test time, identify the latest bar that is already closed.
         now=datetime.now(TZ)
         idx=None
-        for i,(ts,o,h,l,c) in enumerate(bars):
+        for i,(ts,vals) in enumerate(bars):
+            o,h,l,c=vals
             t=dt(ts)
             end=t.replace(hour=18,minute=0,second=0,microsecond=0) if (t.hour==17 and t.minute==0) else t+timedelta(hours=2)
             if end<=now: idx=i
