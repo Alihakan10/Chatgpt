@@ -118,9 +118,9 @@ print("SNAPSHOT_1_START",datetime.now(TZ).isoformat())
 first=snapshot(SYMBOLS)
 target={s:v["ts"] for s,v in first.items() if v}
 print("TARGET_BARS",json.dumps({s:dt(ts).strftime("%Y-%m-%d %H:%M") for s,ts in target.items()},ensure_ascii=False))
-print("WAITING_16_MINUTES_FOR_DATA_STABILIZATION")
-time.sleep(960)
-print("SNAPSHOT_2_START",datetime.now(TZ).isoformat())
+print("WAITING_30_SECONDS")
+time.sleep(30)
+print("SNAPSHOT_30S_START",datetime.now(TZ).isoformat())
 second=snapshot(SYMBOLS)
 stable=0;changed=0
 for s in SYMBOLS:
@@ -131,4 +131,13 @@ for s in SYMBOLS:
     print("RESULT",s,"STABLE" if same else "CHANGED","OHLC1",a["ohlc"],"OHLC2",b["ohlc"],"DIR1",a["prev"],a["cur"],"DIR2",b["prev"],b["cur"],"BUY1",a["buy"],"BUY2",b["buy"])
     if same:stable+=1
     else:changed+=1
-print("SUMMARY STABLE=",stable,"CHANGED=",changed)
+print("SUMMARY_30S STABLE=",stable,"CHANGED=",changed)
+print("WAITING_30_MORE_SECONDS")
+time.sleep(30)
+print("SNAPSHOT_60S_START",datetime.now(TZ).isoformat())
+third=snapshot(SYMBOLS)
+for s in SYMBOLS:
+    a=first.get(s);b=third.get(s)
+    if a and b and a["ts"]==b["ts"]:
+        print("RESULT_60S",s,"STABLE" if a["ohlc"]==b["ohlc"] else "CHANGED","OHLC1",a["ohlc"],"OHLC3",b["ohlc"],"BUY1",a["buy"],"BUY3",b["buy"])
+print("SUMMARY_60S_DONE")
