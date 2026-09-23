@@ -30,9 +30,8 @@ jobs:
           os.environ["BUY_STABILIZATION_SECONDS"] = "0"
 
           candles = [
-              {"time": 1.0, "open": 10.0, "high": 11.0, "low": 9.0, "close": 10.0},
-              {"time": 2.0, "open": 10.0, "high": 12.0, "low": 9.5, "close": 11.0},
-              {"time": 3.0, "open": 11.0, "high": 13.0, "low": 10.5, "close": 12.0},
+              {"time": float(i), "open": 10.0, "high": 11.0, "low": 9.0, "close": 10.0}
+              for i in range(1, 13)
           ]
 
           state = {}
@@ -40,7 +39,7 @@ jobs:
               "status": "new_buy",
               "symbol": symbol,
               "price": 11.0,
-              "candle_time": 3.0,
+              "candle_time": 12.0,
               "buy_signal": True,
               "buy_results": [{
                   "status": "new_buy",
@@ -55,9 +54,13 @@ jobs:
               "latest_buy_time": 3.0,
           }
           scanner.get_tv_candles_with_retry = lambda symbol, mode: list(candles)
-          scanner.get_last_completed_index = lambda cs: 1
-          scanner.calculate_supertrend_directions = lambda cs, p, m: [-1, 1, 1]
-          verified_scanner.independent_directions = lambda cs, p, m: [-1, 1, 1]
+          scanner.get_last_completed_index = lambda cs: 11
+          scanner.calculate_supertrend_directions = lambda cs, p, m: (
+              [-1] * (len(cs) - 1) + [1]
+          )
+          verified_scanner.independent_directions = lambda cs, p, m: (
+              [-1] * (len(cs) - 1) + [1]
+          )
 
           blocked = verified_scanner.verified_scan_symbol("BIST:TEST", state)
           assert blocked["buy_results"] == [], "INCOMPLETE TARGET WAS NOT BLOCKED"
@@ -67,7 +70,7 @@ jobs:
               "status": "new_buy",
               "symbol": symbol,
               "price": 11.0,
-              "candle_time": 2.0,
+              "candle_time": 11.0,
               "buy_signal": True,
               "buy_results": [{
                   "status": "new_buy",
@@ -82,6 +85,6 @@ jobs:
               "latest_buy_time": 2.0,
           }
           allowed = verified_scanner.verified_scan_symbol("BIST:TEST", state)
-          assert allowed.get("verification", {}).get("candle_time") == 2.0, "COMPLETED TARGET WAS NOT VERIFIED"
+          assert allowed.get("verification", {}).get("candle_time") == 11.0, "COMPLETED TARGET WAS NOT VERIFIED"
           print("COMPLETED_TARGET_VERIFY_OK")
           PY
