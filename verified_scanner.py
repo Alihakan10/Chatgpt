@@ -10,6 +10,8 @@ Study YOK.
 """
 
 import scanner
+import os
+import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
@@ -102,7 +104,7 @@ def verified_scan_symbol(symbol, state):
             raise RuntimeError("dogrulama icin TradingView native 2H veri yetersiz")
 
         # ------------------------------------------------------------
-        # 16 DAKIKA VERI STABILIZASYONU
+        # 30 SANIYE VERI STABILIZASYONU
         # ------------------------------------------------------------
         # TradingView ayni tamamlanmis 2H mumun OHLC degerlerini
         # gecikmeli veri nedeniyle sonradan duzeltebiliyor. Ilk BUY
