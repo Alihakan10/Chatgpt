@@ -6,7 +6,7 @@ exec(open("diagnose_tv_supertrend_formula_14.py").read().replace(
  now=datetime.now(TZ)
  ci=None
  for ii,x in enumerate(c):
-  d=dt(x["time"])
+  d=datetime.fromtimestamp(x["time"],ZoneInfo("UTC")).astimezone(TZ)
   end=d.replace(hour=18,minute=0,second=0,microsecond=0) if d.hour==17 and d.minute==0 else d+__import__("datetime").timedelta(hours=2)
   if end<=now: ci=ii
  if ci is not None:
