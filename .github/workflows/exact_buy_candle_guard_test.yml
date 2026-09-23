@@ -45,13 +45,13 @@ jobs:
                   "status": "new_buy",
                   "symbol": symbol,
                   "price": 11.0,
-                  "candle_time": 3.0,
+                  "candle_time": 12.0,
                   "direction": 1,
                   "previous_direction": -1,
                   "buy_signal": True,
               }],
               "all_buy_results": [],
-              "latest_buy_time": 3.0,
+              "latest_buy_time": 12.0,
           }
           scanner.get_tv_candles_with_retry = lambda symbol, mode: list(candles)
           scanner.get_last_completed_index = lambda cs: 11
@@ -76,13 +76,13 @@ jobs:
                   "status": "new_buy",
                   "symbol": symbol,
                   "price": 11.0,
-                  "candle_time": 2.0,
+                  "candle_time": 11.0,
                   "direction": 1,
                   "previous_direction": -1,
                   "buy_signal": True,
               }],
               "all_buy_results": [],
-              "latest_buy_time": 2.0,
+              "latest_buy_time": 11.0,
           }
           allowed = verified_scanner.verified_scan_symbol("BIST:TEST", state)
           assert allowed.get("verification", {}).get("candle_time") == 11.0, "COMPLETED TARGET WAS NOT VERIFIED"
