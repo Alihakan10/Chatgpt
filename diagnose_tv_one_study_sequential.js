@@ -22,8 +22,8 @@ function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
     console.log("ONE CHART / ONE STUDY / SEQUENTIAL setMarket TEST");
     console.log("ATR=10 | MULTIPLIER=2 | HL2 | NATIVE 2H | REGULAR | SPLITS");
 
-    const study = new chart.Study(indicator);
-    study.onError((...e)=>console.log("STUDY ERROR", JSON.stringify(e)));
+    let study = null;
+    let first = true;
 
     for (const symbol of SYMBOLS) {
       console.log("\nSET MARKET:", symbol);
@@ -33,6 +33,12 @@ function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
         session: "regular",
         adjustment: "splits"
       });
+
+      if (first) {
+        first = false;
+        study = new chart.Study(indicator);
+        study.onError((...e)=>console.log("STUDY ERROR", JSON.stringify(e)));
+      }
 
       const result = await new Promise((resolve,reject)=>{
         let timer=setTimeout(()=>reject(new Error("timeout")),20000);
