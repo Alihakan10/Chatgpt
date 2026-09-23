@@ -109,7 +109,7 @@ def verified_scan_symbol(symbol, state):
         # goruldugu anda Telegram'a gondermek yerine ayni mum 16 dk
         # sonra tekrar okunur. OHLC degismisse BUY iptal edilir.
         stabilization_seconds = int(
-            os.getenv("BUY_STABILIZATION_SECONDS", "960")
+            os.getenv("BUY_STABILIZATION_SECONDS", "30")
         )
 
         first_completed_index = scanner.get_last_completed_index(candles)
