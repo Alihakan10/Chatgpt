@@ -20,109 +20,59 @@ def label(d):
 
 def independent_directions(candles, period=10, multiplier=2.0):
     """
-    Production hesabından tamamen ayrı bir TradingView Supertrend
-    uygulaması.
-
-    TradingView resmi tanımı:
-      hl2 = (high + low) / 2
-      upper/lower trailing bands
-      trend, önceki Supertrend bandına göre belirlenir.
-
-    Bu fonksiyon bağımsız doğrulama için +1=AL / -1=SAT
-    iç standardına çevrilmiş sonucu döndürür.
+    Bagimsiz kopya: TradingView Supertrend'in documented state
+    mantigini uygular. +1=AL / -1=SAT.
     """
-
     n = len(candles)
     if n < period + 2:
         return None
 
     tr = [0.0] * n
-    atr = [None] * n
-
     for i, c in enumerate(candles):
         if i == 0:
             tr[i] = c["high"] - c["low"]
         else:
             pc = candles[i - 1]["close"]
-            tr[i] = max(
-                c["high"] - c["low"],
-                abs(c["high"] - pc),
-                abs(c["low"] - pc),
-            )
+            tr[i] = max(c["high"] - c["low"], abs(c["high"] - pc), abs(c["low"] - pc))
 
+    atr = [None] * n
     atr[period - 1] = sum(tr[:period]) / period
     for i in range(period, n):
-        atr[i] = (
-            atr[i - 1] * (period - 1) + tr[i]
-        ) / period
+        atr[i] = (atr[i - 1] * (period - 1) + tr[i]) / period
 
     upper = [None] * n
     lower = [None] * n
-    tv_direction = [None] * n
+    direction = [None] * n
+    st = [None] * n
 
     for i in range(n):
         if atr[i] is None:
-            tv_direction[i] = 1  # TradingView: DOWN/SAT
+            direction[i] = 1
             continue
 
-        hl2 = (
-            candles[i]["high"] + candles[i]["low"]
-        ) / 2.0
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        bu = hl2 + multiplier * atr[i]
+        bl = hl2 - multiplier * atr[i]
 
-        basic_upper = hl2 + multiplier * atr[i]
-        basic_lower = hl2 - multiplier * atr[i]
+        pu = 0.0 if i == 0 or upper[i - 1] is None else upper[i - 1]
+        pl = 0.0 if i == 0 or lower[i - 1] is None else lower[i - 1]
+        pc = candles[i - 1]["close"] if i > 0 else None
 
-        if i == 0 or upper[i - 1] is None:
-            upper[i] = basic_upper
+        upper[i] = bu if i == 0 or bu < pu or (pc is not None and pc > pu) else pu
+        lower[i] = bl if i == 0 or bl > pl or (pc is not None and pc < pl) else pl
+
+        if i == period - 1:
+            direction[i] = 1
+        elif st[i - 1] is None:
+            direction[i] = 1
+        elif st[i - 1] == upper[i - 1]:
+            direction[i] = -1 if candles[i]["close"] > upper[i] else 1
         else:
-            prev_upper = upper[i - 1]
-            prev_close = candles[i - 1]["close"]
-            upper[i] = (
-                basic_upper
-                if basic_upper < prev_upper or prev_close > prev_upper
-                else prev_upper
-            )
+            direction[i] = 1 if candles[i]["close"] < lower[i] else -1
 
-        if i == 0 or lower[i - 1] is None:
-            lower[i] = basic_lower
-        else:
-            prev_lower = lower[i - 1]
-            prev_close = candles[i - 1]["close"]
-            lower[i] = (
-                basic_lower
-                if basic_lower > prev_lower or prev_close < prev_lower
-                else prev_lower
-            )
+        st[i] = lower[i] if direction[i] == -1 else upper[i]
 
-        if i == 0 or tv_direction[i - 1] is None:
-            tv_direction[i] = 1
-            continue
-
-        prev_direction = tv_direction[i - 1]
-        prev_supertrend = (
-            upper[i - 1]
-            if prev_direction == 1
-            else lower[i - 1]
-        )
-
-        if prev_supertrend == upper[i - 1]:
-            tv_direction[i] = (
-                -1 if candles[i]["close"] > upper[i]
-                else 1
-            )
-        else:
-            tv_direction[i] = (
-                1 if candles[i]["close"] < lower[i]
-                else -1
-            )
-
-    # TradingView: -1=UP/AL, +1=DOWN/SAT.
-    # Our scanner: +1=AL, -1=SAT.
-    return [
-        None if value is None else -value
-        for value in tv_direction
-    ]
-
+    return [None if d is None else -d for d in direction]
 
 _original_scan_symbol = scanner.scan_symbol
 
