@@ -1443,57 +1443,110 @@ def calculate_atr_sma(candles, period=10):
 # -1  = SAT
 # ============================================================
 
+def calculate_kivanc_supertrend_directions(
+    candles,
+    atr_period=10,
+    multiplier=2.0
+):
+    """
+    URETIMDE KULLANILAN TradingView PUBLIC "Supertrend" GOSTERGESI.
+
+    TradingView public indicator:
+      PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45
+
+    Indicator metadata ile dogrulanan ayarlar:
+      - ATR Period = 10
+      - Source = HL2
+      - ATR Multiplier = 2.0
+      - Change ATR Calculation Method = true
+      - Buy = trend == 1 and trend[1] == -1
+
+    Bu, TradingView'deki KivancOzbilgic SuperTrend kodunun state
+    mantigidir:
+      atr = RMA/Wilder ATR (changeATR=true)
+      up = HL2 - multiplier * ATR
+      up1 = nz(up[1], up)
+      up := close[1] > up1 ? max(up, up1) : up
+      dn = HL2 + multiplier * ATR
+      dn1 = nz(dn[1], dn)
+      dn := close[1] < dn1 ? min(dn, dn1) : dn
+      trend = trend[1] ile korunur ve kapanisa gore flip eder.
+
+    Sonuc convention:
+      +1 = AL / bullish
+      -1 = SAT / bearish
+
+    Bu fonksiyon Study calistirmaz; TradingView native 2H OHLC
+    verisini kullanarak ayni public indikator mantigini uygular.
+    """
+    if len(candles) < (atr_period + 2):
+        return None
+
+    atr = calculate_atr(candles, atr_period)
+
+    up = [None for _ in candles]
+    dn = [None for _ in candles]
+    trend = [1 for _ in candles]
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            trend[i] = 1
+            continue
+
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = (
+            max(up0, up1)
+            if i > 0 and candles[i - 1]["close"] > up1
+            else up0
+        )
+
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = (
+            min(dn0, dn1)
+            if i > 0 and candles[i - 1]["close"] < dn1
+            else dn0
+        )
+
+        previous_trend = trend[i - 1] if i > 0 else 1
+
+        if previous_trend == -1 and candles[i]["close"] > dn1:
+            trend[i] = 1
+        elif previous_trend == 1 and candles[i]["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = previous_trend
+
+    return trend
+
+
 def calculate_supertrend_directions(
     candles,
     atr_period=10,
     multiplier=2.0
 ):
     """
-    URETIM Supertrend hesabı.
+    URETIM Supertrend.
 
-    TradingView'in resmi Supertrend tanımını kullanır:
-      - Source = HL2
-      - ATR = RMA / Wilder
-      - upper/lower trailing bands
-      - yön değişimi önceki Supertrend bandına göre
-
-    TradingView yön kodu:
-      -1 = UP / AL
-      +1 = DOWN / SAT
-
-    Uygulamanın mevcut iç standardı:
-      +1 = AL
-      -1 = SAT
-
-    Bu nedenle resmi yön değeri ters çevrilir.
-
-    Study / Pine Study / broker entegrasyonu kullanılmaz.
-    Yalnızca TradingView native 2H OHLC verisi kullanılır.
+    TradingView public Supertrend (KivancOzbilgic) ile ayni
+    hesaplama mantigi kullanilir. +1=AL, -1=SAT.
     """
-
-    tv_direction = calculate_tradingview_supertrend_directions(
+    return calculate_kivanc_supertrend_directions(
         candles,
         atr_period,
         multiplier
     )
 
-    if tv_direction is None:
-        return None
-
-    return [
-        None if value is None else -value
-        for value in tv_direction
-    ]
-
 
 # ============================================================
-# TRADINGVIEW RESMI SUPERTREND YONU
+# ESKI TRADINGVIEW ta.supertrend() FORMULU - DIAGNOSTIK
 #
-# TradingView ta.supertrend() convention:
-#   -1 = UP / AL
-#   +1 = DOWN / SAT
-#
-# Formula follows TradingView's documented Supertrend logic.
+# URETIMDE KULLANILMAZ.
+# Daha once resmi ta.supertrend() dokumaniyla karsilastirma
+# amaciyla korunmustur.
 # ============================================================
 
 def calculate_tradingview_supertrend_directions(
@@ -1502,20 +1555,12 @@ def calculate_tradingview_supertrend_directions(
     multiplier=2.0
 ):
     """
-    TradingView Supertrend ile birebir state mantigi.
-
-    TradingView dokumani:
-      - HL2
-      - ATR = RMA / Wilder
-      - ATR hesaplanana kadar yon = DOWN (+1)
-      - ilk ATR barinda onceki ATR'nin NA olmasi nedeniyle
-        yon yine DOWN (+1)
-      - sonraki barlarda onceki Supertrend'in onceki upper
-        banda esit olup olmadigina gore yon degisir.
-
-    TradingView convention:
+    TradingView built-in ta.supertrend() convention:
       -1 = UP / AL
       +1 = DOWN / SAT
+
+    Bu fonksiyon geriye donuk diagnostik icindir; uretim sinyali
+    bununla hesaplanmaz.
     """
     if len(candles) < (atr_period + 2):
         return None
@@ -1528,7 +1573,6 @@ def calculate_tradingview_supertrend_directions(
     supertrend = [None for _ in candles]
 
     for i in range(len(candles)):
-        # TradingView: ATR hesaplanana kadar DOWN.
         if atr[i] is None:
             direction[i] = 1
             continue
@@ -1537,8 +1581,6 @@ def calculate_tradingview_supertrend_directions(
         basic_upper = hl2 + multiplier * atr[i]
         basic_lower = hl2 - multiplier * atr[i]
 
-        # Pine ta.supertrend() mantiginda [1] degeri NA ise
-        # nz(NA) = 0 kabul edilir.
         prev_upper = 0.0 if i == 0 or upper[i - 1] is None else upper[i - 1]
         prev_lower = 0.0 if i == 0 or lower[i - 1] is None else lower[i - 1]
         prev_close = candles[i - 1]["close"] if i > 0 else None
@@ -1555,7 +1597,6 @@ def calculate_tradingview_supertrend_directions(
             else prev_lower
         )
 
-        # ATR'in ilk gecerli oldugu bar: ta.supertrend() DOWN ile baslar.
         if i == atr_period - 1:
             direction[i] = 1
         else:
