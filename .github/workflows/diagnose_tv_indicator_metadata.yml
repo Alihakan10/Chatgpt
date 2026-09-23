@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "diagnose_tv_indicator_metadata.js"
+  schedule:
+    - cron: "* * * * *"
 
 permissions:
   contents: write
