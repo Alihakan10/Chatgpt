@@ -12,8 +12,14 @@ Study YOK.
 import scanner
 import os
 import time
+import math
 from datetime import datetime
 from zoneinfo import ZoneInfo
+
+# Otomatik BUY teyit katmani:
+# 2H momentum > 0% | RVOL >= 1.20 | govde >= %50 | 4H AL | 1D AL
+# Bu fonksiyonlar Study kullanmaz; native TradingView OHLC verisiyle calisir.
+from new_buy_system.verify_14 import tv_native, trend_from_rows
 
 
 def label(d):
@@ -376,6 +382,122 @@ def verified_scan_symbol(symbol, state):
             result["buy_signal"] = False
             return result
 
+        # ------------------------------------------------------------
+        # OTOMATIK BUY TEYIT KATMANI
+        # ------------------------------------------------------------
+        # Ham SAT -> AL sinyali, ek olarak su bes kosulu saglanmadan
+        # Telegram'a gonderilmez:
+        #   1) 2H momentum > 0%
+        #   2) RVOL >= 1.20
+        #   3) 2H mum govdesi >= %50
+        #   4) native 4H Supertrend = AL
+        #   5) native 1D Supertrend = AL
+        #
+        # Boylece uretim alarmi, daha once 10 BUY adayi uzerinde
+        # test edilen ayni teyit katmanini kullanir.
+        try:
+            target = calc[i]
+            previous = calc[i - 1]
+
+            momentum = (
+                float(target["close"]) / float(previous["close"]) - 1.0
+            )
+
+            volume_window = [
+                float(x.get("volume", 0.0))
+                for x in calc[max(0, i - 20):i]
+                if float(x.get("volume", 0.0)) > 0
+            ]
+            average_volume = (
+                sum(volume_window) / len(volume_window)
+                if volume_window else 0.0
+            )
+            current_volume = float(target.get("volume", 0.0))
+            rvol = (
+                current_volume / average_volume
+                if average_volume > 0 and current_volume > 0
+                else None
+            )
+
+            candle_range = float(target["high"]) - float(target["low"])
+            candle_body = abs(
+                float(target["close"]) - float(target["open"])
+            )
+            body_ratio = (
+                candle_body / candle_range
+                if candle_range > 0
+                else 0.0
+            )
+
+            rows_4h = tv_native(symbol, "240", 300)
+            rows_1d = tv_native(symbol, "1D", 300)
+
+            trend_4h = trend_from_rows(rows_4h)
+            trend_1d = trend_from_rows(rows_1d)
+
+            confirmed = (
+                momentum > 0.0
+                and rvol is not None
+                and rvol >= 1.20
+                and body_ratio >= 0.50
+                and trend_4h == 1
+                and trend_1d == 1
+            )
+
+            result["confirmation"] = {
+                "confirmed": confirmed,
+                "momentum": momentum,
+                "rvol": rvol,
+                "body_ratio": body_ratio,
+                "trend_4h": trend_4h,
+                "trend_1d": trend_1d,
+            }
+
+            scanner.log(
+                "    BUY TEYIT | "
+                + symbol
+                + " | MOM="
+                + f"{momentum * 100:+.2f}%"
+                + " | RVOL="
+                + (f"{rvol:.2f}" if rvol is not None else "N/A")
+                + " | GOVDE="
+                + f"{body_ratio * 100:.0f}%"
+                + " | 4H="
+                + ("AL" if trend_4h == 1 else "SAT")
+                + " | 1D="
+                + ("AL" if trend_1d == 1 else "SAT")
+                + " | TEYIT="
+                + str(confirmed)
+            )
+
+            if not confirmed:
+                scanner.log(
+                    "    !!! BUY TEYIT FILTRE DISI | "
+                    + symbol
+                    + " | TELEGRAM'A GONDERILMEYECEK"
+                )
+                result["status"] = "ok"
+                result["buy_results"] = []
+                result["all_buy_results"] = []
+                result["latest_buy_time"] = None
+                result["buy_signal"] = False
+                return result
+
+        except Exception as exc:
+            scanner.log(
+                "    !!! BUY TEYIT HATASI | "
+                + symbol
+                + " | "
+                + str(exc)
+                + " | TELEGRAM'A GONDERILMEYECEK"
+            )
+            result["status"] = "ok"
+            result["buy_results"] = []
+            result["all_buy_results"] = []
+            result["latest_buy_time"] = None
+            result["buy_signal"] = False
+            return result
+
         result["verification"] = {
             "verified": True,
             "frozen": True,
@@ -410,6 +532,81 @@ def verified_scan_symbol(symbol, state):
 # Bu nedenle wrapper'i atayip ayni normal taramayi tek workflow'da
 # calistiriyoruz.
 scanner.scan_symbol = verified_scan_symbol
+
+
+def build_filtered_telegram_message(results):
+    """
+    Uretim Telegram mesajini yalnızca tum teyit filtrelerini gecen
+    BUY adaylarini gosterecek sekilde olusturur.
+    """
+    now = scanner.now_istanbul()
+    lines = [
+        "🔔 <b>BIST BUY + YÜKSELİŞ TEYİT TARAMASI</b>",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "⏱ <b>2H BUY</b> | ATR 10 | Çarpan 2.0 | HL2",
+        "🔎 <b>FİLTRELER</b>",
+        "• Momentum &gt; 0%",
+        "• RVOL ≥ 1.20",
+        "• Gövde ≥ %50",
+        "• 4H Supertrend = AL",
+        "• 1D Supertrend = AL",
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"🕒 Tarama: <b>{now.strftime('%d.%m.%Y %H:%M')}</b>",
+        f"⭐ <b>TEYİTLİ BUY: {len(results)} adet</b>",
+        "",
+    ]
+
+    for index, result in enumerate(results, 1):
+        symbol = result["symbol"].split(":", 1)[-1]
+        price = scanner.format_price(result["price"])
+        verification = result.get("confirmation", {})
+
+        momentum = float(verification.get("momentum", 0.0))
+        rvol = verification.get("rvol")
+        body_ratio = float(verification.get("body_ratio", 0.0))
+        trend_4h = verification.get("trend_4h")
+        trend_1d = verification.get("trend_1d")
+
+        url = (
+            "https://www.tradingview.com/chart/"
+            "?symbol=BIST%3A"
+            + symbol
+            + "&interval=120"
+        )
+
+        candle_dt = scanner.candle_close_datetime(
+            result["candle_time"]
+        )
+
+        lines.append(
+            f'{index}. <a href="{url}"><b>{symbol}</b></a> — {price} TL'
+        )
+        lines.append(
+            f"   📈 Momentum: <b>{momentum * 100:+.2f}%</b> | "
+            f"📊 RVOL: <b>{rvol:.2f}</b> | "
+            f"🕯 Gövde: <b>%{body_ratio * 100:.0f}</b>"
+        )
+        lines.append(
+            "   2H: <b>SAT → AL</b> | "
+            "4H: <b>AL</b> | 1D: <b>AL</b>"
+        )
+        lines.append(
+            f'   🕯 Mum: <b>{candle_dt.strftime("%d.%m.%Y %H:%M")}</b>'
+        )
+        lines.append("")
+
+    if not results:
+        lines.append("⭐ <b>Bu taramada tüm teyit filtrelerini geçen BUY yok.</b>")
+        lines.append("")
+
+    lines.append("🔍 BUY motoru: SAT → AL")
+    lines.append("⚙️ Study kullanılmadı.")
+    lines.append("ℹ️ Bu filtreler sinyal kalitesini sıkılaştırır; yükselişi garanti etmez.")
+
+    return "\n".join(lines)
+
+
+scanner.build_telegram_message = build_filtered_telegram_message
 
 if __name__ == "__main__":
     scanner.main()
