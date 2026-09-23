@@ -12,7 +12,7 @@ SYMBOLS = [
 
 TZ = ZoneInfo("Europe/Istanbul")
 
-print("TEST VERSION: NATIVE_2H_SUPERTREND_FORMULA_V2")
+print("TEST VERSION: NATIVE_2H_SUPERTREND_LIVE_V3")
 print("AUTH MODE:", "YES" if os.getenv("TV_SESSIONID") or os.getenv("TRADINGVIEW_AUTH_TOKEN") else "NO")
 print("SETTINGS: ATR=10 MULTIPLIER=2.0 SOURCE=HL2 TIMEFRAME=2H")
 print("BUY RULE: previous=-1 (SAT) -> current=+1 (AL)")
@@ -113,12 +113,32 @@ for symbol in SYMBOLS:
                 f"last_buy={dt(b[-1]) if b else 'none'}"
             )
 
-        # Explicit decision for the current completed candle.
+        # Completed-candle decision.
         current_buy = ours[-2] == -1 and ours[-1] == 1
         print(
-            "FINAL CURRENT 2H RESULT:",
+            "FINAL COMPLETED 2H RESULT:",
             "BUY" if current_buy else "NO BUY"
         )
+
+        # Diagnostic only: test the still-forming 2H candle as seen on a live chart.
+        # Production alerts continue to use completed candles only.
+        if idx + 1 < len(bars):
+            live = bars[:idx + 2]
+            live_dirs = scanner.calculate_supertrend_directions(
+                live, scanner.ATR_PERIOD, scanner.ATR_MULTIPLIER
+            )
+            if live_dirs and len(live_dirs) >= 2:
+                live_buy = live_dirs[-2] == -1 and live_dirs[-1] == 1
+                print(
+                    f"LIVE INCOMPLETE 2H: {dt(live[-1]['time'])} "
+                    f"O={live[-1]['open']:.2f} H={live[-1]['high']:.2f} "
+                    f"L={live[-1]['low']:.2f} C={live[-1]['close']:.2f} "
+                    f"prev={live_dirs[-2]} cur={live_dirs[-1]} BUY={live_buy}"
+                )
+            else:
+                print("LIVE INCOMPLETE 2H: CALC FAILED")
+        else:
+            print("LIVE INCOMPLETE 2H: NOT AVAILABLE")
 
     except Exception as e:
         print("RESULT: ERROR:", e)
