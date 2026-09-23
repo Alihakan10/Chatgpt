@@ -109,8 +109,8 @@ def snapshot(symbols):
             if end<=now: idx=i
         if idx is None or idx<1:
             out[sym]=None;continue
-        d=calc_buy(bars[:idx+1])
-        ts,o,h,l,c=bars[idx]
+        d=calc_buy([(ts,*vals) for ts,vals in bars[:idx+1]])
+        ts,(o,h,l,c)=bars[idx]
         out[sym]={"ts":ts,"ohlc":[o,h,l,c],"prev":d[idx-1],"cur":d[idx],"buy":d[idx-1]==-1 and d[idx]==1}
     return out
 
