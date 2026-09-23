@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/new_buy_system_10_confirmation_test.yml"
+      - "new_buy_system/test_confirmation_10.py"
 
 permissions:
   contents: write
