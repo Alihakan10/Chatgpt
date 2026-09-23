@@ -1,4 +1,5 @@
 # Reuses the same native 2H feed and compares the two documented Supertrend state machines.
+dt=lambda ts: datetime.fromtimestamp(ts,ZoneInfo("UTC")).astimezone(TZ)
 exec(open("diagnose_tv_supertrend_formula_14.py").read().replace(
 'for sym in SYMBOLS:\n c=get(sym);o=official(c);k=kivanc(c)',
 '''for sym in SYMBOLS:
