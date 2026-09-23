@@ -1,0 +1,22 @@
+name: One Study Sequential 3 Stock Diagnostic
+
+on:
+  push:
+    paths:
+      - "diagnose_tv_one_study_sequential.js"
+      - ".github/workflows/diagnose_tv_one_study_sequential.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install @mathieuc/tradingview
+      - run: node diagnose_tv_one_study_sequential.js
