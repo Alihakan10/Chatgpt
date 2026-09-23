@@ -90,7 +90,7 @@ def main():
     if buy_rows:
         for idx, (symbol, close, candle_time) in enumerate(buy_rows, 1):
             ticker = symbol.split(":", 1)[-1]
-            tv_url = f"https://www.tradingview.com/symbols/BIST-{ticker}/"
+            tv_url = f"https://www.tradingview.com/chart/?symbol=BIST%3A{ticker}"
             telegram_lines.append(
                 f'{idx}. <a href="{tv_url}"><b>{escape(ticker)}</b></a> — {close:.2f} TL'
             )
