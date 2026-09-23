@@ -142,6 +142,7 @@ def verified_scan_symbol(symbol, state):
 
         time.sleep(stabilization_seconds)
 
+        # 2. OKUMA: ayni mumun ikinci snapshot'i.
         candles2 = sorted(
             scanner.get_tv_candles_with_retry(symbol, "native_2h"),
             key=lambda x: x["time"],
@@ -183,9 +184,48 @@ def verified_scan_symbol(symbol, state):
             result["buy_signal"] = False
             return result
 
+        # 3. OKUMA / FREEZE: ilk iki snapshot ayniysa ayni mum bir kez daha
+        # okunur. Uc snapshot'in OHLC fingerprint'i ayni olmadan sinyal
+        # Telegram'a gecmez. Boylece tek bir gecici TradingView snapshot'i
+        # uzerinden alarm uretilmez.
+        candles3 = sorted(
+            scanner.get_tv_candles_with_retry(symbol, "native_2h"),
+            key=lambda x: x["time"],
+        )
+        third_completed_index = scanner.get_last_completed_index(candles3)
+        if third_completed_index is None or third_completed_index < 1:
+            raise RuntimeError("ucuncu okumada tamamlanmis 2H mum yok")
+
+        third_bar = candles3[third_completed_index]
+        third_ohlc = (
+            third_bar["open"],
+            third_bar["high"],
+            third_bar["low"],
+            third_bar["close"],
+        )
+
+        if third_bar["time"] != first_bar_time or third_ohlc != first_ohlc:
+            scanner.log(
+                "    !!! BUY FREEZE BASARISIZ | "
+                + symbol
+                + " | 3 SNAPSHOT AYNI DEGIL | TELEGRAM'A GONDERILMEYECEK"
+            )
+            result["status"] = "ok"
+            result["buy_results"] = []
+            result["all_buy_results"] = []
+            result["latest_buy_time"] = None
+            result["buy_signal"] = False
+            return result
+
+        scanner.log(
+            "    BUY FREEZE BASARILI | "
+            + symbol
+            + " | AYNI MUM + AYNI OHLC x3 | SINYAL DONDURULDU"
+        )
+
         # Stabil kalan ayni mumun BUY durumunu yeniden hesapla.
-        candles = candles2
-        completed_index = second_completed_index
+        candles = candles3
+        completed_index = third_completed_index
         scanner.log(
             "    BUY STABILIZASYON BASARILI | "
             + symbol
@@ -262,6 +302,9 @@ def verified_scan_symbol(symbol, state):
 
         result["verification"] = {
             "verified": True,
+            "frozen": True,
+            "snapshot_count": 3,
+            "ohlc_fingerprint": [calc[i]["open"], calc[i]["high"], calc[i]["low"], calc[i]["close"]],
             "candle_time": calc[i]["time"],
             "production_previous": production[p],
             "production_current": production[i],
