@@ -89,6 +89,30 @@ def verified_scan_symbol(symbol, state):
     # oldugu yeniden kontrol edilmis olur.
     buy_results = result.get("buy_results", [])
     all_buy_results = result.get("all_buy_results", [])
+
+    # KRITIK: Dogrulama, taramanin BUY adayi olarak buldugu AYNI MUM
+    # uzerinde yapilmalidir. Refetch sirasinda baska bir "son tamamlanmis"
+    # muma kaymak kesinlikle kabul edilmez.
+    target_buy_time = None
+    if buy_results:
+        try:
+            target_buy_time = float(buy_results[0]["candle_time"])
+        except Exception:
+            target_buy_time = None
+
+    if target_buy_time is None:
+        scanner.log(
+            "    !!! BUY ADAY MUM ZAMANI OKUNAMADI | "
+            + symbol
+            + " | TELEGRAM'A GONDERILMEYECEK"
+        )
+        result["status"] = "ok"
+        result["buy_results"] = []
+        result["all_buy_results"] = []
+        result["latest_buy_time"] = None
+        result["buy_signal"] = False
+        return result
+
     # Sadece YENI BUY adaylari stabilizasyon kontrolune girer.
     # Daha once Telegram'a gonderilmis BUY'lar yeniden bekletilmez.
     if not buy_results:
@@ -118,7 +142,20 @@ def verified_scan_symbol(symbol, state):
         if first_completed_index is None or first_completed_index < 1:
             raise RuntimeError("stabilizasyon icin tamamlanmis 2H mum yok")
 
-        first_bar = candles[first_completed_index]
+        target_indexes = [
+            i for i, c in enumerate(candles)
+            if float(c["time"]) == target_buy_time
+        ]
+        if not target_indexes:
+            raise RuntimeError("BUY adayi hedef mum refetch verisinde yok")
+
+        first_target_index = target_indexes[-1]
+        if first_target_index > first_completed_index:
+            raise RuntimeError(
+                "BUY adayi hedef mum henuz tamamlanmamis"
+            )
+
+        first_bar = candles[first_target_index]
         first_bar_time = first_bar["time"]
         first_ohlc = (
             first_bar["open"],
@@ -151,7 +188,20 @@ def verified_scan_symbol(symbol, state):
         if second_completed_index is None or second_completed_index < 1:
             raise RuntimeError("ikinci okumada tamamlanmis 2H mum yok")
 
-        second_bar = candles2[second_completed_index]
+        second_target_indexes = [
+            i for i, c in enumerate(candles2)
+            if float(c["time"]) == target_buy_time
+        ]
+        if not second_target_indexes:
+            raise RuntimeError("BUY adayi hedef mum ikinci okumada yok")
+
+        second_target_index = second_target_indexes[-1]
+        if second_target_index > second_completed_index:
+            raise RuntimeError(
+                "BUY adayi hedef mum ikinci okumada tamamlanmamis"
+            )
+
+        second_bar = candles2[second_target_index]
         if second_bar["time"] != first_bar_time:
             raise RuntimeError(
                 "stabilizasyon hedef mumu degisti: ilk="
@@ -196,7 +246,20 @@ def verified_scan_symbol(symbol, state):
         if third_completed_index is None or third_completed_index < 1:
             raise RuntimeError("ucuncu okumada tamamlanmis 2H mum yok")
 
-        third_bar = candles3[third_completed_index]
+        third_target_indexes = [
+            i for i, c in enumerate(candles3)
+            if float(c["time"]) == target_buy_time
+        ]
+        if not third_target_indexes:
+            raise RuntimeError("BUY adayi hedef mum ucuncu okumada yok")
+
+        third_target_index = third_target_indexes[-1]
+        if third_target_index > third_completed_index:
+            raise RuntimeError(
+                "BUY adayi hedef mum ucuncu okumada tamamlanmamis"
+            )
+
+        third_bar = candles3[third_target_index]
         third_ohlc = (
             third_bar["open"],
             third_bar["high"],
@@ -225,16 +288,18 @@ def verified_scan_symbol(symbol, state):
 
         # Stabil kalan ayni mumun BUY durumunu yeniden hesapla.
         candles = candles3
-        completed_index = third_completed_index
+        completed_index = third_target_index
         scanner.log(
             "    BUY STABILIZASYON BASARILI | "
             + symbol
             + " | OHLC DEGİSMEDI"
         )
 
-        completed_index = scanner.get_last_completed_index(candles)
-        if completed_index is None or completed_index < 1:
-            raise RuntimeError("dogrulama icin tamamlanmis 2H mum yok")
+        # Burada tekrar "son tamamlanmis mum" aranmaz.
+        # Dogrulanan indeks, ilk BUY adayinin ayni candle_time'idir.
+        completed_index = third_target_index
+        if completed_index < 1:
+            raise RuntimeError("dogrulama icin hedef BUY mumundan once mum yok")
 
         calc = candles[:completed_index + 1]
         production = scanner.calculate_supertrend_directions(
