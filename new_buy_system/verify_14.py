@@ -8,6 +8,7 @@ from html import escape
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+import scanner
 from scanner import get_tv_candles, get_bist_symbols, send_telegram
 from new_buy_system.buy_engine import Candle, latest_result
 
