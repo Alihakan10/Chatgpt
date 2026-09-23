@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "new_buy_system/verify_emnis.py"
+      - ".github/workflows/new_buy_system_emnis_verify.yml"
   workflow_dispatch:
 
 permissions:
