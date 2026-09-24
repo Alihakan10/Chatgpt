@@ -339,7 +339,7 @@ def aggregate_to_60m_debug(candles):
         if len(g) < 2:
             continue
         out.append({
-            "timestamp": bucket,
+            "time": bucket,
             "open": g[0]["open"],
             "high": max(x["high"] for x in g),
             "low": min(x["low"] for x in g),
