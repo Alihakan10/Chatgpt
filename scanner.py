@@ -3054,6 +3054,7 @@ def main():
 
     new_buy_results = []
     current_buy_signal_results = []
+    filtered_buy_results = []
     existing_buy_results = []
     previously_sent_buy_results = []
 
@@ -3107,7 +3108,11 @@ def main():
         success_count += 1
 
         buy_results = result.get("buy_results", [])
+        filtered_results = result.get("filtered_buy_results", [])
         all_buy_results = result.get("all_buy_results", [])
+
+        if filtered_results:
+            filtered_buy_results.extend(filtered_results)
 
         for buy_result in all_buy_results:
             if buy_result.get("already_sent"):
@@ -3217,22 +3222,23 @@ def main():
     # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
     if SEND_SCAN_REPORT:
 
-        if current_buy_signal_results:
+        if current_buy_signal_results or filtered_buy_results:
 
             send_telegram(
                 build_telegram_message(
-                    current_buy_signal_results
+                    current_buy_signal_results,
+                    filtered_buy_results
                 )
             )
 
             log(
-                "Sadece yeni TradingView BUY sinyalleri Telegram'a gönderildi."
+                "Yeni TradingView BUY sinyalleri ve filtreden gecemeyen adaylar Telegram'a gönderildi."
             )
 
         else:
 
             log(
-                "Yeni TradingView BUY sinyali yok; Telegram gönderilmeyecek."
+                "Yeni TradingView BUY veya filtreden gecemeyen BUY adayi yok; Telegram gönderilmeyecek."
             )
 
         save_state(state)
