@@ -1625,6 +1625,104 @@ def calculate_tradingview_supertrend_directions(
     return direction
 
 # ============================================================
+# TRADINGVIEW SUPERTREND PARITE DIAGNOSTIGI
+#
+# URETIM HESABINI DEGISTIRMEZ.
+# BUY adayi olusan hisselerde son 5 tamamlanmis 2H mum icin
+# OHLC + ATR + final band + direction bilgisi verir.
+# ============================================================
+
+def calculate_supertrend_debug_rows(
+    candles,
+    atr_period=10,
+    multiplier=2.0,
+    last_n=5
+):
+    if not candles:
+        return []
+
+    atr = calculate_atr(candles, atr_period)
+
+    upper = [None for _ in candles]
+    lower = [None for _ in candles]
+    direction = [None for _ in candles]
+    supertrend = [None for _ in candles]
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            direction[i] = 1
+            continue
+
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        basic_upper = hl2 + multiplier * atr[i]
+        basic_lower = hl2 - multiplier * atr[i]
+
+        prev_upper = 0.0 if i == 0 or upper[i - 1] is None else upper[i - 1]
+        prev_lower = 0.0 if i == 0 or lower[i - 1] is None else lower[i - 1]
+        prev_close = candles[i - 1]["close"] if i > 0 else None
+
+        upper[i] = (
+            basic_upper
+            if i == 0 or basic_upper < prev_upper or (prev_close is not None and prev_close > prev_upper)
+            else prev_upper
+        )
+
+        lower[i] = (
+            basic_lower
+            if i == 0 or basic_lower > prev_lower or (prev_close is not None and prev_close < prev_lower)
+            else prev_lower
+        )
+
+        if i == atr_period - 1:
+            direction[i] = 1
+        else:
+            prev_st = supertrend[i - 1]
+            prev_up = upper[i - 1]
+
+            if prev_st is None:
+                direction[i] = 1
+            elif prev_st == prev_up:
+                direction[i] = -1 if candles[i]["close"] > upper[i] else 1
+            else:
+                direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+
+        supertrend[i] = lower[i] if direction[i] == -1 else upper[i]
+
+    start = max(0, len(candles) - last_n)
+    rows = []
+
+    for i in range(start, len(candles)):
+        dt = (
+            datetime.fromtimestamp(
+                candles[i]["time"],
+                tz=ZoneInfo("UTC")
+            ).astimezone(ZoneInfo(TIMEZONE))
+        )
+
+        rows.append({
+            "index": i,
+            "time": candles[i]["time"],
+            "time_text": dt.strftime("%d.%m.%Y %H:%M"),
+            "open": candles[i]["open"],
+            "high": candles[i]["high"],
+            "low": candles[i]["low"],
+            "close": candles[i]["close"],
+            "atr": atr[i],
+            "upper": upper[i],
+            "lower": lower[i],
+            "supertrend": supertrend[i],
+            "direction": direction[i],
+            "buy": (
+                i > 0
+                and direction[i - 1] == 1
+                and direction[i] == -1
+            ),
+        })
+
+    return rows
+
+
+# ============================================================
 # TRADINGVIEW TARIHCE BASLANGICI DIAGNOSTIGI
 #
 # Supertrend stateful oldugu icin, TradingView chartinin
@@ -2561,6 +2659,54 @@ def scan_symbol(
             close_s = calculation_candles[si]["close"]
             tr_sma[si] = 1 if (prev_s == -1 and close_s > dn1_s) else (-1 if (prev_s == 1 and close_s < up1_s) else prev_s)
             sma_dirs[si] = tr_sma[si]
+
+        # TradingView parite tanilamasi:
+        # Yalnizca SON TAMAMLANMIS mum BUY oldugunda son 5 mumun
+        # OHLC + ATR + band + direction degerlerini logla.
+        # Bu blok uretim BUY kararini degistirmez.
+        if current_buy_signal:
+            parity_rows = calculate_supertrend_debug_rows(
+                calculation_candles,
+                ATR_PERIOD,
+                ATR_MULTIPLIER,
+                last_n=5
+            )
+
+            first_dt = (
+                datetime.fromtimestamp(
+                    calculation_candles[0]["time"],
+                    tz=ZoneInfo("UTC")
+                ).astimezone(ZoneInfo(TIMEZONE))
+            )
+            last_dt = (
+                datetime.fromtimestamp(
+                    calculation_candles[-1]["time"],
+                    tz=ZoneInfo("UTC")
+                ).astimezone(ZoneInfo(TIMEZONE))
+            )
+
+            log(
+                f"    PARITE DEBUG | {symbol} | "
+                f"LOADED={len(calculation_candles)} | "
+                f"FIRST={first_dt.strftime('%d.%m.%Y %H:%M')} | "
+                f"LAST={last_dt.strftime('%d.%m.%Y %H:%M')}"
+            )
+
+            for row in parity_rows:
+                log(
+                    f"    PARITE MUM | {symbol} | "
+                    f"{row['time_text']} | "
+                    f"O={format_price(row['open'])} "
+                    f"H={format_price(row['high'])} "
+                    f"L={format_price(row['low'])} "
+                    f"C={format_price(row['close'])} | "
+                    f"ATR={format_price(row['atr']) if row['atr'] is not None else 'NA'} | "
+                    f"UP={format_price(row['upper']) if row['upper'] is not None else 'NA'} | "
+                    f"LOW={format_price(row['lower']) if row['lower'] is not None else 'NA'} | "
+                    f"ST={format_price(row['supertrend']) if row['supertrend'] is not None else 'NA'} | "
+                    f"DIR={row['direction']} | "
+                    f"BUY={row['buy']}"
+                )
 
         # TEST MODU icin TradingView mum zamanlamasi ve
         # Supertrend gecisini birebir incelemeye yarayan tanilama.
