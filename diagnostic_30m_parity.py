@@ -386,7 +386,7 @@ def report_symbol(symbol):
     v_atr, v_up, v_dn, v_trend, v_st = calc_signal_variants(calc)
     m_atr, m_up, m_dn, m_dir = calc_marketcalls_debug(calc)
     htf60 = aggregate_to_60m_debug(calc)
-    htf60_dir = calculate_kivanc_supertrend_directions(htf60, 10, 2.0)
+    htf60_dir = sc.calculate_supertrend_directions(htf60, 10, 2.0)
     htf60_target = find_target_index(htf60)
 
     e_atr, e_long, e_short, e_dir_wicks = calc_everget_debug(calc, wicks=True)
