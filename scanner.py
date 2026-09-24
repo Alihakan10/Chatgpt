@@ -3162,8 +3162,17 @@ def main():
     )
 
     log(
-        f"YENI SAT -> AL: "
-        f"{len(new_buy_results)}"
+        f"HAM SAT -> AL BUY ADAYI: "
+        f"{len(new_buy_results) + len(filtered_buy_results)}"
+    )
+
+    log(
+        f"TEYITLI BUY: {len(new_buy_results)}"
+    )
+
+    log(
+        f"FILTREDEN GECEMEYEN BUY ADAYI: "
+        f"{len(filtered_buy_results)}"
     )
 
     # Manuel taramada BUY durumlarini acikca ayir.
