@@ -1,0 +1,41 @@
+name: BIST Supertrend 30M Chart - 60M ST Parity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "35 7-15 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bist-supertrend-scanner-30m-tvparity
+  cancel-in-progress: false
+
+jobs:
+  scan-30m:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: 30M Supertrend scan
+        env:
+          TEST_MODE: "false"
+          SEND_SCAN_REPORT: "true"
+          SCAN_LIMIT: "620"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scanner_30m_tvparity.py
