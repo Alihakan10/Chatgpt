@@ -2,10 +2,6 @@ name: BIST Supertrend Scanner
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "scanner.py"
-      - "diagnose_2h_alignment.py"
   schedule:
     - cron: "10 7-15 * * 1-5"
 
