@@ -1,3111 +1,3114 @@
 {
   "BIST:A1CAP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373100+03:00"
+    "updated_at": "2026-09-24T15:55:12.018012+03:00"
   },
   "BIST:A1YEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373116+03:00"
+    "updated_at": "2026-09-24T15:55:12.018028+03:00"
   },
   "BIST:AAGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373120+03:00"
+    "updated_at": "2026-09-24T15:55:12.018033+03:00"
   },
   "BIST:ACSEL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373123+03:00"
+    "updated_at": "2026-09-24T15:55:12.018037+03:00"
   },
   "BIST:ADEL": {
-    "candle_time": 1790249400.0,
-    "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373125+03:00"
+    "candle_time": 1790251200.0,
+    "direction": 1,
+    "last_buy_candle_time": 1790251200.0,
+    "updated_at": "2026-09-24T15:55:12.018084+03:00"
   },
   "BIST:ADESE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373128+03:00"
+    "updated_at": "2026-09-24T15:55:12.018093+03:00"
   },
   "BIST:ADGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373131+03:00"
+    "updated_at": "2026-09-24T15:55:12.018099+03:00"
   },
   "BIST:AEFES": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373135+03:00"
+    "updated_at": "2026-09-24T15:55:12.018108+03:00"
   },
   "BIST:AFYON": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373138+03:00"
+    "updated_at": "2026-09-24T15:55:12.018114+03:00"
   },
   "BIST:AGESA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373140+03:00"
+    "updated_at": "2026-09-24T15:55:12.018119+03:00"
   },
   "BIST:AGHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373143+03:00"
+    "updated_at": "2026-09-24T15:55:12.018124+03:00"
   },
   "BIST:AGROT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373145+03:00"
+    "updated_at": "2026-09-24T15:55:12.018129+03:00"
   },
   "BIST:AGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373148+03:00"
+    "updated_at": "2026-09-24T15:55:12.018134+03:00"
   },
   "BIST:AHGAZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373150+03:00"
+    "updated_at": "2026-09-24T15:55:12.018140+03:00"
   },
   "BIST:AHSGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373153+03:00"
+    "updated_at": "2026-09-24T15:55:12.018145+03:00"
   },
   "BIST:AKBNK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373155+03:00"
+    "updated_at": "2026-09-24T15:55:12.018151+03:00"
   },
   "BIST:AKCNS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373157+03:00"
+    "updated_at": "2026-09-24T15:55:12.018156+03:00"
   },
   "BIST:AKENR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373159+03:00"
+    "updated_at": "2026-09-24T15:55:12.018161+03:00"
   },
   "BIST:AKFGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373162+03:00"
+    "updated_at": "2026-09-24T15:55:12.018165+03:00"
   },
   "BIST:AKFIS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373164+03:00"
+    "updated_at": "2026-09-24T15:55:12.018168+03:00"
   },
   "BIST:AKFYE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373166+03:00"
+    "updated_at": "2026-09-24T15:55:12.018171+03:00"
   },
   "BIST:AKGRT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373169+03:00"
+    "updated_at": "2026-09-24T15:55:12.018173+03:00"
   },
   "BIST:AKHAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373171+03:00"
+    "updated_at": "2026-09-24T15:55:12.018176+03:00"
   },
   "BIST:AKMGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373174+03:00"
+    "updated_at": "2026-09-24T15:55:12.018178+03:00"
   },
   "BIST:AKSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373176+03:00"
+    "updated_at": "2026-09-24T15:55:12.018181+03:00"
   },
   "BIST:AKSEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373178+03:00"
+    "updated_at": "2026-09-24T15:55:12.018184+03:00"
   },
   "BIST:AKSGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373181+03:00"
+    "updated_at": "2026-09-24T15:55:12.018186+03:00"
   },
   "BIST:AKSUE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373183+03:00"
+    "updated_at": "2026-09-24T15:55:12.018189+03:00"
   },
   "BIST:AKYHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373185+03:00"
+    "updated_at": "2026-09-24T15:55:12.018191+03:00"
   },
   "BIST:ALARK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373187+03:00"
+    "updated_at": "2026-09-24T15:55:12.018194+03:00"
   },
   "BIST:ALBRK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373189+03:00"
+    "updated_at": "2026-09-24T15:55:12.018196+03:00"
   },
   "BIST:ALBTN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373191+03:00"
+    "updated_at": "2026-09-24T15:55:12.018199+03:00"
   },
   "BIST:ALCAR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373193+03:00"
+    "updated_at": "2026-09-24T15:55:12.018201+03:00"
   },
   "BIST:ALCTL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373195+03:00"
+    "updated_at": "2026-09-24T15:55:12.018204+03:00"
   },
   "BIST:ALFAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373198+03:00"
+    "updated_at": "2026-09-24T15:55:12.018207+03:00"
   },
   "BIST:ALGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373200+03:00"
+    "updated_at": "2026-09-24T15:55:12.018209+03:00"
   },
   "BIST:ALKA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373202+03:00"
+    "updated_at": "2026-09-24T15:55:12.018212+03:00"
   },
   "BIST:ALKIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373204+03:00"
+    "updated_at": "2026-09-24T15:55:12.018214+03:00"
   },
   "BIST:ALKLC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373206+03:00"
+    "updated_at": "2026-09-24T15:55:12.018217+03:00"
   },
   "BIST:ALTIN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373208+03:00"
+    "updated_at": "2026-09-24T15:55:12.018219+03:00"
   },
   "BIST:ALTNY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373211+03:00"
+    "updated_at": "2026-09-24T15:55:12.018222+03:00"
   },
   "BIST:ALVES": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373213+03:00"
+    "updated_at": "2026-09-24T15:55:12.018224+03:00"
   },
   "BIST:ANELE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373215+03:00"
+    "updated_at": "2026-09-24T15:55:12.018227+03:00"
   },
   "BIST:ANGEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373217+03:00"
+    "updated_at": "2026-09-24T15:55:12.018229+03:00"
   },
   "BIST:ANHYT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373219+03:00"
+    "updated_at": "2026-09-24T15:55:12.018232+03:00"
   },
   "BIST:ANSGR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373221+03:00"
+    "updated_at": "2026-09-24T15:55:12.018234+03:00"
   },
   "BIST:ARASE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373223+03:00"
+    "updated_at": "2026-09-24T15:55:12.018236+03:00"
   },
   "BIST:ARCLK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373225+03:00"
+    "updated_at": "2026-09-24T15:55:12.018239+03:00"
   },
   "BIST:ARDYZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373227+03:00"
+    "updated_at": "2026-09-24T15:55:12.018241+03:00"
   },
   "BIST:ARENA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373229+03:00"
+    "updated_at": "2026-09-24T15:55:12.018244+03:00"
   },
   "BIST:ARFYE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373231+03:00"
+    "updated_at": "2026-09-24T15:55:12.018247+03:00"
   },
   "BIST:ARMGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373233+03:00"
+    "updated_at": "2026-09-24T15:55:12.018249+03:00"
   },
   "BIST:ARSAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373235+03:00"
+    "updated_at": "2026-09-24T15:55:12.018251+03:00"
   },
   "BIST:ARTMS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373236+03:00"
+    "updated_at": "2026-09-24T15:55:12.018254+03:00"
   },
   "BIST:ARZUM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373239+03:00"
+    "updated_at": "2026-09-24T15:55:12.018256+03:00"
   },
   "BIST:ASELS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373240+03:00"
+    "updated_at": "2026-09-24T15:55:12.018259+03:00"
   },
   "BIST:ASGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373243+03:00"
+    "updated_at": "2026-09-24T15:55:12.018261+03:00"
   },
   "BIST:ASTOR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373245+03:00"
+    "updated_at": "2026-09-24T15:55:12.018263+03:00"
   },
   "BIST:ASUZU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373247+03:00"
+    "updated_at": "2026-09-24T15:55:12.018266+03:00"
   },
   "BIST:ATAGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373248+03:00"
+    "updated_at": "2026-09-24T15:55:12.018268+03:00"
   },
   "BIST:ATAKP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373250+03:00"
+    "updated_at": "2026-09-24T15:55:12.018270+03:00"
   },
   "BIST:ATATP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373252+03:00"
+    "updated_at": "2026-09-24T15:55:12.018273+03:00"
   },
   "BIST:ATATR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373254+03:00"
+    "updated_at": "2026-09-24T15:55:12.018275+03:00"
   },
   "BIST:ATEKS": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373257+03:00"
+    "updated_at": "2026-09-24T15:55:12.018277+03:00"
   },
   "BIST:ATLAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373260+03:00"
+    "updated_at": "2026-09-24T15:55:12.018280+03:00"
   },
   "BIST:ATSYH": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373262+03:00"
+    "updated_at": "2026-09-24T15:55:12.018283+03:00"
   },
   "BIST:AVGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373264+03:00"
+    "updated_at": "2026-09-24T15:55:12.018285+03:00"
   },
   "BIST:AVHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373266+03:00"
+    "updated_at": "2026-09-24T15:55:12.018288+03:00"
   },
   "BIST:AVOD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373268+03:00"
+    "updated_at": "2026-09-24T15:55:12.018290+03:00"
   },
   "BIST:AVPGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373270+03:00"
+    "updated_at": "2026-09-24T15:55:12.018292+03:00"
   },
   "BIST:AYCES": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373272+03:00"
+    "updated_at": "2026-09-24T15:55:12.018295+03:00"
   },
   "BIST:AYDEM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373274+03:00"
+    "updated_at": "2026-09-24T15:55:12.018297+03:00"
   },
   "BIST:AYEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373277+03:00"
+    "updated_at": "2026-09-24T15:55:12.018299+03:00"
   },
   "BIST:AYES": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373279+03:00"
+    "updated_at": "2026-09-24T15:55:12.018302+03:00"
   },
   "BIST:AYGAZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373281+03:00"
+    "updated_at": "2026-09-24T15:55:12.018304+03:00"
   },
   "BIST:AZTEK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373283+03:00"
+    "updated_at": "2026-09-24T15:55:12.018306+03:00"
   },
   "BIST:BAGFS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373285+03:00"
+    "updated_at": "2026-09-24T15:55:12.018309+03:00"
   },
   "BIST:BAHKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373287+03:00"
+    "updated_at": "2026-09-24T15:55:12.018311+03:00"
   },
   "BIST:BAKAB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373289+03:00"
+    "updated_at": "2026-09-24T15:55:12.018313+03:00"
   },
   "BIST:BALAT": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373291+03:00"
+    "updated_at": "2026-09-24T15:55:12.018316+03:00"
   },
   "BIST:BALSU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373294+03:00"
+    "updated_at": "2026-09-24T15:55:12.018318+03:00"
   },
   "BIST:BANVT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373296+03:00"
+    "updated_at": "2026-09-24T15:55:12.018321+03:00"
   },
   "BIST:BARMA": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373298+03:00"
+    "updated_at": "2026-09-24T15:55:12.018323+03:00"
   },
   "BIST:BASCM": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373300+03:00"
+    "updated_at": "2026-09-24T15:55:12.018325+03:00"
   },
   "BIST:BASGZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373302+03:00"
+    "updated_at": "2026-09-24T15:55:12.018327+03:00"
   },
   "BIST:BAYRK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373304+03:00"
+    "updated_at": "2026-09-24T15:55:12.018330+03:00"
   },
   "BIST:BEGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373306+03:00"
+    "updated_at": "2026-09-24T15:55:12.018332+03:00"
   },
   "BIST:BERA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373308+03:00"
+    "updated_at": "2026-09-24T15:55:12.018334+03:00"
   },
   "BIST:BESLR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373311+03:00"
+    "updated_at": "2026-09-24T15:55:12.018336+03:00"
   },
   "BIST:BESTE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373312+03:00"
+    "updated_at": "2026-09-24T15:55:12.018339+03:00"
   },
   "BIST:BETAE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373314+03:00"
+    "updated_at": "2026-09-24T15:55:12.018341+03:00"
   },
   "BIST:BEYAZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373316+03:00"
+    "updated_at": "2026-09-24T15:55:12.018344+03:00"
   },
   "BIST:BFREN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373318+03:00"
+    "updated_at": "2026-09-24T15:55:12.018346+03:00"
   },
   "BIST:BIENY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373320+03:00"
+    "updated_at": "2026-09-24T15:55:12.018348+03:00"
   },
   "BIST:BIGCH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373322+03:00"
+    "updated_at": "2026-09-24T15:55:12.018351+03:00"
   },
   "BIST:BIGEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373324+03:00"
+    "updated_at": "2026-09-24T15:55:12.018353+03:00"
   },
   "BIST:BIGTK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373326+03:00"
+    "updated_at": "2026-09-24T15:55:12.018356+03:00"
   },
   "BIST:BIMAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373328+03:00"
+    "updated_at": "2026-09-24T15:55:12.018358+03:00"
   },
   "BIST:BINBN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373330+03:00"
+    "updated_at": "2026-09-24T15:55:12.018360+03:00"
   },
   "BIST:BINHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373332+03:00"
+    "updated_at": "2026-09-24T15:55:12.018363+03:00"
   },
   "BIST:BIOEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373334+03:00"
+    "updated_at": "2026-09-24T15:55:12.018365+03:00"
   },
   "BIST:BIZIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373335+03:00"
+    "updated_at": "2026-09-24T15:55:12.018368+03:00"
   },
   "BIST:BJKAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373338+03:00"
+    "updated_at": "2026-09-24T15:55:12.018370+03:00"
   },
   "BIST:BKRGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373340+03:00"
+    "updated_at": "2026-09-24T15:55:12.018372+03:00"
   },
   "BIST:BLCYT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373342+03:00"
+    "updated_at": "2026-09-24T15:55:12.018374+03:00"
   },
   "BIST:BLUME": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373344+03:00"
+    "updated_at": "2026-09-24T15:55:12.018377+03:00"
   },
   "BIST:BMSCH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373346+03:00"
+    "updated_at": "2026-09-24T15:55:12.018379+03:00"
   },
   "BIST:BMSTL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373348+03:00"
+    "updated_at": "2026-09-24T15:55:12.018381+03:00"
   },
   "BIST:BNTAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373350+03:00"
+    "updated_at": "2026-09-24T15:55:12.018383+03:00"
   },
   "BIST:BOBET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373352+03:00"
+    "updated_at": "2026-09-24T15:55:12.018386+03:00"
   },
   "BIST:BORLS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373354+03:00"
+    "updated_at": "2026-09-24T15:55:12.018388+03:00"
   },
   "BIST:BORSK": {
-    "candle_time": 1790249400.0,
-    "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373357+03:00"
+    "candle_time": 1790251200.0,
+    "direction": 1,
+    "last_buy_candle_time": 1790251200.0,
+    "updated_at": "2026-09-24T15:55:12.018424+03:00"
   },
   "BIST:BOSSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373359+03:00"
+    "updated_at": "2026-09-24T15:55:12.018431+03:00"
   },
   "BIST:BRISA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373360+03:00"
+    "updated_at": "2026-09-24T15:55:12.018437+03:00"
   },
   "BIST:BRKO": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373363+03:00"
+    "updated_at": "2026-09-24T15:55:12.018442+03:00"
   },
   "BIST:BRKSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373364+03:00"
+    "updated_at": "2026-09-24T15:55:12.018447+03:00"
   },
   "BIST:BRKVY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373366+03:00"
+    "updated_at": "2026-09-24T15:55:12.018452+03:00"
   },
   "BIST:BRLSM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373368+03:00"
+    "updated_at": "2026-09-24T15:55:12.018456+03:00"
   },
   "BIST:BRMEN": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373370+03:00"
+    "updated_at": "2026-09-24T15:55:12.018461+03:00"
   },
   "BIST:BRSAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373372+03:00"
+    "updated_at": "2026-09-24T15:55:12.018466+03:00"
   },
   "BIST:BRYAT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373375+03:00"
+    "updated_at": "2026-09-24T15:55:12.018471+03:00"
   },
   "BIST:BSOKE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373377+03:00"
+    "updated_at": "2026-09-24T15:55:12.018473+03:00"
   },
   "BIST:BTCIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373379+03:00"
+    "updated_at": "2026-09-24T15:55:12.018476+03:00"
   },
   "BIST:BUCIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373381+03:00"
+    "updated_at": "2026-09-24T15:55:12.018478+03:00"
   },
   "BIST:BULGS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373383+03:00"
+    "updated_at": "2026-09-24T15:55:12.018481+03:00"
   },
   "BIST:BURCE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373385+03:00"
+    "updated_at": "2026-09-24T15:55:12.018483+03:00"
   },
   "BIST:BURVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373388+03:00"
+    "updated_at": "2026-09-24T15:55:12.018486+03:00"
   },
   "BIST:BVSAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373390+03:00"
+    "updated_at": "2026-09-24T15:55:12.018488+03:00"
   },
   "BIST:BYDNR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373393+03:00"
+    "updated_at": "2026-09-24T15:55:12.018491+03:00"
   },
   "BIST:CANTE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373395+03:00"
+    "updated_at": "2026-09-24T15:55:12.018493+03:00"
   },
   "BIST:CASA": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373397+03:00"
+    "updated_at": "2026-09-24T15:55:12.018495+03:00"
   },
   "BIST:CATES": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373399+03:00"
+    "updated_at": "2026-09-24T15:55:12.018498+03:00"
   },
   "BIST:CCOLA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373401+03:00"
+    "updated_at": "2026-09-24T15:55:12.018500+03:00"
   },
   "BIST:CELHA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373403+03:00"
+    "updated_at": "2026-09-24T15:55:12.018503+03:00"
   },
   "BIST:CEMAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373405+03:00"
+    "updated_at": "2026-09-24T15:55:12.018505+03:00"
   },
   "BIST:CEMTS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373407+03:00"
+    "updated_at": "2026-09-24T15:55:12.018508+03:00"
   },
   "BIST:CEMZY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790236800.0,
-    "updated_at": "2026-09-24T15:29:30.373409+03:00"
+    "updated_at": "2026-09-24T15:55:12.018510+03:00"
   },
   "BIST:CEOEM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373412+03:00"
+    "updated_at": "2026-09-24T15:55:12.018513+03:00"
   },
   "BIST:CGCAM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373413+03:00"
+    "updated_at": "2026-09-24T15:55:12.018515+03:00"
   },
   "BIST:CIMSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373416+03:00"
+    "updated_at": "2026-09-24T15:55:12.018518+03:00"
   },
   "BIST:CITAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790236800.0,
-    "updated_at": "2026-09-24T15:29:30.373418+03:00"
+    "updated_at": "2026-09-24T15:55:12.018520+03:00"
   },
   "BIST:CLEBI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373420+03:00"
+    "updated_at": "2026-09-24T15:55:12.018523+03:00"
   },
   "BIST:CMBTN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373421+03:00"
+    "updated_at": "2026-09-24T15:55:12.018525+03:00"
   },
   "BIST:CMENT": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373424+03:00"
+    "updated_at": "2026-09-24T15:55:12.018527+03:00"
   },
   "BIST:CONSE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373426+03:00"
+    "updated_at": "2026-09-24T15:55:12.018530+03:00"
   },
   "BIST:COSMO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373428+03:00"
+    "updated_at": "2026-09-24T15:55:12.018532+03:00"
   },
   "BIST:CRDFA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373430+03:00"
+    "updated_at": "2026-09-24T15:55:12.018534+03:00"
   },
   "BIST:CRFSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373432+03:00"
+    "updated_at": "2026-09-24T15:55:12.018537+03:00"
   },
   "BIST:CUSAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373434+03:00"
+    "updated_at": "2026-09-24T15:55:12.018565+03:00"
   },
   "BIST:CVKMD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373435+03:00"
+    "updated_at": "2026-09-24T15:55:12.018571+03:00"
   },
   "BIST:CWENE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373438+03:00"
+    "updated_at": "2026-09-24T15:55:12.018576+03:00"
   },
   "BIST:DAGI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373440+03:00"
+    "updated_at": "2026-09-24T15:55:12.018581+03:00"
   },
   "BIST:DAPGM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373442+03:00"
+    "updated_at": "2026-09-24T15:55:12.018586+03:00"
   },
   "BIST:DARDL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373444+03:00"
+    "updated_at": "2026-09-24T15:55:12.018591+03:00"
   },
   "BIST:DCTTR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373446+03:00"
+    "updated_at": "2026-09-24T15:55:12.018595+03:00"
   },
   "BIST:DENGE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373448+03:00"
+    "updated_at": "2026-09-24T15:55:12.018597+03:00"
   },
   "BIST:DERHL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373450+03:00"
+    "updated_at": "2026-09-24T15:55:12.018600+03:00"
   },
   "BIST:DERIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373452+03:00"
+    "updated_at": "2026-09-24T15:55:12.018602+03:00"
   },
   "BIST:DESA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373454+03:00"
+    "updated_at": "2026-09-24T15:55:12.018604+03:00"
   },
   "BIST:DESPC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373456+03:00"
+    "updated_at": "2026-09-24T15:55:12.018607+03:00"
   },
   "BIST:DEVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373459+03:00"
+    "updated_at": "2026-09-24T15:55:12.018609+03:00"
   },
   "BIST:DGATE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373461+03:00"
+    "updated_at": "2026-09-24T15:55:12.018611+03:00"
   },
   "BIST:DGGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373463+03:00"
+    "updated_at": "2026-09-24T15:55:12.018614+03:00"
   },
   "BIST:DGNMO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373465+03:00"
+    "updated_at": "2026-09-24T15:55:12.018616+03:00"
   },
   "BIST:DIRIT": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373468+03:00"
+    "updated_at": "2026-09-24T15:55:12.018618+03:00"
   },
   "BIST:DITAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373470+03:00"
+    "updated_at": "2026-09-24T15:55:12.018621+03:00"
   },
   "BIST:DMLKT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373472+03:00"
+    "updated_at": "2026-09-24T15:55:12.018623+03:00"
   },
   "BIST:DMRGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373474+03:00"
+    "updated_at": "2026-09-24T15:55:12.018626+03:00"
   },
   "BIST:DMSAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373476+03:00"
+    "updated_at": "2026-09-24T15:55:12.018628+03:00"
   },
   "BIST:DNISI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373478+03:00"
+    "updated_at": "2026-09-24T15:55:12.018631+03:00"
   },
   "BIST:DOAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373480+03:00"
+    "updated_at": "2026-09-24T15:55:12.018633+03:00"
   },
   "BIST:DOFER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373482+03:00"
+    "updated_at": "2026-09-24T15:55:12.018635+03:00"
   },
   "BIST:DOFRB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373484+03:00"
+    "updated_at": "2026-09-24T15:55:12.018638+03:00"
   },
   "BIST:DOGUB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373486+03:00"
+    "updated_at": "2026-09-24T15:55:12.018640+03:00"
   },
   "BIST:DOHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373488+03:00"
+    "updated_at": "2026-09-24T15:55:12.018642+03:00"
   },
   "BIST:DOKTA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373490+03:00"
+    "updated_at": "2026-09-24T15:55:12.018645+03:00"
   },
   "BIST:DSTKF": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373492+03:00"
+    "updated_at": "2026-09-24T15:55:12.018647+03:00"
   },
   "BIST:DUNYH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373494+03:00"
+    "updated_at": "2026-09-24T15:55:12.018650+03:00"
   },
   "BIST:DURDO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373496+03:00"
+    "updated_at": "2026-09-24T15:55:12.018652+03:00"
   },
   "BIST:DURKN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373502+03:00"
+    "updated_at": "2026-09-24T15:55:12.018655+03:00"
   },
   "BIST:DYOBY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373506+03:00"
+    "updated_at": "2026-09-24T15:55:12.018658+03:00"
   },
   "BIST:DZGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373509+03:00"
+    "updated_at": "2026-09-24T15:55:12.018660+03:00"
   },
   "BIST:EBEBK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373512+03:00"
+    "updated_at": "2026-09-24T15:55:12.018662+03:00"
   },
   "BIST:ECILC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373516+03:00"
+    "updated_at": "2026-09-24T15:55:12.018665+03:00"
   },
   "BIST:ECOGR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373520+03:00"
+    "updated_at": "2026-09-24T15:55:12.018667+03:00"
   },
   "BIST:ECZYT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373523+03:00"
+    "updated_at": "2026-09-24T15:55:12.018670+03:00"
   },
   "BIST:EDATA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373526+03:00"
+    "updated_at": "2026-09-24T15:55:12.018672+03:00"
   },
   "BIST:EDIP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373529+03:00"
+    "updated_at": "2026-09-24T15:55:12.018674+03:00"
   },
   "BIST:EFOR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373532+03:00"
+    "updated_at": "2026-09-24T15:55:12.018677+03:00"
   },
   "BIST:EGEEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373534+03:00"
+    "updated_at": "2026-09-24T15:55:12.018679+03:00"
   },
   "BIST:EGEGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373537+03:00"
+    "updated_at": "2026-09-24T15:55:12.018681+03:00"
   },
   "BIST:EGEPO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373540+03:00"
+    "updated_at": "2026-09-24T15:55:12.018684+03:00"
   },
   "BIST:EGGUB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373543+03:00"
+    "updated_at": "2026-09-24T15:55:12.018686+03:00"
   },
   "BIST:EGPRO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373546+03:00"
+    "updated_at": "2026-09-24T15:55:12.018689+03:00"
   },
   "BIST:EGSER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373548+03:00"
+    "updated_at": "2026-09-24T15:55:12.018691+03:00"
   },
   "BIST:EKDMR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373551+03:00"
+    "updated_at": "2026-09-24T15:55:12.018694+03:00"
   },
   "BIST:EKIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373554+03:00"
+    "updated_at": "2026-09-24T15:55:12.018696+03:00"
   },
   "BIST:EKIZ": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373556+03:00"
+    "updated_at": "2026-09-24T15:55:12.018698+03:00"
   },
   "BIST:EKOS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373559+03:00"
+    "updated_at": "2026-09-24T15:55:12.018701+03:00"
   },
   "BIST:EKSUN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373562+03:00"
+    "updated_at": "2026-09-24T15:55:12.018703+03:00"
   },
   "BIST:ELITE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373565+03:00"
+    "updated_at": "2026-09-24T15:55:12.018706+03:00"
   },
   "BIST:EMKEL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373568+03:00"
+    "updated_at": "2026-09-24T15:55:12.018708+03:00"
   },
   "BIST:EMNIS": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373570+03:00"
+    "updated_at": "2026-09-24T15:55:12.018711+03:00"
   },
   "BIST:EMPAE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373573+03:00"
+    "updated_at": "2026-09-24T15:55:12.018713+03:00"
   },
   "BIST:ENDAE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373576+03:00"
+    "updated_at": "2026-09-24T15:55:12.018715+03:00"
   },
   "BIST:ENERY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373579+03:00"
+    "updated_at": "2026-09-24T15:55:12.018717+03:00"
   },
   "BIST:ENJSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373582+03:00"
+    "updated_at": "2026-09-24T15:55:12.018720+03:00"
   },
   "BIST:ENKAI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373585+03:00"
+    "updated_at": "2026-09-24T15:55:12.018722+03:00"
   },
   "BIST:ENPRA": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373587+03:00"
+    "updated_at": "2026-09-24T15:55:12.018724+03:00"
   },
   "BIST:ENSRI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373590+03:00"
+    "updated_at": "2026-09-24T15:55:12.018727+03:00"
   },
   "BIST:ENTRA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373593+03:00"
+    "updated_at": "2026-09-24T15:55:12.018729+03:00"
   },
   "BIST:EPLAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373596+03:00"
+    "updated_at": "2026-09-24T15:55:12.018731+03:00"
   },
   "BIST:ERBOS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373599+03:00"
+    "updated_at": "2026-09-24T15:55:12.018734+03:00"
   },
   "BIST:ERCB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373602+03:00"
+    "updated_at": "2026-09-24T15:55:12.018736+03:00"
   },
   "BIST:EREGL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373604+03:00"
+    "updated_at": "2026-09-24T15:55:12.018738+03:00"
   },
   "BIST:ERSU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373607+03:00"
+    "updated_at": "2026-09-24T15:55:12.018740+03:00"
   },
   "BIST:ESCAR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373610+03:00"
+    "updated_at": "2026-09-24T15:55:12.018743+03:00"
   },
   "BIST:ESCOM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373612+03:00"
+    "updated_at": "2026-09-24T15:55:12.018745+03:00"
   },
   "BIST:ESEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373615+03:00"
+    "updated_at": "2026-09-24T15:55:12.018747+03:00"
   },
   "BIST:ETILR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373618+03:00"
+    "updated_at": "2026-09-24T15:55:12.018750+03:00"
   },
   "BIST:ETYAT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373621+03:00"
+    "updated_at": "2026-09-24T15:55:12.018752+03:00"
   },
   "BIST:EUHOL": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373623+03:00"
+    "updated_at": "2026-09-24T15:55:12.018755+03:00"
   },
   "BIST:EUKYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373626+03:00"
+    "updated_at": "2026-09-24T15:55:12.018757+03:00"
   },
   "BIST:EUPWR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373629+03:00"
+    "updated_at": "2026-09-24T15:55:12.018760+03:00"
   },
   "BIST:EUREN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373633+03:00"
+    "updated_at": "2026-09-24T15:55:12.018762+03:00"
   },
   "BIST:EUYO": {
-    "candle_time": 1790249400.0,
-    "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373636+03:00"
+    "candle_time": 1790251200.0,
+    "direction": 1,
+    "last_buy_candle_time": 1790251200.0,
+    "updated_at": "2026-09-24T15:55:12.018798+03:00"
   },
   "BIST:EYGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373639+03:00"
+    "updated_at": "2026-09-24T15:55:12.018805+03:00"
   },
   "BIST:FADE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373641+03:00"
+    "updated_at": "2026-09-24T15:55:12.018811+03:00"
   },
   "BIST:FENER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373645+03:00"
+    "updated_at": "2026-09-24T15:55:12.018817+03:00"
   },
   "BIST:FLAP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373648+03:00"
+    "updated_at": "2026-09-24T15:55:12.018821+03:00"
   },
   "BIST:FMIZP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373651+03:00"
+    "updated_at": "2026-09-24T15:55:12.018826+03:00"
   },
   "BIST:FONET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373654+03:00"
+    "updated_at": "2026-09-24T15:55:12.018830+03:00"
   },
   "BIST:FORMT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373657+03:00"
+    "updated_at": "2026-09-24T15:55:12.018836+03:00"
   },
   "BIST:FORTE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373661+03:00"
+    "updated_at": "2026-09-24T15:55:12.018841+03:00"
   },
   "BIST:FRIGO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373664+03:00"
+    "updated_at": "2026-09-24T15:55:12.018844+03:00"
   },
   "BIST:FRMPL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373667+03:00"
+    "updated_at": "2026-09-24T15:55:12.018847+03:00"
   },
   "BIST:FROTO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373670+03:00"
+    "updated_at": "2026-09-24T15:55:12.018850+03:00"
   },
   "BIST:FZLGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373673+03:00"
+    "updated_at": "2026-09-24T15:55:12.018853+03:00"
   },
   "BIST:GARAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373676+03:00"
+    "updated_at": "2026-09-24T15:55:12.018856+03:00"
   },
   "BIST:GARFA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373679+03:00"
+    "updated_at": "2026-09-24T15:55:12.018858+03:00"
   },
   "BIST:GATEG": {
     "candle_time": 1790245800.0,
     "direction": 1,
     "last_buy_candle_time": 1790245800.0,
-    "updated_at": "2026-09-24T15:29:30.373723+03:00"
+    "updated_at": "2026-09-24T15:55:12.018861+03:00"
   },
   "BIST:GEDIK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373728+03:00"
+    "updated_at": "2026-09-24T15:55:12.018865+03:00"
   },
   "BIST:GEDZA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373731+03:00"
+    "updated_at": "2026-09-24T15:55:12.018867+03:00"
   },
   "BIST:GENIL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373734+03:00"
+    "updated_at": "2026-09-24T15:55:12.018870+03:00"
   },
   "BIST:GENKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373737+03:00"
+    "updated_at": "2026-09-24T15:55:12.018872+03:00"
   },
   "BIST:GENTS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373740+03:00"
+    "updated_at": "2026-09-24T15:55:12.018875+03:00"
   },
   "BIST:GEREL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373743+03:00"
+    "updated_at": "2026-09-24T15:55:12.018877+03:00"
   },
   "BIST:GESAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373746+03:00"
+    "updated_at": "2026-09-24T15:55:12.018880+03:00"
   },
   "BIST:GIPTA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373750+03:00"
+    "updated_at": "2026-09-24T15:55:12.018883+03:00"
   },
   "BIST:GLBMD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373753+03:00"
+    "updated_at": "2026-09-24T15:55:12.018885+03:00"
   },
   "BIST:GLCVY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373756+03:00"
+    "updated_at": "2026-09-24T15:55:12.018888+03:00"
   },
   "BIST:GLRMK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373758+03:00"
+    "updated_at": "2026-09-24T15:55:12.018891+03:00"
   },
   "BIST:GLRYH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373762+03:00"
+    "updated_at": "2026-09-24T15:55:12.018893+03:00"
   },
   "BIST:GLYHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373765+03:00"
+    "updated_at": "2026-09-24T15:55:12.018896+03:00"
   },
   "BIST:GMTAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373768+03:00"
+    "updated_at": "2026-09-24T15:55:12.018898+03:00"
   },
   "BIST:GOKNR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373771+03:00"
+    "updated_at": "2026-09-24T15:55:12.018901+03:00"
   },
   "BIST:GOLDA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373775+03:00"
+    "updated_at": "2026-09-24T15:55:12.018904+03:00"
   },
   "BIST:GOLTS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373778+03:00"
+    "updated_at": "2026-09-24T15:55:12.018906+03:00"
   },
   "BIST:GOODY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373780+03:00"
+    "updated_at": "2026-09-24T15:55:12.018909+03:00"
   },
   "BIST:GOZDE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373784+03:00"
+    "updated_at": "2026-09-24T15:55:12.018911+03:00"
   },
   "BIST:GRNYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373787+03:00"
+    "updated_at": "2026-09-24T15:55:12.018914+03:00"
   },
   "BIST:GRSEL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373790+03:00"
+    "updated_at": "2026-09-24T15:55:12.018916+03:00"
   },
   "BIST:GRTHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790236800.0,
-    "updated_at": "2026-09-24T15:29:30.373793+03:00"
+    "updated_at": "2026-09-24T15:55:12.018918+03:00"
   },
   "BIST:GSDDE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373796+03:00"
+    "updated_at": "2026-09-24T15:55:12.018921+03:00"
   },
   "BIST:GSDHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373799+03:00"
+    "updated_at": "2026-09-24T15:55:12.018923+03:00"
   },
   "BIST:GSRAY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373802+03:00"
+    "updated_at": "2026-09-24T15:55:12.018926+03:00"
   },
   "BIST:GUBRF": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373805+03:00"
+    "updated_at": "2026-09-24T15:55:12.018928+03:00"
   },
   "BIST:GUNDG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373808+03:00"
+    "updated_at": "2026-09-24T15:55:12.018931+03:00"
   },
   "BIST:GWIND": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373811+03:00"
+    "updated_at": "2026-09-24T15:55:12.018933+03:00"
   },
   "BIST:GZNMI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373814+03:00"
+    "updated_at": "2026-09-24T15:55:12.018936+03:00"
   },
   "BIST:HALKB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373817+03:00"
+    "updated_at": "2026-09-24T15:55:12.018938+03:00"
   },
   "BIST:HATEK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373820+03:00"
+    "updated_at": "2026-09-24T15:55:12.018940+03:00"
   },
   "BIST:HATSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373823+03:00"
+    "updated_at": "2026-09-24T15:55:12.018943+03:00"
   },
   "BIST:HDFGS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373826+03:00"
+    "updated_at": "2026-09-24T15:55:12.018945+03:00"
   },
   "BIST:HEDEF": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373829+03:00"
+    "updated_at": "2026-09-24T15:55:12.018948+03:00"
   },
   "BIST:HEKTS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373832+03:00"
+    "updated_at": "2026-09-24T15:55:12.018950+03:00"
   },
   "BIST:HKTM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373836+03:00"
+    "updated_at": "2026-09-24T15:55:12.018952+03:00"
   },
   "BIST:HLGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373839+03:00"
+    "updated_at": "2026-09-24T15:55:12.018955+03:00"
   },
   "BIST:HOROZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373842+03:00"
+    "updated_at": "2026-09-24T15:55:12.018957+03:00"
   },
   "BIST:HRKET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373845+03:00"
+    "updated_at": "2026-09-24T15:55:12.018960+03:00"
   },
   "BIST:HTTBT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373847+03:00"
+    "updated_at": "2026-09-24T15:55:12.018962+03:00"
   },
   "BIST:HUBVC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373849+03:00"
+    "updated_at": "2026-09-24T15:55:12.018965+03:00"
   },
   "BIST:HUNER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373852+03:00"
+    "updated_at": "2026-09-24T15:55:12.018967+03:00"
   },
   "BIST:HURGZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373854+03:00"
+    "updated_at": "2026-09-24T15:55:12.018969+03:00"
   },
   "BIST:ICBCT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373856+03:00"
+    "updated_at": "2026-09-24T15:55:12.018972+03:00"
   },
   "BIST:ICUGS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373858+03:00"
+    "updated_at": "2026-09-24T15:55:12.018974+03:00"
   },
   "BIST:IDGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373860+03:00"
+    "updated_at": "2026-09-24T15:55:12.018976+03:00"
   },
   "BIST:IEYHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373862+03:00"
+    "updated_at": "2026-09-24T15:55:12.018979+03:00"
   },
   "BIST:IHAAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373864+03:00"
+    "updated_at": "2026-09-24T15:55:12.018981+03:00"
   },
   "BIST:IHEVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373866+03:00"
+    "updated_at": "2026-09-24T15:55:12.018984+03:00"
   },
   "BIST:IHGZT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373868+03:00"
+    "updated_at": "2026-09-24T15:55:12.018986+03:00"
   },
   "BIST:IHLAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373869+03:00"
+    "updated_at": "2026-09-24T15:55:12.018988+03:00"
   },
   "BIST:IHLGM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373871+03:00"
+    "updated_at": "2026-09-24T15:55:12.018991+03:00"
   },
   "BIST:IHYAY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373874+03:00"
+    "updated_at": "2026-09-24T15:55:12.018993+03:00"
   },
   "BIST:IMASM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373875+03:00"
+    "updated_at": "2026-09-24T15:55:12.018995+03:00"
   },
   "BIST:INDES": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373877+03:00"
+    "updated_at": "2026-09-24T15:55:12.018998+03:00"
   },
   "BIST:INFO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373879+03:00"
+    "updated_at": "2026-09-24T15:55:12.019000+03:00"
   },
   "BIST:INGRM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373881+03:00"
+    "updated_at": "2026-09-24T15:55:12.019003+03:00"
   },
   "BIST:INTEK": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373883+03:00"
+    "updated_at": "2026-09-24T15:55:12.019005+03:00"
   },
   "BIST:INTEM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373884+03:00"
+    "updated_at": "2026-09-24T15:55:12.019007+03:00"
   },
   "BIST:INTET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373886+03:00"
+    "updated_at": "2026-09-24T15:55:12.019010+03:00"
   },
   "BIST:INVEO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373888+03:00"
+    "updated_at": "2026-09-24T15:55:12.019012+03:00"
   },
   "BIST:INVES": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373890+03:00"
+    "updated_at": "2026-09-24T15:55:12.019014+03:00"
   },
   "BIST:ISBIR": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373892+03:00"
+    "updated_at": "2026-09-24T15:55:12.019017+03:00"
   },
   "BIST:ISDMR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373894+03:00"
+    "updated_at": "2026-09-24T15:55:12.019019+03:00"
   },
   "BIST:ISFIN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373895+03:00"
+    "updated_at": "2026-09-24T15:55:12.019022+03:00"
   },
   "BIST:ISGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373897+03:00"
+    "updated_at": "2026-09-24T15:55:12.019024+03:00"
   },
   "BIST:ISKPL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373899+03:00"
+    "updated_at": "2026-09-24T15:55:12.019027+03:00"
   },
   "BIST:ISMEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373901+03:00"
+    "updated_at": "2026-09-24T15:55:12.019029+03:00"
   },
   "BIST:ISSEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373903+03:00"
+    "updated_at": "2026-09-24T15:55:12.019032+03:00"
   },
   "BIST:ISVEA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373905+03:00"
+    "updated_at": "2026-09-24T15:55:12.019034+03:00"
   },
   "BIST:IZENR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373907+03:00"
+    "updated_at": "2026-09-24T15:55:12.019036+03:00"
   },
   "BIST:IZFAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373908+03:00"
+    "updated_at": "2026-09-24T15:55:12.019038+03:00"
   },
   "BIST:IZINV": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373910+03:00"
+    "updated_at": "2026-09-24T15:55:12.019041+03:00"
   },
   "BIST:IZMDC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373912+03:00"
+    "updated_at": "2026-09-24T15:55:12.019043+03:00"
   },
   "BIST:JANTS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373914+03:00"
+    "updated_at": "2026-09-24T15:55:12.019046+03:00"
   },
   "BIST:KAPLM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373916+03:00"
+    "updated_at": "2026-09-24T15:55:12.019048+03:00"
   },
   "BIST:KARCL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373918+03:00"
+    "updated_at": "2026-09-24T15:55:12.019050+03:00"
   },
   "BIST:KAREL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373920+03:00"
+    "updated_at": "2026-09-24T15:55:12.019053+03:00"
   },
   "BIST:KARSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373922+03:00"
+    "updated_at": "2026-09-24T15:55:12.019055+03:00"
   },
   "BIST:KARTN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373924+03:00"
+    "updated_at": "2026-09-24T15:55:12.019058+03:00"
   },
   "BIST:KATMR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373926+03:00"
+    "updated_at": "2026-09-24T15:55:12.019060+03:00"
   },
   "BIST:KAYSE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373927+03:00"
+    "updated_at": "2026-09-24T15:55:12.019062+03:00"
   },
   "BIST:KBORU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373930+03:00"
+    "updated_at": "2026-09-24T15:55:12.019065+03:00"
   },
   "BIST:KCAER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373932+03:00"
+    "updated_at": "2026-09-24T15:55:12.019067+03:00"
   },
   "BIST:KCHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373934+03:00"
+    "updated_at": "2026-09-24T15:55:12.019070+03:00"
   },
   "BIST:KENT": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373935+03:00"
+    "updated_at": "2026-09-24T15:55:12.019072+03:00"
   },
   "BIST:KERVN": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373937+03:00"
+    "updated_at": "2026-09-24T15:55:12.019074+03:00"
   },
   "BIST:KFEIN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373939+03:00"
+    "updated_at": "2026-09-24T15:55:12.019077+03:00"
   },
   "BIST:KGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373941+03:00"
+    "updated_at": "2026-09-24T15:55:12.019079+03:00"
   },
   "BIST:KIMMR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373943+03:00"
+    "updated_at": "2026-09-24T15:55:12.019082+03:00"
   },
   "BIST:KLGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373944+03:00"
+    "updated_at": "2026-09-24T15:55:12.019084+03:00"
   },
   "BIST:KLKIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373946+03:00"
+    "updated_at": "2026-09-24T15:55:12.019087+03:00"
   },
   "BIST:KLMSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373948+03:00"
+    "updated_at": "2026-09-24T15:55:12.019089+03:00"
   },
   "BIST:KLNMA": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373950+03:00"
+    "updated_at": "2026-09-24T15:55:12.019091+03:00"
   },
   "BIST:KLRHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373952+03:00"
+    "updated_at": "2026-09-24T15:55:12.019093+03:00"
   },
   "BIST:KLSER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373954+03:00"
+    "updated_at": "2026-09-24T15:55:12.019096+03:00"
   },
   "BIST:KLSYN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373955+03:00"
+    "updated_at": "2026-09-24T15:55:12.019098+03:00"
   },
   "BIST:KLYPV": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373958+03:00"
+    "updated_at": "2026-09-24T15:55:12.019100+03:00"
   },
   "BIST:KMPUR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373960+03:00"
+    "updated_at": "2026-09-24T15:55:12.019102+03:00"
   },
   "BIST:KNFRT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373962+03:00"
+    "updated_at": "2026-09-24T15:55:12.019105+03:00"
   },
   "BIST:KOCMT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373964+03:00"
+    "updated_at": "2026-09-24T15:55:12.019107+03:00"
   },
   "BIST:KONKA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373966+03:00"
+    "updated_at": "2026-09-24T15:55:12.019110+03:00"
   },
   "BIST:KONTR": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373968+03:00"
+    "updated_at": "2026-09-24T15:55:12.019112+03:00"
   },
   "BIST:KONYA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373969+03:00"
+    "updated_at": "2026-09-24T15:55:12.019115+03:00"
   },
   "BIST:KOPOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373971+03:00"
+    "updated_at": "2026-09-24T15:55:12.019117+03:00"
   },
   "BIST:KORDS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373973+03:00"
+    "updated_at": "2026-09-24T15:55:12.019119+03:00"
   },
   "BIST:KOTON": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373975+03:00"
+    "updated_at": "2026-09-24T15:55:12.019122+03:00"
   },
   "BIST:KPEKS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790244000.0,
-    "updated_at": "2026-09-24T15:29:30.373977+03:00"
+    "updated_at": "2026-09-24T15:55:12.019124+03:00"
   },
   "BIST:KRDMA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373979+03:00"
+    "updated_at": "2026-09-24T15:55:12.019126+03:00"
   },
   "BIST:KRGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373981+03:00"
+    "updated_at": "2026-09-24T15:55:12.019129+03:00"
   },
   "BIST:KRONT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373983+03:00"
+    "updated_at": "2026-09-24T15:55:12.019131+03:00"
   },
   "BIST:KRPLS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373985+03:00"
+    "updated_at": "2026-09-24T15:55:12.019133+03:00"
   },
   "BIST:KRSTL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373987+03:00"
+    "updated_at": "2026-09-24T15:55:12.019136+03:00"
   },
   "BIST:KRTEK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.373989+03:00"
+    "updated_at": "2026-09-24T15:55:12.019138+03:00"
   },
   "BIST:KRVGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373991+03:00"
+    "updated_at": "2026-09-24T15:55:12.019140+03:00"
   },
   "BIST:KSTUR": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373992+03:00"
+    "updated_at": "2026-09-24T15:55:12.019143+03:00"
   },
   "BIST:KTLEV": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373994+03:00"
+    "updated_at": "2026-09-24T15:55:12.019145+03:00"
   },
   "BIST:KTSKR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373996+03:00"
+    "updated_at": "2026-09-24T15:55:12.019148+03:00"
   },
   "BIST:KUTPO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.373998+03:00"
+    "updated_at": "2026-09-24T15:55:12.019150+03:00"
   },
   "BIST:KUVVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374000+03:00"
+    "updated_at": "2026-09-24T15:55:12.019152+03:00"
   },
   "BIST:KUYAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374002+03:00"
+    "updated_at": "2026-09-24T15:55:12.019154+03:00"
   },
   "BIST:KZBGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374004+03:00"
+    "updated_at": "2026-09-24T15:55:12.019157+03:00"
   },
   "BIST:KZGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374007+03:00"
+    "updated_at": "2026-09-24T15:55:12.019159+03:00"
   },
   "BIST:LIDER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374009+03:00"
+    "updated_at": "2026-09-24T15:55:12.019162+03:00"
   },
   "BIST:LIDFA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374011+03:00"
+    "updated_at": "2026-09-24T15:55:12.019164+03:00"
   },
   "BIST:LILAK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374013+03:00"
+    "updated_at": "2026-09-24T15:55:12.019166+03:00"
   },
   "BIST:LINK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374015+03:00"
+    "updated_at": "2026-09-24T15:55:12.019169+03:00"
   },
   "BIST:LKMNH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374016+03:00"
+    "updated_at": "2026-09-24T15:55:12.019171+03:00"
   },
   "BIST:LMKDC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374018+03:00"
+    "updated_at": "2026-09-24T15:55:12.019173+03:00"
   },
   "BIST:LOGO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374020+03:00"
+    "updated_at": "2026-09-24T15:55:12.019176+03:00"
   },
   "BIST:LRSHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374022+03:00"
+    "updated_at": "2026-09-24T15:55:12.019178+03:00"
   },
   "BIST:LUKSK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374025+03:00"
+    "updated_at": "2026-09-24T15:55:12.019181+03:00"
   },
   "BIST:LXGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374027+03:00"
+    "updated_at": "2026-09-24T15:55:12.019183+03:00"
   },
   "BIST:LYDHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374029+03:00"
+    "updated_at": "2026-09-24T15:55:12.019186+03:00"
   },
   "BIST:LYDYE": {
-    "candle_time": 1790245800.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374032+03:00"
+    "updated_at": "2026-09-24T15:55:12.019188+03:00"
   },
   "BIST:MAALT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374034+03:00"
+    "updated_at": "2026-09-24T15:55:12.019191+03:00"
   },
   "BIST:MACKO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374036+03:00"
+    "updated_at": "2026-09-24T15:55:12.019193+03:00"
   },
   "BIST:MAGEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374038+03:00"
+    "updated_at": "2026-09-24T15:55:12.019195+03:00"
   },
   "BIST:MAKIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374040+03:00"
+    "updated_at": "2026-09-24T15:55:12.019198+03:00"
   },
   "BIST:MAKTK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374042+03:00"
+    "updated_at": "2026-09-24T15:55:12.019200+03:00"
   },
   "BIST:MANAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374044+03:00"
+    "updated_at": "2026-09-24T15:55:12.019202+03:00"
   },
   "BIST:MARBL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374046+03:00"
+    "updated_at": "2026-09-24T15:55:12.019205+03:00"
   },
   "BIST:MARMR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374048+03:00"
+    "updated_at": "2026-09-24T15:55:12.019207+03:00"
   },
   "BIST:MARTI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374050+03:00"
+    "updated_at": "2026-09-24T15:55:12.019209+03:00"
   },
   "BIST:MASFN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374052+03:00"
+    "updated_at": "2026-09-24T15:55:12.019212+03:00"
   },
   "BIST:MAVI": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374054+03:00"
+    "updated_at": "2026-09-24T15:55:12.019214+03:00"
   },
   "BIST:MCARD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374056+03:00"
+    "updated_at": "2026-09-24T15:55:12.019217+03:00"
   },
   "BIST:MEDTR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374058+03:00"
+    "updated_at": "2026-09-24T15:55:12.019220+03:00"
   },
   "BIST:MEGAP": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374060+03:00"
+    "updated_at": "2026-09-24T15:55:12.019222+03:00"
   },
   "BIST:MEGMT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374062+03:00"
+    "updated_at": "2026-09-24T15:55:12.019224+03:00"
   },
   "BIST:MEKAG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374064+03:00"
+    "updated_at": "2026-09-24T15:55:12.019227+03:00"
   },
   "BIST:MEPET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374066+03:00"
+    "updated_at": "2026-09-24T15:55:12.019229+03:00"
   },
   "BIST:MERCN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374068+03:00"
+    "updated_at": "2026-09-24T15:55:12.019232+03:00"
   },
   "BIST:MERIT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374087+03:00"
+    "updated_at": "2026-09-24T15:55:12.019234+03:00"
   },
   "BIST:MERKO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374089+03:00"
+    "updated_at": "2026-09-24T15:55:12.019237+03:00"
   },
   "BIST:METEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374091+03:00"
+    "updated_at": "2026-09-24T15:55:12.019239+03:00"
   },
   "BIST:METRO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374093+03:00"
+    "updated_at": "2026-09-24T15:55:12.019241+03:00"
   },
   "BIST:MEYSU": {
-    "candle_time": 1790249400.0,
-    "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374095+03:00"
+    "candle_time": 1790251200.0,
+    "direction": -1,
+    "updated_at": "2026-09-24T15:55:12.019244+03:00"
   },
   "BIST:MGROS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374096+03:00"
+    "updated_at": "2026-09-24T15:55:12.019246+03:00"
   },
   "BIST:MHRGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374099+03:00"
+    "updated_at": "2026-09-24T15:55:12.019249+03:00"
   },
   "BIST:MIATK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374101+03:00"
+    "updated_at": "2026-09-24T15:55:12.019251+03:00"
   },
   "BIST:MMCAS": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374103+03:00"
+    "updated_at": "2026-09-24T15:55:12.019253+03:00"
   },
   "BIST:MNDRS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374104+03:00"
+    "updated_at": "2026-09-24T15:55:12.019256+03:00"
   },
   "BIST:MNDTR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374106+03:00"
+    "updated_at": "2026-09-24T15:55:12.019258+03:00"
   },
   "BIST:MOBTL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374108+03:00"
+    "updated_at": "2026-09-24T15:55:12.019261+03:00"
   },
   "BIST:MOGAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374110+03:00"
+    "updated_at": "2026-09-24T15:55:12.019263+03:00"
   },
   "BIST:MOPAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374112+03:00"
+    "updated_at": "2026-09-24T15:55:12.019265+03:00"
   },
   "BIST:MPARK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374113+03:00"
+    "updated_at": "2026-09-24T15:55:12.019268+03:00"
   },
   "BIST:MRGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374115+03:00"
+    "updated_at": "2026-09-24T15:55:12.019270+03:00"
   },
   "BIST:MRSHL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374117+03:00"
+    "updated_at": "2026-09-24T15:55:12.019272+03:00"
   },
   "BIST:MSGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374119+03:00"
+    "updated_at": "2026-09-24T15:55:12.019275+03:00"
   },
   "BIST:MTRKS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374121+03:00"
+    "updated_at": "2026-09-24T15:55:12.019277+03:00"
   },
   "BIST:MTRYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374123+03:00"
+    "updated_at": "2026-09-24T15:55:12.019280+03:00"
   },
   "BIST:MZHLD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374125+03:00"
+    "updated_at": "2026-09-24T15:55:12.019282+03:00"
   },
   "BIST:NATEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374127+03:00"
+    "updated_at": "2026-09-24T15:55:12.019285+03:00"
   },
   "BIST:NETAS": {
-    "candle_time": 1790249400.0,
-    "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374129+03:00"
+    "candle_time": 1790251200.0,
+    "direction": -1,
+    "updated_at": "2026-09-24T15:55:12.019287+03:00"
   },
   "BIST:NETCD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374130+03:00"
+    "updated_at": "2026-09-24T15:55:12.019289+03:00"
   },
   "BIST:NETGL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374132+03:00"
+    "updated_at": "2026-09-24T15:55:12.019292+03:00"
   },
   "BIST:NIBAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374134+03:00"
+    "updated_at": "2026-09-24T15:55:12.019294+03:00"
   },
   "BIST:NTGAZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374136+03:00"
+    "updated_at": "2026-09-24T15:55:12.019296+03:00"
   },
   "BIST:NTHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374138+03:00"
+    "updated_at": "2026-09-24T15:55:12.019299+03:00"
   },
   "BIST:NUGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374140+03:00"
+    "updated_at": "2026-09-24T15:55:12.019301+03:00"
   },
   "BIST:NUHCM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374142+03:00"
+    "updated_at": "2026-09-24T15:55:12.019304+03:00"
   },
   "BIST:OBAMS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374143+03:00"
+    "updated_at": "2026-09-24T15:55:12.019306+03:00"
   },
   "BIST:OBASE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374145+03:00"
+    "updated_at": "2026-09-24T15:55:12.019309+03:00"
   },
   "BIST:ODAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374147+03:00"
+    "updated_at": "2026-09-24T15:55:12.019311+03:00"
   },
   "BIST:ODINE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374149+03:00"
+    "updated_at": "2026-09-24T15:55:12.019313+03:00"
   },
   "BIST:OFSYM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374152+03:00"
+    "updated_at": "2026-09-24T15:55:12.019316+03:00"
   },
   "BIST:ONCSM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374153+03:00"
+    "updated_at": "2026-09-24T15:55:12.019318+03:00"
   },
   "BIST:ONRYT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374156+03:00"
+    "updated_at": "2026-09-24T15:55:12.019320+03:00"
   },
   "BIST:ORCAY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374157+03:00"
+    "updated_at": "2026-09-24T15:55:12.019323+03:00"
   },
   "BIST:ORGE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374159+03:00"
+    "updated_at": "2026-09-24T15:55:12.019325+03:00"
   },
   "BIST:ORMA": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374161+03:00"
+    "updated_at": "2026-09-24T15:55:12.019327+03:00"
   },
   "BIST:ORZAX": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374163+03:00"
+    "updated_at": "2026-09-24T15:55:12.019330+03:00"
   },
   "BIST:OSMEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374165+03:00"
+    "updated_at": "2026-09-24T15:55:12.019333+03:00"
   },
   "BIST:OSTIM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374167+03:00"
+    "updated_at": "2026-09-24T15:55:12.019335+03:00"
   },
   "BIST:OTKAR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374169+03:00"
+    "updated_at": "2026-09-24T15:55:12.019337+03:00"
   },
   "BIST:OTTO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374171+03:00"
+    "updated_at": "2026-09-24T15:55:12.019339+03:00"
   },
   "BIST:OYAKC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374173+03:00"
+    "updated_at": "2026-09-24T15:55:12.019342+03:00"
   },
   "BIST:OYAYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374175+03:00"
+    "updated_at": "2026-09-24T15:55:12.019344+03:00"
   },
   "BIST:OYLUM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374177+03:00"
+    "updated_at": "2026-09-24T15:55:12.019346+03:00"
   },
   "BIST:OYYAT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374179+03:00"
+    "updated_at": "2026-09-24T15:55:12.019349+03:00"
   },
   "BIST:OZATD": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374181+03:00"
+    "updated_at": "2026-09-24T15:55:12.019351+03:00"
   },
   "BIST:OZGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374183+03:00"
+    "updated_at": "2026-09-24T15:55:12.019354+03:00"
   },
   "BIST:OZKGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374185+03:00"
+    "updated_at": "2026-09-24T15:55:12.019356+03:00"
   },
   "BIST:OZRDN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374187+03:00"
+    "updated_at": "2026-09-24T15:55:12.019358+03:00"
   },
   "BIST:OZSUB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374189+03:00"
+    "updated_at": "2026-09-24T15:55:12.019361+03:00"
   },
   "BIST:OZYSR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374191+03:00"
+    "updated_at": "2026-09-24T15:55:12.019364+03:00"
   },
   "BIST:PAGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374193+03:00"
+    "updated_at": "2026-09-24T15:55:12.019366+03:00"
   },
   "BIST:PAHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374195+03:00"
+    "updated_at": "2026-09-24T15:55:12.019369+03:00"
   },
   "BIST:PAMEL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374197+03:00"
+    "updated_at": "2026-09-24T15:55:12.019371+03:00"
   },
   "BIST:PAPIL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374198+03:00"
+    "updated_at": "2026-09-24T15:55:12.019373+03:00"
   },
   "BIST:PARSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374201+03:00"
+    "updated_at": "2026-09-24T15:55:12.019375+03:00"
   },
   "BIST:PASEU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374202+03:00"
+    "updated_at": "2026-09-24T15:55:12.019378+03:00"
   },
   "BIST:PATEK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374204+03:00"
+    "updated_at": "2026-09-24T15:55:12.019380+03:00"
   },
   "BIST:PCILT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374206+03:00"
+    "updated_at": "2026-09-24T15:55:12.019382+03:00"
   },
   "BIST:PEKGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374209+03:00"
+    "updated_at": "2026-09-24T15:55:12.019385+03:00"
   },
   "BIST:PENGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374210+03:00"
+    "updated_at": "2026-09-24T15:55:12.019387+03:00"
   },
   "BIST:PENTA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374212+03:00"
+    "updated_at": "2026-09-24T15:55:12.019390+03:00"
   },
   "BIST:PETKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374214+03:00"
+    "updated_at": "2026-09-24T15:55:12.019392+03:00"
   },
   "BIST:PETUN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374216+03:00"
+    "updated_at": "2026-09-24T15:55:12.019395+03:00"
   },
   "BIST:PGSUS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374218+03:00"
+    "updated_at": "2026-09-24T15:55:12.019397+03:00"
   },
   "BIST:PINSU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374220+03:00"
+    "updated_at": "2026-09-24T15:55:12.019400+03:00"
   },
   "BIST:PKART": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374222+03:00"
+    "updated_at": "2026-09-24T15:55:12.019402+03:00"
   },
   "BIST:PKENT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374224+03:00"
+    "updated_at": "2026-09-24T15:55:12.019404+03:00"
   },
   "BIST:PLTUR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374226+03:00"
+    "updated_at": "2026-09-24T15:55:12.019407+03:00"
   },
   "BIST:PNLSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374228+03:00"
+    "updated_at": "2026-09-24T15:55:12.019409+03:00"
   },
   "BIST:PNSUT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374230+03:00"
+    "updated_at": "2026-09-24T15:55:12.019411+03:00"
   },
   "BIST:POLHO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374232+03:00"
+    "updated_at": "2026-09-24T15:55:12.019414+03:00"
   },
   "BIST:POLTK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374234+03:00"
+    "updated_at": "2026-09-24T15:55:12.019416+03:00"
   },
   "BIST:PRDGS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374236+03:00"
+    "updated_at": "2026-09-24T15:55:12.019419+03:00"
   },
   "BIST:PRKAB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374238+03:00"
+    "updated_at": "2026-09-24T15:55:12.019421+03:00"
   },
   "BIST:PRKME": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374240+03:00"
+    "updated_at": "2026-09-24T15:55:12.019423+03:00"
   },
   "BIST:PRZMA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374241+03:00"
+    "updated_at": "2026-09-24T15:55:12.019425+03:00"
   },
   "BIST:PSDTC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374243+03:00"
+    "updated_at": "2026-09-24T15:55:12.019428+03:00"
   },
   "BIST:PSGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374245+03:00"
+    "updated_at": "2026-09-24T15:55:12.019430+03:00"
   },
   "BIST:QNBFK": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374247+03:00"
+    "updated_at": "2026-09-24T15:55:12.019432+03:00"
   },
   "BIST:QNBTR": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374249+03:00"
+    "updated_at": "2026-09-24T15:55:12.019435+03:00"
   },
   "BIST:QUAGR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374251+03:00"
+    "updated_at": "2026-09-24T15:55:12.019437+03:00"
   },
   "BIST:QUICK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374252+03:00"
+    "updated_at": "2026-09-24T15:55:12.019440+03:00"
   },
   "BIST:RALYH": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374254+03:00"
+    "updated_at": "2026-09-24T15:55:12.019442+03:00"
   },
   "BIST:RAYSG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374256+03:00"
+    "updated_at": "2026-09-24T15:55:12.019444+03:00"
   },
   "BIST:REEDR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790249400.0,
-    "updated_at": "2026-09-24T15:29:30.374277+03:00"
+    "updated_at": "2026-09-24T15:55:12.019447+03:00"
   },
   "BIST:RGYAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374279+03:00"
+    "updated_at": "2026-09-24T15:55:12.019449+03:00"
   },
   "BIST:RNPOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374281+03:00"
+    "updated_at": "2026-09-24T15:55:12.019452+03:00"
   },
   "BIST:RODRG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374283+03:00"
+    "updated_at": "2026-09-24T15:55:12.019454+03:00"
   },
   "BIST:RTALB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374285+03:00"
+    "updated_at": "2026-09-24T15:55:12.019456+03:00"
   },
   "BIST:RUBNS": {
-    "candle_time": 1790249400.0,
-    "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374288+03:00"
+    "candle_time": 1790251200.0,
+    "direction": -1,
+    "updated_at": "2026-09-24T15:55:12.019459+03:00"
   },
   "BIST:RUZYE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374290+03:00"
+    "updated_at": "2026-09-24T15:55:12.019461+03:00"
   },
   "BIST:RYGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374291+03:00"
+    "updated_at": "2026-09-24T15:55:12.019463+03:00"
   },
   "BIST:RYSAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374293+03:00"
+    "updated_at": "2026-09-24T15:55:12.019466+03:00"
   },
   "BIST:SAFKR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374298+03:00"
+    "updated_at": "2026-09-24T15:55:12.019468+03:00"
   },
   "BIST:SAHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374302+03:00"
+    "updated_at": "2026-09-24T15:55:12.019471+03:00"
   },
   "BIST:SAMAT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374305+03:00"
+    "updated_at": "2026-09-24T15:55:12.019473+03:00"
   },
   "BIST:SANEL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374308+03:00"
+    "updated_at": "2026-09-24T15:55:12.019475+03:00"
   },
   "BIST:SANFM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374312+03:00"
+    "updated_at": "2026-09-24T15:55:12.019478+03:00"
   },
   "BIST:SANKO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374315+03:00"
+    "updated_at": "2026-09-24T15:55:12.019480+03:00"
   },
   "BIST:SARAE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374318+03:00"
+    "updated_at": "2026-09-24T15:55:12.019483+03:00"
   },
   "BIST:SARKY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374322+03:00"
+    "updated_at": "2026-09-24T15:55:12.019485+03:00"
   },
   "BIST:SASA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374325+03:00"
+    "updated_at": "2026-09-24T15:55:12.019487+03:00"
   },
   "BIST:SAYAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374328+03:00"
+    "updated_at": "2026-09-24T15:55:12.019490+03:00"
   },
   "BIST:SDTTR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374331+03:00"
+    "updated_at": "2026-09-24T15:55:12.019493+03:00"
   },
   "BIST:SEGMN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374334+03:00"
+    "updated_at": "2026-09-24T15:55:12.019495+03:00"
   },
   "BIST:SEGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374337+03:00"
+    "updated_at": "2026-09-24T15:55:12.019497+03:00"
   },
   "BIST:SEKFK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374340+03:00"
+    "updated_at": "2026-09-24T15:55:12.019500+03:00"
   },
   "BIST:SEKUR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374343+03:00"
+    "updated_at": "2026-09-24T15:55:12.019502+03:00"
   },
   "BIST:SELEC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374347+03:00"
+    "updated_at": "2026-09-24T15:55:12.019504+03:00"
   },
   "BIST:SELVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374350+03:00"
+    "updated_at": "2026-09-24T15:55:12.019506+03:00"
   },
   "BIST:SERNT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790249400.0,
-    "updated_at": "2026-09-24T15:29:30.374369+03:00"
+    "updated_at": "2026-09-24T15:55:12.019509+03:00"
   },
   "BIST:SEYKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374373+03:00"
+    "updated_at": "2026-09-24T15:55:12.019511+03:00"
   },
   "BIST:SILVR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374376+03:00"
+    "updated_at": "2026-09-24T15:55:12.019514+03:00"
   },
   "BIST:SISE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374380+03:00"
+    "updated_at": "2026-09-24T15:55:12.019516+03:00"
   },
   "BIST:SKBNK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374383+03:00"
+    "updated_at": "2026-09-24T15:55:12.019518+03:00"
   },
   "BIST:SKTAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374387+03:00"
+    "updated_at": "2026-09-24T15:55:12.019521+03:00"
   },
   "BIST:SKYLP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374390+03:00"
+    "updated_at": "2026-09-24T15:55:12.019523+03:00"
   },
   "BIST:SKYMD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790244000.0,
-    "updated_at": "2026-09-24T15:29:30.374393+03:00"
+    "updated_at": "2026-09-24T15:55:12.019526+03:00"
   },
   "BIST:SMART": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374397+03:00"
+    "updated_at": "2026-09-24T15:55:12.019528+03:00"
   },
   "BIST:SMRTG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374400+03:00"
+    "updated_at": "2026-09-24T15:55:12.019530+03:00"
   },
   "BIST:SMRVA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374404+03:00"
+    "updated_at": "2026-09-24T15:55:12.019533+03:00"
   },
   "BIST:SNGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374408+03:00"
+    "updated_at": "2026-09-24T15:55:12.019536+03:00"
   },
   "BIST:SNICA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374412+03:00"
+    "updated_at": "2026-09-24T15:55:12.019538+03:00"
   },
   "BIST:SNPAM": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374415+03:00"
+    "updated_at": "2026-09-24T15:55:12.019541+03:00"
   },
   "BIST:SODSN": {
     "candle_time": 1790245800.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374419+03:00"
+    "updated_at": "2026-09-24T15:55:12.019568+03:00"
   },
   "BIST:SOHOE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374422+03:00"
+    "updated_at": "2026-09-24T15:55:12.019575+03:00"
   },
   "BIST:SOKE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374426+03:00"
+    "updated_at": "2026-09-24T15:55:12.019578+03:00"
   },
   "BIST:SOKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374430+03:00"
+    "updated_at": "2026-09-24T15:55:12.019581+03:00"
   },
   "BIST:SONME": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374433+03:00"
+    "updated_at": "2026-09-24T15:55:12.019583+03:00"
   },
   "BIST:SRVGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374436+03:00"
+    "updated_at": "2026-09-24T15:55:12.019586+03:00"
   },
   "BIST:SSAAT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374440+03:00"
+    "updated_at": "2026-09-24T15:55:12.019588+03:00"
   },
   "BIST:SUMAS": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374443+03:00"
+    "updated_at": "2026-09-24T15:55:12.019591+03:00"
   },
   "BIST:SUNTK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374446+03:00"
+    "updated_at": "2026-09-24T15:55:12.019593+03:00"
   },
   "BIST:SURGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374449+03:00"
+    "updated_at": "2026-09-24T15:55:12.019596+03:00"
   },
   "BIST:SUWEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374452+03:00"
+    "updated_at": "2026-09-24T15:55:12.019598+03:00"
   },
   "BIST:SVGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374456+03:00"
+    "updated_at": "2026-09-24T15:55:12.019601+03:00"
   },
   "BIST:TABGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374459+03:00"
+    "updated_at": "2026-09-24T15:55:12.019603+03:00"
   },
   "BIST:TARKM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374462+03:00"
+    "updated_at": "2026-09-24T15:55:12.019606+03:00"
   },
   "BIST:TATEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374466+03:00"
+    "updated_at": "2026-09-24T15:55:12.019608+03:00"
   },
   "BIST:TATGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374469+03:00"
+    "updated_at": "2026-09-24T15:55:12.019610+03:00"
   },
   "BIST:TAVHL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374473+03:00"
+    "updated_at": "2026-09-24T15:55:12.019613+03:00"
   },
   "BIST:TBORG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374476+03:00"
+    "updated_at": "2026-09-24T15:55:12.019615+03:00"
   },
   "BIST:TCELL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374479+03:00"
+    "updated_at": "2026-09-24T15:55:12.019618+03:00"
   },
   "BIST:TCKRC": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374482+03:00"
+    "updated_at": "2026-09-24T15:55:12.019620+03:00"
   },
   "BIST:TDGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374485+03:00"
+    "updated_at": "2026-09-24T15:55:12.019622+03:00"
   },
   "BIST:TEHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374489+03:00"
+    "updated_at": "2026-09-24T15:55:12.019625+03:00"
   },
   "BIST:TEKTU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374492+03:00"
+    "updated_at": "2026-09-24T15:55:12.019627+03:00"
   },
   "BIST:TERA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374495+03:00"
+    "updated_at": "2026-09-24T15:55:12.019629+03:00"
   },
   "BIST:TEZOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374498+03:00"
+    "updated_at": "2026-09-24T15:55:12.019632+03:00"
   },
   "BIST:TGSAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374501+03:00"
+    "updated_at": "2026-09-24T15:55:12.019634+03:00"
   },
   "BIST:THYAO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374504+03:00"
+    "updated_at": "2026-09-24T15:55:12.019637+03:00"
   },
   "BIST:TKFEN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374508+03:00"
+    "updated_at": "2026-09-24T15:55:12.019639+03:00"
   },
   "BIST:TKNKA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374511+03:00"
+    "updated_at": "2026-09-24T15:55:12.019642+03:00"
   },
   "BIST:TKNSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374514+03:00"
+    "updated_at": "2026-09-24T15:55:12.019644+03:00"
   },
   "BIST:TLMAN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374518+03:00"
+    "updated_at": "2026-09-24T15:55:12.019647+03:00"
   },
   "BIST:TMPOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374521+03:00"
+    "updated_at": "2026-09-24T15:55:12.019649+03:00"
   },
   "BIST:TMSN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374524+03:00"
+    "updated_at": "2026-09-24T15:55:12.019652+03:00"
   },
   "BIST:TNZTP": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374527+03:00"
+    "updated_at": "2026-09-24T15:55:12.019654+03:00"
   },
   "BIST:TOASO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374530+03:00"
+    "updated_at": "2026-09-24T15:55:12.019657+03:00"
   },
   "BIST:TRALT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374533+03:00"
+    "updated_at": "2026-09-24T15:55:12.019659+03:00"
   },
   "BIST:TRCAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374536+03:00"
+    "updated_at": "2026-09-24T15:55:12.019661+03:00"
   },
   "BIST:TRENJ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374540+03:00"
+    "updated_at": "2026-09-24T15:55:12.019663+03:00"
   },
   "BIST:TRGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374543+03:00"
+    "updated_at": "2026-09-24T15:55:12.019666+03:00"
   },
   "BIST:TRHOL": {
-    "candle_time": 1790240400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374546+03:00"
+    "updated_at": "2026-09-24T15:55:12.019668+03:00"
   },
   "BIST:TRILC": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374550+03:00"
+    "updated_at": "2026-09-24T15:55:12.019671+03:00"
   },
   "BIST:TRMET": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374552+03:00"
+    "updated_at": "2026-09-24T15:55:12.019673+03:00"
   },
   "BIST:TSGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374555+03:00"
+    "updated_at": "2026-09-24T15:55:12.019675+03:00"
   },
   "BIST:TSKB": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374557+03:00"
+    "updated_at": "2026-09-24T15:55:12.019677+03:00"
   },
   "BIST:TSPOR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374558+03:00"
+    "updated_at": "2026-09-24T15:55:12.019680+03:00"
   },
   "BIST:TTKOM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374561+03:00"
+    "updated_at": "2026-09-24T15:55:12.019682+03:00"
   },
   "BIST:TTRAK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374563+03:00"
+    "updated_at": "2026-09-24T15:55:12.019685+03:00"
   },
   "BIST:TUCLK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374565+03:00"
+    "updated_at": "2026-09-24T15:55:12.019687+03:00"
   },
   "BIST:TUKAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374567+03:00"
+    "updated_at": "2026-09-24T15:55:12.019689+03:00"
   },
   "BIST:TUPRS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374569+03:00"
+    "updated_at": "2026-09-24T15:55:12.019692+03:00"
   },
   "BIST:TUREX": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374571+03:00"
+    "updated_at": "2026-09-24T15:55:12.019694+03:00"
   },
   "BIST:TURGG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374574+03:00"
+    "updated_at": "2026-09-24T15:55:12.019696+03:00"
   },
   "BIST:TURSG": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374576+03:00"
+    "updated_at": "2026-09-24T15:55:12.019699+03:00"
   },
   "BIST:UCAYM": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374578+03:00"
+    "updated_at": "2026-09-24T15:55:12.019701+03:00"
   },
   "BIST:UFUK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374580+03:00"
+    "updated_at": "2026-09-24T15:55:12.019704+03:00"
   },
   "BIST:ULAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374583+03:00"
+    "updated_at": "2026-09-24T15:55:12.019706+03:00"
   },
   "BIST:ULKER": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374585+03:00"
+    "updated_at": "2026-09-24T15:55:12.019708+03:00"
   },
   "BIST:ULUFA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374587+03:00"
+    "updated_at": "2026-09-24T15:55:12.019711+03:00"
   },
   "BIST:ULUSE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374590+03:00"
+    "updated_at": "2026-09-24T15:55:12.019713+03:00"
   },
   "BIST:ULUUN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374592+03:00"
+    "updated_at": "2026-09-24T15:55:12.019716+03:00"
   },
   "BIST:UNLU": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374594+03:00"
+    "updated_at": "2026-09-24T15:55:12.019718+03:00"
   },
   "BIST:USAK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374596+03:00"
+    "updated_at": "2026-09-24T15:55:12.019720+03:00"
   },
   "BIST:USHOL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374598+03:00"
+    "updated_at": "2026-09-24T15:55:12.019723+03:00"
   },
   "BIST:VAKBN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374600+03:00"
+    "updated_at": "2026-09-24T15:55:12.019725+03:00"
   },
   "BIST:VAKFA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374602+03:00"
+    "updated_at": "2026-09-24T15:55:12.019728+03:00"
   },
   "BIST:VAKFN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374605+03:00"
+    "updated_at": "2026-09-24T15:55:12.019730+03:00"
   },
   "BIST:VAKKO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374607+03:00"
+    "updated_at": "2026-09-24T15:55:12.019733+03:00"
   },
   "BIST:VANGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374609+03:00"
+    "updated_at": "2026-09-24T15:55:12.019735+03:00"
   },
   "BIST:VBTYZ": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374611+03:00"
+    "updated_at": "2026-09-24T15:55:12.019738+03:00"
   },
   "BIST:VERUS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374613+03:00"
+    "updated_at": "2026-09-24T15:55:12.019740+03:00"
   },
   "BIST:VESBE": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374615+03:00"
+    "updated_at": "2026-09-24T15:55:12.019742+03:00"
   },
   "BIST:VESTL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374617+03:00"
+    "updated_at": "2026-09-24T15:55:12.019745+03:00"
   },
   "BIST:VEYAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374620+03:00"
+    "updated_at": "2026-09-24T15:55:12.019747+03:00"
   },
   "BIST:VKFYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374622+03:00"
+    "updated_at": "2026-09-24T15:55:12.019750+03:00"
   },
   "BIST:VKGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374624+03:00"
+    "updated_at": "2026-09-24T15:55:12.019752+03:00"
   },
   "BIST:VKING": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374626+03:00"
+    "updated_at": "2026-09-24T15:55:12.019755+03:00"
   },
   "BIST:VRGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374628+03:00"
+    "updated_at": "2026-09-24T15:55:12.019757+03:00"
   },
   "BIST:VSNMD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
-    "updated_at": "2026-09-24T15:29:30.374631+03:00"
+    "updated_at": "2026-09-24T15:55:12.019760+03:00"
   },
   "BIST:YAPRK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374633+03:00"
+    "updated_at": "2026-09-24T15:55:12.019762+03:00"
   },
   "BIST:YATAS": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374635+03:00"
+    "updated_at": "2026-09-24T15:55:12.019764+03:00"
   },
   "BIST:YAYLA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374637+03:00"
+    "updated_at": "2026-09-24T15:55:12.019767+03:00"
   },
   "BIST:YBTAS": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374640+03:00"
+    "updated_at": "2026-09-24T15:55:12.019769+03:00"
   },
   "BIST:YEOTK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374642+03:00"
+    "updated_at": "2026-09-24T15:55:12.019771+03:00"
   },
   "BIST:YESIL": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374644+03:00"
+    "updated_at": "2026-09-24T15:55:12.019774+03:00"
   },
   "BIST:YGGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374646+03:00"
+    "updated_at": "2026-09-24T15:55:12.019776+03:00"
   },
   "BIST:YIGIT": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374648+03:00"
+    "updated_at": "2026-09-24T15:55:12.019779+03:00"
   },
   "BIST:YKBNK": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374650+03:00"
+    "updated_at": "2026-09-24T15:55:12.019781+03:00"
   },
   "BIST:YKSLN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374652+03:00"
+    "updated_at": "2026-09-24T15:55:12.019784+03:00"
   },
   "BIST:YONGA": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374654+03:00"
+    "updated_at": "2026-09-24T15:55:12.019786+03:00"
   },
   "BIST:YUNSA": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374656+03:00"
+    "updated_at": "2026-09-24T15:55:12.019788+03:00"
   },
   "BIST:YYAPI": {
     "candle_time": 1790245800.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374658+03:00"
+    "updated_at": "2026-09-24T15:55:12.019791+03:00"
   },
   "BIST:YYLGD": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374660+03:00"
+    "updated_at": "2026-09-24T15:55:12.019793+03:00"
   },
   "BIST:ZEDUR": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374661+03:00"
+    "updated_at": "2026-09-24T15:55:12.019795+03:00"
   },
   "BIST:ZERGY": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374663+03:00"
+    "updated_at": "2026-09-24T15:55:12.019798+03:00"
   },
   "BIST:ZGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": 1,
     "last_buy_candle_time": 1790244000.0,
-    "updated_at": "2026-09-24T15:29:30.374665+03:00"
+    "updated_at": "2026-09-24T15:55:12.019800+03:00"
   },
   "BIST:ZOREN": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374667+03:00"
+    "updated_at": "2026-09-24T15:55:12.019803+03:00"
   },
   "BIST:ZRGYO": {
-    "candle_time": 1790249400.0,
+    "candle_time": 1790251200.0,
     "direction": -1,
-    "updated_at": "2026-09-24T15:29:30.374669+03:00"
+    "updated_at": "2026-09-24T15:55:12.019805+03:00"
   }
 }
