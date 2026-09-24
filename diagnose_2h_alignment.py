@@ -95,3 +95,5 @@ for sym in SYMBOLS:
 print("=" * 100)
 print("SONUC: Native 2H ile 1H->2H DIFF sifirsa iki WebSocket veri seti OHLC olarak ayni.")
 print("Scanner_120 degerleri ayri olarak gosterilir. Bu test Supertrend/Study kodunu degistirmez.")
+
+# Trigger scanner workflow after confirmed-bar fix.
