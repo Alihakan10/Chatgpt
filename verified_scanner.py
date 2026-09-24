@@ -36,6 +36,9 @@ def mark_filtered_candidate(result, reason):
     candidate["filter_failed"] = True
     candidate["confirmation"] = result.get("confirmation", {})
     result["filtered_buy_results"] = [candidate]
+    # Filtreden gecemeyen BUY da ayni mum icin tekrar gonderilmesin.
+    if candidate.get("candle_time") is not None:
+        result["latest_buy_time"] = candidate["candle_time"]
 
 
 def independent_directions(candles, period=10, multiplier=2.0):
@@ -268,7 +271,7 @@ def verified_scan_symbol(symbol, state):
                 + str(first_ohlc)
                 + " -> "
                 + str(second_ohlc)
-                + " | TELEGRAM'A GONDERILMEYECEK"
+                + " | TELEGRAM'DA FILTRELENEMEYEN ADAY OLARAK GOSTERILECEK"
             )
             mark_filtered_candidate(
                 result,
@@ -531,7 +534,11 @@ def verified_scan_symbol(symbol, state):
                 + symbol
                 + " | "
                 + str(exc)
-                + " | TELEGRAM'A GONDERILMEYECEK"
+                + " | TELEGRAM'DA FILTRELENEMEYEN ADAY OLARAK GOSTERILECEK"
+            )
+            mark_filtered_candidate(
+                result,
+                "BUY TEYIT HATASI"
             )
             result["status"] = "ok"
             result["buy_results"] = []
