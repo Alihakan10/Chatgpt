@@ -72,6 +72,32 @@ def calc_kivanc_debug(candles, period=10, multiplier=2.0):
     return atr, up, dn, trend
 
 
+def calc_kivanc_sma_debug(candles, period=10, multiplier=2.0):
+    atr = sc.calculate_atr_sma(candles, period)
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [1] * len(candles)
+    for i in range(len(candles)):
+        if atr[i] is None:
+            trend[i] = 1
+            continue
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
+        prev = trend[i - 1] if i > 0 else 1
+        if prev == -1 and candles[i]["close"] > dn1:
+            trend[i] = 1
+        elif prev == 1 and candles[i]["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = prev
+    return atr, up, dn, trend
+
+
 def calc_builtin_debug(candles, period=10, multiplier=2.0):
     # TradingView ta.supertrend() direction convention:
     # -1 = UP, +1 = DOWN.
