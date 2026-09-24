@@ -361,6 +361,7 @@ def report_symbol(symbol):
     b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
     s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
     v_atr, v_up, v_dn, v_trend, v_st = calc_signal_variants(calc)
+    m_atr, m_up, m_dn, m_dir = calc_marketcalls_debug(calc)
     e_atr, e_long, e_short, e_dir_wicks = calc_everget_debug(calc, wicks=True)
     _, _, _, e_dir_close = calc_everget_debug(calc, wicks=False)
 
@@ -416,6 +417,8 @@ def report_symbol(symbol):
         print("EVERGET/WICKS BUY:", e_dir_wicks[target - 1] == -1 and e_dir_wicks[target] == 1)
         print("EVERGET/CLOSE onceki/yeni:", e_dir_close[target - 1], "->", e_dir_close[target])
         print("EVERGET/CLOSE BUY:", e_dir_close[target - 1] == -1 and e_dir_close[target] == 1)
+        print("MARKETCALLS onceki/yeni:", m_dir[target - 1], "->", m_dir[target])
+        print("MARKETCALLS BUY:", m_dir[target - 1] == -1 and m_dir[target] == 1)
         print("ACTIVE ST(prev):", fmt(v_st[target - 1]))
         print("ACTIVE ST(now):", fmt(v_st[target]))
         print("CLOSE(prev):", fmt(calc[target - 1]["close"]))
