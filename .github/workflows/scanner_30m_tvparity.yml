@@ -34,7 +34,8 @@ jobs:
       - name: 30M chart / 60M Supertrend parity scan
         env:
           TEST_MODE: "false"
-          SEND_SCAN_REPORT: "true"
+          FORCE_SCAN: "true"
+          SEND_SCAN_REPORT: "false"
           SCAN_LIMIT: "620"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
