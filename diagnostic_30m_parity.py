@@ -298,6 +298,34 @@ def calc_everget_debug(candles, period=10, multiplier=2.0, wicks=True):
     return atr0, long_stop, short_stop, direction
 
 
+
+def calc_marketcalls_debug(candles, period=10, multiplier=2.0):
+    """Isolated Marketcalls/Chandan Supertrend family diagnostic."""
+    atr = sc.calculate_atr(candles, period)
+    trend_up = [None] * len(candles)
+    trend_down = [None] * len(candles)
+    trend = [1] * len(candles)
+    for i in range(len(candles)):
+        if atr[i] is None:
+            continue
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        up = src - multiplier * atr[i]
+        dn = src + multiplier * atr[i]
+        prev_up = trend_up[i - 1] if i > 0 and trend_up[i - 1] is not None else up
+        prev_dn = trend_down[i - 1] if i > 0 and trend_down[i - 1] is not None else dn
+        prev_close = candles[i - 1]["close"] if i > 0 else None
+        trend_up[i] = max(up, prev_up) if i > 0 and prev_close > prev_up else up
+        trend_down[i] = min(dn, prev_dn) if i > 0 and prev_close < prev_dn else dn
+        prev_trend = trend[i - 1] if i > 0 else 1
+        if i > 0 and candles[i]["close"] > prev_dn:
+            trend[i] = 1
+        elif i > 0 and candles[i]["close"] < prev_up:
+            trend[i] = -1
+        else:
+            trend[i] = prev_trend
+    return atr, trend_up, trend_down, trend
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
