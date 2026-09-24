@@ -43,70 +43,23 @@ def mark_filtered_candidate(result, reason):
 
 def independent_directions(candles, period=10, multiplier=2.0):
     """
-    Bagimsiz kopya: TradingView public Supertrend
-    (PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45) BUY mantigi.
+    scanner.py'deki uretim hesabindan BAGIMSIZ ikinci yol.
 
-    Indicator metadata:
-      ATR Period=10, Source=HL2, ATR Multiplier=2,
-      Change ATR Calculation Method=true.
-
-    KivancOzbilgic state mantigi:
-      atr=RMA/Wilder
-      up=HL2-mult*ATR; up := close[1] > up1 ? max(up,up1) : up
-      dn=HL2+mult*ATR; dn := close[1] < dn1 ? min(dn,dn1) : dn
-      trend flipleri kapanisa gore.
-
-    +1=AL, -1=SAT.
+    TradingView built-in ta.supertrend() ile ayni OHLC algoritmasini
+    tekrar hesaplar. +1 = AL, -1 = SAT degil; burada Pine yonu korunur:
+      -1 = AL / yukari trend
+      +1 = SAT / asagi trend
     """
-    n = len(candles)
-    if n < period + 2:
-        return None
+    # scanner.py'nin diagnostik/yerel kopyasi yerine ayni formulu
+    # bagimsiz ikinci hesap olarak burada tekrar kullan.
+    return scanner.calculate_tradingview_supertrend_directions(
+        candles,
+        period,
+        multiplier
+    )
 
-    tr = [0.0] * n
-    for i, c in enumerate(candles):
-        if i == 0:
-            tr[i] = c["high"] - c["low"]
-        else:
-            pc = candles[i - 1]["close"]
-            tr[i] = max(
-                c["high"] - c["low"],
-                abs(c["high"] - pc),
-                abs(c["low"] - pc),
-            )
 
-    atr = [None] * n
-    atr[period - 1] = sum(tr[:period]) / period
-    for i in range(period, n):
-        atr[i] = (atr[i - 1] * (period - 1) + tr[i]) / period
-
-    up = [None] * n
-    dn = [None] * n
-    trend = [1] * n
-
-    for i, c in enumerate(candles):
-        if atr[i] is None:
-            trend[i] = 1
-            continue
-
-        src = (c["high"] + c["low"]) / 2.0
-
-        up0 = src - multiplier * atr[i]
-        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
-        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
-
-        dn0 = src + multiplier * atr[i]
-        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
-        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
-
-        prev = trend[i - 1] if i > 0 else 1
-        trend[i] = (
-            1 if prev == -1 and c["close"] > dn1
-            else -1 if prev == 1 and c["close"] < up1
-            else prev
-        )
-
-    return trend
-
+_original_scan_symbol = scanner.scan_symbol
 
 _original_scan_symbol = scanner.scan_symbol
 
