@@ -331,7 +331,7 @@ def aggregate_to_60m_debug(candles):
     out = []
     groups = {}
     for c in candles:
-        ts = int(c["timestamp"])
+        ts = int(c["time"])
         bucket = (ts // 3600) * 3600
         groups.setdefault(bucket, []).append(c)
     for bucket in sorted(groups):
@@ -446,7 +446,7 @@ def report_symbol(symbol):
         print("EVERGET/CLOSE BUY:", e_dir_close[target - 1] == -1 and e_dir_close[target] == 1)
         print("MARKETCALLS onceki/yeni:", m_dir[target - 1], "->", m_dir[target])
         print("MARKETCALLS BUY:", m_dir[target - 1] == -1 and m_dir[target] == 1)
-        print("HTF 60M OZET: target_index=", htf60_target, "target_time=", htf60[htf60_target]["timestamp"] if htf60_target is not None else None)
+        print("HTF 60M OZET: target_index=", htf60_target, "target_time=", htf60[htf60_target]["time"] if htf60_target is not None else None)
         if htf60_target is not None and htf60_target > 0:
             print("HTF 60M onceki/yeni:", htf60_dir[htf60_target-1], "->", htf60_dir[htf60_target])
             print("HTF 60M BUY:", htf60_dir[htf60_target-1] == -1 and htf60_dir[htf60_target] == 1)
