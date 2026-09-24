@@ -587,7 +587,8 @@ def build_filtered_telegram_message(results, filtered_results=None):
         v = result.get("confirmation", {})
         rvol = v.get("rvol")
         candle_dt = scanner.candle_close_datetime(result["candle_time"])
-        lines.append(f"{index}. <b>{symbol}</b> — {price} TL")
+        url = ("https://www.tradingview.com/chart/?symbol=BIST%3A" + symbol + "&interval=120")
+        lines.append(f'<a href="{url}"><b>{index}. {symbol}</b></a> — {price} TL')
         lines.append(
             f"   📈 MOM: <b>{float(v.get('momentum', 0))*100:+.2f}%</b> | "
             f"📊 RVOL: <b>{rvol:.2f}</b> | 🕯 GÖVDE: <b>%{float(v.get('body_ratio', 0))*100:.0f}</b>"
@@ -623,7 +624,8 @@ def build_filtered_telegram_message(results, filtered_results=None):
             if t1 != 1: failed.append("1D")
             candle_dt = scanner.candle_close_datetime(result["candle_time"])
 
-            lines.append(f"{index}. <b>{symbol}</b> — {price} TL")
+            url = ("https://www.tradingview.com/chart/?symbol=BIST%3A" + symbol + "&interval=120")
+            lines.append(f'<a href="{url}"><b>{index}. {symbol}</b></a> — {price} TL')
             lines.append("   ⚠️ <b>FİLTREDEN GEÇEMEDİ</b>")
             lines.append(
                 f"   2H: <b>SAT → AL</b> | MOM: <b>{momentum*100:+.2f}%</b> | "
