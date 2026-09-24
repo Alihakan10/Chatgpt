@@ -146,6 +146,45 @@ def calc_builtin_debug(candles, period=10, multiplier=2.0):
     return atr, upper, lower, converted
 
 
+def calc_signal_variants(candles, period=10, multiplier=2.0):
+    """
+    Production koduna dokunmadan, ayni OHLC serisinde yaygin
+    BUY plot kosullarini ayristirir.
+    """
+    atr = sc.calculate_atr(candles, period)
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [1] * len(candles)
+    st = [None] * len(candles)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            continue
+
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
+
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
+
+        prev = trend[i - 1] if i > 0 else 1
+        if prev == -1 and candles[i]["close"] > dn1:
+            trend[i] = 1
+        elif prev == 1 and candles[i]["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = prev
+
+        # Kivanc'in aktif Supertrend cizgisi.
+        st[i] = up[i] if trend[i] == -1 else dn[i]
+
+    return atr, up, dn, trend, st
+
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
@@ -175,6 +214,7 @@ def report_symbol(symbol):
     k_atr, k_up, k_dn, k_trend = calc_kivanc_debug(calc)
     b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
     s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
+    v_atr, v_up, v_dn, v_trend, v_st = calc_signal_variants(calc)
 
     target = find_target_index(calc)
     if target is None:
@@ -224,6 +264,16 @@ def report_symbol(symbol):
         print("Built-in BUY:", b_trend[target - 1] == -1 and b_trend[target] == 1)
         print("SMA onceki/yeni:", s_trend[target - 1], "->", s_trend[target])
         print("SMA BUY:", s_trend[target - 1] == -1 and s_trend[target] == 1)
+        print("ACTIVE ST(prev):", fmt(v_st[target - 1]))
+        print("ACTIVE ST(now):", fmt(v_st[target]))
+        print("CLOSE(prev):", fmt(calc[target - 1]["close"]))
+        print("CLOSE(now):", fmt(calc[target]["close"]))
+        print("CLOSE>ST(prev):", calc[target]["close"] > v_st[target - 1] if v_st[target - 1] is not None else None)
+        print("CLOSE>ST(now):", calc[target]["close"] > v_st[target] if v_st[target] is not None else None)
+        print("FLIP_BY_CLOSE_VS_ACTIVE_ST:", (
+            calc[target - 1]["close"] <= v_st[target - 1]
+            and calc[target]["close"] > v_st[target]
+        ) if v_st[target - 1] is not None and v_st[target] is not None else None)
         print("SMA ATR:", fmt(s_atr[target]))
         print("Kivanc ATR:", fmt(k_atr[target]))
         print("Kivanc UP(prev):", fmt(k_up[target - 1]))
