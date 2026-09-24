@@ -44,7 +44,7 @@ jobs:
           TEST_SYMBOLS: "BIST:ADEL,BIST:BORSK,BIST:EUYO"
           TARGET_HOUR: "15"
           TARGET_MINUTE: "0"
-          REQUEST_BARS: "10000"
+          REQUEST_BARS: "3000"
           TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
           TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
           TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
