@@ -28,11 +28,18 @@ def gocharting_style(candles, period=10, multiplier=2.0):
         if atr[i] is None: continue
         hl2=(c["high"]+c["low"])/2.0
         bu=hl2+multiplier*atr[i]; bl=hl2-multiplier*atr[i]
-        if i==0:
-            upper[i]=bu; lower[i]=bl; direction[i]=1; continue
-        pu=upper[i-1]; pl=lower[i-1]; pc=candles[i-1]["close"]
-        upper[i]=bu if bu < pu or pc > pu else pu
-        lower[i]=bl if bl > pl or pc < pl else pl
+        if i == period - 1:
+            upper[i] = bu
+            lower[i] = bl
+            direction[i] = 1
+            continue
+        if i < period - 1:
+            continue
+        pu = upper[i-1]
+        pl = lower[i-1]
+        pc = candles[i-1]["close"]
+        upper[i] = bu if pu is None or bu < pu or pc > pu else pu
+        lower[i] = bl if pl is None or bl > pl or pc < pl else pl
         prev=direction[i-1]
         direction[i]=1 if prev==-1 and c["close"]>pu else -1 if prev==1 and c["close"]<pl else prev
     return direction
