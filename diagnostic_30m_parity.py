@@ -326,6 +326,29 @@ def calc_marketcalls_debug(candles, period=10, multiplier=2.0):
     return atr, trend_up, trend_down, trend
 
 
+
+def aggregate_to_60m_debug(candles):
+    out = []
+    groups = {}
+    for c in candles:
+        ts = int(c["timestamp"])
+        bucket = (ts // 3600) * 3600
+        groups.setdefault(bucket, []).append(c)
+    for bucket in sorted(groups):
+        g = groups[bucket]
+        if len(g) < 2:
+            continue
+        out.append({
+            "timestamp": bucket,
+            "open": g[0]["open"],
+            "high": max(x["high"] for x in g),
+            "low": min(x["low"] for x in g),
+            "close": g[-1]["close"],
+            "volume": sum(x.get("volume", 0.0) for x in g),
+        })
+    return out
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
@@ -362,6 +385,10 @@ def report_symbol(symbol):
     s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
     v_atr, v_up, v_dn, v_trend, v_st = calc_signal_variants(calc)
     m_atr, m_up, m_dn, m_dir = calc_marketcalls_debug(calc)
+    htf60 = aggregate_to_60m_debug(calc)
+    htf60_dir = calculate_kivanc_supertrend_directions(htf60, 10, 2.0)
+    htf60_target = find_target_index(htf60)
+
     e_atr, e_long, e_short, e_dir_wicks = calc_everget_debug(calc, wicks=True)
     _, _, _, e_dir_close = calc_everget_debug(calc, wicks=False)
 
@@ -419,7 +446,11 @@ def report_symbol(symbol):
         print("EVERGET/CLOSE BUY:", e_dir_close[target - 1] == -1 and e_dir_close[target] == 1)
         print("MARKETCALLS onceki/yeni:", m_dir[target - 1], "->", m_dir[target])
         print("MARKETCALLS BUY:", m_dir[target - 1] == -1 and m_dir[target] == 1)
-        print("NEXT TEST: EMA/HIGH-LOW ATR variants will be added separately.")
+        print("HTF 60M OZET: target_index=", htf60_target, "target_time=", htf60[htf60_target]["timestamp"] if htf60_target is not None else None)
+        if htf60_target is not None and htf60_target > 0:
+            print("HTF 60M onceki/yeni:", htf60_dir[htf60_target-1], "->", htf60_dir[htf60_target])
+            print("HTF 60M BUY:", htf60_dir[htf60_target-1] == -1 and htf60_dir[htf60_target] == 1)
+        print("NEXT TEST: indicator timeframe variants continue separately.")
         print("ACTIVE ST(prev):", fmt(v_st[target - 1]))
         print("ACTIVE ST(now):", fmt(v_st[target]))
         print("CLOSE(prev):", fmt(calc[target - 1]["close"]))
