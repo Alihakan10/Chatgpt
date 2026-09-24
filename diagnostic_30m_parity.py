@@ -355,7 +355,8 @@ def main():
     print("30M SUPERTREND PARITY DIAGNOSTIC")
     print("Ayarlar: ATR=10 | HL2 | multiplier=2.0 | RMA/Wilder")
     print("Hedef:", f"{TARGET_HOUR:02d}:{TARGET_MINUTE:02d}", "Istanbul")
-    print("Hisseler:", ", ".join(SYMBOLS))\n    print("DIAGNOSTIC BAR TALEBI:", REQUEST_BARS)
+    print("Hisseler:", ", ".join(SYMBOLS))
+    print("DIAGNOSTIC BAR TALEBI:", REQUEST_BARS)
 
     for symbol in SYMBOLS:
         try:
