@@ -560,12 +560,10 @@ def verified_scan_symbol(symbol, state):
 scanner.scan_symbol = verified_scan_symbol
 
 
-def build_filtered_telegram_message(results):
-    """
-    Uretim Telegram mesajini yalnızca tum teyit filtrelerini gecen
-    BUY adaylarini gosterecek sekilde olusturur.
-    """
+def build_filtered_telegram_message(results, filtered_results=None):
+    filtered_results = filtered_results or []
     now = scanner.now_istanbul()
+
     lines = [
         "🔔 <b>BIST BUY + YÜKSELİŞ TEYİT TARAMASI</b>",
         "━━━━━━━━━━━━━━━━━━━━",
@@ -578,59 +576,77 @@ def build_filtered_telegram_message(results):
         "• 1D Supertrend = AL",
         "━━━━━━━━━━━━━━━━━━━━",
         f"🕒 Tarama: <b>{now.strftime('%d.%m.%Y %H:%M')}</b>",
-        f"⭐ <b>TEYİTLİ BUY: {len(results)} adet</b>",
+        f"⭐ <b>TEYİTLİ BUY: {len(results)} ADET</b>",
+        f"⚠️ <b>FİLTREDEN GEÇEMEYEN BUY ADAYI: {len(filtered_results)} ADET</b>",
         "",
     ]
 
     for index, result in enumerate(results, 1):
         symbol = result["symbol"].split(":", 1)[-1]
         price = scanner.format_price(result["price"])
-        verification = result.get("confirmation", {})
-
-        momentum = float(verification.get("momentum", 0.0))
-        rvol = verification.get("rvol")
-        body_ratio = float(verification.get("body_ratio", 0.0))
-        trend_4h = verification.get("trend_4h")
-        trend_1d = verification.get("trend_1d")
-
-        url = (
-            "https://www.tradingview.com/chart/"
-            "?symbol=BIST%3A"
-            + symbol
-            + "&interval=120"
-        )
-
-        candle_dt = scanner.candle_close_datetime(
-            result["candle_time"]
-        )
-
+        v = result.get("confirmation", {})
+        rvol = v.get("rvol")
+        candle_dt = scanner.candle_close_datetime(result["candle_time"])
+        lines.append(f"{index}. <b>{symbol}</b> — {price} TL")
         lines.append(
-            f'{index}. <a href="{url}"><b>{symbol}</b></a> — {price} TL'
+            f"   📈 MOM: <b>{float(v.get('momentum', 0))*100:+.2f}%</b> | "
+            f"📊 RVOL: <b>{rvol:.2f}</b> | 🕯 GÖVDE: <b>%{float(v.get('body_ratio', 0))*100:.0f}</b>"
         )
-        lines.append(
-            f"   📈 Momentum: <b>{momentum * 100:+.2f}%</b> | "
-            f"📊 RVOL: <b>{rvol:.2f}</b> | "
-            f"🕯 Gövde: <b>%{body_ratio * 100:.0f}</b>"
-        )
-        lines.append(
-            "   2H: <b>SAT → AL</b> | "
-            "4H: <b>AL</b> | 1D: <b>AL</b>"
-        )
-        lines.append(
-            f'   🕯 Mum: <b>{candle_dt.strftime("%d.%m.%Y %H:%M")}</b>'
-        )
+        lines.append("   2H: <b>SAT → AL</b> | 4H: <b>AL</b> | 1D: <b>AL</b>")
+        lines.append(f'   🕯 Mum: <b>{candle_dt.strftime("%d.%m.%Y %H:%M")}</b>')
         lines.append("")
 
-    if not results:
-        lines.append("⭐ <b>Bu taramada tüm teyit filtrelerini geçen BUY yok.</b>")
+    if filtered_results:
+        lines += [
+            "━━━━━━━━━━━━━━━━━━━━",
+            "⚠️ <b>FİLTREDEN GEÇEMEYEN BUY ADAYLARI</b>",
+            "⚠️ <b>BUNLAR GERÇEK SAT → AL ADAYLARIDIR.</b>",
+            "⚠️ <b>ANCAK TEYİT FİLTRELERİNİ GEÇEMEDİLER.</b>",
+            "⚠️ <b>BU NEDENLE TEYİTLİ BUY DEĞİLDİRLER.</b>",
+            "",
+        ]
+
+        for index, result in enumerate(filtered_results, 1):
+            symbol = result["symbol"].split(":", 1)[-1]
+            price = scanner.format_price(result["price"])
+            v = result.get("confirmation", {})
+            momentum = float(v.get("momentum", 0.0))
+            rvol = v.get("rvol")
+            body = float(v.get("body_ratio", 0.0))
+            t4 = v.get("trend_4h")
+            t1 = v.get("trend_1d")
+            failed = []
+            if momentum <= 0: failed.append("MOMENTUM")
+            if rvol is None or rvol < 1.20: failed.append("RVOL")
+            if body < 0.50: failed.append("GÖVDE")
+            if t4 != 1: failed.append("4H")
+            if t1 != 1: failed.append("1D")
+            candle_dt = scanner.candle_close_datetime(result["candle_time"])
+
+            lines.append(f"{index}. <b>{symbol}</b> — {price} TL")
+            lines.append("   ⚠️ <b>FİLTREDEN GEÇEMEDİ</b>")
+            lines.append(
+                f"   2H: <b>SAT → AL</b> | MOM: <b>{momentum*100:+.2f}%</b> | "
+                f"RVOL: <b>{rvol:.2f}</b>" if rvol is not None else
+                f"   2H: <b>SAT → AL</b> | MOM: <b>{momentum*100:+.2f}%</b> | RVOL: <b>N/A</b>"
+            )
+            lines.append(
+                f"   GÖVDE: <b>%{body*100:.0f}</b> | "
+                f"4H: <b>{'AL' if t4 == 1 else 'SAT'}</b> | "
+                f"1D: <b>{'AL' if t1 == 1 else 'SAT'}</b>"
+            )
+            lines.append("   ❌ <b>GEÇEMEDİĞİ FİLTRELER: " + ", ".join(failed) + "</b>")
+            lines.append(f'   🕯 Mum: <b>{candle_dt.strftime("%d.%m.%Y %H:%M")}</b>')
+            lines.append("")
+
+    if not results and not filtered_results:
+        lines.append("⭐ <b>BU TARAMADA BUY ADAYI YOK.</b>")
         lines.append("")
 
     lines.append("🔍 BUY motoru: SAT → AL")
     lines.append("⚙️ Study kullanılmadı.")
-    lines.append("ℹ️ Bu filtreler sinyal kalitesini sıkılaştırır; yükselişi garanti etmez.")
-
+    lines.append("ℹ️ FİLTREDEN GEÇEMEYENLER BİLGİ AMAÇLI AYRI GÖSTERİLİR.")
     return "\n".join(lines)
-
 
 scanner.build_telegram_message = build_filtered_telegram_message
 
