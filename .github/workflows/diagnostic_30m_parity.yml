@@ -1,6 +1,10 @@
 name: 30M Supertrend Parity Diagnostic
 
 on:
+  push:
+    paths:
+      - 'diagnostic_30m_parity.py'
+      - '.github/workflows/diagnostic_30m_parity.yml'
   workflow_dispatch:
     inputs:
       symbols:
