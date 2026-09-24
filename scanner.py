@@ -1553,7 +1553,7 @@ def calculate_supertrend_directions(
 
 # ============================================================
 # ============================================================
-# ESKI TRADINGVIEW ta.supertrend() FORMULU - DIAGNOSTIK
+# TRADINGVIEW ta.supertrend() ESDEGERI
 #
 # URETIMDE KULLANILMAZ.
 # Daha once resmi ta.supertrend() dokumaniyla karsilastirma
@@ -1570,8 +1570,7 @@ def calculate_tradingview_supertrend_directions(
       -1 = UP / AL
       +1 = DOWN / SAT
 
-    Bu fonksiyon geriye donuk diagnostik icindir; uretim sinyali
-    bununla hesaplanmaz.
+    Uretim BUY/SAT hesaplamasinda kullanilir.
     """
     if len(candles) < (atr_period + 2):
         return None
@@ -1656,8 +1655,8 @@ def history_window_buy_times(candles, window_sizes=(3000, 5000, 10000, 15000, 20
 
         for i in range(1, len(subset)):
             if (
-                directions[i - 1] == -1
-                and directions[i] == 1
+                directions[i - 1] == 1
+                and directions[i] == -1
             ):
                 buys.append(subset[i]["time"])
 
@@ -2447,8 +2446,8 @@ def scan_symbol(
         for i in range(1, len(directions)):
 
             if (
-                directions[i - 1] == -1
-                and directions[i] == 1
+                directions[i - 1] == 1
+                and directions[i] == -1
             ):
                 buy_signal_indexes.append(i)
 
@@ -2515,8 +2514,8 @@ def scan_symbol(
         previous_direction = directions[completed_index - 1]
 
         current_buy_signal = (
-            previous_direction == -1
-            and current_direction == 1
+            previous_direction == 1
+            and current_direction == -1
         )
 
         if current_buy_signal:
@@ -2593,8 +2592,8 @@ def scan_symbol(
                 "sma_direction": sma_dirs[debug_i] if debug_i < len(sma_dirs) else None,
                 "sma_buy": (
                     debug_i > 0 and debug_i < len(sma_dirs)
-                    and sma_dirs[debug_i - 1] == -1
-                    and sma_dirs[debug_i] == 1
+                    and sma_dirs[debug_i - 1] == 1
+                    and sma_dirs[debug_i] == -1
                 )
             })
 
@@ -2613,8 +2612,8 @@ def scan_symbol(
                 "symbol": symbol,
                 "price": calculation_candles[i]["close"],
                 "candle_time": calculation_candles[i]["time"],
-                "direction": 1,
-                "previous_direction": -1,
+                "direction": -1,
+                "previous_direction": 1,
                 "buy_signal": True,
                 "previous_candle_time": calculation_candles[i - 1]["time"]
             })
@@ -2631,8 +2630,8 @@ def scan_symbol(
                 "symbol": symbol,
                 "price": current_candle["close"],
                 "candle_time": current_candle["time"],
-                "direction": 1,
-                "previous_direction": -1,
+                "direction": -1,
+                "previous_direction": 1,
                 "buy_signal": True,
                 "previous_candle_time": previous_candle["time"],
                 "already_sent": already_sent
@@ -2652,18 +2651,18 @@ def scan_symbol(
                         for r in buy_results
                     )
                 )
-            elif old_direction == -1 and current_direction == -1:
-                log("    SAT -> SAT")
             elif old_direction == 1 and current_direction == 1:
+                log("    SAT -> SAT")
+            elif old_direction == -1 and current_direction == -1:
                 log("    AL -> AL")
-            elif old_direction == 1 and current_direction == -1:
+            elif old_direction == -1 and current_direction == 1:
                 log("    >>> YENI SAT")
             else:
                 log("    Durum degismedi.")
         else:
             log(
                 f"    Ilk durum: "
-                f"{'AL' if current_direction == 1 else 'SAT'}"
+                f"{'AL' if current_direction == -1 else 'SAT'}"
             )
 
         return {
