@@ -419,6 +419,7 @@ def report_symbol(symbol):
         print("EVERGET/CLOSE BUY:", e_dir_close[target - 1] == -1 and e_dir_close[target] == 1)
         print("MARKETCALLS onceki/yeni:", m_dir[target - 1], "->", m_dir[target])
         print("MARKETCALLS BUY:", m_dir[target - 1] == -1 and m_dir[target] == 1)
+        print("NEXT TEST: EMA/HIGH-LOW ATR variants will be added separately.")
         print("ACTIVE ST(prev):", fmt(v_st[target - 1]))
         print("ACTIVE ST(now):", fmt(v_st[target]))
         print("CLOSE(prev):", fmt(calc[target - 1]["close"]))
