@@ -1,0 +1,42 @@
+name: BIST 1H Supertrend Scanner - Short Timeframe
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 7-15 * * 1-5"
+
+permissions:
+  contents: write
+
+jobs:
+  scan-1h:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: 1H Supertrend scan
+        env:
+          TEST_MODE: "false"
+          SEND_SCAN_REPORT: "true"
+          SCAN_LIMIT: "620"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scanner_1h.py
+
+      - name: Save 1H state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/supertrend_state_1h.json
+          git diff --cached --quiet || git commit -m "Update 1H Supertrend state"
+          git push
