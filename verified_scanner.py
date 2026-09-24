@@ -2,8 +2,8 @@
 BIST Supertrend tek tarama + otomatik BUY dogrulama.
 
 scanner.py normal BIST taramasini yapar. Her BUY adayi icin
-ayni TradingView native 2H serisi tekrar alinip bagimsiz
-TradingView public Supertrend (Kivanc) mantigi ile kontrol edilir.
+ayni TradingView native 2H serisi tekrar alinip TradingView
+built-in ta.supertrend() ile ayni OHLC mantigi tekrar hesaplanir.
 Uyusmayan BUY Telegram'a gonderilmez.
 
 Study YOK.
@@ -23,7 +23,9 @@ from new_buy_system.verify_14 import tv_native, trend_from_rows
 
 
 def label(d):
-    return "AL" if d == 1 else "SAT" if d == -1 else "BELIRSIZ"
+    # TradingView ta.supertrend() convention:
+    # -1 = AL / yukari trend, +1 = SAT / asagi trend.
+    return "AL" if d == -1 else "SAT" if d == 1 else "BELIRSIZ"
 
 
 def mark_filtered_candidate(result, reason):
@@ -50,16 +52,13 @@ def independent_directions(candles, period=10, multiplier=2.0):
       -1 = AL / yukari trend
       +1 = SAT / asagi trend
     """
-    # scanner.py'nin diagnostik/yerel kopyasi yerine ayni formulu
-    # bagimsiz ikinci hesap olarak burada tekrar kullan.
+    # Ayni Pine algoritmasini ikinci kez hesapla.
     return scanner.calculate_tradingview_supertrend_directions(
         candles,
         period,
         multiplier
     )
 
-
-_original_scan_symbol = scanner.scan_symbol
 
 _original_scan_symbol = scanner.scan_symbol
 
@@ -326,8 +325,9 @@ def verified_scan_symbol(symbol, state):
         i = completed_index
         p = i - 1
 
-        prod_buy = production[p] == -1 and production[i] == 1
-        independent_buy = independent[p] == -1 and independent[i] == 1
+        # Pine BUY: onceki direction > 0 (SAT), mevcut direction < 0 (AL).
+        prod_buy = production[p] == 1 and production[i] == -1
+        independent_buy = independent[p] == 1 and independent[i] == -1
         same = (
             production[p] == independent[p]
             and production[i] == independent[i]
