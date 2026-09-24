@@ -2159,7 +2159,8 @@ def format_price(price):
 # ============================================================
 
 def build_telegram_message(
-    results
+    results,
+    filtered_results=None
 ):
 
     now = now_istanbul()
@@ -2174,7 +2175,7 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "📊 BIST 2 SAATLİK SUPERTREND"
+        "📊 BIST 1 SAATLİK SUPERTREND"
     )
 
     lines.append(
@@ -2227,7 +2228,7 @@ def build_telegram_message(
             "https://www.tradingview.com/chart/"
             + "?symbol=BIST%3A"
             + ticker
-            + "&interval=120"
+            + "&interval=60"
         )
 
         lines.append(
@@ -2766,7 +2767,7 @@ def build_current_report_message(results):
             "https://www.tradingview.com/chart/"
             + "?symbol=BIST%3A"
             + ticker
-            + "&interval=120"
+            + "&interval=60"
         )
 
         lines.append(
@@ -3054,7 +3055,6 @@ def main():
 
     new_buy_results = []
     current_buy_signal_results = []
-    filtered_buy_results = []
     existing_buy_results = []
     previously_sent_buy_results = []
 
@@ -3108,11 +3108,7 @@ def main():
         success_count += 1
 
         buy_results = result.get("buy_results", [])
-        filtered_results = result.get("filtered_buy_results", [])
         all_buy_results = result.get("all_buy_results", [])
-
-        if filtered_results:
-            filtered_buy_results.extend(filtered_results)
 
         for buy_result in all_buy_results:
             if buy_result.get("already_sent"):
@@ -3162,17 +3158,8 @@ def main():
     )
 
     log(
-        f"HAM SAT -> AL BUY ADAYI: "
-        f"{len(new_buy_results) + len(filtered_buy_results)}"
-    )
-
-    log(
-        f"TEYITLI BUY: {len(new_buy_results)}"
-    )
-
-    log(
-        f"FILTREDEN GECEMEYEN BUY ADAYI: "
-        f"{len(filtered_buy_results)}"
+        f"1H HAM SAT -> AL BUY ADAYI: "
+        f"{len(new_buy_results)}"
     )
 
     # Manuel taramada BUY durumlarini acikca ayir.
@@ -3231,23 +3218,22 @@ def main():
     # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
     if SEND_SCAN_REPORT:
 
-        if current_buy_signal_results or filtered_buy_results:
+        if current_buy_signal_results:
 
             send_telegram(
                 build_telegram_message(
-                    current_buy_signal_results,
-                    filtered_buy_results
+                    current_buy_signal_results
                 )
             )
 
             log(
-                "Yeni TradingView BUY sinyalleri ve filtreden gecemeyen adaylar Telegram'a gönderildi."
+                "Yeni 1H TradingView BUY sinyalleri Telegram'a gönderildi."
             )
 
         else:
 
             log(
-                "Yeni TradingView BUY veya filtreden gecemeyen BUY adayi yok; Telegram gönderilmeyecek."
+                "Yeni 1H TradingView BUY sinyali yok; Telegram gönderilmeyecek."
             )
 
         save_state(state)
