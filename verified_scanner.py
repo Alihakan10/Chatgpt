@@ -146,6 +146,10 @@ def verified_scan_symbol(symbol, state):
             + symbol
             + " | TELEGRAM'A GONDERILMEYECEK"
         )
+        mark_filtered_candidate(
+            result,
+            "BUY ADAY MUM ZAMANI OKUNAMADI"
+        )
         result["status"] = "ok"
         result["buy_results"] = []
         result["all_buy_results"] = []
@@ -268,7 +272,7 @@ def verified_scan_symbol(symbol, state):
             )
             mark_filtered_candidate(
                 result,
-                "BUY ADAY MUM ZAMANI OKUNAMADI"
+                "BUY STABILIZASYON BASARISIZ"
             )
             result["status"] = "ok"
             result["buy_results"] = []
@@ -315,6 +319,10 @@ def verified_scan_symbol(symbol, state):
                 "    !!! BUY FREEZE BASARISIZ | "
                 + symbol
                 + " | 3 SNAPSHOT AYNI DEGIL | TELEGRAM'A GONDERILMEYECEK"
+            )
+            mark_filtered_candidate(
+                result,
+                "BUY FREEZE BASARISIZ"
             )
             result["status"] = "ok"
             result["buy_results"] = []
@@ -398,6 +406,10 @@ def verified_scan_symbol(symbol, state):
                 "    !!! BUY DOGRULAMA BASARISIZ | "
                 + symbol
                 + " | TELEGRAM'A GONDERILMEYECEK"
+            )
+            mark_filtered_candidate(
+                result,
+                "BUY DOGRULAMA BASARISIZ"
             )
 
             # State'e yeni BUY olarak yazilmasini da engelle.
