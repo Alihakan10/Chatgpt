@@ -241,7 +241,10 @@ def report_symbol(symbol):
     print(symbol)
     print("=" * 90)
 
-    # TradingView docs note that stateful intraday scripts can depend on their history start.\n    # Pull a much longer native history here; production code is untouched.\n    sc.CANDLE_COUNT = REQUEST_BARS\n    candles = sc.get_tv_candles_with_retry(symbol, "native_30m")
+    # TradingView docs note that stateful intraday scripts can depend on their history start.
+    # Pull a much longer native history here; production code is untouched.
+    sc.CANDLE_COUNT = REQUEST_BARS
+    candles = sc.get_tv_candles_with_retry(symbol, "native_30m")
     if not candles:
         print("VERI YOK")
         return
