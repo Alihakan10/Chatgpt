@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: bist-supertrend-scanner-1h
+  cancel-in-progress: false
+
 jobs:
   scan-1h:
     runs-on: ubuntu-latest
@@ -29,6 +33,9 @@ jobs:
           TEST_MODE: "false"
           SEND_SCAN_REPORT: "true"
           SCAN_LIMIT: "620"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scanner_1h.py
