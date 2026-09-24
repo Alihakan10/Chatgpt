@@ -1,0 +1,22 @@
+name: Diagnose 2H Alignment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+      - name: Python kurulumu
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python paketleri
+        run: pip install -r requirements.txt
+      - name: 2H OHLC hizalama testi
+        run: python diagnose_2h_alignment.py
