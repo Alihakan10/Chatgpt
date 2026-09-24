@@ -1,10 +1,6 @@
 name: BIST Supertrend 30M Chart - 60M ST Parity
 
 on:
-  push:
-    paths:
-      - "scanner_30m_tvparity.py"
-      - ".github/workflows/scanner_30m_tvparity.yml"
   workflow_dispatch:
   schedule:
     - cron: "35 7-15 * * 1-5"
