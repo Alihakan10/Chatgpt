@@ -185,6 +185,45 @@ def calc_signal_variants(candles, period=10, multiplier=2.0):
 
 
 
+
+def calc_source_variant(candles, source_name="hl2", atr_mode="rma", period=10, multiplier=2.0):
+    """Isolated diagnostic: source and ATR smoothing variants."""
+    atr = sc.calculate_atr(candles, period) if atr_mode == "rma" else sc.calculate_atr_sma(candles, period)
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [1] * len(candles)
+
+    def src_at(i):
+        c = candles[i]
+        if source_name == "hl2": return (c["high"] + c["low"]) / 2.0
+        if source_name == "close": return c["close"]
+        if source_name == "open": return c["open"]
+        if source_name == "high": return c["high"]
+        if source_name == "low": return c["low"]
+        if source_name == "hlc3": return (c["high"] + c["low"] + c["close"]) / 3.0
+        if source_name == "ohlc4": return (c["open"] + c["high"] + c["low"] + c["close"]) / 4.0
+        raise ValueError(source_name)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            continue
+        src = src_at(i)
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
+        prev = trend[i - 1] if i > 0 else 1
+        if prev == -1 and candles[i]["close"] > dn1:
+            trend[i] = 1
+        elif prev == 1 and candles[i]["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = prev
+    return atr, up, dn, trend
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
@@ -278,6 +317,19 @@ def report_symbol(symbol):
         print("Kivanc ATR:", fmt(k_atr[target]))
         print("Kivanc UP(prev):", fmt(k_up[target - 1]))
         print("Kivanc DN(prev):", fmt(k_dn[target - 1]))
+
+
+    print("")
+    print("KAYNAK + ATR VARYANT MATRISI")
+    print("Her hucre: onceki->yeni / BUY")
+    for atr_mode in ("rma", "sma"):
+        print(f"ATR={atr_mode.upper()}")
+        for source_name in ("hl2", "close", "open", "high", "low", "hlc3", "ohlc4"):
+            _, _, _, dirs = calc_source_variant(calc, source_name, atr_mode)
+            prev = dirs[target - 1] if target > 0 else None
+            cur = dirs[target] if target is not None else None
+            buy = prev == -1 and cur == 1
+            print(f"  {source_name:6s}: {prev:+d} -> {cur:+d} | BUY={buy}")
 
     # History-window stability check. This tests whether the flip depends
     # on how much historical data is fed into the stateful calculation.
