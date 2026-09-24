@@ -252,6 +252,52 @@ def to_heikin_ashi(candles):
     return out
 
 
+
+def calc_everget_debug(candles, period=10, multiplier=2.0, wicks=True):
+    """Isolated diagnostic of the Everget/ATR trailing-stop SuperTrend family."""
+    atr0 = sc.calculate_atr(candles, period)
+    atr = [None if x is None else multiplier * x for x in atr0]
+    long_stop = [None] * len(candles)
+    short_stop = [None] * len(candles)
+    direction = [1] * len(candles)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            continue
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        high_price = candles[i]["high"] if wicks else candles[i]["close"]
+        low_price = candles[i]["low"] if wicks else candles[i]["close"]
+        doji = (
+            candles[i]["open"] == candles[i]["close"]
+            and candles[i]["open"] == candles[i]["low"]
+            and candles[i]["open"] == candles[i]["high"]
+        )
+
+        long0 = src - atr[i]
+        prev_long = long_stop[i - 1] if i > 0 and long_stop[i - 1] is not None else long0
+        if doji:
+            long_stop[i] = prev_long
+        else:
+            long_stop[i] = max(long0, prev_long) if i > 0 and low_price > prev_long else long0
+
+        short0 = src + atr[i]
+        prev_short = short_stop[i - 1] if i > 0 and short_stop[i - 1] is not None else short0
+        if doji:
+            short_stop[i] = prev_short
+        else:
+            short_stop[i] = min(short0, prev_short) if i > 0 and high_price < prev_short else short0
+
+        prev_dir = direction[i - 1] if i > 0 else 1
+        if prev_dir == -1 and high_price > prev_short:
+            direction[i] = 1
+        elif prev_dir == 1 and low_price < prev_long:
+            direction[i] = -1
+        else:
+            direction[i] = prev_dir
+
+    return atr0, long_stop, short_stop, direction
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
@@ -287,6 +333,8 @@ def report_symbol(symbol):
     b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
     s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
     v_atr, v_up, v_dn, v_trend, v_st = calc_signal_variants(calc)
+    e_atr, e_long, e_short, e_dir_wicks = calc_everget_debug(calc, wicks=True)
+    _, _, _, e_dir_close = calc_everget_debug(calc, wicks=False)
 
     target = find_target_index(calc)
     if target is None:
@@ -336,6 +384,10 @@ def report_symbol(symbol):
         print("Built-in BUY:", b_trend[target - 1] == -1 and b_trend[target] == 1)
         print("SMA onceki/yeni:", s_trend[target - 1], "->", s_trend[target])
         print("SMA BUY:", s_trend[target - 1] == -1 and s_trend[target] == 1)
+        print("EVERGET/WICKS onceki/yeni:", e_dir_wicks[target - 1], "->", e_dir_wicks[target])
+        print("EVERGET/WICKS BUY:", e_dir_wicks[target - 1] == -1 and e_dir_wicks[target] == 1)
+        print("EVERGET/CLOSE onceki/yeni:", e_dir_close[target - 1], "->", e_dir_close[target])
+        print("EVERGET/CLOSE BUY:", e_dir_close[target - 1] == -1 and e_dir_close[target] == 1)
         print("ACTIVE ST(prev):", fmt(v_st[target - 1]))
         print("ACTIVE ST(now):", fmt(v_st[target]))
         print("CLOSE(prev):", fmt(calc[target - 1]["close"]))
