@@ -226,6 +226,32 @@ def calc_source_variant(candles, source_name="hl2", atr_mode="rma", period=10, m
     return atr, up, dn, trend
 
 
+def to_heikin_ashi(candles):
+    """Convert native OHLC to TradingView-style Heikin Ashi OHLC."""
+    out = []
+    prev_ha_open = None
+    prev_ha_close = None
+    for i, c in enumerate(candles):
+        ha_close = (c["open"] + c["high"] + c["low"] + c["close"]) / 4.0
+        if i == 0:
+            ha_open = (c["open"] + c["close"]) / 2.0
+        else:
+            ha_open = (prev_ha_open + prev_ha_close) / 2.0
+        ha_high = max(c["high"], ha_open, ha_close)
+        ha_low = min(c["low"], ha_open, ha_close)
+        out.append({
+            "time": c["time"],
+            "open": ha_open,
+            "high": ha_high,
+            "low": ha_low,
+            "close": ha_close,
+            "volume": c.get("volume", 0.0),
+        })
+        prev_ha_open = ha_open
+        prev_ha_close = ha_close
+    return out
+
+
 def find_target_index(candles):
     matches = []
     for i, c in enumerate(candles):
@@ -255,6 +281,8 @@ def report_symbol(symbol):
         return
 
     calc = candles[:completed + 1]
+    ha_calc = to_heikin_ashi(calc)
+    ha_atr, ha_up, ha_dn, ha_trend = calc_kivanc_debug(ha_calc)
     k_atr, k_up, k_dn, k_trend = calc_kivanc_debug(calc)
     b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
     s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
@@ -319,6 +347,13 @@ def report_symbol(symbol):
             and calc[target]["close"] > v_st[target]
         ) if v_st[target - 1] is not None and v_st[target] is not None else None)
         print("SMA ATR:", fmt(s_atr[target]))
+        print("HEIKIN ASHI OZET")
+        print("HA O/H/L/C:", fmt(ha_calc[target]["open"]), fmt(ha_calc[target]["high"]), fmt(ha_calc[target]["low"]), fmt(ha_calc[target]["close"]))
+        print("HA onceki/yeni:", ha_trend[target - 1], "->", ha_trend[target])
+        print("HA BUY:", ha_trend[target - 1] == -1 and ha_trend[target] == 1)
+        print("HA ATR:", fmt(ha_atr[target]))
+        print("HA UP(now):", fmt(ha_up[target]))
+        print("HA DN(now):", fmt(ha_dn[target]))
         print("Kivanc ATR:", fmt(k_atr[target]))
         print("Kivanc UP(prev):", fmt(k_up[target - 1]))
         print("Kivanc DN(prev):", fmt(k_dn[target - 1]))
