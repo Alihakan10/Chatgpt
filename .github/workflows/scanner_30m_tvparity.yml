@@ -1,6 +1,10 @@
 name: BIST Supertrend 30M Chart - 60M ST Parity
 
 on:
+  push:
+    paths:
+      - "scanner_30m_tvparity.py"
+      - ".github/workflows/scanner_30m_tvparity.yml"
   workflow_dispatch:
   schedule:
     - cron: "35 7-15 * * 1-5"
@@ -28,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: 30M Supertrend scan
+      - name: 30M chart / 60M Supertrend parity scan
         env:
           TEST_MODE: "false"
           SEND_SCAN_REPORT: "true"
