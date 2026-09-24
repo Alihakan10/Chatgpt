@@ -1,17 +1,18 @@
 # ============================================================
-# BIST 30M SUPERTREND ALARM SISTEMI
-# SURUM 2 - FINAL
+# BIST 30M GRAFIK / 60M SUPERTREND ALARM SISTEMI
+# TV PARITY SURUMU
 # ============================================================
 #
 # OZELLIKLER
 #
 # 1) Tum BIST hisselerini TradingView Scanner ile bulur
 # 2) TradingView WebSocket ile native 30 dakikalık (30 dakika) mum verisini alir
-# 3) Supertrend:
-#       ATR Period     = 10
-#       Source         = HL2
-#       Multiplier     = 2
-#       Timeframe      = 30M
+# 3) Supertrend hesaplama:
+#       Grafik verisi   = native 30M TradingView OHLC
+#       ST timeframe    = 60M (30M mumlardan session-aligned)
+#       ATR Period      = 10
+#       Source          = HL2
+#       Multiplier      = 2
 #
 # 4) SADECE gercek SAT -> AL donusunu yakalar
 # 5) Ayni sinyali tekrar gondermez
@@ -1449,20 +1450,18 @@ def calculate_kivanc_supertrend_directions(
     multiplier=2.0
 ):
     """
-    URETIMDE KULLANILAN TradingView PUBLIC "Supertrend" GOSTERGESI.
+    TradingView Supertrend hesaplama mantigi OHLC verisi uzerinde
+    dogrudan uygulanir; herhangi bir TradingView Study/indikator
+    endpointi calistirilmaz.
 
-    TradingView public indicator:
-      PUB;VfOPXWDHDPhORvJYRTcuHOyeqpOcRR45
-
-    Indicator metadata ile dogrulanan ayarlar:
+    Ayarlar:
       - ATR Period = 10
       - Source = HL2
       - ATR Multiplier = 2.0
-      - Change ATR Calculation Method = true
-      - Buy = trend == 1 and trend[1] == -1
+      - ATR = Wilder/RMA
+      - BUY = SAT (-1) -> AL (+1)
 
-    Bu, TradingView'deki KivancOzbilgic SuperTrend kodunun state
-    mantigidir:
+    Kullanilan bant/state mantigi:
       atr = RMA/Wilder ATR (changeATR=true)
       up = HL2 - multiplier * ATR
       up1 = nz(up[1], up)
@@ -1476,8 +1475,9 @@ def calculate_kivanc_supertrend_directions(
       +1 = AL / bullish
       -1 = SAT / bearish
 
-    Bu fonksiyon Study calistirmaz; TradingView native 30M OHLC
-    verisini kullanarak ayni public indikator mantigini uygular.
+    Bu fonksiyon Study calistirmaz. Native TradingView 30M OHLC
+    verisinden once tamamlanmis 60M barlar olusturur ve Supertrend'i
+    bu 60M barlar uzerinde yerel olarak hesaplar.
     """
     if len(candles) < (atr_period + 2):
         return None
@@ -2468,8 +2468,8 @@ def scan_symbol(
                     times.append(dt.strftime("%d.%m.%Y %H:%M"))
                 log("      " + str(hw) + " BAR | " + (", ".join(times) if times else "YOK"))
 
-        # TradingView BUY kosulu:
-        # onceki yon SAT (-1), sonraki yon AL (+1).
+        # BUY kosulu:
+        # onceki 60M ST yonu SAT (-1), sonraki 60M ST yonu AL (+1).
         # Gun icindeki tum tamamlanmis mumlarda ara.
         buy_signal_indexes = []
 
@@ -2535,7 +2535,7 @@ def scan_symbol(
             except Exception:
                 old_buy_time = 0.0
 
-        # KRITIK: SADECE SON TAMAMLANMIS 30M MUMU BUY ISE SINYAL KABUL ET.
+        # KRITIK: SADECE SON TAMAMLANMIS 60M ST BARINDA BUY VARSA SINYAL KABUL ET.
         # Gun icindeki daha eski SAT -> AL donusleri CURRENT BUY degildir.
         current_candle = calculation_candles[completed_index]
         previous_candle = calculation_candles[completed_index - 1]
@@ -2672,7 +2672,7 @@ def scan_symbol(
         if old:
             if new_buy:
                 log(
-                    f"    >>> {len(buy_results)} 60M ST / 30M GRAFIK YENI BUY: "
+                    f"    >>> {len(buy_results)} 60M SUPERTREND / 30M GRAFIK YENI BUY: "
                     + ", ".join(
                         datetime.fromtimestamp(
                             r["candle_time"],
@@ -2786,7 +2786,7 @@ def build_current_report_message(results):
     lines = [
         "TRADINGVIEW BUY SINYALLERI",
         "",
-        "📊 BIST 2 SAATLİK SUPERTREND",
+        "📊 BIST 30M GRAFİK / 60M SUPERTREND",
         "ATR Periyodu: " + str(ATR_PERIOD),
         "ATR Çarpanı: " + f"{ATR_MULTIPLIER:g}",
         "Kaynak: HL2 = (Yüksek + Düşük) / 2",
@@ -2832,8 +2832,8 @@ def build_current_report_message(results):
         )
 
     lines.append("")
-    lines.append("Bu rapor yalnızca son tamamlanmış 30M mumunda BUY etiketi oluşanları gösterir.")
-    lines.append("Ayarlar: ATR 10 | HL2 | 2.0 | RMA | 30M")
+    lines.append("Bu rapor yalnızca son tamamlanmış 60M Supertrend barında BUY dönüşü bulunanları gösterir.")
+    lines.append("Ayarlar: 30M grafik | 60M Supertrend | ATR 10 | HL2 | 2.0 | RMA | SAT→AL")
 
     return "\n".join(lines)
 
@@ -2847,7 +2847,7 @@ def main():
     log("")
     log("=" * 70)
     log(
-        "BIST 30M SUPERTREND FINAL TARAMASI BASLADI"
+        "BIST 30M GRAFIK / 60M SUPERTREND PARITY TARAMASI BASLADI"
     )
     log("=" * 70)
 
@@ -3083,7 +3083,7 @@ def main():
     )
 
     log(
-        "Timeframe = 30M"
+        "Grafik Timeframe = 30M"
     )
 
     log(
@@ -3161,7 +3161,7 @@ def main():
 
             for buy_result in buy_results:
                 log(
-                    f"[{number}/{total}] {symbol} >>>>>> 30M YENI BUY <<<<<< "
+                    f"[{number}/{total}] {symbol} >>>>>> 60M ST / 30M GRAFIK YENI BUY <<<<<< "
                     + candle_close_datetime(buy_result["candle_time"]).strftime("%d.%m.%Y %H:%M")
                     + " KAPANIS"
                 )
@@ -3197,7 +3197,7 @@ def main():
     )
 
     log(
-        f"30M HAM SAT -> AL BUY ADAYI: "
+        f"60M SUPERTREND HAM SAT -> AL BUY ADAYI: "
         f"{len(new_buy_results)}"
     )
 
@@ -3234,7 +3234,7 @@ def main():
         )
 
         log(
-            f"30M YENI BUY: {len(new_buy_results)}"
+            f"60M ST / 30M GRAFIK YENI BUY: {len(new_buy_results)}"
         )
 
         for item in sorted(new_buy_results, key=lambda x: x["symbol"]):
@@ -3243,7 +3243,7 @@ def main():
             ).astimezone(ZoneInfo(TIMEZONE))
 
             log(
-                f"    30M YENI BUY | {item['symbol']} | "
+                f"    60M ST / 30M GRAFIK YENI BUY | {item['symbol']} | "
                 f"{dt.strftime('%d.%m.%Y %H:%M')} | "
                 f"TELEGRAM'A GONDERILECEK"
             )
@@ -3253,8 +3253,8 @@ def main():
     # --------------------------------------------------------
     # SADECE TRADINGVIEW BUY RAPORU MODU
     # --------------------------------------------------------
-    # SEND_SCAN_REPORT=true iken yalnızca son tamamlanmış 30M mumunda
-    # gerçek BUY sinyali bulunan hisseler Telegram'a gönderilir.
+    # SEND_SCAN_REPORT=true iken yalnızca son tamamlanmış 60M Supertrend
+    # barında gerçek SAT -> AL BUY sinyali bulunan hisseler Telegram'a gönderilir.
     if SEND_SCAN_REPORT:
 
         if current_buy_signal_results:
@@ -3266,13 +3266,13 @@ def main():
             )
 
             log(
-                "Yeni 30M TradingView BUY sinyalleri Telegram'a gönderildi."
+                "Yeni 60M Supertrend / 30M grafik BUY sinyalleri Telegram'a gönderildi."
             )
 
         else:
 
             log(
-                "Yeni 30M TradingView BUY sinyali yok; Telegram gönderilmeyecek."
+                "Yeni 60M Supertrend / 30M grafik BUY sinyali yok; Telegram gönderilmeyecek."
             )
 
         save_state(state)
