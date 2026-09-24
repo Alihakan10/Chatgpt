@@ -830,7 +830,7 @@ def get_tv_candles(symbol, candle_mode="native_30m", candle_session="regular"):
                     "sds_1",
                     "s1",
                     "sds_sym_1",
-                    ("120" if candle_mode == "native_30m" else "60"),
+                    "30",
                     CANDLE_COUNT,
                     ""
                 ]
@@ -2228,7 +2228,7 @@ def build_telegram_message(
             "https://www.tradingview.com/chart/"
             + "?symbol=BIST%3A"
             + ticker
-            + "&interval=60"
+            + "&interval=30"
         )
 
         lines.append(
