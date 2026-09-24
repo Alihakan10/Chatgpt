@@ -26,6 +26,18 @@ def label(d):
     return "AL" if d == 1 else "SAT" if d == -1 else "BELIRSIZ"
 
 
+def mark_filtered_candidate(result, reason):
+    """Gercek SAT -> AL adayi teyit filtrelerinden gecmediyse Telegram'a ayir."""
+    candidates = result.get("buy_results", [])
+    if not candidates:
+        return
+    candidate = dict(candidates[0])
+    candidate["filter_reason"] = reason
+    candidate["filter_failed"] = True
+    candidate["confirmation"] = result.get("confirmation", {})
+    result["filtered_buy_results"] = [candidate]
+
+
 def independent_directions(candles, period=10, multiplier=2.0):
     """
     Bagimsiz kopya: TradingView public Supertrend
@@ -114,6 +126,8 @@ def verified_scan_symbol(symbol, state):
     # dogrulama yapmaya calisilmaz. Bu, onceki hatadaki
     # AL -> AL / SAT -> SAT durumlarinin yanlislikla
     # "BUY ADAY MUM ZAMANI OKUNAMADI" olarak raporlanmasini engeller.
+    result["filtered_buy_results"] = []
+
     if not buy_results:
         return result
 
@@ -483,6 +497,10 @@ def verified_scan_symbol(symbol, state):
                     "    !!! BUY TEYIT FILTRE DISI | "
                     + symbol
                     + " | TELEGRAM'A GONDERILMEYECEK"
+                )
+                mark_filtered_candidate(
+                    result,
+                    "BUY TEYIT FILTRELERINDEN GECEMEDI"
                 )
                 result["status"] = "ok"
                 result["buy_results"] = []
