@@ -1771,11 +1771,16 @@ def get_last_completed_index(
     candles
 ):
     """
-    Native TradingView 2H serisinde BIST regular seansinin son parcali
-    2H barini da tamamlanmis kabul eder.
+    Pine'daki barstate.isconfirmed davranisiyla uyumlu tamamlanmis
+    2H mumu secer.
 
-    BIST seansi 10:00-18:00 oldugu icin 17:00 barinin gercek seans
-    kapanisi 18:00'dir; 19:00'i beklemek yanlistir.
+    TradingView native 2H serisinde son BIST mumu 17:00 timestamp'iyle
+    gelir; ancak 2H barinin timeframe kapanisi 19:00'dur. BIST regular
+    seansi 18:00'de bitse bile Pine tarafinda bu bar 19:00'dan once
+    confirmed degildir.
+
+    Bu nedenle 18:00 civarinda 17:00 barini BUY hesabina almiyoruz.
+    Son confirmed bar 15:00 olur.
     """
 
     if not candles:
@@ -1791,25 +1796,13 @@ def get_last_completed_index(
                     candle["time"],
                     tz=ZoneInfo("UTC")
                 )
-                .astimezone(
-                    ZoneInfo(TIMEZONE)
-                )
+                .astimezone(ZoneInfo(TIMEZONE))
             )
 
-            # TradingView session bazli barlarda son bar, seans
-            # bitiminde kapanir. 17:00 -> 18:00 parcali 2H bardir.
-            if (
-                candle_time.hour == 17
-                and candle_time.minute == 0
-            ):
-                candle_end = candle_time.replace(
-                    hour=18,
-                    minute=0,
-                    second=0,
-                    microsecond=0
-                )
-            else:
-                candle_end = candle_time + timedelta(hours=2)
+            # Native 2H barinin timeframe kapanisi +2 saattir:
+            # 17:00 -> 19:00. Bu, Pine barstate.isconfirmed ile
+            # ayni "confirmed bar" tanimini kullanmamizi saglar.
+            candle_end = candle_time + timedelta(hours=2)
 
             if candle_end <= now:
                 candidates.append(i)
@@ -1821,6 +1814,7 @@ def get_last_completed_index(
         return None
 
     return candidates[-1]
+
 
 
 # ============================================================
