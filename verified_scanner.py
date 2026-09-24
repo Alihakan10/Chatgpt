@@ -107,19 +107,28 @@ def verified_scan_symbol(symbol, state):
     buy_results = result.get("buy_results", [])
     all_buy_results = result.get("all_buy_results", [])
 
-    # KRITIK: Dogrulama, taramanin BUY adayi olarak buldugu AYNI MUM
-    # uzerinde yapilmalidir. Refetch sirasinda baska bir "son tamamlanmis"
-    # muma kaymak kesinlikle kabul edilmez.
+    # KRITIK: Dogrulama sadece scanner.py'nin GERCEK BUY adayi
+    # olarak buldugu mum icin calisir.
+    #
+    # BUY adayi yoksa burada kesinlikle mum zamani okumaya veya
+    # dogrulama yapmaya calisilmaz. Bu, onceki hatadaki
+    # AL -> AL / SAT -> SAT durumlarinin yanlislikla
+    # "BUY ADAY MUM ZAMANI OKUNAMADI" olarak raporlanmasini engeller.
+    if not buy_results:
+        return result
+
+    # BUY adayi varsa hedef mum zamani zorunludur.
+    # Refetch sirasinda baska bir "son tamamlanmis" muma kaymak
+    # kesinlikle kabul edilmez.
     target_buy_time = None
-    if buy_results:
-        try:
-            target_buy_time = float(buy_results[0]["candle_time"])
-        except Exception:
-            target_buy_time = None
+    try:
+        target_buy_time = float(buy_results[0]["candle_time"])
+    except Exception:
+        target_buy_time = None
 
     if target_buy_time is None:
         scanner.log(
-            "    !!! BUY ADAY MUM ZAMANI OKUNAMADI | "
+            "    !!! GERCEK BUY ADAYINDA MUM ZAMANI OKUNAMADI | "
             + symbol
             + " | TELEGRAM'A GONDERILMEYECEK"
         )
@@ -130,10 +139,9 @@ def verified_scan_symbol(symbol, state):
         result["buy_signal"] = False
         return result
 
-    # Sadece YENI BUY adaylari stabilizasyon kontrolune girer.
-    # Daha once Telegram'a gonderilmis BUY'lar yeniden bekletilmez.
-    if not buy_results:
-        return result
+    # Buraya gelindiyse scanner.py gercekten SAT -> AL BUY adayi
+    # uretmistir. Bundan sonra stabilizasyon + bagimsiz Supertrend
+    # + 4H/1D teyit katmani calisir.
 
     try:
         candles = sorted(
