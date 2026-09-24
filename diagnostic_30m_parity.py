@@ -178,8 +178,9 @@ def calc_signal_variants(candles, period=10, multiplier=2.0):
         else:
             trend[i] = prev
 
-        # Kivanc'in aktif Supertrend cizgisi.
-        st[i] = up[i] if trend[i] == -1 else dn[i]
+        # Kivanc source code: trend==1 -> UP Trend plot = lower band (up).
+        # trend==-1 -> Down Trend plot = upper band (dn).
+        st[i] = up[i] if trend[i] == 1 else dn[i]
 
     return atr, up, dn, trend, st
 
