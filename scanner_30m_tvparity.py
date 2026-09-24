@@ -1688,20 +1688,9 @@ def get_last_completed_index(
                 )
             )
 
-            # TradingView session bazli barlarda son bar, seans
-            # bitiminde kapanir. 17:00 -> 18:00 parcali 30M bardir.
-            if (
-                candle_time.hour == 17
-                and candle_time.minute == 0
-            ):
-                candle_end = candle_time.replace(
-                    hour=18,
-                    minute=0,
-                    second=0,
-                    microsecond=0
-                )
-            else:
-                candle_end = candle_time + timedelta(minutes=30)
+            # Her native 30M bar 30 dakika sonra kapanir.
+            # BIST'in 17:00 ve 17:30 barlari iki ayri bardir.
+            candle_end = candle_time + timedelta(minutes=30)
 
             if candle_end <= now:
                 candidates.append(i)
@@ -2175,7 +2164,7 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "📊 BIST 30 DAKİKALIK SUPERTREND"
+        "📊 BIST 30M GRAFİK / 60M SUPERTREND"
     )
 
     lines.append(
@@ -2251,8 +2240,8 @@ def build_telegram_message(
     lines.append("")
 
     lines.append(
-        "Sinyal: Yalnızca SON TAMAMLANMIŞ 30M mumunda "
-        "SAT -> AL (BUY) dönüşü."
+        "Sinyal: Yalnızca SON TAMAMLANMIŞ 60M Supertrend "
+        "barında SAT -> AL (BUY) dönüşü."
     )
 
     return "\n".join(lines)
@@ -2268,10 +2257,7 @@ def candle_close_datetime(candle_time):
         .astimezone(ZoneInfo(TIMEZONE))
     )
 
-    # BIST'in 17:00-18:00 son parcali 30M bari 18:00'de kapanir.
-    if dt.hour == 17 and dt.minute == 0:
-        return dt + timedelta(hours=1)
-
+    # 60M Supertrend barinin gercek kapanisi.
     return dt + timedelta(hours=1)
 
 
@@ -2380,7 +2366,7 @@ def aggregate_completed_60m_from_30m(candles):
         start_dt = datetime.fromtimestamp(
             key, tz=ZoneInfo("UTC")
         ).astimezone(ZoneInfo(TIMEZONE))
-        if len(group) < 2 and not (start_dt.hour == 17 and start_dt.minute == 0):
+        if len(group) != 2:
             continue
         out.append({
             "time": float(key),
@@ -2535,8 +2521,9 @@ def scan_symbol(
             except Exception:
                 old_buy_time = 0.0
 
-        # KRITIK: SADECE SON TAMAMLANMIS 60M ST BARINDA BUY VARSA SINYAL KABUL ET.
-        # Gun icindeki daha eski SAT -> AL donusleri CURRENT BUY degildir.
+        # KRITIK: SADECE SON TAMAMLANMIS 60M ST BARINDA BUY VARSA
+        # SINYAL KABUL ET. 17:52'de 17:00-18:00 60M bari henuz
+        # tamamlanmis degildir; son tamamlanmis 60M bar 16:00-17:00'dur.
         current_candle = calculation_candles[completed_index]
         previous_candle = calculation_candles[completed_index - 1]
 
