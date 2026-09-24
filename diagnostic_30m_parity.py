@@ -174,6 +174,7 @@ def report_symbol(symbol):
     calc = candles[:completed + 1]
     k_atr, k_up, k_dn, k_trend = calc_kivanc_debug(calc)
     b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
+    s_atr, s_up, s_dn, s_trend = calc_kivanc_sma_debug(calc)
 
     target = find_target_index(calc)
     if target is None:
@@ -192,6 +193,7 @@ def report_symbol(symbol):
         c = calc[i]
         kbuy = k_trend[i - 1] == -1 and k_trend[i] == 1
         tvbuy = b_trend[i - 1] == -1 and b_trend[i] == 1
+        sbuy = s_trend[i - 1] == -1 and s_trend[i] == 1
         mark = "  <== HEDEF" if i == target else ""
         print(
             local_dt(c["time"]).strftime("%d.%m.%Y %H:%M")
@@ -206,6 +208,8 @@ def report_symbol(symbol):
             + " | " + str(kbuy)
             + " | " + str(b_trend[i])
             + " | " + str(tvbuy)
+            + " | SMA=" + str(s_trend[i])
+            + " | SMA_BUY=" + str(sbuy)
             + mark
         )
 
@@ -218,6 +222,9 @@ def report_symbol(symbol):
         print("Kivanc BUY:", k_trend[target - 1] == -1 and k_trend[target] == 1)
         print("Built-in onceki/yeni:", b_trend[target - 1], "->", b_trend[target])
         print("Built-in BUY:", b_trend[target - 1] == -1 and b_trend[target] == 1)
+        print("SMA onceki/yeni:", s_trend[target - 1], "->", s_trend[target])
+        print("SMA BUY:", s_trend[target - 1] == -1 and s_trend[target] == 1)
+        print("SMA ATR:", fmt(s_atr[target]))
         print("Kivanc ATR:", fmt(k_atr[target]))
         print("Kivanc UP(prev):", fmt(k_up[target - 1]))
         print("Kivanc DN(prev):", fmt(k_dn[target - 1]))
