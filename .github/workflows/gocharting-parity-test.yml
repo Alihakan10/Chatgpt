@@ -1,0 +1,27 @@
+name: Isolated GoCharting parity test
+
+on:
+  push:
+    branches:
+      - test/gocharting-supertrend-parity
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Run isolated parity test
+        env:
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: python gocharting_parity_test.py
