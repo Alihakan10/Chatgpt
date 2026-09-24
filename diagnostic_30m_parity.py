@@ -333,6 +333,18 @@ def report_symbol(symbol):
             buy = prev == -1 and cur == 1
             print(f"  {source_name:6s}: {prev:+d} -> {cur:+d} | BUY={buy}")
 
+    print("")
+    print("CARPAN TARAMASI (RMA + HL2)")
+    sweep = []
+    for m10 in range(10, 41):
+        m = m10 / 10.0
+        _, _, _, dirs = calc_source_variant(calc, "hl2", "rma", 10, m)
+        prev = dirs[target - 1]
+        cur = dirs[target]
+        buy = prev == -1 and cur == 1
+        sweep.append((m, buy))
+    print("  " + " ".join(f"{m:.1f}:{'B' if buy else '-'}" for m, buy in sweep))
+
     # History-window stability check. This tests whether the flip depends
     # on how much historical data is fed into the stateful calculation.
     print("")
