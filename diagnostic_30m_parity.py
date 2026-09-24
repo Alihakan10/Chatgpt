@@ -29,6 +29,7 @@ SYMBOLS = [
 
 TARGET_HOUR = int(os.getenv("TARGET_HOUR", "15"))
 TARGET_MINUTE = int(os.getenv("TARGET_MINUTE", "0"))
+REQUEST_BARS = int(os.getenv("REQUEST_BARS", "10000"))
 
 
 def local_dt(ts):
@@ -240,7 +241,7 @@ def report_symbol(symbol):
     print(symbol)
     print("=" * 90)
 
-    candles = sc.get_tv_candles_with_retry(symbol, "native_30m")
+    # TradingView docs note that stateful intraday scripts can depend on their history start.\n    # Pull a much longer native history here; production code is untouched.\n    sc.CANDLE_COUNT = REQUEST_BARS\n    candles = sc.get_tv_candles_with_retry(symbol, "native_30m")
     if not candles:
         print("VERI YOK")
         return
@@ -336,7 +337,7 @@ def report_symbol(symbol):
     # on how much historical data is fed into the stateful calculation.
     print("")
     print("TARIHCE PENCERE KONTROLU")
-    for size in (500, 1000, 2000, 3000):
+    for size in (500, 1000, 2000, 3000, 5000, 7500, 10000):
         subset = calc[-size:] if len(calc) > size else calc
         dirs = sc.calculate_supertrend_directions(subset, 10, 2.0)
         if dirs and len(dirs) >= 2:
@@ -354,7 +355,7 @@ def main():
     print("30M SUPERTREND PARITY DIAGNOSTIC")
     print("Ayarlar: ATR=10 | HL2 | multiplier=2.0 | RMA/Wilder")
     print("Hedef:", f"{TARGET_HOUR:02d}:{TARGET_MINUTE:02d}", "Istanbul")
-    print("Hisseler:", ", ".join(SYMBOLS))
+    print("Hisseler:", ", ".join(SYMBOLS))\n    print("DIAGNOSTIC BAR TALEBI:", REQUEST_BARS)
 
     for symbol in SYMBOLS:
         try:
