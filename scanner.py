@@ -1529,18 +1529,29 @@ def calculate_supertrend_directions(
     multiplier=2.0
 ):
     """
-    URETIM Supertrend.
+    TradingView built-in ta.supertrend() ile birebir ayni
+    algoritmayi OHLC verisi uzerinde uygular.
 
-    TradingView public Supertrend (KivancOzbilgic) ile ayni
-    hesaplama mantigi kullanilir. +1=AL, -1=SAT.
+    Pine:
+      src = hl2
+      atr = ta.atr(atrPeriod)
+      upperBand = src + factor * atr
+      lowerBand = src - factor * atr
+      direction < 0 = AL / yukari trend
+      direction > 0 = SAT / asagi trend
+
+    BUY:
+      onceki direction = +1
+      son direction = -1
     """
-    return calculate_kivanc_supertrend_directions(
+    return calculate_tradingview_supertrend_directions(
         candles,
         atr_period,
         multiplier
     )
 
 
+# ============================================================
 # ============================================================
 # ESKI TRADINGVIEW ta.supertrend() FORMULU - DIAGNOSTIK
 #
