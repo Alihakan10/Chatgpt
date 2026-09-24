@@ -1701,7 +1701,7 @@ def get_last_completed_index(
                     microsecond=0
                 )
             else:
-                candle_end = candle_time + timedelta(hours=2)
+                candle_end = candle_time + timedelta(minutes=30)
 
             if candle_end <= now:
                 candidates.append(i)
@@ -2272,7 +2272,7 @@ def candle_close_datetime(candle_time):
     if dt.hour == 17 and dt.minute == 0:
         return dt + timedelta(hours=1)
 
-    return dt + timedelta(hours=2)
+    return dt + timedelta(minutes=30)
 
 
 # ============================================================
