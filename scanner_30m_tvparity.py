@@ -225,7 +225,7 @@ GITHUB_REF_NAME = os.getenv(
 )
 
 STATE_FILE = (
-    "state/supertrend_state_30m.json"
+    "state/supertrend_state_30m_tvparity.json"
 )
 
 
@@ -2272,7 +2272,7 @@ def candle_close_datetime(candle_time):
     if dt.hour == 17 and dt.minute == 0:
         return dt + timedelta(hours=1)
 
-    return dt + timedelta(minutes=30)
+    return dt + timedelta(hours=1)
 
 
 # ============================================================
