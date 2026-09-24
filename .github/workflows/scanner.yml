@@ -2,6 +2,9 @@ name: BIST Supertrend Scanner
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/scanner.yml"
   schedule:
     - cron: "10 7-15 * * 1-5"
 
@@ -19,8 +22,8 @@ jobs:
     env:
       TEST_MODE: "false"
       TEST_SYMBOLS: ""
-      MANUAL_TEST_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
-      FORCE_SCAN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
+      MANUAL_TEST_RUN: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'push') && 'true' || 'false' }}
+      FORCE_SCAN: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'push') && 'true' || 'false' }}
       SEND_SCAN_REPORT: "true"
       SEND_TEST_TELEGRAM: "false"
       SCAN_LIMIT: "620"
