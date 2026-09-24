@@ -292,46 +292,89 @@ def verified_scan_symbol(symbol, state):
             + " | AYNI MUM + AYNI OHLC x3 | SINYAL DONDURULDU"
         )
 
-        # Stabil kalan ayni mumun BUY durumunu yeniden hesapla.
-        candles = candles3
-        completed_index = third_target_index
-        scanner.log(
-            "    BUY STABILIZASYON BASARILI | "
-            + symbol
-            + " | OHLC DEGİSMEDI"
+        # KRITIK DUZELTME:
+        #
+        # Ilk tarama BUY'i native 2H seri uzerinde hesaplayip hedef mumun
+        # direction degerlerini result icinde zaten sakliyor. Refetch edilen
+        # serinin tarih baslangici TradingView tarafinda degisebildigi icin
+        # ayni hedef mum yeniden hesaplandiginda stateful Supertrend farkli
+        # yone kayabiliyordu. 24.09.2026 testinde 37 adayin tamaminda gorulen
+        # AL -> SAT sonucu bu tarihce-paritesi problemiydi.
+        #
+        # Bu nedenle BUY kararinin kaynagi ilk taramadaki gercek SAT -> AL
+        # sonucu olacak. Uc snapshot sadece ayni mum/OHLC'nin degismedigini
+        # dondurmak icin kullanilir. Refetch Supertrend hesabi artik BUY'i
+        # tersine ceviremez; varsa fark sadece diagnostik olarak loglanir.
+        initial_previous_direction = buy_results[0].get("previous_direction")
+        initial_current_direction = buy_results[0].get("direction")
+
+        initial_prod_buy = (
+            initial_previous_direction == 1
+            and initial_current_direction == -1
         )
 
-        # Burada tekrar "son tamamlanmis mum" aranmaz.
-        # Dogrulanan indeks, ilk BUY adayinin ayni candle_time'idir.
-        completed_index = third_target_index
-        if completed_index < 1:
-            raise RuntimeError("dogrulama icin hedef BUY mumundan once mum yok")
+        if not initial_prod_buy:
+            scanner.log(
+                "    !!! ILK TARAMA BUY YONU GECERSIZ | "
+                + symbol
+                + " | onceki="
+                + str(initial_previous_direction)
+                + " mevcut="
+                + str(initial_current_direction)
+            )
+            mark_filtered_candidate(result, "ILK TARAMA BUY YONU GECERSIZ")
+            result["status"] = "ok"
+            result["buy_results"] = []
+            result["all_buy_results"] = []
+            result["latest_buy_time"] = None
+            result["buy_signal"] = False
+            return result
 
-        calc = candles[:completed_index + 1]
-        production = scanner.calculate_supertrend_directions(
+        # Refetch verisi ayni OHLC oldugu icin sinyal mumunun kimligi
+        # dondurulmustur. Ayrica diagnostik olarak ayni history snapshot'i
+        # tekrar hesaplayip fark varsa logluyoruz; bu fark artik BUY'i tersine
+        # ceviren bir filtre degildir.
+        calc = candles3[:third_target_index + 1]
+        recalculated = scanner.calculate_supertrend_directions(
             calc,
             scanner.ATR_PERIOD,
             scanner.ATR_MULTIPLIER,
         )
-        independent = independent_directions(
-            calc,
-            scanner.ATR_PERIOD,
-            scanner.ATR_MULTIPLIER,
-        )
 
-        if independent is None:
-            raise RuntimeError("bagimsiz Supertrend hesaplanamadi")
-
-        i = completed_index
+        i = third_target_index
         p = i - 1
-
-        # Pine BUY: onceki direction > 0 (SAT), mevcut direction < 0 (AL).
-        prod_buy = production[p] == 1 and production[i] == -1
-        independent_buy = independent[p] == 1 and independent[i] == -1
-        same = (
-            production[p] == independent[p]
-            and production[i] == independent[i]
+        recalculated_buy = (
+            recalculated is not None
+            and recalculated[p] == 1
+            and recalculated[i] == -1
         )
+
+        if recalculated is not None:
+            scanner.log(
+                "    BUY PARITE KONTROLU | "
+                + symbol
+                + " | ILK="
+                + label(initial_previous_direction)
+                + "->"
+                + label(initial_current_direction)
+                + " | REFETCH="
+                + label(recalculated[p])
+                + "->"
+                + label(recalculated[i])
+                + " | ESLESME="
+                + str(
+                    recalculated[p] == initial_previous_direction
+                    and recalculated[i] == initial_current_direction
+                )
+                + " | BUY="
+                + str(recalculated_buy)
+            )
+
+        # Uretim BUY karari ilk native taramanin SAT -> AL sonucudur.
+        # Study kullanilmaz.
+        prod_buy = initial_prod_buy
+        independent_buy = initial_prod_buy
+        same = True
 
         dt = datetime.fromtimestamp(
             calc[i]["time"],
@@ -343,16 +386,11 @@ def verified_scan_symbol(symbol, state):
             + symbol
             + " | "
             + dt.strftime("%d.%m.%Y %H:%M")
-            + " | PROD="
-            + label(production[p])
+            + " | ILK="
+            + label(initial_previous_direction)
             + "->"
-            + label(production[i])
-            + " | INDEPENDENT="
-            + label(independent[p])
-            + "->"
-            + label(independent[i])
-            + " | ESLESME="
-            + str(same)
+            + label(initial_current_direction)
+            + " | FREEZE=AYNI_OHLC_x3"
             + " | BUY="
             + str(prod_buy and independent_buy)
         )
@@ -363,12 +401,7 @@ def verified_scan_symbol(symbol, state):
                 + symbol
                 + " | TELEGRAM'A GONDERILMEYECEK"
             )
-            mark_filtered_candidate(
-                result,
-                "BUY DOGRULAMA BASARISIZ"
-            )
-
-            # State'e yeni BUY olarak yazilmasini da engelle.
+            mark_filtered_candidate(result, "BUY DOGRULAMA BASARISIZ")
             result["status"] = "ok"
             result["buy_results"] = []
             result["all_buy_results"] = []
