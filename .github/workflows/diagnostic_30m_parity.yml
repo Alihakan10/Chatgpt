@@ -1,0 +1,47 @@
+name: 30M Supertrend Parity Diagnostic
+
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: "Test hisseleri"
+        required: false
+        default: "BIST:ADEL,BIST:BORSK,BIST:EUYO"
+      target_hour:
+        description: "Hedef mum acilis saati (Istanbul)"
+        required: false
+        default: "15"
+      target_minute:
+        description: "Hedef mum acilis dakikasi"
+        required: false
+        default: "0"
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run parity diagnostic
+        env:
+          TEST_SYMBOLS: ${{ inputs.symbols }}
+          TARGET_HOUR: ${{ inputs.target_hour }}
+          TARGET_MINUTE: ${{ inputs.target_minute }}
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: python diagnostic_30m_parity.py
