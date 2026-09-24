@@ -1,0 +1,231 @@
+# ============================================================
+# 30M SUPERTREND PARITY DIAGNOSTIC
+# ADEL / BORSK / EUYO
+# ============================================================
+#
+# URETIM KODUNA DOKUNMAZ.
+# scanner_30m.py icindeki native TradingView 30M OHLC verisini
+# kullanarak birden fazla Supertrend hesaplama yolunu ayni
+# mumlar uzerinde karsilastirir.
+#
+# Amac:
+#   TradingView grafikte gorulen BUY etiketi ile Python BUY
+#   kararinin nerede ayrildigini bulmak.
+# ============================================================
+
+import os
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+import scanner_30m as sc
+
+
+TZ = ZoneInfo("Europe/Istanbul")
+SYMBOLS = [
+    x.strip()
+    for x in os.getenv("TEST_SYMBOLS", "BIST:ADEL,BIST:BORSK,BIST:EUYO").split(",")
+    if x.strip()
+]
+
+TARGET_HOUR = int(os.getenv("TARGET_HOUR", "15"))
+TARGET_MINUTE = int(os.getenv("TARGET_MINUTE", "0"))
+
+
+def local_dt(ts):
+    return datetime.fromtimestamp(ts, tz=ZoneInfo("UTC")).astimezone(TZ)
+
+
+def fmt(x):
+    if x is None:
+        return "-"
+    return f"{x:.6f}"
+
+
+def calc_kivanc_debug(candles, period=10, multiplier=2.0):
+    atr = sc.calculate_atr(candles, period)
+    up = [None] * len(candles)
+    dn = [None] * len(candles)
+    trend = [1] * len(candles)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            trend[i] = 1
+            continue
+
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        up0 = src - multiplier * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        up[i] = max(up0, up1) if i > 0 and candles[i - 1]["close"] > up1 else up0
+
+        dn0 = src + multiplier * atr[i]
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        dn[i] = min(dn0, dn1) if i > 0 and candles[i - 1]["close"] < dn1 else dn0
+
+        prev = trend[i - 1] if i > 0 else 1
+        if prev == -1 and candles[i]["close"] > dn1:
+            trend[i] = 1
+        elif prev == 1 and candles[i]["close"] < up1:
+            trend[i] = -1
+        else:
+            trend[i] = prev
+
+    return atr, up, dn, trend
+
+
+def calc_builtin_debug(candles, period=10, multiplier=2.0):
+    # TradingView ta.supertrend() direction convention:
+    # -1 = UP, +1 = DOWN.
+    atr = sc.calculate_atr(candles, period)
+    upper = [None] * len(candles)
+    lower = [None] * len(candles)
+    st = [None] * len(candles)
+    direction = [None] * len(candles)
+
+    for i in range(len(candles)):
+        if atr[i] is None:
+            direction[i] = 1
+            continue
+
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        bu = hl2 + multiplier * atr[i]
+        bl = hl2 - multiplier * atr[i]
+
+        pu = upper[i - 1] if i > 0 and upper[i - 1] is not None else bu
+        pl = lower[i - 1] if i > 0 and lower[i - 1] is not None else bl
+        pc = candles[i - 1]["close"] if i > 0 else None
+
+        upper[i] = bu if i == 0 or bu < pu or (pc is not None and pc > pu) else pu
+        lower[i] = bl if i == 0 or bl > pl or (pc is not None and pc < pl) else pl
+
+        if i == period - 1:
+            direction[i] = 1
+        else:
+            prev_st = st[i - 1]
+            prev_up = upper[i - 1]
+            if prev_st is None:
+                direction[i] = 1
+            elif prev_st == prev_up:
+                direction[i] = -1 if candles[i]["close"] > upper[i] else 1
+            else:
+                direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+
+        st[i] = lower[i] if direction[i] == -1 else upper[i]
+
+    # Convert built-in convention to production convention:
+    # +1 = AL, -1 = SAT.
+    converted = [
+        None if x is None else (-1 if x == 1 else 1)
+        for x in direction
+    ]
+    return atr, upper, lower, converted
+
+
+def find_target_index(candles):
+    matches = []
+    for i, c in enumerate(candles):
+        dt = local_dt(c["time"])
+        if dt.hour == TARGET_HOUR and dt.minute == TARGET_MINUTE:
+            matches.append(i)
+    return matches[-1] if matches else None
+
+
+def report_symbol(symbol):
+    print("")
+    print("=" * 90)
+    print(symbol)
+    print("=" * 90)
+
+    candles = sc.get_tv_candles_with_retry(symbol, "native_30m")
+    if not candles:
+        print("VERI YOK")
+        return
+
+    completed = sc.get_last_completed_index(candles)
+    if completed is None:
+        print("TAMAMLANMIS MUM YOK")
+        return
+
+    calc = candles[:completed + 1]
+    k_atr, k_up, k_dn, k_trend = calc_kivanc_debug(calc)
+    b_atr, b_up, b_dn, b_trend = calc_builtin_debug(calc)
+
+    target = find_target_index(calc)
+    if target is None:
+        print("15:00 acilisli hedef mum bulunamadi.")
+        print("Son 10 mum:")
+        target = max(0, len(calc) - 5)
+    else:
+        print("HEDEF MUM INDEX:", target)
+
+    start = max(1, target - 3)
+    end = min(len(calc), target + 3)
+
+    print("")
+    print("MUM | O | H | L | C | K_ATR | K_UP | K_DN | K_DIR | K_BUY | TVDIR | TVBUY")
+    for i in range(start, end):
+        c = calc[i]
+        kbuy = k_trend[i - 1] == -1 and k_trend[i] == 1
+        tvbuy = b_trend[i - 1] == -1 and b_trend[i] == 1
+        mark = "  <== HEDEF" if i == target else ""
+        print(
+            local_dt(c["time"]).strftime("%d.%m.%Y %H:%M")
+            + " | " + fmt(c["open"])
+            + " | " + fmt(c["high"])
+            + " | " + fmt(c["low"])
+            + " | " + fmt(c["close"])
+            + " | " + fmt(k_atr[i])
+            + " | " + fmt(k_up[i])
+            + " | " + fmt(k_dn[i])
+            + " | " + str(k_trend[i])
+            + " | " + str(kbuy)
+            + " | " + str(b_trend[i])
+            + " | " + str(tvbuy)
+            + mark
+        )
+
+    if target is not None and target > 0:
+        print("")
+        print("HEDEF OZET")
+        print("Tarih:", local_dt(calc[target]["time"]).strftime("%d.%m.%Y %H:%M"))
+        print("Kapanis:", fmt(calc[target]["close"]))
+        print("Kivanc onceki/yeni:", k_trend[target - 1], "->", k_trend[target])
+        print("Kivanc BUY:", k_trend[target - 1] == -1 and k_trend[target] == 1)
+        print("Built-in onceki/yeni:", b_trend[target - 1], "->", b_trend[target])
+        print("Built-in BUY:", b_trend[target - 1] == -1 and b_trend[target] == 1)
+        print("Kivanc ATR:", fmt(k_atr[target]))
+        print("Kivanc UP(prev):", fmt(k_up[target - 1]))
+        print("Kivanc DN(prev):", fmt(k_dn[target - 1]))
+
+    # History-window stability check. This tests whether the flip depends
+    # on how much historical data is fed into the stateful calculation.
+    print("")
+    print("TARIHCE PENCERE KONTROLU")
+    for size in (500, 1000, 2000, 3000):
+        subset = calc[-size:] if len(calc) > size else calc
+        dirs = sc.calculate_supertrend_directions(subset, 10, 2.0)
+        if dirs and len(dirs) >= 2:
+            buys = []
+            for j in range(1, len(dirs)):
+                if dirs[j - 1] == -1 and dirs[j] == 1:
+                    buys.append(local_dt(subset[j]["time"]).strftime("%H:%M"))
+            last = dirs[-1]
+            print(f"{size:5d} bar | son yon={last:+d} | son 5 BUY={buys[-5:]}")
+        else:
+            print(f"{size:5d} bar | hesaplanamadi")
+
+
+def main():
+    print("30M SUPERTREND PARITY DIAGNOSTIC")
+    print("Ayarlar: ATR=10 | HL2 | multiplier=2.0 | RMA/Wilder")
+    print("Hedef:", f"{TARGET_HOUR:02d}:{TARGET_MINUTE:02d}", "Istanbul")
+    print("Hisseler:", ", ".join(SYMBOLS))
+
+    for symbol in SYMBOLS:
+        try:
+            report_symbol(symbol)
+        except Exception as exc:
+            print(symbol, "HATA:", repr(exc))
+
+
+if __name__ == "__main__":
+    main()
