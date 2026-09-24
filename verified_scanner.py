@@ -266,6 +266,10 @@ def verified_scan_symbol(symbol, state):
                 + str(second_ohlc)
                 + " | TELEGRAM'A GONDERILMEYECEK"
             )
+            mark_filtered_candidate(
+                result,
+                "BUY ADAY MUM ZAMANI OKUNAMADI"
+            )
             result["status"] = "ok"
             result["buy_results"] = []
             result["all_buy_results"] = []
@@ -545,6 +549,10 @@ def verified_scan_symbol(symbol, state):
             + " | "
             + str(exc)
             + " | TELEGRAM'A GONDERILMEYECEK"
+        )
+        mark_filtered_candidate(
+            result,
+            "BUY DOGRULAMA HATASI"
         )
         result["status"] = "ok"
         result["buy_results"] = []
