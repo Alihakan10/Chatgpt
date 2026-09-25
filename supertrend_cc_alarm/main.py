@@ -691,6 +691,23 @@ def main():
                 f"upper={vcalc['upper'][j]:.6f} "
                 f"lower={vcalc['lower'][j]:.6f}"
             )
+            recent_buys = []
+            start_j = max(1, j - 20)
+            for k in range(start_j, j + 1):
+                if vcalc['buy'][k]:
+                    dtk = datetime.fromtimestamp(
+                        vc[k]['time'], tz=ZoneInfo('UTC')
+                    ).astimezone(TIMEZONE)
+                    recent_buys.append(
+                        f"{dtk:%Y-%m-%d %H:%M} close={vc[k]['close']:.4f} "
+                        f"prev_dir={vcalc['direction'][k-1]} "
+                        f"dir={vcalc['direction'][k]} "
+                        f"prev_st={vcalc['supertrend'][k-1]:.6f}"
+                    )
+            if recent_buys:
+                log("VRGYO SON 20 MUM BUYLAR | " + " || ".join(recent_buys))
+            else:
+                log("VRGYO SON 20 MUM BUYLAR | yok")
 
     log(f"SON TAMAMLANMIS 2H BUY: {len(buys)}")
 
