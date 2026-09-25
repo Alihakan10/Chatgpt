@@ -162,7 +162,7 @@ def load_state():
 
 def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(value=state, fp=f, ensure_ascii=False, indent=2, sort_keys=True)
+        json.dump(state, f, ensure_ascii=False, indent=2, sort_keys=True)
 
 
 def completed_2h_indexes(candles):
