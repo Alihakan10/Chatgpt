@@ -267,8 +267,9 @@ def build_message(results):
             tz=ZoneInfo("UTC"),
         ).astimezone(ZoneInfo(TIMEZONE))
 
+        tv_url = "https://www.tradingview.com/chart/?symbol=BIST%3A" + ticker
         lines.append(
-            f"🟢 <b>{ticker}</b> {item['price']:.4f} TL"
+            f'🟢 <a href="{tv_url}"><b>{ticker}</b></a> {item["price"]:.4f} TL'
         )
         lines.append(
             f"   Mum: {dt:%d.%m.%Y %H:%M}"
