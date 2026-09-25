@@ -1,18 +1,19 @@
 # ============================================================
-# BIST SUPERTREND CC SCANNER
+# BIST SUPERTREND CC 2H SCANNER
 # ============================================================
-# 620 BIST hissesi | TradingView native 2H | Supertrend CC
-# ATR 10 | HL2 | Wilder/RMA ATR | Multiplier 2
-# BUY = bearish -> bullish reversal confirmed on completed bar
+# 620 BIST hissesi | TradingView native 2H
+# Supertrend Confirmed Close
+# ATR 10 | HL2 | Standard Wilder/RMA | Multiplier 2
+# Freeze Supertrend line until candle close = ON
 #
-# Bu dosya mevcut scanner.py'nin veri alma altyapisini kullanir,
-# fakat eski Supertrend BUY mantigini kullanmaz.
+# BUY = bearish -> bullish reversal on a COMPLETED 2H BAR.
+# Sadece yeni BUY mumlari Telegram'a gonderilir.
 # ============================================================
 
 import json
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import scanner
@@ -31,24 +32,27 @@ def log(message):
 
 
 def wilder_atr(candles, period=10):
+    """TradingView-style Wilder/RMA ATR."""
     tr = []
-    for i, c in enumerate(candles):
+
+    for i, candle in enumerate(candles):
         if i == 0:
-            value = c["high"] - c["low"]
+            value = candle["high"] - candle["low"]
         else:
-            pc = candles[i - 1]["close"]
+            previous_close = candles[i - 1]["close"]
             value = max(
-                c["high"] - c["low"],
-                abs(c["high"] - pc),
-                abs(c["low"] - pc),
+                candle["high"] - candle["low"],
+                abs(candle["high"] - previous_close),
+                abs(candle["low"] - previous_close),
             )
         tr.append(value)
 
     atr = [None] * len(candles)
+
     if len(candles) < period:
         return atr
 
-    # TradingView Wilder/RMA seed.
+    # RMA/Wilder seed.
     atr[period - 1] = sum(tr[:period]) / period
 
     for i in range(period, len(candles)):
@@ -61,13 +65,13 @@ def wilder_atr(candles, period=10):
 
 def supertrend_cc(candles):
     """
-    Supertrend Confirmed Close mantigi.
+    Supertrend Confirmed Close.
 
-    Settings:
+    Settings exactly requested:
       ATR Period = 10
       Source = HL2
       ATR Multiplier = 2
-      ATR = Standard Wilder/RMA
+      ATR Method = Standard Wilder ATR
       Freeze line until candle close = ON
 
     direction:
@@ -75,8 +79,9 @@ def supertrend_cc(candles):
       -1 = bullish
 
     BUY:
-      previous direction = +1
-      current completed bar = -1
+      previous state bearish (+1)
+      AND current COMPLETED close crosses above previous
+      bearish Supertrend band.
     """
     if len(candles) < ATR_PERIOD + 2:
         return None
@@ -88,16 +93,20 @@ def supertrend_cc(candles):
     direction = [None] * len(candles)
     buy = [False] * len(candles)
 
-    # Same initial state convention used by the open-source
-    # Supertrend Confirmed Close family: bearish until a
-    # confirmed bullish reversal occurs.
     for i in range(len(candles)):
         if atr[i] is None:
             continue
 
-        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
-        basic_upper = hl2 + ATR_MULTIPLIER * atr[i]
-        basic_lower = hl2 - ATR_MULTIPLIER * atr[i]
+        hl2 = (
+            candles[i]["high"] + candles[i]["low"]
+        ) / 2.0
+
+        basic_upper = (
+            hl2 + ATR_MULTIPLIER * atr[i]
+        )
+        basic_lower = (
+            hl2 - ATR_MULTIPLIER * atr[i]
+        )
 
         if i == 0 or upper[i - 1] is None:
             upper[i] = basic_upper
@@ -109,34 +118,44 @@ def supertrend_cc(candles):
         prev_lower = lower[i - 1]
         prev_close = candles[i - 1]["close"]
 
-        # Trailing bands.
-        upper[i] = (
-            max(basic_upper, prev_upper)
-            if prev_close > prev_upper
-            else basic_upper
-        )
-        lower[i] = (
-            min(basic_lower, prev_lower)
-            if prev_close < prev_lower
-            else basic_lower
-        )
+        # TradingView Supertrend band rules:
+        # upper = basicUpper < prevUpper OR prevClose > prevUpper
+        #         ? basicUpper : prevUpper
+        # lower = basicLower > prevLower OR prevClose < prevLower
+        #         ? basicLower : prevLower
+        if (
+            basic_upper < prev_upper
+            or prev_close > prev_upper
+        ):
+            upper[i] = basic_upper
+        else:
+            upper[i] = prev_upper
+
+        if (
+            basic_lower > prev_lower
+            or prev_close < prev_lower
+        ):
+            lower[i] = basic_lower
+        else:
+            lower[i] = prev_lower
 
         previous_direction = direction[i - 1]
 
-        # Confirmed-close reversal:
-        # current CLOSED candle must cross the previous
-        # confirmed opposite Supertrend band.
+        # Confirmed-close BUY.
         if (
             previous_direction == 1
             and candles[i]["close"] > prev_upper
         ):
             direction[i] = -1
             buy[i] = True
+
+        # Confirmed-close SELL.
         elif (
             previous_direction == -1
             and candles[i]["close"] < prev_lower
         ):
             direction[i] = 1
+
         else:
             direction[i] = previous_direction
 
@@ -162,33 +181,40 @@ def load_state():
 
 def save_state(state):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
-        json.dump(state, f, ensure_ascii=False, indent=2, sort_keys=True)
+        json.dump(
+            state,
+            f,
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        )
 
 
-def completed_2h_candle(candles):
+def completed_2h_indexes(candles):
     """
-    TradingView native 2H serisindeki son barin kapanisini kontrol eder.
-    Sadece kapanisi Istanbul saatine gore simdiki zamandan once olan
-    barlar sinyal icin kullanilir.
+    Returns indexes whose native 2H bars are already closed.
+
+    The current realtime 2H bar is NEVER used for BUY.
     """
     now = datetime.now(ZoneInfo(TIMEZONE))
-    candidates = []
+    completed = []
 
     for i, candle in enumerate(candles):
         try:
             start = datetime.fromtimestamp(
-                candle["time"], tz=ZoneInfo("UTC")
+                candle["time"],
+                tz=ZoneInfo("UTC"),
             ).astimezone(ZoneInfo(TIMEZONE))
-            end = start.replace(
-                tzinfo=ZoneInfo(TIMEZONE)
-            ) + __import__("datetime").timedelta(hours=2)
+
+            end = start + timedelta(hours=2)
 
             if end <= now:
-                candidates.append(i)
+                completed.append(i)
+
         except Exception:
             continue
 
-    return candidates[-1] if candidates else None
+    return completed
 
 
 def scan_one(symbol):
@@ -199,25 +225,55 @@ def scan_one(symbol):
             candle_session="regular",
         )
 
-        idx = completed_2h_candle(candles)
-        if idx is None or idx < ATR_PERIOD + 2:
-            return {"symbol": symbol, "status": "skip"}
+        completed = completed_2h_indexes(candles)
 
-        candles = candles[: idx + 1]
-        calc = supertrend_cc(candles)
+        if not completed:
+            return {
+                "symbol": symbol,
+                "status": "skip",
+            }
+
+        last_completed = completed[-1]
+
+        # Exclude the currently forming candle.
+        calculation_candles = candles[:last_completed + 1]
+
+        if len(calculation_candles) < ATR_PERIOD + 2:
+            return {
+                "symbol": symbol,
+                "status": "skip",
+            }
+
+        calc = supertrend_cc(calculation_candles)
+
         if not calc:
-            return {"symbol": symbol, "status": "skip"}
+            return {
+                "symbol": symbol,
+                "status": "skip",
+            }
 
-        i = len(candles) - 1
-        is_buy = bool(calc["buy"][i])
+        # Check recent completed bars so a delayed GitHub run
+        # cannot silently lose a BUY from the previous scan.
+        recent_start = max(1, len(calculation_candles) - 4)
+
+        buy_events = []
+
+        for i in range(recent_start, len(calculation_candles)):
+            if calc["buy"][i]:
+                buy_events.append({
+                    "symbol": symbol,
+                    "candle_time": calculation_candles[i]["time"],
+                    "price": calculation_candles[i]["close"],
+                    "direction": calc["direction"][i],
+                })
 
         return {
             "symbol": symbol,
             "status": "ok",
-            "buy": is_buy,
-            "candle_time": candles[i]["time"],
-            "price": candles[i]["close"],
-            "direction": calc["direction"][i],
+            "latest_candle_time": calculation_candles[-1]["time"],
+            "latest_price": calculation_candles[-1]["close"],
+            "direction": calc["direction"][-1],
+            "buy_events": buy_events,
         }
 
     except Exception as exc:
@@ -234,41 +290,60 @@ def build_message(results):
         "",
         "📊 BIST — 2 SAATLİK",
         "⚙️ ATR 10 | HL2 | Wilder ATR | Çarpan 2",
-        "✅ Mum kapanışı teyitli",
+        "🧊 Freeze: Mum kapanışına kadar",
+        "✅ BUY: Tamamlanmış 2H mum teyidi",
         "",
     ]
 
     for item in results:
         ticker = item["symbol"].split(":", 1)[-1]
+
         dt = datetime.fromtimestamp(
-            item["candle_time"], tz=ZoneInfo("UTC")
+            item["candle_time"],
+            tz=ZoneInfo("UTC"),
         ).astimezone(ZoneInfo(TIMEZONE))
 
         lines.append(
             f"🟢 <b>{ticker}</b>  "
-            f"{item['price']:.4f} TL  "
-            f"🕒 {dt:%d.%m.%Y %H:%M}"
+            f"{item['price']:.4f} TL"
+        )
+        lines.append(
+            f"   Mum kapanışı: {dt:%d.%m.%Y %H:%M}"
         )
 
     lines.append("")
-    lines.append("Kaynak: TradingView native 2H veri + Supertrend CC")
+    lines.append(
+        "Kaynak: TradingView native 2H + Supertrend CC"
+    )
+
     return "\n".join(lines)
 
 
 def main():
     log("=" * 70)
     log("BIST SUPERTREND CC 620 HİSSE TARAMASI BAŞLADI")
-    log("ATR=10 | HL2 | Wilder/RMA | Çarpan=2 | 2H")
+    log("ATR=10 | HL2 | Wilder/RMA | Çarpan=2 | NATIVE 2H")
+    log("BUY = tamamlanmış mumda bearish -> bullish dönüş")
     log("=" * 70)
 
     symbols = scanner.get_bist_symbols()
+
+    if len(symbols) < SCAN_LIMIT:
+        raise RuntimeError(
+            f"TradingView sadece {len(symbols)} BIST hissesi döndürdü; "
+            f"{SCAN_LIMIT} bekleniyordu."
+        )
+
     symbols = symbols[:SCAN_LIMIT]
-    log(f"TradingView'dan {len(symbols)} hisse bulundu.")
+
+    log(
+        f"TradingView'dan {len(symbols)} hisse taranacak."
+    )
 
     state = load_state()
+
     results = []
     errors = 0
-
     started = time.time()
 
     with ThreadPoolExecutor(max_workers=WORKERS) as executor:
@@ -277,7 +352,10 @@ def main():
             for symbol in symbols
         }
 
-        for n, future in enumerate(as_completed(futures), 1):
+        for n, future in enumerate(
+            as_completed(futures),
+            1,
+        ):
             result = future.result()
             results.append(result)
 
@@ -285,53 +363,99 @@ def main():
                 errors += 1
                 log(
                     f"[{n}/{len(symbols)}] "
-                    f"{result['symbol']} HATA: {result['error']}"
-                )
-            else:
-                log(
-                    f"[{n}/{len(symbols)}] "
-                    f"{result['symbol']} "
-                    f"BUY={result.get('buy', False)}"
+                    f"{result['symbol']} HATA: "
+                    f"{result['error']}"
                 )
 
-    results.sort(key=lambda x: x["symbol"])
+    results.sort(
+        key=lambda x: x["symbol"]
+    )
 
     new_buys = []
+
     for item in results:
-        if item.get("status") != "ok" or not item.get("buy"):
+        if item.get("status") != "ok":
             continue
 
         symbol = item["symbol"]
-        candle_key = str(item["candle_time"])
         previous = state.get(symbol, {})
 
-        if str(previous.get("last_buy_candle")) == candle_key:
-            continue
+        last_sent = previous.get(
+            "last_buy_candle"
+        )
 
-        new_buys.append(item)
+        for event in item.get("buy_events", []):
+            candle_key = str(
+                event["candle_time"]
+            )
+
+            if str(last_sent) == candle_key:
+                continue
+
+            new_buys.append(event)
+
+            # State'i hemen ilerletiyoruz; Telegram başarılı
+            # olmadan kalıcı dosyaya yazilmiyor.
+            last_sent = event["candle_time"]
+
         state[symbol] = {
-            "last_buy_candle": item["candle_time"],
+            "last_buy_candle": last_sent,
             "updated_at": datetime.now(
                 ZoneInfo(TIMEZONE)
             ).isoformat(),
         }
 
+    # Aynı sembol/mum tekrarını temizle.
+    unique = {}
+
+    for item in new_buys:
+        key = (
+            item["symbol"],
+            str(item["candle_time"]),
+        )
+        unique[key] = item
+
+    new_buys = list(unique.values())
+
+    new_buys.sort(
+        key=lambda x: (
+            x["candle_time"],
+            x["symbol"],
+        )
+    )
+
     log("")
     log("=" * 70)
     log(f"Taranan hisse: {len(symbols)}")
+    log(f"Başarılı: {len(results) - errors}")
     log(f"Hata: {errors}")
     log(f"Yeni Supertrend CC BUY: {len(new_buys)}")
-    log(f"Süre: {time.time() - started:.1f} sn")
+    log(
+        f"Süre: {time.time() - started:.1f} sn"
+    )
     log("=" * 70)
 
     if new_buys:
-        message = build_message(new_buys)
+        message = build_message(
+            new_buys
+        )
+
+        # Telegram başarısız olursa exception oluşur ve
+        # state dosyası kaydedilmez; sonraki tarama tekrar dener.
         scanner.send_telegram(message)
-        log("Yeni BUY sinyalleri Telegram'a gönderildi.")
+
         save_state(state)
+
+        log(
+            "Yeni BUY sinyalleri Telegram'a gönderildi."
+        )
     else:
-        log("Yeni BUY yok. Telegram gönderilmeyecek.")
         save_state(state)
+        log(
+            "Yeni BUY yok. Telegram gönderilmeyecek."
+        )
+
+    log("Tarama tamamlandı.")
 
 
 if __name__ == "__main__":
