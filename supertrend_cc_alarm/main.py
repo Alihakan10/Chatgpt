@@ -38,7 +38,7 @@ WORKERS = 5
 SCAN_LIMIT = 620
 WS_TIMEOUT = 12
 STATE_FILE = "supertrend_cc_alarm/state.json"
-ALGORITHM_VERSION = "CC_PREV_BAND_V2"
+ALGORITHM_VERSION = "TV_CC_CURRENT_BAND_V3"
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
@@ -494,13 +494,13 @@ def supertrend_cc(candles):
             if prev_st is None or prev_direction is None:
                 direction[i] = 1
             elif prev_direction == 1:
-                if candles[i]["close"] > prev_st:
+                if candles[i]["close"] > upper[i]:
                     direction[i] = -1
                     buy[i] = True
                 else:
                     direction[i] = 1
             else:
-                if candles[i]["close"] < prev_st:
+                if candles[i]["close"] < lower[i]:
                     direction[i] = 1
                     sell[i] = True
                 else:
