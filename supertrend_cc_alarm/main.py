@@ -494,13 +494,13 @@ def supertrend_cc(candles):
             if prev_st is None or prev_direction is None:
                 direction[i] = 1
             elif prev_direction == 1:
-                if candles[i]["close"] > upper[i]:
+                if candles[i]["close"] > upper_band[i]:
                     direction[i] = -1
                     buy[i] = True
                 else:
                     direction[i] = 1
             else:
-                if candles[i]["close"] < lower[i]:
+                if candles[i]["close"] < lower_band[i]:
                     direction[i] = 1
                     sell[i] = True
                 else:
