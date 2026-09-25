@@ -32,7 +32,7 @@ TIMEZONE = ZoneInfo("Europe/Istanbul")
 ATR_PERIOD = 10
 ATR_MULTIPLIER = 2.0
 TIMEFRAME = "120"
-CANDLE_COUNT = 300
+CANDLE_COUNT = 5000
 BATCH_SIZE = 20
 WORKERS = 5
 SCAN_LIMIT = 620
@@ -414,111 +414,82 @@ def wilder_atr(candles, period=10):
 
 def supertrend_cc(candles):
     """
-    TradingView Supertrend Confirmed Close (CC) logic.
+    TradingView Supertrend Confirmed Close engine.
 
-    CC confirmation uses the PREVIOUS confirmed Supertrend band:
-      BUY  = previous bearish state AND current completed close
-             > previous bearish Supertrend band
-      SELL = previous bullish state AND current completed close
-             < previous bullish Supertrend band
+    Uses the classic Kivanc Supertrend band construction:
+      up  = HL2 - factor * Wilder/RMA ATR
+      dn  = HL2 + factor * Wilder/RMA ATR
+    with the standard directional ratchet.
 
-    This is deliberately not the native ta.supertrend() current-band
-    direction test.
+    CC BUY: previous state bearish AND completed current close is above
+    the PREVIOUS bearish band.
+    CC SELL: previous state bullish AND completed current close is below
+    the PREVIOUS bullish band.
     """
     n = len(candles)
     if n < ATR_PERIOD + 2:
         return None
 
-    tr = [None] * n
-    for i, c in enumerate(candles):
-        if i == 0:
-            tr[i] = c["high"] - c["low"]
-        else:
-            pc = candles[i - 1]["close"]
-            tr[i] = max(
-                c["high"] - c["low"],
-                abs(c["high"] - pc),
-                abs(c["low"] - pc),
-            )
-
-    atr = [None] * n
-    atr[ATR_PERIOD - 1] = sum(tr[:ATR_PERIOD]) / ATR_PERIOD
-    for i in range(ATR_PERIOD, n):
-        atr[i] = (
-            atr[i - 1] * (ATR_PERIOD - 1) + tr[i]
-        ) / ATR_PERIOD
-
-    upper_band = [None] * n
-    lower_band = [None] * n
-    supertrend = [None] * n
-    direction = [None] * n
+    atr = wilder_atr(candles, ATR_PERIOD)
+    up = [None] * n
+    dn = [None] * n
+    trend = [1] * n       # Kivanc: +1 bullish, -1 bearish
     buy = [False] * n
     sell = [False] * n
 
     for i in range(n):
         if atr[i] is None:
+            trend[i] = 1
             continue
 
-        src = (
-            candles[i]["high"] + candles[i]["low"]
-        ) / 2.0
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        up0 = hl2 - ATR_MULTIPLIER * atr[i]
+        dn0 = hl2 + ATR_MULTIPLIER * atr[i]
 
-        basic_upper = src + ATR_MULTIPLIER * atr[i]
-        basic_lower = src - ATR_MULTIPLIER * atr[i]
+        up1 = up[i - 1] if i > 0 and up[i - 1] is not None else up0
+        dn1 = dn[i - 1] if i > 0 and dn[i - 1] is not None else dn0
+        prev_close = candles[i - 1]["close"] if i > 0 else None
 
-        if i > 0 and upper_band[i - 1] is not None:
-            prev_upper = upper_band[i - 1]
-            prev_lower = lower_band[i - 1]
-            prev_close = candles[i - 1]["close"]
-
-            upper_band[i] = (
-                basic_upper
-                if basic_upper < prev_upper or prev_close > prev_upper
-                else prev_upper
-            )
-            lower_band[i] = (
-                basic_lower
-                if basic_lower > prev_lower or prev_close < prev_lower
-                else prev_lower
-            )
+        if i > 0:
+            up[i] = max(up0, up1) if prev_close > up1 else up0
+            dn[i] = min(dn0, dn1) if prev_close < dn1 else dn0
         else:
-            upper_band[i] = basic_upper
-            lower_band[i] = basic_lower
+            up[i] = up0
+            dn[i] = dn0
 
         if i == ATR_PERIOD - 1:
-            direction[i] = 1
-        else:
-            prev_st = supertrend[i - 1]
-            prev_direction = direction[i - 1]
+            trend[i] = 1
+            continue
 
-            if prev_st is None or prev_direction is None:
-                direction[i] = 1
-            elif prev_direction == 1:
-                if candles[i]["close"] > prev_st:
-                    direction[i] = -1
-                    buy[i] = True
-                else:
-                    direction[i] = 1
+        prev_trend = trend[i - 1]
+
+        if prev_trend == -1:
+            if candles[i]["close"] > dn1:
+                trend[i] = 1
+                buy[i] = True
             else:
-                if candles[i]["close"] < prev_st:
-                    direction[i] = 1
-                    sell[i] = True
-                else:
-                    direction[i] = -1
+                trend[i] = -1
+        elif prev_trend == 1:
+            if candles[i]["close"] < up1:
+                trend[i] = -1
+                sell[i] = True
+            else:
+                trend[i] = 1
+        else:
+            trend[i] = 1
 
-        supertrend[i] = (
-            lower_band[i]
-            if direction[i] == -1
-            else upper_band[i]
-        )
+    direction = [-t if t is not None else None for t in trend]
 
     return {
         "direction": direction,
         "buy": buy,
         "sell": sell,
-        "supertrend": supertrend,
-        "upper": upper_band,
-        "lower": lower_band,
+        "supertrend": [
+            up[i] if trend[i] == 1 else dn[i]
+            for i in range(n)
+        ],
+        "upper": dn,
+        "lower": up,
     }
 
 def load_state():
