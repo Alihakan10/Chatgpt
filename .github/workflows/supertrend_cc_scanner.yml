@@ -56,5 +56,7 @@ jobs:
             echo "CC state degismedi."
           else
             git commit -m "Update Supertrend CC BUY state"
-            git push
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
           fi
