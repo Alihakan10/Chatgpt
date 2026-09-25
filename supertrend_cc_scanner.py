@@ -27,6 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
+ALGORITHM_VERSION = "CC_PREV_BAND_V2"
 
 
 def log(message):
@@ -163,12 +164,27 @@ def load_state():
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             value = json.load(f)
-            return value if isinstance(value, dict) else {}
+            data = value if isinstance(value, dict) else {}
     except FileNotFoundError:
         return {}
     except Exception as exc:
         log(f"State okunamadi: {exc}")
         return {}
+
+    # Signal logic was corrected from native direction-flip to
+    # confirmed-close previous-band logic. Do not let stale BUY candles
+    # from the old algorithm suppress the first correct result.
+    if data.get("_algorithm_version") != ALGORITHM_VERSION:
+        migrated = {"_algorithm_version": ALGORITHM_VERSION}
+        for symbol, value in data.items():
+            if symbol.startswith("_") or not isinstance(value, dict):
+                continue
+            clean = dict(value)
+            clean.pop("last_buy_candle", None)
+            migrated[symbol] = clean
+        return migrated
+
+    return data
 
 
 def save_state(state):
