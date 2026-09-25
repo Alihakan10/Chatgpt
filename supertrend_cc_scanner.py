@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_CC_KIVANC_PREVIOUS_BAND_V5"
+ALGORITHM_VERSION = "TV_CC_KIVANC_PREVIOUS_BAND_V6_SESSION_CLOSE"
 
 
 def log(message):
@@ -179,12 +179,16 @@ def save_state(state):
 
 def completed_2h_indexes(candles):
     """
-    Native 2H bars only.
+    Native TradingView 2H bars.
 
-    The realtime/forming bar is never used.
-    A normal bar is complete after +2h.
-    If TradingView exposes the final BIST fragment as 17:00->18:00,
-    that fragment is complete at 18:00.
+    IMPORTANT:
+    BIST's final trading/closing process continues until 18:10 Istanbul.
+    Therefore the native 17:00 bar must NOT be treated as confirmed at 18:00.
+    The final bar is eligible only after 18:10.
+
+    Earlier native bars use their normal 2-hour boundary. We never rebuild
+    or shift the OHLC data; the timestamps supplied by TradingView remain
+    authoritative.
     """
     now = datetime.now(ZoneInfo(TIMEZONE))
     completed = []
@@ -196,12 +200,14 @@ def completed_2h_indexes(candles):
                 tz=ZoneInfo("UTC"),
             ).astimezone(ZoneInfo(TIMEZONE))
 
-            end = start + timedelta(hours=2)
-
-            if start.weekday() < 5 and start.hour == 17:
+            # The final BIST native intraday bar can remain open through
+            # the closing process until 18:10.
+            if start.weekday() < 5 and start.hour >= 17:
                 end = start.replace(
-                    hour=18, minute=0, second=0, microsecond=0
+                    hour=18, minute=10, second=0, microsecond=0
                 )
+            else:
+                end = start + timedelta(hours=2)
 
             if end <= now:
                 completed.append(i)
