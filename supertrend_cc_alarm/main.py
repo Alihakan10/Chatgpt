@@ -691,6 +691,18 @@ def main():
                 f"upper={vcalc['upper'][j]:.6f} "
                 f"lower={vcalc['lower'][j]:.6f}"
             )
+            # VRGYO icin son barlarin OHLC + ATR + bantlarini yaz.
+            detail_start = max(0, j - 8)
+            for k in range(detail_start, j + 1):
+                dtk = datetime.fromtimestamp(vc[k]['time'], tz=ZoneInfo('UTC')).astimezone(TIMEZONE)
+                atr_k = (vcalc['upper'][k] - ((vc[k]['high'] + vc[k]['low']) / 2.0)) / ATR_MULTIPLIER if vcalc['upper'][k] is not None else None
+                log(
+                    'VRGYO BAR | '
+                    f'{dtk:%Y-%m-%d %H:%M} '
+                    f'O={vc[k]["open"]:.4f} H={vc[k]["high"]:.4f} L={vc[k]["low"]:.4f} C={vc[k]["close"]:.4f} '
+                    f'ATR={atr_k:.6f} upper={vcalc["upper"][k]:.6f} lower={vcalc["lower"][k]:.6f} '
+                    f'st={vcalc["supertrend"][k]:.6f} dir={vcalc["direction"][k]} buy={vcalc["buy"][k]}'
+                )
             recent_buys = []
             start_j = max(1, j - 20)
             for k in range(start_j, j + 1):
