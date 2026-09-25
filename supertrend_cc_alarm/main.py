@@ -221,7 +221,9 @@ def parse_bar_values(values):
     }
 
 
-def get_batch_candles(symbols):
+def get_batch_candles(symbols, timeframe=None, candle_count=None):
+    timeframe = timeframe or TIMEFRAME
+    candle_count = candle_count or CANDLE_COUNT
     ws = None
     cs = session_id("cs")
     series_to_symbol = {}
@@ -265,8 +267,8 @@ def get_batch_candles(symbols):
                     series_id,
                     series_id,
                     symbol_id,
-                    TIMEFRAME,
-                    CANDLE_COUNT,
+                    timeframe,
+                    candle_count,
                     "",
                 ],
             ))
@@ -594,6 +596,42 @@ def send_telegram(buys):
     response.raise_for_status()
 
 
+
+def aggregate_1h_to_2h(candles):
+    """Parity diagnostic only: 1H TradingView bars -> BIST 2H session blocks."""
+    if not candles:
+        return []
+
+    groups = {}
+    for c in candles:
+        dt = datetime.fromtimestamp(c["time"], tz=ZoneInfo("UTC")).astimezone(TIMEZONE)
+        if dt.weekday() >= 5 or dt.hour < 9 or dt.hour > 17:
+            continue
+
+        if dt.hour == 17:
+            key_hour = 17
+        else:
+            key_hour = 9 + ((dt.hour - 9) // 2) * 2
+
+        key = (dt.date().isoformat(), key_hour)
+        groups.setdefault(key, []).append(c)
+
+    out = []
+    for (date_str, hour), rows in sorted(groups.items()):
+        rows = sorted(rows, key=lambda x: x["time"])
+        if hour != 17 and len(rows) < 2:
+            continue
+        out.append({
+            "time": rows[0]["time"],
+            "open": rows[0]["open"],
+            "high": max(x["high"] for x in rows),
+            "low": min(x["low"] for x in rows),
+            "close": rows[-1]["close"],
+            "volume": sum(x.get("volume", 0.0) for x in rows),
+        })
+
+    return out
+
 def process_symbol(symbol, candles):
     idx = completed_index(candles)
     if idx is None:
@@ -703,6 +741,54 @@ def main():
                     f'ATR={atr_k:.6f} upper={vcalc["upper"][k]:.6f} lower={vcalc["lower"][k]:.6f} '
                     f'st={vcalc["supertrend"][k]:.6f} dir={vcalc["direction"][k]} buy={vcalc["buy"][k]}'
                 )
+
+            # PARITY DIAGNOSTIC: ayni VRGYO icin native 2H ile
+            # 1H -> 2H birlestirilmis veriyi karsilastir.
+            try:
+                vrg_1h = get_batch_candles(
+                    ["BIST:VRGYO"],
+                    timeframe="60",
+                    candle_count=500,
+                ).get("BIST:VRGYO", [])
+                vrg_2h_from_1h = aggregate_1h_to_2h(vrg_1h)
+                if len(vrg_2h_from_1h) >= ATR_PERIOD + 2:
+                    a1 = supertrend_cc(vrg_2h_from_1h)
+                    q = len(vrg_2h_from_1h) - 1
+                    dtq = datetime.fromtimestamp(
+                        vrg_2h_from_1h[q]["time"], tz=ZoneInfo("UTC")
+                    ).astimezone(TIMEZONE)
+                    log(
+                        "VRGYO 1H->2H PARITY | "
+                        f"mum={dtq:%Y-%m-%d %H:%M} "
+                        f"O={vrg_2h_from_1h[q]['open']:.4f} "
+                        f"H={vrg_2h_from_1h[q]['high']:.4f} "
+                        f"L={vrg_2h_from_1h[q]['low']:.4f} "
+                        f"C={vrg_2h_from_1h[q]['close']:.4f} "
+                        f"dir_prev={a1['direction'][q-1]} "
+                        f"dir={a1['direction'][q]} "
+                        f"buy={a1['buy'][q]} "
+                        f"st={a1['supertrend'][q]:.6f} "
+                        f"upper={a1['upper'][q]:.6f} "
+                        f"lower={a1['lower'][q]:.6f}"
+                    )
+                    for k in range(max(1, q - 4), q + 1):
+                        dtk = datetime.fromtimestamp(
+                            vrg_2h_from_1h[k]["time"], tz=ZoneInfo("UTC")
+                        ).astimezone(TIMEZONE)
+                        log(
+                            "VRGYO 1H2H BAR | "
+                            f"{dtk:%Y-%m-%d %H:%M} "
+                            f"O={vrg_2h_from_1h[k]['open']:.4f} "
+                            f"H={vrg_2h_from_1h[k]['high']:.4f} "
+                            f"L={vrg_2h_from_1h[k]['low']:.4f} "
+                            f"C={vrg_2h_from_1h[k]['close']:.4f} "
+                            f"dir={a1['direction'][k]} buy={a1['buy'][k]}"
+                        )
+                else:
+                    log("VRGYO 1H->2H PARITY | yeterli 1H verisi yok")
+            except Exception as exc:
+                log(f"VRGYO 1H->2H PARITY HATA | {exc}")
+
             recent_buys = []
             start_j = max(1, j - 20)
             for k in range(start_j, j + 1):
