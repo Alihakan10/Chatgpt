@@ -2,10 +2,6 @@ name: Supertrend CC 620 Scanner
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "supertrend_cc_scanner.py"
-      - ".github/workflows/supertrend_cc_scanner.yml"
   # GitHub Actions cron is UTC.
   # Turkey is UTC+3, so these run at 12:05, 14:05,
   # 16:05 Istanbul; final scan at 18:15 after the 18:10 closing process.
