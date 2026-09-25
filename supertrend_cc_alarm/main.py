@@ -350,6 +350,12 @@ def get_batch_candles(symbols):
 
 
 def completed_index(candles):
+    """
+    TradingView BIST 2H mumlarinin seans sonundaki kisa barini da
+    tamamlanmis kabul eder. BIST regular seans 18:00 Istanbul'da biter;
+    bu nedenle 17:00 baslangicli son 2H parcasi 18:00'de kapanir ve
+    19:00'u beklemek yanlistir.
+    """
     now = datetime.now(TIMEZONE)
     good = []
 
@@ -360,13 +366,19 @@ def completed_index(candles):
                 tz=ZoneInfo("UTC"),
             ).astimezone(TIMEZONE)
 
-            if start + __import__("datetime").timedelta(hours=2) <= now:
+            # Normal 2H bar.
+            end = start + __import__("datetime").timedelta(hours=2)
+
+            # BIST'in son regular seans parcasi: 17:00 -> 18:00.
+            if start.weekday() < 5 and start.hour == 17:
+                end = start.replace(hour=18, minute=0, second=0, microsecond=0)
+
+            if end <= now:
                 good.append(i)
         except Exception:
             pass
 
     return good[-1] if good else None
-
 
 def wilder_atr(candles, period=10):
     tr = []
@@ -399,54 +411,44 @@ def wilder_atr(candles, period=10):
 
 def supertrend_cc(candles):
     """
-    TradingView Supertrend / Supertrend Confirmed Close mantiginin
-    disarida birebir uygulanmasi.
+    TradingView ta.supertrend() ile ayni cekirdek algoritma.
 
-    Pine tarafindaki yon kodlamasi:
-      -1 = bullish (Supertrend alt bant)
-       1 = bearish (Supertrend ust bant)
+    src = HL2
+    ATR = ta.atr() = Wilder/RMA
+    direction:
+      1  = bearish
+      -1 = bullish
 
-    BUY:
-      onceki yon = bearish (1)
-      mevcut kapanmis mumda yon = bullish (-1)
-
-    CC kuralinda sinyal sadece kapanmis mumda degerlendirilir.
-    ATR = ta.atr() / Wilder RMA, Source = HL2.
+    CC BUY:
+      tamamlanmis mumda direction 1 -> -1 donusu.
     """
     n = len(candles)
     if n < ATR_PERIOD + 2:
         return None
 
-    # Pine ta.atr() = ta.rma(True Range, period).
-    # ta.rma seed'i ilk period TR'nin SMA'sidir.
+    # ta.atr() == ta.rma(True Range, ATR_PERIOD)
     tr = [None] * n
     for i, c in enumerate(candles):
         if i == 0:
             tr[i] = c["high"] - c["low"]
         else:
-            prev_close = candles[i - 1]["close"]
+            pc = candles[i - 1]["close"]
             tr[i] = max(
                 c["high"] - c["low"],
-                abs(c["high"] - prev_close),
-                abs(c["low"] - prev_close),
+                abs(c["high"] - pc),
+                abs(c["low"] - pc),
             )
 
     atr = [None] * n
-    if n < ATR_PERIOD:
-        return None
-
-    atr[ATR_PERIOD - 1] = sum(
-        tr[:ATR_PERIOD]
-    ) / ATR_PERIOD
-
+    atr[ATR_PERIOD - 1] = sum(tr[:ATR_PERIOD]) / ATR_PERIOD
     for i in range(ATR_PERIOD, n):
         atr[i] = (
             atr[i - 1] * (ATR_PERIOD - 1) + tr[i]
         ) / ATR_PERIOD
 
-    # TradingView Supertrend bandlari.
-    upper = [None] * n
-    lower = [None] * n
+    upper_band = [None] * n
+    lower_band = [None] * n
+    supertrend = [None] * n
     direction = [None] * n
     buy = [False] * n
     sell = [False] * n
@@ -459,66 +461,73 @@ def supertrend_cc(candles):
             candles[i]["high"] + candles[i]["low"]
         ) / 2.0
 
-        upper_basic = src + ATR_MULTIPLIER * atr[i]
-        lower_basic = src - ATR_MULTIPLIER * atr[i]
+        upper = src + ATR_MULTIPLIER * atr[i]
+        lower = src - ATR_MULTIPLIER * atr[i]
 
-        if i == ATR_PERIOD - 1:
-            upper[i] = upper_basic
-            lower[i] = lower_basic
-            direction[i] = 1
-            continue
+        if i > 0 and lower_band[i - 1] is not None:
+            prev_lower = lower_band[i - 1]
+            prev_upper = upper_band[i - 1]
+            prev_close = candles[i - 1]["close"]
 
-        prev_upper = upper[i - 1]
-        prev_lower = lower[i - 1]
-        prev_close = candles[i - 1]["close"]
+            lower = (
+                lower
+                if lower > prev_lower or prev_close < prev_lower
+                else prev_lower
+            )
 
-        if prev_upper is None or prev_lower is None:
-            upper[i] = upper_basic
-            lower[i] = lower_basic
-            direction[i] = 1
-            continue
+            upper = (
+                upper
+                if upper < prev_upper or prev_close > prev_upper
+                else prev_upper
+            )
+
+        upper_band[i] = upper
+        lower_band[i] = lower
 
         # Pine:
-        # up := close[1] > up1 ? max(up, up1) : up
-        # dn := close[1] < dn1 ? min(dn, dn1) : dn
-        lower[i] = (
-            max(lower_basic, prev_lower)
-            if prev_close > prev_lower
-            else lower_basic
-        )
-
-        upper[i] = (
-            min(upper_basic, prev_upper)
-            if prev_close < prev_upper
-            else upper_basic
-        )
-
-        prev_direction = direction[i - 1]
-        if prev_direction is None:
-            prev_direction = 1
-
-        # TradingView Supertrend yon mantigi:
-        # direction == 1  -> bearish / upper band
-        # direction == -1 -> bullish / lower band
-        if (
-            prev_direction == -1
-            and candles[i]["close"] < lower[i]
-        ):
+        # if na(atr[1])
+        #     direction := 1
+        # else if prevSuperTrend == prevUpperBand
+        #     direction := close > upperBand ? -1 : 1
+        # else
+        #     direction := close < lowerBand ? 1 : -1
+        if i == ATR_PERIOD - 1:
             direction[i] = 1
-            sell[i] = True
-        elif (
-            prev_direction == 1
-            and candles[i]["close"] > upper[i]
-        ):
-            direction[i] = -1
-            buy[i] = True
         else:
-            direction[i] = prev_direction
+            prev_st = supertrend[i - 1]
+            prev_upper = upper_band[i - 1]
+
+            if prev_st is None or prev_upper is None:
+                direction[i] = 1
+            elif abs(prev_st - prev_upper) < 1e-12:
+                direction[i] = (
+                    -1
+                    if candles[i]["close"] > upper
+                    else 1
+                )
+            else:
+                direction[i] = (
+                    1
+                    if candles[i]["close"] < lower
+                    else -1
+                )
+
+        supertrend[i] = (
+            lower if direction[i] == -1 else upper
+        )
+
+        if i > 0 and direction[i - 1] == 1 and direction[i] == -1:
+            buy[i] = True
+        elif i > 0 and direction[i - 1] == -1 and direction[i] == 1:
+            sell[i] = True
 
     return {
         "direction": direction,
         "buy": buy,
         "sell": sell,
+        "supertrend": supertrend,
+        "upper": upper_band,
+        "lower": lower_band,
     }
 
 def load_state():
@@ -663,6 +672,25 @@ def main():
                 buys.append(event)
 
     buys.sort(key=lambda x: (x["time"], x["symbol"]))
+
+    if "BIST:VRGYO" in symbols:
+        vrg = get_batch_candles(["BIST:VRGYO"]).get("BIST:VRGYO", [])
+        vi = completed_index(vrg)
+        if vi is not None:
+            vc = vrg[:vi + 1]
+            vcalc = supertrend_cc(vc)
+            j = len(vc) - 1
+            log(
+                "VRGYO CC DEBUG | "
+                f"mum={datetime.fromtimestamp(vc[j]['time'], tz=ZoneInfo('UTC')).astimezone(TIMEZONE):%Y-%m-%d %H:%M} "
+                f"close={vc[j]['close']:.4f} "
+                f"dir_prev={vcalc['direction'][j-1]} "
+                f"dir={vcalc['direction'][j]} "
+                f"buy={vcalc['buy'][j]} "
+                f"st={vcalc['supertrend'][j]:.6f} "
+                f"upper={vcalc['upper'][j]:.6f} "
+                f"lower={vcalc['lower'][j]:.6f}"
+            )
 
     log(f"SON TAMAMLANMIS 2H BUY: {len(buys)}")
 
