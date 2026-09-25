@@ -252,20 +252,21 @@ def scan_one(symbol):
                 "status": "skip",
             }
 
-        # Check recent completed bars so a delayed GitHub run
-        # cannot silently lose a BUY from the previous scan.
-        recent_start = max(1, len(calculation_candles) - 4)
+        # SADECE SON TAMAMLANMIŞ 2H MUM:
+        # Kullanıcının istediği BUY etiketi, grafikte son kapanan
+        # mumda oluşmuş olmalı. Eski mumlardaki BUY'ları kesinlikle
+        # yeni sinyal olarak göndermiyoruz.
+        latest_index = len(calculation_candles) - 1
 
         buy_events = []
 
-        for i in range(recent_start, len(calculation_candles)):
-            if calc["buy"][i]:
-                buy_events.append({
-                    "symbol": symbol,
-                    "candle_time": calculation_candles[i]["time"],
-                    "price": calculation_candles[i]["close"],
-                    "direction": calc["direction"][i],
-                })
+        if calc["buy"][latest_index]:
+            buy_events.append({
+                "symbol": symbol,
+                "candle_time": calculation_candles[latest_index]["time"],
+                "price": calculation_candles[latest_index]["close"],
+                "direction": calc["direction"][latest_index],
+            })
 
         return {
             "symbol": symbol,
