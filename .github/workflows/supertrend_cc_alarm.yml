@@ -53,3 +53,5 @@ jobs:
             git commit -m "Update standalone Supertrend CC alarm state"
             git push
           fi
+
+      # Standalone CC alarm - mevcut scanner sistemine dokunmaz.
