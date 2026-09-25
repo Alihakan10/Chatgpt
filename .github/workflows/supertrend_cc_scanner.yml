@@ -1,8 +1,6 @@
 name: Supertrend CC 620 Scanner
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
   # GitHub Actions cron is UTC.
   # Turkey is UTC+3, so these run at 12:05, 14:05,
