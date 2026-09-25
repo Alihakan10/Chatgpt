@@ -38,6 +38,7 @@ WORKERS = 5
 SCAN_LIMIT = 620
 WS_TIMEOUT = 12
 STATE_FILE = "supertrend_cc_alarm/state.json"
+ALGORITHM_VERSION = "CC_PREV_BAND_V2"
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "").strip()
@@ -524,9 +525,22 @@ def load_state():
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
-            return data if isinstance(data, dict) else {}
+            if not isinstance(data, dict):
+                return {}
     except Exception:
         return {}
+
+    if data.get("_algorithm_version") != ALGORITHM_VERSION:
+        migrated = {"_algorithm_version": ALGORITHM_VERSION}
+        for symbol, value in data.items():
+            if symbol.startswith("_") or not isinstance(value, dict):
+                continue
+            clean = dict(value)
+            clean.pop("last_buy_candle", None)
+            migrated[symbol] = clean
+        return migrated
+
+    return data
 
 
 def save_state(state):
