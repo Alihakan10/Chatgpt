@@ -1597,13 +1597,13 @@ def calculate_tradingview_supertrend_directions(
 
         upper[i] = (
             basic_upper
-            if i == 0 or basic_upper < prev_upper or (prev_close is not None and prev_close > prev_upper)
+            if i == 0 or basic_upper < prev_upper or candles[i]["close"] > prev_upper
             else prev_upper
         )
 
         lower[i] = (
             basic_lower
-            if i == 0 or basic_lower > prev_lower or (prev_close is not None and prev_close < prev_lower)
+            if i == 0 or basic_lower > prev_lower or candles[i]["close"] < prev_lower
             else prev_lower
         )
 
@@ -1663,13 +1663,13 @@ def calculate_supertrend_debug_rows(
 
         upper[i] = (
             basic_upper
-            if i == 0 or basic_upper < prev_upper or (prev_close is not None and prev_close > prev_upper)
+            if i == 0 or basic_upper < prev_upper or candles[i]["close"] > prev_upper
             else prev_upper
         )
 
         lower[i] = (
             basic_lower
-            if i == 0 or basic_lower > prev_lower or (prev_close is not None and prev_close < prev_lower)
+            if i == 0 or basic_lower > prev_lower or candles[i]["close"] < prev_lower
             else prev_lower
         )
 
