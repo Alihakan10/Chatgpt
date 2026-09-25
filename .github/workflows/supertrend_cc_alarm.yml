@@ -2,9 +2,11 @@ name: STANDALONE Supertrend CC Telegram Alarm
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "supertrend_cc_alarm/main.py"
+      - ".github/workflows/supertrend_cc_alarm.yml"
   schedule:
-    # GitHub Actions minimum schedule intervali 5 dakikadir.
-    # BIST 2H kapanislari sonrasinda 5 dakikada bir kontrol.
     - cron: "*/5 7-15 * * 1-5"
 
 permissions:
