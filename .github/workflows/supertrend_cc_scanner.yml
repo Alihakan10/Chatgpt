@@ -8,9 +8,11 @@ on:
       - ".github/workflows/supertrend_cc_scanner.yml"
   # GitHub Actions cron is UTC.
   # Turkey is UTC+3, so these run at 12:05, 14:05,
-  # 16:05 and 18:05 Istanbul time after each 2H candle close.
+  # 16:05 Istanbul; final scan at 18:15 after the 18:10 closing process.
   schedule:
-    - cron: "5 9,11,13,15 * * 1-5"
+    - cron: "5 9,11,13 * * 1-5"
+    # Final BIST bar is only confirmed after the 18:10 closing process.
+    - cron: "15 15 * * 1-5"
 
 permissions:
   contents: write
