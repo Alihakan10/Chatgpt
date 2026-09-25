@@ -63,17 +63,22 @@ def wilder_atr(candles, period=10):
 
 def supertrend_cc(candles):
     """
-    Exact TradingView ta.supertrend() core logic.
+    TradingView Supertrend Confirmed Close (CC) logic.
+
+    CC is NOT the same signal condition as the native ta.supertrend()
+    direction flip.  The CC indicator confirms a reversal only when the
+    COMPLETED current bar closes beyond the PREVIOUS confirmed Supertrend
+    band.
 
     src = HL2
-    ATR = ta.atr() = Wilder/RMA
-    direction:
-      +1 = bearish
-      -1 = bullish
-
+    ATR = Wilder/RMA
     BUY:
-      previous direction == +1
-      AND current direction == -1
+      previous trend = bearish
+      AND current completed close > previous bearish Supertrend band
+
+    SELL:
+      previous trend = bullish
+      AND current completed close < previous bullish Supertrend band
     """
     n = len(candles)
     if n < ATR_PERIOD + 2:
@@ -86,6 +91,7 @@ def supertrend_cc(candles):
     supertrend = [None] * n
     direction = [None] * n
     buy = [False] * n
+    sell = [False] * n
 
     for i in range(n):
         if atr[i] is None:
@@ -95,7 +101,7 @@ def supertrend_cc(candles):
         basic_upper = hl2 + ATR_MULTIPLIER * atr[i]
         basic_lower = hl2 - ATR_MULTIPLIER * atr[i]
 
-        if i > 0 and lower[i - 1] is not None:
+        if i > 0 and upper[i - 1] is not None:
             prev_upper = upper[i - 1]
             prev_lower = lower[i - 1]
             prev_close = candles[i - 1]["close"]
@@ -114,34 +120,39 @@ def supertrend_cc(candles):
             upper[i] = basic_upper
             lower[i] = basic_lower
 
-        # TradingView's ta.supertrend direction convention:
-        # if prevSuperTrend == prevUpperBand:
-        #     direction := close > upperBand ? -1 : 1
-        # else:
-        #     direction := close < lowerBand ? 1 : -1
         if i == ATR_PERIOD - 1:
             direction[i] = 1
         else:
             prev_st = supertrend[i - 1]
-            prev_upper = upper[i - 1]
+            prev_direction = direction[i - 1]
 
-            if prev_st is None or prev_upper is None:
+            if prev_st is None or prev_direction is None:
                 direction[i] = 1
-            elif abs(prev_st - prev_upper) < 1e-12:
-                direction[i] = -1 if candles[i]["close"] > upper[i] else 1
+            elif prev_direction == 1:
+                # CC BUY confirmation: completed close must cross the
+                # previous confirmed bearish Supertrend band.
+                if candles[i]["close"] > prev_st:
+                    direction[i] = -1
+                    buy[i] = True
+                else:
+                    direction[i] = 1
             else:
-                direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+                # CC SELL confirmation: completed close must cross the
+                # previous confirmed bullish Supertrend band.
+                if candles[i]["close"] < prev_st:
+                    direction[i] = 1
+                    sell[i] = True
+                else:
+                    direction[i] = -1
 
         supertrend[i] = (
             lower[i] if direction[i] == -1 else upper[i]
         )
 
-        if i > 0 and direction[i - 1] == 1 and direction[i] == -1:
-            buy[i] = True
-
     return {
         "direction": direction,
         "buy": buy,
+        "sell": sell,
         "upper": upper,
         "lower": lower,
         "supertrend": supertrend,
