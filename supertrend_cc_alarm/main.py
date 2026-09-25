@@ -413,22 +413,21 @@ def wilder_atr(candles, period=10):
 
 def supertrend_cc(candles):
     """
-    TradingView ta.supertrend() ile ayni cekirdek algoritma.
+    TradingView Supertrend Confirmed Close (CC) logic.
 
-    src = HL2
-    ATR = ta.atr() = Wilder/RMA
-    direction:
-      1  = bearish
-      -1 = bullish
+    CC confirmation uses the PREVIOUS confirmed Supertrend band:
+      BUY  = previous bearish state AND current completed close
+             > previous bearish Supertrend band
+      SELL = previous bullish state AND current completed close
+             < previous bullish Supertrend band
 
-    CC BUY:
-      tamamlanmis mumda direction 1 -> -1 donusu.
+    This is deliberately not the native ta.supertrend() current-band
+    direction test.
     """
     n = len(candles)
     if n < ATR_PERIOD + 2:
         return None
 
-    # ta.atr() == ta.rma(True Range, ATR_PERIOD)
     tr = [None] * n
     for i, c in enumerate(candles):
         if i == 0:
@@ -463,65 +462,54 @@ def supertrend_cc(candles):
             candles[i]["high"] + candles[i]["low"]
         ) / 2.0
 
-        upper = src + ATR_MULTIPLIER * atr[i]
-        lower = src - ATR_MULTIPLIER * atr[i]
+        basic_upper = src + ATR_MULTIPLIER * atr[i]
+        basic_lower = src - ATR_MULTIPLIER * atr[i]
 
-        if i > 0 and lower_band[i - 1] is not None:
-            prev_lower = lower_band[i - 1]
+        if i > 0 and upper_band[i - 1] is not None:
             prev_upper = upper_band[i - 1]
+            prev_lower = lower_band[i - 1]
             prev_close = candles[i - 1]["close"]
 
-            lower = (
-                lower
-                if lower > prev_lower or prev_close < prev_lower
-                else prev_lower
-            )
-
-            upper = (
-                upper
-                if upper < prev_upper or prev_close > prev_upper
+            upper_band[i] = (
+                basic_upper
+                if basic_upper < prev_upper or prev_close > prev_upper
                 else prev_upper
             )
+            lower_band[i] = (
+                basic_lower
+                if basic_lower > prev_lower or prev_close < prev_lower
+                else prev_lower
+            )
+        else:
+            upper_band[i] = basic_upper
+            lower_band[i] = basic_lower
 
-        upper_band[i] = upper
-        lower_band[i] = lower
-
-        # Pine:
-        # if na(atr[1])
-        #     direction := 1
-        # else if prevSuperTrend == prevUpperBand
-        #     direction := close > upperBand ? -1 : 1
-        # else
-        #     direction := close < lowerBand ? 1 : -1
         if i == ATR_PERIOD - 1:
             direction[i] = 1
         else:
             prev_st = supertrend[i - 1]
-            prev_upper = upper_band[i - 1]
+            prev_direction = direction[i - 1]
 
-            if prev_st is None or prev_upper is None:
+            if prev_st is None or prev_direction is None:
                 direction[i] = 1
-            elif abs(prev_st - prev_upper) < 1e-12:
-                direction[i] = (
-                    -1
-                    if candles[i]["close"] > upper
-                    else 1
-                )
+            elif prev_direction == 1:
+                if candles[i]["close"] > prev_st:
+                    direction[i] = -1
+                    buy[i] = True
+                else:
+                    direction[i] = 1
             else:
-                direction[i] = (
-                    1
-                    if candles[i]["close"] < lower
-                    else -1
-                )
+                if candles[i]["close"] < prev_st:
+                    direction[i] = 1
+                    sell[i] = True
+                else:
+                    direction[i] = -1
 
         supertrend[i] = (
-            lower if direction[i] == -1 else upper
+            lower_band[i]
+            if direction[i] == -1
+            else upper_band[i]
         )
-
-        if i > 0 and direction[i - 1] == 1 and direction[i] == -1:
-            buy[i] = True
-        elif i > 0 and direction[i - 1] == -1 and direction[i] == 1:
-            sell[i] = True
 
     return {
         "direction": direction,
