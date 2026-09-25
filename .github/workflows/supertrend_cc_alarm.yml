@@ -1,0 +1,53 @@
+name: STANDALONE Supertrend CC Telegram Alarm
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub Actions minimum schedule intervali 5 dakikadir.
+    # BIST 2H kapanislari sonrasinda 5 dakikada bir kontrol.
+    - cron: "*/5 7-15 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: standalone-supertrend-cc-alarm
+  cancel-in-progress: false
+
+jobs:
+  alarm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Paketler
+        run: pip install requests websocket-client
+
+      - name: CC alarm motoru
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: python supertrend_cc_alarm/main.py
+
+      - name: CC state kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add supertrend_cc_alarm/state.json
+          if git diff --cached --quiet; then
+            echo "CC state degismedi."
+          else
+            git commit -m "Update standalone Supertrend CC alarm state"
+            git push
+          fi
