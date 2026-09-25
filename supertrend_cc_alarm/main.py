@@ -37,6 +37,8 @@ BATCH_SIZE = 20
 WORKERS = 5
 SCAN_LIMIT = 620
 WS_TIMEOUT = 12
+# Tek seferlik 17:00 kapanan 2H bar testi icin kullanilir; normalde bos kalir.
+TARGET_BAR_START = os.getenv("TARGET_BAR_START", "").strip()
 STATE_FILE = "supertrend_cc_alarm/state.json"
 
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
@@ -526,7 +528,17 @@ def send_telegram(buys):
 
 
 def process_symbol(symbol, candles):
-    idx = completed_index(candles)
+    if TARGET_BAR_START:
+        try:
+            target = datetime.fromisoformat(TARGET_BAR_START).replace(tzinfo=TIMEZONE)
+            target_ts = target.timestamp()
+            idx = next((i for i, c in enumerate(candles) if abs(c["time"] - target_ts) < 60), None)
+            if idx is None:
+                return None
+        except Exception:
+            return None
+    else:
+        idx = completed_index(candles)
     if idx is None:
         return None
 
@@ -551,7 +563,7 @@ def main():
     log("=" * 70)
     log("STANDALONE SUPERTREND CC ALARM")
     log("620 BIST | NATIVE 2H | ATR10 | HL2 | WILDER | x2")
-    log("SADECE SON TAMAMLANMIS 2H MUM")
+    log("SADECE SON TAMAMLANMIS 2H MUM" if not TARGET_BAR_START else f"HEDEF 2H MUM: {TARGET_BAR_START}")
     log("=" * 70)
 
     symbols = get_symbols()
