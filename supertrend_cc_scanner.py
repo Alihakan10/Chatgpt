@@ -10,7 +10,7 @@
 #   +1 = bearish
 #   -1 = bullish
 #
-# BUY = +1 -> -1 on the latest COMPLETED native 2H bar.
+# BUY = completed bar closes above the CURRENT bearish Supertrend upper band.
 # ============================================================
 
 import json
@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "CC_PREV_BAND_V2"
+ALGORITHM_VERSION = "TV_CC_CURRENT_BAND_V3"
 
 
 def log(message):
@@ -132,7 +132,7 @@ def supertrend_cc(candles):
             elif prev_direction == 1:
                 # CC BUY confirmation: completed close must cross the
                 # previous confirmed bearish Supertrend band.
-                if candles[i]["close"] > prev_st:
+                if candles[i]["close"] > upper[i]:
                     direction[i] = -1
                     buy[i] = True
                 else:
@@ -140,7 +140,7 @@ def supertrend_cc(candles):
             else:
                 # CC SELL confirmation: completed close must cross the
                 # previous confirmed bullish Supertrend band.
-                if candles[i]["close"] < prev_st:
+                if candles[i]["close"] < lower[i]:
                     direction[i] = 1
                     sell[i] = True
                 else:
@@ -283,7 +283,7 @@ def build_message(results):
         "📊 BIST — 2 SAATLİK",
         "⚙️ ATR 10 | HL2 | Wilder/RMA | Çarpan 2",
         "🧊 Freeze: sadece kapanmış native 2H mum",
-        "✅ BUY: +1 → -1 TradingView yön dönüşü",
+        "✅ BUY: kapanmış mum CURRENT bearish ST üstünde kapandı",
         "",
     ]
 
