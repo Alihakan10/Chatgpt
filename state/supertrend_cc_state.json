@@ -1,0 +1,18 @@
+{
+  "BIST:ATEKS": {
+    "last_buy_candle": 1790330400.0,
+    "updated_at": "2026-09-25T18:01:54.307997+03:00"
+  },
+  "BIST:DNISI": {
+    "last_buy_candle": 1790337600.0,
+    "updated_at": "2026-09-25T18:01:54.308018+03:00"
+  },
+  "BIST:TNZTP": {
+    "last_buy_candle": 1790337600.0,
+    "updated_at": "2026-09-25T18:01:54.308038+03:00"
+  },
+  "BIST:VRGYO": {
+    "last_buy_candle": 1790337600.0,
+    "updated_at": "2026-09-25T18:01:54.308042+03:00"
+  }
+}
