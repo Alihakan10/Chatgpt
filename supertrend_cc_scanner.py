@@ -10,7 +10,7 @@
 #   +1 = bearish
 #   -1 = bullish
 #
-# BUY = completed bar closes above the CURRENT bearish Supertrend upper band.
+# BUY = completed bar closes above the PREVIOUS confirmed bearish Supertrend band.
 # ============================================================
 
 import json
@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_CC_CURRENT_BAND_V3"
+ALGORITHM_VERSION = "TV_CC_PREVIOUS_BAND_V4"
 
 
 def log(message):
@@ -132,7 +132,7 @@ def supertrend_cc(candles):
             elif prev_direction == 1:
                 # CC BUY confirmation: completed close must cross the
                 # previous confirmed bearish Supertrend band.
-                if candles[i]["close"] > upper[i]:
+                if candles[i]["close"] > prev_st:
                     direction[i] = -1
                     buy[i] = True
                 else:
@@ -140,7 +140,7 @@ def supertrend_cc(candles):
             else:
                 # CC SELL confirmation: completed close must cross the
                 # previous confirmed bullish Supertrend band.
-                if candles[i]["close"] < lower[i]:
+                if candles[i]["close"] < prev_st:
                     direction[i] = 1
                     sell[i] = True
                 else:
@@ -311,7 +311,7 @@ def main():
     log("=" * 70)
     log("BIST SUPERTREND CC 620 HİSSE TARAMASI BAŞLADI")
     log("ATR=10 | HL2 | Wilder/RMA | Çarpan=2 | NATIVE 2H")
-    log("BUY = tamamlanmış mumda +1 -> -1")
+    log("BUY = tamamlanmış mumda önceki bearish ST bandının üstünde kapanış")
     log("=" * 70)
 
     symbols = scanner.get_bist_symbols()
