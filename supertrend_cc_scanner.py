@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_DIRECTION_FLIP_V13"
+ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_EXACT_NZ_V14"
 # Production lock: exact TradingView ta.supertrend(2.0, 10) semantics.
 
 
@@ -93,21 +93,21 @@ def supertrend_cc(candles):
             supertrend[i] = upper[i]
             continue
 
-        prev_upper = upper[i - 1]
-        prev_lower = lower[i - 1]
+        # Exact TradingView built-in semantics use nz(previous band),
+        # i.e. 0.0 when the previous band is na.
+        prev_upper = upper[i - 1] if i > 0 and upper[i - 1] is not None else 0.0
+        prev_lower = lower[i - 1] if i > 0 and lower[i - 1] is not None else 0.0
         prev_close = candles[i - 1]["close"]
 
         upper[i] = (
             basic_upper
-            if prev_upper is None
-            or basic_upper < prev_upper
+            if basic_upper < prev_upper
             or prev_close > prev_upper
             else prev_upper
         )
         lower[i] = (
             basic_lower
-            if prev_lower is None
-            or basic_lower > prev_lower
+            if basic_lower > prev_lower
             or prev_close < prev_lower
             else prev_lower
         )
@@ -119,7 +119,7 @@ def supertrend_cc(candles):
             prev_supertrend = supertrend[i - 1]
             if prev_supertrend is None:
                 direction[i] = 1
-            elif prev_upper is not None and prev_supertrend == prev_upper:
+            elif prev_supertrend == prev_upper:
                 direction[i] = -1 if candles[i]["close"] > upper[i] else 1
             else:
                 direction[i] = 1 if candles[i]["close"] < lower[i] else -1
