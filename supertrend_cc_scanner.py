@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_TA_SUPERTREND_NATIVE_2H_V7"
+ALGORITHM_VERSION = "TV_TA_SUPERTREND_NATIVE_2H_V8_SEEDED_BANDS"
 
 
 def log(message):
@@ -98,8 +98,10 @@ def supertrend_cc(candles):
         basic_upper = hl2 + ATR_MULTIPLIER * atr[i]
         basic_lower = hl2 - ATR_MULTIPLIER * atr[i]
 
-        prev_upper = upper[i - 1] if i > 0 and upper[i - 1] is not None else 0.0
-        prev_lower = lower[i - 1] if i > 0 and lower[i - 1] is not None else 0.0
+        # Pine nz(prevBand, currentBasicBand): the first valid ATR bar
+        # must seed both bands with its own basic value, not zero.
+        prev_upper = upper[i - 1] if i > 0 and upper[i - 1] is not None else basic_upper
+        prev_lower = lower[i - 1] if i > 0 and lower[i - 1] is not None else basic_lower
 
         upper[i] = (
             basic_upper
@@ -297,7 +299,7 @@ def build_message(results):
         )
 
     lines.append("")
-    lines.append("Kaynak: TradingView native 2H + ta.supertrend eşdeğeri")
+    lines.append("Kaynak: TradingView native 2H + ta.supertrend eşdeğeri (correct band seeding)")
     return "\n".join(lines)
 
 
