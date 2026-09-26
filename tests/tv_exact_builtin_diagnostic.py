@@ -55,21 +55,24 @@ def exact_tv(c):
     return direction,buy,upper,lower,st
 
 for s in SYMBOLS:
-    c=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
-    idx=next((i for i,x in enumerate(c) if x["time"]==TARGET),None)
-    print("\n===",s,"===")
-    if idx is None:
-        print("NO_TARGET")
-        continue
-    d,b,u,l,st=exact_tv(c[:idx+1])
-    print(json.dumps({
-        "target_time":TARGET,
-        "close":c[idx]["close"],
-        "prev_direction":d[-2],
-        "direction":d[-1],
-        "BUY":b[-1],
-        "prev_st":st[-2],
-        "prev_upper":u[-2],
-        "upper":u[-1],
-        "lower":l[-1]
-    },separators=(",",":")))
+    print("\n===", s, "===")
+    try:
+        c=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
+        idx=next((i for i,x in enumerate(c) if x["time"]==TARGET),None)
+        if idx is None:
+            print("NO_TARGET")
+            continue
+        d,b,u,l,st=exact_tv(c[:idx+1])
+        print(json.dumps({
+            "target_time":TARGET,
+            "close":c[idx]["close"],
+            "prev_direction":d[-2],
+            "direction":d[-1],
+            "BUY":b[-1],
+            "prev_st":st[-2],
+            "prev_upper":u[-2],
+            "upper":u[-1],
+            "lower":l[-1]
+        },separators=(",",":")))
+    except Exception as e:
+        print("ERROR:",type(e).__name__,str(e))
