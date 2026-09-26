@@ -1,66 +1,56 @@
 import sys, json
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 sys.path.insert(0, ".")
 from scanner import get_tv_candles
 
 SYMBOLS=["BIST:BAKAB","BIST:BARMA","BIST:BRKO","BIST:DGGYO","BIST:EUHOL","BIST:GSDHO","BIST:LMKDC","BIST:PAGYO","BIST:RNPOL","BIST:SANKO","BIST:SUNTK","BIST:VKFYO"]
 PERIOD=10
 TARGET=1790344800.0
-TZ=ZoneInfo("Europe/Istanbul")
 
-def wilder_atr(candles, period=10):
-    tr=[]
-    for i,c in enumerate(candles):
-        if i==0: v=c["high"]-c["low"]
+def tr_values(c):
+    out=[]
+    for i,x in enumerate(c):
+        if i==0: out.append(x["high"]-x["low"])
         else:
-            pc=candles[i-1]["close"]
-            v=max(c["high"]-c["low"],abs(c["high"]-pc),abs(c["low"]-pc))
-        tr.append(v)
-    atr=[None]*len(candles)
-    if len(candles)<period: return atr
-    atr[period-1]=sum(tr[:period])/period
-    for i in range(period,len(candles)):
-        atr[i]=(atr[i-1]*(period-1)+tr[i])/period
-    return atr
+            pc=c[i-1]["close"]
+            out.append(max(x["high"]-x["low"],abs(x["high"]-pc),abs(x["low"]-pc)))
+    return out
 
-def calc(candles,factor):
-    n=len(candles); atr=wilder_atr(candles,PERIOD)
-    up=[None]*n; dn=[None]*n; trend=[1]*n; buy=[False]*n
+def atr(c,method):
+    tr=tr_values(c); n=len(c); a=[None]*n
+    if n<PERIOD: return a
+    a[PERIOD-1]=sum(tr[:PERIOD])/PERIOD
+    if method=="SMA":
+        for i in range(PERIOD,n): a[i]=sum(tr[i-PERIOD+1:i+1])/PERIOD
+    else:
+        for i in range(PERIOD,n): a[i]=(a[i-1]*(PERIOD-1)+tr[i])/PERIOD
+    return a
+
+def calc(c,factor,method):
+    n=len(c); a=atr(c,method); up=[None]*n; dn=[None]*n; trend=[1]*n; buy=[False]*n
     for i in range(n):
-        if atr[i] is None: continue
-        hl2=(candles[i]["high"]+candles[i]["low"])/2
-        u=hl2-factor*atr[i]; d=hl2+factor*atr[i]
+        if a[i] is None: continue
+        h=(c[i]["high"]+c[i]["low"])/2
+        u=h-factor*a[i]; d=h+factor*a[i]
         pu=up[i-1] if i and up[i-1] is not None else u
         pd=dn[i-1] if i and dn[i-1] is not None else d
-        pc=candles[i-1]["close"] if i else None
+        pc=c[i-1]["close"] if i else None
         up[i]=max(u,pu) if i and pc>pu else u
         dn[i]=min(d,pd) if i and pc<pd else d
         if i==PERIOD-1: continue
         pt=trend[i-1]
         if pt==-1:
-            trend[i]=1 if candles[i]["close"]>pd else -1
+            trend[i]=1 if c[i]["close"]>pd else -1
             buy[i]=trend[i]==1
         else:
-            trend[i]=-1 if candles[i]["close"]<pu else 1
-    return atr,up,dn,trend,buy
+            trend[i]=-1 if c[i]["close"]<pu else 1
+    return a,up,dn,trend,buy
 
 for s in SYMBOLS:
     cs=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
     idx=next((i for i,c in enumerate(cs) if c["time"]==TARGET),None)
     print("\n===",s,"===")
     if idx is None: print("NO_TARGET"); continue
-    for f in (2.0,3.0):
-        atr,up,dn,tr,buy=calc(cs[:idx+1],f)
-        i=idx; p=i-1
-        print(json.dumps({
-            "factor":f,
-            "prev_trend":tr[p],
-            "prev_up":round(up[p],6),
-            "prev_dn":round(dn[p],6),
-            "atr_17":round(atr[i],6),
-            "close_17":cs[i]["close"],
-            "prev_band_for_buy":round(dn[p],6),
-            "buy":buy[i],
-            "trend_17":tr[i]
-        },separators=(",",":")))
+    for method in ("RMA","SMA"):
+        for f in (2.0,3.0):
+            a,u,d,t,b=calc(cs[:idx+1],f,method); p=idx-1
+            print(json.dumps({"method":method,"factor":f,"prev_trend":t[p],"prev_dn":round(d[p],6),"atr":round(a[idx],6),"close":cs[idx]["close"],"buy":b[idx]},separators=(",",":")))
