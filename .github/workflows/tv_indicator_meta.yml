@@ -1,0 +1,21 @@
+name: TV indicator metadata (no Study)
+on:
+  push:
+    paths:
+      - "tv_indicator_meta.js"
+      - ".github/workflows/tv_indicator_meta.yml"
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --ignore-scripts
+      - run: node tv_indicator_meta.js > tv_indicator_meta_output.txt 2>&1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tv-indicator-meta
+          path: tv_indicator_meta_output.txt
