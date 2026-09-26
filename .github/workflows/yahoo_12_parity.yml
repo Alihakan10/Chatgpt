@@ -1,0 +1,16 @@
+name: 12H Yahoo 2H parity test
+on:
+  push:
+    paths:
+      - ".github/workflows/yahoo_12_parity.yml"
+      - "tests/yahoo_12_parity.py"
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python tests/yahoo_12_parity.py
