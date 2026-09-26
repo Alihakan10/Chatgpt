@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -20,4 +22,12 @@ jobs:
           TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
           TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
           TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
-        run: python tests/tv_12_alignment.py
+        run: python tests/tv_12_alignment.py | tee tv_12_alignment_output.txt
+      - name: Save diagnostic result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tv_12_alignment_output.txt
+          git diff --cached --quiet && exit 0
+          git commit -m "Save TV 2H alignment diagnostic"
+          git push
