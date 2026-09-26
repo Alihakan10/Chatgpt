@@ -20,7 +20,7 @@ permissions:
 
 concurrency:
   group: supertrend-cc-620
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   scan:
