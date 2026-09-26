@@ -49,6 +49,14 @@ jobs:
           SCAN_LIMIT: "620"
         run: python supertrend_cc_scanner.py
 
+      - name: Exact TradingView Supertrend diagnostic
+        env:
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: python -u tests/tv_exact_builtin_diagnostic.py
+
       - name: 12 hisse parity kontrolu
         env:
           TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
