@@ -353,11 +353,26 @@ def main():
         key=lambda x: (x["candle_time"], x["symbol"]),
     )
 
+    raw_buys = []
+    for item in results:
+        if item.get("status") != "ok":
+            continue
+        raw_buys.extend(item.get("buy_events", []))
+
+    raw_buys.sort(key=lambda x: (x["candle_time"], x["symbol"]))
+
     log("")
     log("=" * 70)
     log(f"Taranan hisse: {len(symbols)}")
     log(f"Başarılı: {len(results) - errors}")
     log(f"Hata: {errors}")
+    log(f"RAW BUY (state/Telegram ÖNCESİ): {len(raw_buys)}")
+    for event in raw_buys:
+        ticker = event["symbol"].split(":", 1)[-1]
+        log(
+            f"RAW BUY | {ticker} | candle={event['candle_time']} "
+            f"| close={event['price']:.4f} | direction={event['direction']}"
+        )
     log(f"Yeni Supertrend CC BUY: {len(new_buys)}")
     log(f"Süre: {time.time() - started:.1f} sn")
     log("=" * 70)
