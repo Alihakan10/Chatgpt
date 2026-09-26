@@ -57,8 +57,7 @@ def exact_tv(c):
 for s in SYMBOLS:
     c=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
     idx=next((i for i,x in enumerate(c) if x["time"]==TARGET),None)
-    print("
-===",s,"===")
+    print("\n===",s,"===")
     if idx is None:
         print("NO_TARGET")
         continue
