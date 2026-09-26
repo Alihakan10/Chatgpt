@@ -51,8 +51,10 @@ def tv_builtin(c,factor=2.0):
             continue
         h=(c[i]["high"]+c[i]["low"])/2
         bu=h+factor*a[i]; bl=h-factor*a[i]
-        pu=upper[i-1] if i and upper[i-1] is not None else 0.0
-        pl=lower[i-1] if i and lower[i-1] is not None else 0.0
+        # Pine nz(prevBand, currentBasicBand): seed the first valid ATR bar
+        # with its own basic bands rather than zero.
+        pu=upper[i-1] if i and upper[i-1] is not None else bu
+        pl=lower[i-1] if i and lower[i-1] is not None else bl
         upper[i]=bu if i==0 or bu<pu or c[i]["close"]>pu else pu
         lower[i]=bl if i==0 or bl>pl or c[i]["close"]<pl else pl
         if i==PERIOD-1:
