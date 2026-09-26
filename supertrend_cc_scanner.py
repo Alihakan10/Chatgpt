@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_EXACT_NZ_V14"
+ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_CURRENT_CLOSE_V15"
 # Production lock: exact TradingView ta.supertrend(2.0, 10) semantics.
 
 
@@ -97,20 +97,7 @@ def supertrend_cc(candles):
         # i.e. 0.0 when the previous band is na.
         prev_upper = upper[i - 1] if i > 0 and upper[i - 1] is not None else 0.0
         prev_lower = lower[i - 1] if i > 0 and lower[i - 1] is not None else 0.0
-        prev_close = candles[i - 1]["close"]
-
-        upper[i] = (
-            basic_upper
-            if basic_upper < prev_upper
-            or prev_close > prev_upper
-            else prev_upper
-        )
-        lower[i] = (
-            basic_lower
-            if basic_lower > prev_lower
-            or prev_close < prev_lower
-            else prev_lower
-        )
+        # TradingView ta.supertrend() compares the CURRENT close\n        # with the previous confirmed band when carrying the band forward.\n        # This is intentionally not previous-close logic.\n        current_close = candles[i]["close"]\n\n        upper[i] = (\n            basic_upper\n            if basic_upper < prev_upper\n            or current_close > prev_upper\n            else prev_upper\n        )\n        lower[i] = (\n            basic_lower\n            if basic_lower > prev_lower\n            or current_close < prev_lower\n            else prev_lower\n        )
 
         # First valid ATR bar: previous ATR is still undefined.
         if atr[i - 1] is None:
