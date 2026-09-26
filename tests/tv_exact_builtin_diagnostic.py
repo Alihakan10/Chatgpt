@@ -1,4 +1,8 @@
-import json\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom scanner import get_tv_candles
+import json
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from scanner import get_tv_candles
 
 SYMBOLS = [
     "BIST:BAKAB","BIST:BARMA","BIST:BRKO","BIST:DGGYO",
@@ -53,7 +57,8 @@ def exact_tv(c):
 for s in SYMBOLS:
     c=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
     idx=next((i for i,x in enumerate(c) if x["time"]==TARGET),None)
-    print("\n===",s,"===")
+    print("
+===",s,"===")
     if idx is None:
         print("NO_TARGET")
         continue
