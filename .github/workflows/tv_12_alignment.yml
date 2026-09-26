@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "tests/tv_12_alignment.py"
+      - "tests/tv_12_formula_parity.py"
       - ".github/workflows/tv_12_alignment.yml"
   workflow_dispatch:
 jobs:
@@ -20,10 +21,14 @@ jobs:
           TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
           TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
           TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
-        run: python tests/tv_12_alignment.py | tee tv_12_alignment_output.txt
+        run: |
+          python tests/tv_12_alignment.py | tee tv_12_alignment_output.txt
+          python tests/tv_12_formula_parity.py | tee tv_12_formula_parity_output.txt
       - name: Upload diagnostic output
         uses: actions/upload-artifact@v4
         with:
-          name: tv-12-alignment
-          path: tv_12_alignment_output.txt
+          name: tv-12-formula-parity
+          path: |
+            tv_12_alignment_output.txt
+            tv_12_formula_parity_output.txt
           if-no-files-found: error
