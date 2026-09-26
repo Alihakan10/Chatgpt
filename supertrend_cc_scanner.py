@@ -302,7 +302,7 @@ def build_message(results):
 def main():
     log("=" * 70)
     log("BIST SUPERTREND CC 620 HİSSE TARAMASI BAŞLADI")
-    log("ATR=10 | HL2 | Wilder/RMA | Çarpan=2 | NATIVE 2H")
+    log("ATR=10 | HL2 | Wilder/RMA | Çarpan=3.0 | NATIVE 2H")
     log("BUY = tamamlanmış mumda önceki bearish ST bandının üstünde kapanış")
     log("=" * 70)
 
