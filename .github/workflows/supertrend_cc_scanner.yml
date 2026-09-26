@@ -59,7 +59,11 @@ jobs:
             echo "CC state degismedi."
           else
             git commit -m "Update Supertrend CC BUY state"
+            # State-only commitler yarisan cron/run'larda rebase conflict
+            # olusturmasin. Remote main'i alip state dosyasini tekrar stage et.
             git fetch origin main
-            git rebase origin/main
+            git checkout --theirs state/supertrend_cc_state.json
+            git add state/supertrend_cc_state.json
+            git -c core.editor=true rebase --continue || true
             git push origin HEAD:main
           fi
