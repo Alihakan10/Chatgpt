@@ -1,5 +1,4 @@
-import json
-from supertrend_cc_scanner import get_tv_candles
+import json\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, str(Path(__file__).resolve().parents[1]))\nfrom scanner import get_tv_candles
 
 SYMBOLS = [
     "BIST:BAKAB","BIST:BARMA","BIST:BRKO","BIST:DGGYO",
