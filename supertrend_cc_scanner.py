@@ -27,7 +27,8 @@ ATR_MULTIPLIER = 3.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_PUBLISHED_SUPERTREND_KIVANC_ATR10_HL2_3_V10"
+ALGORITHM_VERSION = "TV_PUBLISHED_SUPERTREND_KIVANC_ATR10_HL2_3_V11"
+# Final production lock: this scanner uses factor 3.0; no 2.0 fallback.
 
 
 def log(message):
