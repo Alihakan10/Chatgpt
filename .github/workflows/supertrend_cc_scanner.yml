@@ -45,6 +45,23 @@ jobs:
           SCAN_LIMIT: "620"
         run: python supertrend_cc_scanner.py
 
+      - name: 12 hisse parity kontrolu
+        env:
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: |
+          python -u tests/tv_12_formula_parity.py | tee tv_12_final_parity.txt
+          test -s tv_12_final_parity.txt
+
+      - name: Upload 12 hisse parity sonucu
+        uses: actions/upload-artifact@v4
+        with:
+          name: tv-12-final-parity
+          path: tv_12_final_parity.txt
+          if-no-files-found: error
+
       - name: CC state kaydet
         run: |
           git config user.name "github-actions[bot]"
