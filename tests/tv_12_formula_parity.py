@@ -15,18 +15,16 @@ def tr_values(c):
             out.append(max(x["high"]-x["low"],abs(x["high"]-pc),abs(x["low"]-pc)))
     return out
 
-def atr(c,method):
+def atr(c):
     tr=tr_values(c); n=len(c); a=[None]*n
     if n<PERIOD: return a
     a[PERIOD-1]=sum(tr[:PERIOD])/PERIOD
-    if method=="SMA":
-        for i in range(PERIOD,n): a[i]=sum(tr[i-PERIOD+1:i+1])/PERIOD
-    else:
-        for i in range(PERIOD,n): a[i]=(a[i-1]*(PERIOD-1)+tr[i])/PERIOD
+    for i in range(PERIOD,n):
+        a[i]=(a[i-1]*(PERIOD-1)+tr[i])/PERIOD
     return a
 
-def calc(c,factor,method):
-    n=len(c); a=atr(c,method); up=[None]*n; dn=[None]*n; trend=[1]*n; buy=[False]*n
+def kivanc_cc(c,factor=2.0):
+    n=len(c); a=atr(c); up=[None]*n; dn=[None]*n; trend=[1]*n; buy=[False]*n
     for i in range(n):
         if a[i] is None: continue
         h=(c[i]["high"]+c[i]["low"])/2
@@ -43,14 +41,52 @@ def calc(c,factor,method):
             buy[i]=trend[i]==1
         else:
             trend[i]=-1 if c[i]["close"]<pu else 1
-    return a,up,dn,trend,buy
+    return trend,buy
+
+def tv_builtin(c,factor=2.0):
+    n=len(c); a=atr(c); upper=[None]*n; lower=[None]*n; st=[None]*n; direction=[None]*n; buy=[False]*n
+    for i in range(n):
+        if a[i] is None:
+            direction[i]=1
+            continue
+        h=(c[i]["high"]+c[i]["low"])/2
+        bu=h+factor*a[i]; bl=h-factor*a[i]
+        pu=upper[i-1] if i and upper[i-1] is not None else 0.0
+        pl=lower[i-1] if i and lower[i-1] is not None else 0.0
+        upper[i]=bu if i==0 or bu<pu or c[i]["close"]>pu else pu
+        lower[i]=bl if i==0 or bl>pl or c[i]["close"]<pl else pl
+        if i==PERIOD-1:
+            direction[i]=1
+        else:
+            prev_st=st[i-1]
+            prev_upper=upper[i-1]
+            if prev_st is None:
+                direction[i]=1
+            elif prev_st == prev_upper:
+                direction[i]=-1 if c[i]["close"]>upper[i] else 1
+            else:
+                direction[i]=1 if c[i]["close"]<lower[i] else -1
+        st[i]=lower[i] if direction[i]==-1 else upper[i]
+        if i>0 and direction[i-1]==1 and direction[i]==-1:
+            buy[i]=True
+    return direction,buy
 
 for s in SYMBOLS:
     cs=get_tv_candles(s,candle_mode="native_2h",candle_session="regular")
     idx=next((i for i,c in enumerate(cs) if c["time"]==TARGET),None)
     print("\n===",s,"===")
-    if idx is None: print("NO_TARGET"); continue
-    for method in ("RMA","SMA"):
-        for f in (2.0,3.0):
-            a,u,d,t,b=calc(cs[:idx+1],f,method); p=idx-1
-            print(json.dumps({"method":method,"factor":f,"prev_trend":t[p],"prev_dn":round(d[p],6),"atr":round(a[idx],6),"close":cs[idx]["close"],"buy":b[idx]},separators=(",",":")))
+    if idx is None:
+        print("NO_TARGET")
+        continue
+    c=cs[:idx+1]
+    kt,kb=kivanc_cc(c,2.0)
+    vt,vb=tv_builtin(c,2.0)
+    print(json.dumps({
+        "target_close":c[-1]["close"],
+        "kivanc_cc_buy":kb[-1],
+        "kivanc_cc_direction":kt[-1],
+        "tv_builtin_buy":vb[-1],
+        "tv_builtin_direction":vt[-1],
+        "kivanc_prev_direction":kt[-2],
+        "tv_builtin_prev_direction":vt[-2]
+    },separators=(",",":")))
