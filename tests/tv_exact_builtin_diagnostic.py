@@ -1,5 +1,5 @@
 import json
-from scanner import get_tv_candles
+from supertrend_cc_scanner import get_tv_candles
 
 SYMBOLS = [
     "BIST:BAKAB","BIST:BARMA","BIST:BRKO","BIST:DGGYO",
