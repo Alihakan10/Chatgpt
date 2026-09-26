@@ -139,6 +139,70 @@ def supertrend_cc(candles):
         "supertrend": supertrend,
     }
 
+PARITY_SYMBOLS = {
+    "BIST:BAKAB", "BIST:BARMA", "BIST:BRKO", "BIST:DGGYO",
+    "BIST:EUHOL", "BIST:GSDHO", "BIST:LMKDC", "BIST:PAGYO",
+    "BIST:RNPOL", "BIST:SANKO", "BIST:SUNTK", "BIST:VKFYO",
+}
+PARITY_TARGET = 1790344800.0
+
+
+def parity_kivanc(candles, factor):
+    """Independent Kivanc-style candidate, fed by the SAME TV candles."""
+    n = len(candles)
+    atr = wilder_atr(candles, ATR_PERIOD)
+    up = [None] * n
+    dn = [None] * n
+    trend = [1] * n
+    buy = [False] * n
+
+    for i in range(n):
+        if atr[i] is None:
+            continue
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        basic_up = hl2 - factor * atr[i]
+        basic_dn = hl2 + factor * atr[i]
+        prev_up = up[i - 1] if i > 0 and up[i - 1] is not None else basic_up
+        prev_dn = dn[i - 1] if i > 0 and dn[i - 1] is not None else basic_dn
+        prev_close = candles[i - 1]["close"] if i > 0 else None
+
+        up[i] = max(basic_up, prev_up) if i > 0 and prev_close is not None and prev_close > prev_up else basic_up
+        dn[i] = min(basic_dn, prev_dn) if i > 0 and prev_close is not None and prev_close < prev_dn else basic_dn
+
+        if i == ATR_PERIOD - 1:
+            trend[i] = 1
+            continue
+
+        if trend[i - 1] == -1:
+            trend[i] = 1 if candles[i]["close"] <= prev_dn else -1
+        else:
+            trend[i] = -1 if candles[i]["close"] >= prev_up else 1
+        buy[i] = trend[i - 1] == 1 and trend[i] == -1
+
+    return trend, buy
+
+
+def run_parity_diagnostic(symbol, candles):
+    """Use only candles already fetched by the 620 production scan."""
+    if symbol not in PARITY_SYMBOLS:
+        return
+    idx = next((i for i, x in enumerate(candles) if x["time"] == PARITY_TARGET), None)
+    if idx is None:
+        log(f"PARITY {symbol}: target candle bulunamadi")
+        return
+
+    c = candles[:idx + 1]
+    rows = []
+    for factor in (1.5, 2.0, 2.5, 3.0, 3.5, 4.0):
+        trend, buy = parity_kivanc(c, factor)
+        rows.append(f"K{factor:g}:prev={trend[-2]} dir={trend[-1]} BUY={buy[-1]}")
+
+    log(
+        f"PARITY {symbol} target={PARITY_TARGET:.0f} "
+        f"close={c[-1]['close']:.4f} | " + " | ".join(rows)
+    )
+
+
 def load_state():
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
@@ -218,6 +282,8 @@ def scan_one(symbol):
             candle_mode="native_2h",
             candle_session="regular",
         )
+
+        run_parity_diagnostic(symbol, candles)
 
         completed = completed_2h_indexes(candles)
         if not completed:
