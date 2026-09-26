@@ -169,6 +169,45 @@ def parity_kivanc(candles, factor):
     return trend, buy
 
 
+def tv_exact_supertrend(candles, factor=2.0):
+    """Pine ta.supertrend-style calculation on the SAME fetched candles."""
+    n = len(candles)
+    atr = wilder_atr(candles, ATR_PERIOD)
+    upper = [None] * n
+    lower = [None] * n
+    st = [None] * n
+    direction = [None] * n
+    buy = [False] * n
+    sell = [False] * n
+
+    for i in range(n):
+        if atr[i] is None:
+            continue
+        hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        bu = hl2 + factor * atr[i]
+        bl = hl2 - factor * atr[i]
+        pu = upper[i - 1] if i > 0 and upper[i - 1] is not None else 0.0
+        pl = lower[i - 1] if i > 0 and lower[i - 1] is not None else 0.0
+        pc = candles[i - 1]["close"] if i > 0 else None
+
+        upper[i] = bu if i == 0 or bu < pu or pc > pu else pu
+        lower[i] = bl if i == 0 or bl > pl or pc < pl else pl
+
+        if i == ATR_PERIOD - 1 or atr[i - 1] is None:
+            direction[i] = 1
+        elif st[i - 1] == upper[i - 1]:
+            direction[i] = -1 if candles[i]["close"] > upper[i] else 1
+        else:
+            direction[i] = 1 if candles[i]["close"] < lower[i] else -1
+
+        st[i] = lower[i] if direction[i] == -1 else upper[i]
+        if i > 0 and direction[i - 1] is not None:
+            buy[i] = direction[i - 1] == 1 and direction[i] == -1
+            sell[i] = direction[i - 1] == -1 and direction[i] == 1
+
+    return direction, buy, sell
+
+
 def run_parity_diagnostic(symbol, candles):
     """Use only candles already fetched by the 620 production scan."""
     if symbol not in PARITY_SYMBOLS:
@@ -183,6 +222,8 @@ def run_parity_diagnostic(symbol, candles):
     for factor in (1.5, 2.0, 2.5, 3.0, 3.5, 4.0):
         trend, buy = parity_kivanc(c, factor)
         rows.append(f"K{factor:g}:prev={trend[-2]} dir={trend[-1]} BUY={buy[-1]}")
+    tvdir, tvbuy, tvsell = tv_exact_supertrend(c, 2.0)
+    rows.append(f"TV_EXACT:prev={tvdir[-2]} dir={tvdir[-1]} BUY={tvbuy[-1]} SELL={tvsell[-1]}")
 
     log(
         f"PARITY {symbol} target={PARITY_TARGET:.0f} "
