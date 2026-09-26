@@ -81,14 +81,10 @@ for s in SYMBOLS:
         print("NO_TARGET")
         continue
     c=cs[:idx+1]
-    kt,kb=kivanc_cc(c,2.0)
-    vt,vb=tv_builtin(c,2.0)
-    print(json.dumps({
-        "target_close":c[-1]["close"],
-        "kivanc_cc_buy":kb[-1],
-        "kivanc_cc_direction":kt[-1],
-        "tv_builtin_buy":vb[-1],
-        "tv_builtin_direction":vt[-1],
-        "kivanc_prev_direction":kt[-2],
-        "tv_builtin_prev_direction":vt[-2]
-    },separators=(",",":")))
+    rows={"target_close":c[-1]["close"]}
+    for factor in [2.0,2.25,2.5,2.75,3.0]:
+        kt,kb=kivanc_cc(c,factor)
+        rows[f"kivanc_{factor}_buy"]=kb[-1]
+        rows[f"kivanc_{factor}_prev"]=kt[-2]
+        rows[f"kivanc_{factor}_dir"]=kt[-1]
+    print(json.dumps(rows,separators=(",",":")))
