@@ -3,7 +3,7 @@
 # ============================================================
 # 620 BIST hissesi | TradingView native 2H
 # Supertrend Confirmed Close
-# ATR 10 | HL2 | Standard Wilder/RMA | Multiplier 2
+# ATR 10 | HL2 | Standard Wilder/RMA | Multiplier 3
 # Freeze = only completed native 2H bar
 #
 # TradingView ta.supertrend direction:
@@ -23,11 +23,11 @@ import scanner
 
 TIMEZONE = "Europe/Istanbul"
 ATR_PERIOD = 10
-ATR_MULTIPLIER = 2.0
+ATR_MULTIPLIER = 3.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_TA_SUPERTREND_NATIVE_2H_V8_SEEDED_BANDS"
+ALGORITHM_VERSION = "TV_PUBLISHED_SUPERTREND_KIVANC_ATR10_HL2_3_V9"
 
 
 def log(message):
@@ -277,7 +277,7 @@ def build_message(results):
         "🚨 <b>SUPERTREND CC BUY</b>",
         "",
         "📊 BIST — 2 SAATLİK",
-        "⚙️ ATR 10 | HL2 | Wilder/RMA | Çarpan 2",
+        "⚙️ ATR 10 | HL2 | Wilder/RMA | Çarpan 3",
         "🧊 Freeze: sadece kapanmış native 2H mum",
         "✅ BUY: kapanmış mumda TradingView ta.supertrend yönü SAT -> AL döndü",
         "",
