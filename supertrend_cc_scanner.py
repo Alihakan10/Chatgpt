@@ -27,7 +27,7 @@ ATR_MULTIPLIER = 2.0
 SCAN_LIMIT = 620
 WORKERS = 5
 STATE_FILE = "state/supertrend_cc_state.json"
-ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_DIRECTION_FLIP_V12"
+ALGORITHM_VERSION = "TV_TA_SUPERTREND_ATR10_HL2_2_DIRECTION_FLIP_V13"
 # Production lock: exact TradingView ta.supertrend(2.0, 10) semantics.
 
 
@@ -64,7 +64,7 @@ def wilder_atr(candles, period=10):
 
 
 def supertrend_cc(candles):
-    """Exact TradingView ta.supertrend(2.0, 10) semantics."""
+    """Behavioral replica of TradingView ta.supertrend(2.0, 10)."""
     n = len(candles)
     if n < ATR_PERIOD + 2:
         return None
@@ -78,41 +78,57 @@ def supertrend_cc(candles):
     sell = [False] * n
 
     for i in range(n):
+        # Pine ta.supertrend() waits until the previous ATR value exists.
         if atr[i] is None:
-            direction[i] = 1
             continue
 
         hl2 = (candles[i]["high"] + candles[i]["low"]) / 2.0
         basic_upper = hl2 + ATR_MULTIPLIER * atr[i]
         basic_lower = hl2 - ATR_MULTIPLIER * atr[i]
 
-        prev_upper = upper[i - 1] if i > 0 and upper[i - 1] is not None else basic_upper
-        prev_lower = lower[i - 1] if i > 0 and lower[i - 1] is not None else basic_lower
-        prev_close = candles[i - 1]["close"] if i > 0 else None
-
         if i == 0:
             upper[i] = basic_upper
             lower[i] = basic_lower
-        else:
-            lower[i] = basic_lower if basic_lower > prev_lower or prev_close < prev_lower else prev_lower
-            upper[i] = basic_upper if basic_upper < prev_upper or prev_close > prev_upper else prev_upper
+            direction[i] = 1
+            supertrend[i] = upper[i]
+            continue
 
-        if i == ATR_PERIOD - 1:
+        prev_upper = upper[i - 1]
+        prev_lower = lower[i - 1]
+        prev_close = candles[i - 1]["close"]
+
+        upper[i] = (
+            basic_upper
+            if prev_upper is None
+            or basic_upper < prev_upper
+            or prev_close > prev_upper
+            else prev_upper
+        )
+        lower[i] = (
+            basic_lower
+            if prev_lower is None
+            or basic_lower > prev_lower
+            or prev_close < prev_lower
+            else prev_lower
+        )
+
+        # First valid ATR bar: previous ATR is still undefined.
+        if atr[i - 1] is None:
             direction[i] = 1
         else:
-            prev_st = supertrend[i - 1]
-            if prev_st is None:
+            prev_supertrend = supertrend[i - 1]
+            if prev_supertrend is None:
                 direction[i] = 1
-            elif prev_st == upper[i - 1]:
+            elif prev_upper is not None and prev_supertrend == prev_upper:
                 direction[i] = -1 if candles[i]["close"] > upper[i] else 1
             else:
                 direction[i] = 1 if candles[i]["close"] < lower[i] else -1
 
         supertrend[i] = lower[i] if direction[i] == -1 else upper[i]
 
-        if i > 0:
-            buy[i] = direction[i] == -1 and direction[i - 1] == 1
-            sell[i] = direction[i] == 1 and direction[i - 1] == -1
+        if i > 0 and direction[i] is not None and direction[i - 1] is not None:
+            buy[i] = direction[i - 1] > 0 and direction[i] < 0
+            sell[i] = direction[i - 1] < 0 and direction[i] > 0
 
     return {
         "direction": direction,
