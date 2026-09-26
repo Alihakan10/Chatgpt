@@ -1,0 +1,23 @@
+name: TV 12-stock 2H candle alignment
+on:
+  push:
+    paths:
+      - "tests/tv_12_alignment.py"
+      - ".github/workflows/tv_12_alignment.yml"
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install requests websocket-client
+      - name: Fetch native TradingView 2H candles
+        env:
+          TV_SESSIONID: ${{ secrets.TV_SESSIONID }}
+          TV_SESSIONID_SIGN: ${{ secrets.TV_SESSIONID_SIGN }}
+          TV_DEVICE_T: ${{ secrets.TV_DEVICE_T }}
+          TRADINGVIEW_AUTH_TOKEN: ${{ secrets.TRADINGVIEW_AUTH_TOKEN }}
+        run: python tests/tv_12_alignment.py
