@@ -208,6 +208,45 @@ def tv_exact_supertrend(candles, factor=2.0):
     return direction, buy, sell
 
 
+def custom_indicator_supertrend(candles, factor=3.0, use_rma=True):
+    """Reproduce the published Supertrend indicator inputs/logic."""
+    n = len(candles)
+    atr_rma = wilder_atr(candles, ATR_PERIOD)
+    tr = []
+    for i, x in enumerate(candles):
+        if i == 0:
+            tr.append(x["high"] - x["low"])
+        else:
+            pc = candles[i - 1]["close"]
+            tr.append(max(x["high"] - x["low"], abs(x["high"] - pc), abs(x["low"] - pc)))
+    atr_sma = [None] * n
+    if n >= ATR_PERIOD:
+        for i in range(ATR_PERIOD - 1, n):
+            atr_sma[i] = sum(tr[i - ATR_PERIOD + 1:i + 1]) / ATR_PERIOD
+    atr = atr_rma if use_rma else atr_sma
+    up = [None] * n
+    dn = [None] * n
+    trend = [1] * n
+    buy = [False] * n
+    sell = [False] * n
+    for i in range(n):
+        if atr[i] is None:
+            continue
+        src = (candles[i]["high"] + candles[i]["low"]) / 2.0
+        raw_up = src - factor * atr[i]
+        raw_dn = src + factor * atr[i]
+        prev_up = up[i - 1] if i > 0 and up[i - 1] is not None else raw_up
+        prev_dn = dn[i - 1] if i > 0 and dn[i - 1] is not None else raw_dn
+        prev_close = candles[i - 1]["close"] if i > 0 else None
+        up[i] = max(raw_up, prev_up) if i > 0 and prev_close > prev_up else raw_up
+        dn[i] = min(raw_dn, prev_dn) if i > 0 and prev_close < prev_dn else raw_dn
+        prev_trend = trend[i - 1] if i > 0 else 1
+        trend[i] = 1 if (prev_trend == -1 and candles[i]["close"] > prev_dn) else (-1 if (prev_trend == 1 and candles[i]["close"] < prev_up) else prev_trend)
+        buy[i] = trend[i] == 1 and prev_trend == -1
+        sell[i] = trend[i] == -1 and prev_trend == 1
+    return trend, buy, sell
+
+
 def run_parity_diagnostic(symbol, candles):
     """Use only candles already fetched by the 620 production scan."""
     if symbol not in PARITY_SYMBOLS:
@@ -216,21 +255,16 @@ def run_parity_diagnostic(symbol, candles):
     if idx is None:
         log(f"PARITY {symbol}: target candle bulunamadi")
         return
-
     c = candles[:idx + 1]
     rows = []
-    for factor in (1.5, 2.0, 2.5, 3.0, 3.5, 4.0):
-        trend, buy = parity_kivanc(c, factor)
-        rows.append(f"K{factor:g}:prev={trend[-2]} dir={trend[-1]} BUY={buy[-1]}")
+    for factor in (2.0, 3.0):
+        trend, buy, sell = custom_indicator_supertrend(c, factor=factor, use_rma=True)
+        rows.append(f"CUSTOM_RMA_K{factor:g}:prev={trend[-2]} dir={trend[-1]} BUY={buy[-1]} SELL={sell[-1]}")
+        trend_s, buy_s, sell_s = custom_indicator_supertrend(c, factor=factor, use_rma=False)
+        rows.append(f"CUSTOM_SMA_K{factor:g}:prev={trend_s[-2]} dir={trend_s[-1]} BUY={buy_s[-1]} SELL={sell_s[-1]}")
     tvdir, tvbuy, tvsell = tv_exact_supertrend(c, 2.0)
     rows.append(f"TV_EXACT:prev={tvdir[-2]} dir={tvdir[-1]} BUY={tvbuy[-1]} SELL={tvsell[-1]}")
-
-    log(
-        f"PARITY {symbol} target={PARITY_TARGET:.0f} "
-        f"close={c[-1]['close']:.4f} | " + " | ".join(rows)
-    )
-
-
+    log(f"PARITY {symbol} target={PARITY_TARGET:.0f} close={c[-1]['close']:.4f} | " + " | ".join(rows))
 def load_state():
     try:
         with open(STATE_FILE, "r", encoding="utf-8") as f:
