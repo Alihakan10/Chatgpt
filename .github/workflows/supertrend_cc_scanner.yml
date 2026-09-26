@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "supertrend_cc_scanner.py"
+      - "tests/tv_exact_builtin_diagnostic.py"
       - ".github/workflows/supertrend_cc_scanner.yml"
   workflow_dispatch:
   # GitHub Actions cron is UTC.
