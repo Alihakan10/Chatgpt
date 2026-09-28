@@ -1,3721 +1,3721 @@
 {
   "BIST:A1CAP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001509+03:00"
+    "updated_at": "2026-09-28T15:34:37.871578+03:00"
   },
   "BIST:A1YEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001526+03:00"
+    "updated_at": "2026-09-28T15:34:37.871592+03:00"
   },
   "BIST:AAGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001532+03:00"
+    "updated_at": "2026-09-28T15:34:37.871598+03:00"
   },
   "BIST:ACSEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.001536+03:00"
+    "updated_at": "2026-09-28T15:34:37.871601+03:00"
   },
   "BIST:ADEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.001539+03:00"
+    "updated_at": "2026-09-28T15:34:37.871604+03:00"
   },
   "BIST:ADESE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.001543+03:00"
+    "updated_at": "2026-09-28T15:34:37.871607+03:00"
   },
   "BIST:ADGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.001547+03:00"
+    "updated_at": "2026-09-28T15:34:37.871610+03:00"
   },
   "BIST:AEFES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.001552+03:00"
+    "updated_at": "2026-09-28T15:34:37.871615+03:00"
   },
   "BIST:AFYON": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.001557+03:00"
+    "updated_at": "2026-09-28T15:34:37.871618+03:00"
   },
   "BIST:AGESA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001561+03:00"
+    "updated_at": "2026-09-28T15:34:37.871621+03:00"
   },
   "BIST:AGHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.001564+03:00"
+    "updated_at": "2026-09-28T15:34:37.871624+03:00"
   },
   "BIST:AGROT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.001568+03:00"
+    "updated_at": "2026-09-28T15:34:37.871627+03:00"
   },
   "BIST:AGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.001572+03:00"
+    "updated_at": "2026-09-28T15:34:37.871629+03:00"
   },
   "BIST:AHGAZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001576+03:00"
+    "updated_at": "2026-09-28T15:34:37.871632+03:00"
   },
   "BIST:AHSGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.001580+03:00"
+    "updated_at": "2026-09-28T15:34:37.871635+03:00"
   },
   "BIST:AKBNK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.001583+03:00"
+    "updated_at": "2026-09-28T15:34:37.871638+03:00"
   },
   "BIST:AKCNS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001587+03:00"
+    "updated_at": "2026-09-28T15:34:37.871641+03:00"
   },
   "BIST:AKENR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001591+03:00"
+    "updated_at": "2026-09-28T15:34:37.871644+03:00"
   },
   "BIST:AKFGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.001594+03:00"
+    "updated_at": "2026-09-28T15:34:37.871647+03:00"
   },
   "BIST:AKFIS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789732800,
-    "updated_at": "2026-09-28T14:28:15.001597+03:00"
+    "updated_at": "2026-09-28T15:34:37.871649+03:00"
   },
   "BIST:AKFYE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.001600+03:00"
+    "updated_at": "2026-09-28T15:34:37.871652+03:00"
   },
   "BIST:AKGRT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.001603+03:00"
+    "updated_at": "2026-09-28T15:34:37.871654+03:00"
   },
   "BIST:AKHAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788519600,
-    "updated_at": "2026-09-28T14:28:15.001607+03:00"
+    "updated_at": "2026-09-28T15:34:37.871657+03:00"
   },
   "BIST:AKMGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.001610+03:00"
+    "updated_at": "2026-09-28T15:34:37.871660+03:00"
   },
   "BIST:AKSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789635600,
-    "updated_at": "2026-09-28T14:28:15.001613+03:00"
+    "updated_at": "2026-09-28T15:34:37.871663+03:00"
   },
   "BIST:AKSEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001616+03:00"
+    "updated_at": "2026-09-28T15:34:37.871666+03:00"
   },
   "BIST:AKSGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.001619+03:00"
+    "updated_at": "2026-09-28T15:34:37.871668+03:00"
   },
   "BIST:AKSUE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.001623+03:00"
+    "updated_at": "2026-09-28T15:34:37.871671+03:00"
   },
   "BIST:AKYHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.001626+03:00"
+    "updated_at": "2026-09-28T15:34:37.871674+03:00"
   },
   "BIST:ALARK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.001630+03:00"
+    "updated_at": "2026-09-28T15:34:37.871677+03:00"
   },
   "BIST:ALBRK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.001633+03:00"
+    "updated_at": "2026-09-28T15:34:37.871679+03:00"
   },
   "BIST:ALBTN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788530400,
-    "updated_at": "2026-09-28T14:28:15.001636+03:00"
+    "updated_at": "2026-09-28T15:34:37.871682+03:00"
   },
   "BIST:ALCAR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.001639+03:00"
+    "updated_at": "2026-09-28T15:34:37.871684+03:00"
   },
   "BIST:ALCTL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.001642+03:00"
+    "updated_at": "2026-09-28T15:34:37.871687+03:00"
   },
   "BIST:ALFAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.001645+03:00"
+    "updated_at": "2026-09-28T15:34:37.871690+03:00"
   },
   "BIST:ALGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.001649+03:00"
+    "updated_at": "2026-09-28T15:34:37.871693+03:00"
   },
   "BIST:ALKA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001652+03:00"
+    "updated_at": "2026-09-28T15:34:37.871696+03:00"
   },
   "BIST:ALKIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788786000,
-    "updated_at": "2026-09-28T14:28:15.001656+03:00"
+    "updated_at": "2026-09-28T15:34:37.871698+03:00"
   },
   "BIST:ALKLC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787925600,
-    "updated_at": "2026-09-28T14:28:15.001659+03:00"
+    "updated_at": "2026-09-28T15:34:37.871701+03:00"
   },
   "BIST:ALTIN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789646400,
-    "updated_at": "2026-09-28T14:28:15.001662+03:00"
+    "updated_at": "2026-09-28T15:34:37.871703+03:00"
   },
   "BIST:ALTNY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.001665+03:00"
+    "updated_at": "2026-09-28T15:34:37.871706+03:00"
   },
   "BIST:ALVES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.001668+03:00"
+    "updated_at": "2026-09-28T15:34:37.871709+03:00"
   },
   "BIST:ANELE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788444000,
-    "updated_at": "2026-09-28T14:28:15.001671+03:00"
+    "updated_at": "2026-09-28T15:34:37.871711+03:00"
   },
   "BIST:ANGEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788858000,
-    "updated_at": "2026-09-28T14:28:15.001674+03:00"
+    "updated_at": "2026-09-28T15:34:37.871714+03:00"
   },
   "BIST:ANHYT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.001677+03:00"
+    "updated_at": "2026-09-28T15:34:37.871717+03:00"
   },
   "BIST:ANSGR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001681+03:00"
+    "updated_at": "2026-09-28T15:34:37.871719+03:00"
   },
   "BIST:ARASE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001684+03:00"
+    "updated_at": "2026-09-28T15:34:37.871722+03:00"
   },
   "BIST:ARCLK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.001687+03:00"
+    "updated_at": "2026-09-28T15:34:37.871724+03:00"
   },
   "BIST:ARDYZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.001689+03:00"
+    "updated_at": "2026-09-28T15:34:37.871727+03:00"
   },
   "BIST:ARENA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788847200,
-    "updated_at": "2026-09-28T14:28:15.001693+03:00"
+    "updated_at": "2026-09-28T15:34:37.871729+03:00"
   },
   "BIST:ARFYE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.001696+03:00"
+    "updated_at": "2026-09-28T15:34:37.871732+03:00"
   },
   "BIST:ARMGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789480800,
-    "updated_at": "2026-09-28T14:28:15.001699+03:00"
+    "updated_at": "2026-09-28T15:34:37.871734+03:00"
   },
   "BIST:ARSAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001702+03:00"
+    "updated_at": "2026-09-28T15:34:37.871736+03:00"
   },
   "BIST:ARTMS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788436800,
-    "updated_at": "2026-09-28T14:28:15.001706+03:00"
+    "updated_at": "2026-09-28T15:34:37.871739+03:00"
   },
   "BIST:ARZUM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.001709+03:00"
+    "updated_at": "2026-09-28T15:34:37.871741+03:00"
   },
   "BIST:ASELS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.001712+03:00"
+    "updated_at": "2026-09-28T15:34:37.871744+03:00"
   },
   "BIST:ASGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001715+03:00"
+    "updated_at": "2026-09-28T15:34:37.871746+03:00"
   },
   "BIST:ASTOR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.001719+03:00"
+    "updated_at": "2026-09-28T15:34:37.871749+03:00"
   },
   "BIST:ASUZU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.001722+03:00"
+    "updated_at": "2026-09-28T15:34:37.871751+03:00"
   },
   "BIST:ATAGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788955200,
-    "updated_at": "2026-09-28T14:28:15.001725+03:00"
+    "updated_at": "2026-09-28T15:34:37.871754+03:00"
   },
   "BIST:ATAKP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001728+03:00"
+    "updated_at": "2026-09-28T15:34:37.871757+03:00"
   },
   "BIST:ATATP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789380000,
-    "updated_at": "2026-09-28T14:28:15.001731+03:00"
+    "updated_at": "2026-09-28T15:34:37.871759+03:00"
   },
   "BIST:ATATR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789110000,
-    "updated_at": "2026-09-28T14:28:15.001734+03:00"
+    "updated_at": "2026-09-28T15:34:37.871762+03:00"
   },
   "BIST:ATEKS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.001737+03:00"
+    "updated_at": "2026-09-28T15:34:37.871764+03:00"
   },
   "BIST:ATLAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789729200,
-    "updated_at": "2026-09-28T14:28:15.001740+03:00"
+    "updated_at": "2026-09-28T15:34:37.871767+03:00"
   },
   "BIST:ATSYH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.001743+03:00"
+    "updated_at": "2026-09-28T15:34:37.871769+03:00"
   },
   "BIST:AVGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789736400,
-    "updated_at": "2026-09-28T14:28:15.001747+03:00"
+    "updated_at": "2026-09-28T15:34:37.871772+03:00"
   },
   "BIST:AVHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789390800,
-    "updated_at": "2026-09-28T14:28:15.001750+03:00"
+    "updated_at": "2026-09-28T15:34:37.871775+03:00"
   },
   "BIST:AVOD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788339600,
-    "updated_at": "2026-09-28T14:28:15.001753+03:00"
+    "updated_at": "2026-09-28T15:34:37.871777+03:00"
   },
   "BIST:AVPGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788951600,
-    "updated_at": "2026-09-28T14:28:15.001757+03:00"
+    "updated_at": "2026-09-28T15:34:37.871779+03:00"
   },
   "BIST:AYCES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.001760+03:00"
+    "updated_at": "2026-09-28T15:34:37.871782+03:00"
   },
   "BIST:AYDEM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001763+03:00"
+    "updated_at": "2026-09-28T15:34:37.871784+03:00"
   },
   "BIST:AYEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001766+03:00"
+    "updated_at": "2026-09-28T15:34:37.871786+03:00"
   },
   "BIST:AYES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.001768+03:00"
+    "updated_at": "2026-09-28T15:34:37.871789+03:00"
   },
   "BIST:AYGAZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.001771+03:00"
+    "updated_at": "2026-09-28T15:34:37.871791+03:00"
   },
   "BIST:AZTEK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.001774+03:00"
+    "updated_at": "2026-09-28T15:34:37.871793+03:00"
   },
   "BIST:BAGFS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.001777+03:00"
+    "updated_at": "2026-09-28T15:34:37.871796+03:00"
   },
   "BIST:BAHKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789725600,
-    "updated_at": "2026-09-28T14:28:15.001780+03:00"
+    "updated_at": "2026-09-28T15:34:37.871798+03:00"
   },
   "BIST:BAKAB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.001782+03:00"
+    "updated_at": "2026-09-28T15:34:37.871801+03:00"
   },
   "BIST:BALAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789538400,
-    "updated_at": "2026-09-28T14:28:15.001785+03:00"
+    "updated_at": "2026-09-28T15:34:37.871803+03:00"
   },
   "BIST:BALSU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789977600,
-    "updated_at": "2026-09-28T14:28:15.001788+03:00"
+    "updated_at": "2026-09-28T15:34:37.871806+03:00"
   },
   "BIST:BANVT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789711200,
-    "updated_at": "2026-09-28T14:28:15.001791+03:00"
+    "updated_at": "2026-09-28T15:34:37.871808+03:00"
   },
   "BIST:BARMA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.001794+03:00"
+    "updated_at": "2026-09-28T15:34:37.871810+03:00"
   },
   "BIST:BASCM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.001797+03:00"
+    "updated_at": "2026-09-28T15:34:37.871813+03:00"
   },
   "BIST:BASGZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.001800+03:00"
+    "updated_at": "2026-09-28T15:34:37.871815+03:00"
   },
   "BIST:BAYRK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789380000,
-    "updated_at": "2026-09-28T14:28:15.001803+03:00"
+    "updated_at": "2026-09-28T15:34:37.871818+03:00"
   },
   "BIST:BEGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001805+03:00"
+    "updated_at": "2026-09-28T15:34:37.871820+03:00"
   },
   "BIST:BERA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001808+03:00"
+    "updated_at": "2026-09-28T15:34:37.871822+03:00"
   },
   "BIST:BESLR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.001811+03:00"
+    "updated_at": "2026-09-28T15:34:37.871825+03:00"
   },
   "BIST:BESTE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789646400,
-    "updated_at": "2026-09-28T14:28:15.001814+03:00"
+    "updated_at": "2026-09-28T15:34:37.871827+03:00"
   },
   "BIST:BETAE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001817+03:00"
+    "updated_at": "2026-09-28T15:34:37.871830+03:00"
   },
   "BIST:BEYAZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789466400,
-    "updated_at": "2026-09-28T14:28:15.001820+03:00"
+    "updated_at": "2026-09-28T15:34:37.871832+03:00"
   },
   "BIST:BFREN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788854400,
-    "updated_at": "2026-09-28T14:28:15.001823+03:00"
+    "updated_at": "2026-09-28T15:34:37.871834+03:00"
   },
   "BIST:BIENY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788350400,
-    "updated_at": "2026-09-28T14:28:15.001826+03:00"
+    "updated_at": "2026-09-28T15:34:37.871837+03:00"
   },
   "BIST:BIGCH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.001829+03:00"
+    "updated_at": "2026-09-28T15:34:37.871839+03:00"
   },
   "BIST:BIGEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788962400,
-    "updated_at": "2026-09-28T14:28:15.001831+03:00"
+    "updated_at": "2026-09-28T15:34:37.871842+03:00"
   },
   "BIST:BIGTK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789376400,
-    "updated_at": "2026-09-28T14:28:15.001834+03:00"
+    "updated_at": "2026-09-28T15:34:37.871844+03:00"
   },
   "BIST:BIMAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.001837+03:00"
+    "updated_at": "2026-09-28T15:34:37.871847+03:00"
   },
   "BIST:BINBN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789549200,
-    "updated_at": "2026-09-28T14:28:15.001840+03:00"
+    "updated_at": "2026-09-28T15:34:37.871849+03:00"
   },
   "BIST:BINHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.001844+03:00"
+    "updated_at": "2026-09-28T15:34:37.871852+03:00"
   },
   "BIST:BIOEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789110000,
-    "updated_at": "2026-09-28T14:28:15.001846+03:00"
+    "updated_at": "2026-09-28T15:34:37.871854+03:00"
   },
   "BIST:BIZIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.001849+03:00"
+    "updated_at": "2026-09-28T15:34:37.871857+03:00"
   },
   "BIST:BJKAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.001852+03:00"
+    "updated_at": "2026-09-28T15:34:37.871860+03:00"
   },
   "BIST:BKRGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001855+03:00"
+    "updated_at": "2026-09-28T15:34:37.871862+03:00"
   },
   "BIST:BLCYT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.001858+03:00"
+    "updated_at": "2026-09-28T15:34:37.871865+03:00"
   },
   "BIST:BLUME": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.001860+03:00"
+    "updated_at": "2026-09-28T15:34:37.871867+03:00"
   },
   "BIST:BMSCH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.001863+03:00"
+    "updated_at": "2026-09-28T15:34:37.871870+03:00"
   },
   "BIST:BMSTL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789369200,
-    "updated_at": "2026-09-28T14:28:15.001866+03:00"
+    "updated_at": "2026-09-28T15:34:37.871872+03:00"
   },
   "BIST:BNTAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.001869+03:00"
+    "updated_at": "2026-09-28T15:34:37.871874+03:00"
   },
   "BIST:BOBET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.001872+03:00"
+    "updated_at": "2026-09-28T15:34:37.871877+03:00"
   },
   "BIST:BORLS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788940800,
-    "updated_at": "2026-09-28T14:28:15.001875+03:00"
+    "updated_at": "2026-09-28T15:34:37.871879+03:00"
   },
   "BIST:BORSK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788246000,
-    "updated_at": "2026-09-28T14:28:15.001878+03:00"
+    "updated_at": "2026-09-28T15:34:37.871881+03:00"
   },
   "BIST:BOSSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789477200,
-    "updated_at": "2026-09-28T14:28:15.001881+03:00"
+    "updated_at": "2026-09-28T15:34:37.871884+03:00"
   },
   "BIST:BRISA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.001884+03:00"
+    "updated_at": "2026-09-28T15:34:37.871886+03:00"
   },
   "BIST:BRKO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.001887+03:00"
+    "updated_at": "2026-09-28T15:34:37.871889+03:00"
   },
   "BIST:BRKSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788948000,
-    "updated_at": "2026-09-28T14:28:15.001889+03:00"
+    "updated_at": "2026-09-28T15:34:37.871891+03:00"
   },
   "BIST:BRKVY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788159600,
-    "updated_at": "2026-09-28T14:28:15.001892+03:00"
+    "updated_at": "2026-09-28T15:34:37.871894+03:00"
   },
   "BIST:BRLSM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.001895+03:00"
+    "updated_at": "2026-09-28T15:34:37.871896+03:00"
   },
   "BIST:BRMEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789639200,
-    "updated_at": "2026-09-28T14:28:15.001898+03:00"
+    "updated_at": "2026-09-28T15:34:37.871899+03:00"
   },
   "BIST:BRSAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001901+03:00"
+    "updated_at": "2026-09-28T15:34:37.871901+03:00"
   },
   "BIST:BRYAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.001904+03:00"
+    "updated_at": "2026-09-28T15:34:37.871904+03:00"
   },
   "BIST:BSOKE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.001907+03:00"
+    "updated_at": "2026-09-28T15:34:37.871906+03:00"
   },
   "BIST:BTCIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788944400,
-    "updated_at": "2026-09-28T14:28:15.001910+03:00"
+    "updated_at": "2026-09-28T15:34:37.871909+03:00"
   },
   "BIST:BUCIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001913+03:00"
+    "updated_at": "2026-09-28T15:34:37.871911+03:00"
   },
   "BIST:BULGS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789131600,
-    "updated_at": "2026-09-28T14:28:15.001916+03:00"
+    "updated_at": "2026-09-28T15:34:37.871914+03:00"
   },
   "BIST:BURCE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.001919+03:00"
+    "updated_at": "2026-09-28T15:34:37.871916+03:00"
   },
   "BIST:BURVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.001921+03:00"
+    "updated_at": "2026-09-28T15:34:37.871919+03:00"
   },
   "BIST:BVSAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.001924+03:00"
+    "updated_at": "2026-09-28T15:34:37.871921+03:00"
   },
   "BIST:BYDNR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.001927+03:00"
+    "updated_at": "2026-09-28T15:34:37.871924+03:00"
   },
   "BIST:CANTE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789545600,
-    "updated_at": "2026-09-28T14:28:15.001930+03:00"
+    "updated_at": "2026-09-28T15:34:37.871926+03:00"
   },
   "BIST:CASA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.001933+03:00"
+    "updated_at": "2026-09-28T15:34:37.871929+03:00"
   },
   "BIST:CATES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788530400,
-    "updated_at": "2026-09-28T14:28:15.001936+03:00"
+    "updated_at": "2026-09-28T15:34:37.871931+03:00"
   },
   "BIST:CCOLA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789646400,
-    "updated_at": "2026-09-28T14:28:15.001938+03:00"
+    "updated_at": "2026-09-28T15:34:37.871934+03:00"
   },
   "BIST:CELHA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001941+03:00"
+    "updated_at": "2026-09-28T15:34:37.871936+03:00"
   },
   "BIST:CEMAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.001944+03:00"
+    "updated_at": "2026-09-28T15:34:37.871939+03:00"
   },
   "BIST:CEMTS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001947+03:00"
+    "updated_at": "2026-09-28T15:34:37.871942+03:00"
   },
   "BIST:CEMZY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789473600,
-    "updated_at": "2026-09-28T14:28:15.001950+03:00"
+    "updated_at": "2026-09-28T15:34:37.871944+03:00"
   },
   "BIST:CEOEM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001953+03:00"
+    "updated_at": "2026-09-28T15:34:37.871947+03:00"
   },
   "BIST:CGCAM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788775200,
-    "updated_at": "2026-09-28T14:28:15.001956+03:00"
+    "updated_at": "2026-09-28T15:34:37.871949+03:00"
   },
   "BIST:CIMSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001958+03:00"
+    "updated_at": "2026-09-28T15:34:37.871951+03:00"
   },
   "BIST:CITAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789369200,
-    "updated_at": "2026-09-28T14:28:15.001961+03:00"
+    "updated_at": "2026-09-28T15:34:37.871954+03:00"
   },
   "BIST:CLEBI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.001964+03:00"
+    "updated_at": "2026-09-28T15:34:37.871956+03:00"
   },
   "BIST:CMBTN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.001967+03:00"
+    "updated_at": "2026-09-28T15:34:37.871958+03:00"
   },
   "BIST:CMENT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.001970+03:00"
+    "updated_at": "2026-09-28T15:34:37.871961+03:00"
   },
   "BIST:CONSE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.001973+03:00"
+    "updated_at": "2026-09-28T15:34:37.871963+03:00"
   },
   "BIST:COSMO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1787551200,
-    "updated_at": "2026-09-28T14:28:15.001976+03:00"
+    "updated_at": "2026-09-28T15:34:37.871966+03:00"
   },
   "BIST:CRDFA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788253200,
-    "updated_at": "2026-09-28T14:28:15.001979+03:00"
+    "updated_at": "2026-09-28T15:34:37.871968+03:00"
   },
   "BIST:CRFSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.001981+03:00"
+    "updated_at": "2026-09-28T15:34:37.871971+03:00"
   },
   "BIST:CUSAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789110000,
-    "updated_at": "2026-09-28T14:28:15.001984+03:00"
+    "updated_at": "2026-09-28T15:34:37.871973+03:00"
   },
   "BIST:CVKMD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001987+03:00"
+    "updated_at": "2026-09-28T15:34:37.871975+03:00"
   },
   "BIST:CWENE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.001990+03:00"
+    "updated_at": "2026-09-28T15:34:37.871978+03:00"
   },
   "BIST:DAGI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.001993+03:00"
+    "updated_at": "2026-09-28T15:34:37.871981+03:00"
   },
   "BIST:DAPGM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.001996+03:00"
+    "updated_at": "2026-09-28T15:34:37.871983+03:00"
   },
   "BIST:DARDL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788940800,
-    "updated_at": "2026-09-28T14:28:15.001998+03:00"
+    "updated_at": "2026-09-28T15:34:37.871986+03:00"
   },
   "BIST:DCTTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789030800,
-    "updated_at": "2026-09-28T14:28:15.002001+03:00"
+    "updated_at": "2026-09-28T15:34:37.871988+03:00"
   },
   "BIST:DENGE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788512400,
-    "updated_at": "2026-09-28T14:28:15.002004+03:00"
+    "updated_at": "2026-09-28T15:34:37.871991+03:00"
   },
   "BIST:DERHL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.002008+03:00"
+    "updated_at": "2026-09-28T15:34:37.871993+03:00"
   },
   "BIST:DERIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.002010+03:00"
+    "updated_at": "2026-09-28T15:34:37.871996+03:00"
   },
   "BIST:DESA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002013+03:00"
+    "updated_at": "2026-09-28T15:34:37.871998+03:00"
   },
   "BIST:DESPC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.002016+03:00"
+    "updated_at": "2026-09-28T15:34:37.872001+03:00"
   },
   "BIST:DEVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002019+03:00"
+    "updated_at": "2026-09-28T15:34:37.872003+03:00"
   },
   "BIST:DGATE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.002022+03:00"
+    "updated_at": "2026-09-28T15:34:37.872005+03:00"
   },
   "BIST:DGGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002025+03:00"
+    "updated_at": "2026-09-28T15:34:37.872008+03:00"
   },
   "BIST:DGNMO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.002027+03:00"
+    "updated_at": "2026-09-28T15:34:37.872010+03:00"
   },
   "BIST:DIRIT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002030+03:00"
+    "updated_at": "2026-09-28T15:34:37.872013+03:00"
   },
   "BIST:DITAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002033+03:00"
+    "updated_at": "2026-09-28T15:34:37.872015+03:00"
   },
   "BIST:DMLKT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002036+03:00"
+    "updated_at": "2026-09-28T15:34:37.872018+03:00"
   },
   "BIST:DMRGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.002039+03:00"
+    "updated_at": "2026-09-28T15:34:37.872021+03:00"
   },
   "BIST:DMSAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787562000,
-    "updated_at": "2026-09-28T14:28:15.002042+03:00"
+    "updated_at": "2026-09-28T15:34:37.872023+03:00"
   },
   "BIST:DNISI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788505200,
-    "updated_at": "2026-09-28T14:28:15.002071+03:00"
+    "updated_at": "2026-09-28T15:34:37.872025+03:00"
   },
   "BIST:DOAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002077+03:00"
+    "updated_at": "2026-09-28T15:34:37.872027+03:00"
   },
   "BIST:DOFER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002081+03:00"
+    "updated_at": "2026-09-28T15:34:37.872030+03:00"
   },
   "BIST:DOFRB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002084+03:00"
+    "updated_at": "2026-09-28T15:34:37.872032+03:00"
   },
   "BIST:DOGUB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.002087+03:00"
+    "updated_at": "2026-09-28T15:34:37.872035+03:00"
   },
   "BIST:DOHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002090+03:00"
+    "updated_at": "2026-09-28T15:34:37.872037+03:00"
   },
   "BIST:DOKTA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002092+03:00"
+    "updated_at": "2026-09-28T15:34:37.872039+03:00"
   },
   "BIST:DSTKF": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.002095+03:00"
+    "updated_at": "2026-09-28T15:34:37.872041+03:00"
   },
   "BIST:DUNYH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788519600,
-    "updated_at": "2026-09-28T14:28:15.002098+03:00"
+    "updated_at": "2026-09-28T15:34:37.872044+03:00"
   },
   "BIST:DURDO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002101+03:00"
+    "updated_at": "2026-09-28T15:34:37.872046+03:00"
   },
   "BIST:DURKN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788350400,
-    "updated_at": "2026-09-28T14:28:15.002104+03:00"
+    "updated_at": "2026-09-28T15:34:37.872048+03:00"
   },
   "BIST:DYOBY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002107+03:00"
+    "updated_at": "2026-09-28T15:34:37.872051+03:00"
   },
   "BIST:DZGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789470000,
-    "updated_at": "2026-09-28T14:28:15.002110+03:00"
+    "updated_at": "2026-09-28T15:34:37.872053+03:00"
   },
   "BIST:EBEBK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788958800,
-    "updated_at": "2026-09-28T14:28:15.002113+03:00"
+    "updated_at": "2026-09-28T15:34:37.872055+03:00"
   },
   "BIST:ECILC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002116+03:00"
+    "updated_at": "2026-09-28T15:34:37.872058+03:00"
   },
   "BIST:ECOGR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789552800,
-    "updated_at": "2026-09-28T14:28:15.002118+03:00"
+    "updated_at": "2026-09-28T15:34:37.872060+03:00"
   },
   "BIST:ECZYT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002121+03:00"
+    "updated_at": "2026-09-28T15:34:37.872062+03:00"
   },
   "BIST:EDATA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789394400,
-    "updated_at": "2026-09-28T14:28:15.002124+03:00"
+    "updated_at": "2026-09-28T15:34:37.872065+03:00"
   },
   "BIST:EDIP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789624800,
-    "updated_at": "2026-09-28T14:28:15.002128+03:00"
+    "updated_at": "2026-09-28T15:34:37.872068+03:00"
   },
   "BIST:EFOR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789567200,
-    "updated_at": "2026-09-28T14:28:15.002130+03:00"
+    "updated_at": "2026-09-28T15:34:37.872070+03:00"
   },
   "BIST:EGEEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002133+03:00"
+    "updated_at": "2026-09-28T15:34:37.872073+03:00"
   },
   "BIST:EGEGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002136+03:00"
+    "updated_at": "2026-09-28T15:34:37.872075+03:00"
   },
   "BIST:EGEPO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788847200,
-    "updated_at": "2026-09-28T14:28:15.002139+03:00"
+    "updated_at": "2026-09-28T15:34:37.872077+03:00"
   },
   "BIST:EGGUB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002141+03:00"
+    "updated_at": "2026-09-28T15:34:37.872080+03:00"
   },
   "BIST:EGPRO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002144+03:00"
+    "updated_at": "2026-09-28T15:34:37.872082+03:00"
   },
   "BIST:EGSER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002147+03:00"
+    "updated_at": "2026-09-28T15:34:37.872085+03:00"
   },
   "BIST:EKDMR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788786000,
-    "updated_at": "2026-09-28T14:28:15.002150+03:00"
+    "updated_at": "2026-09-28T15:34:37.872087+03:00"
   },
   "BIST:EKIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789567200,
-    "updated_at": "2026-09-28T14:28:15.002153+03:00"
+    "updated_at": "2026-09-28T15:34:37.872090+03:00"
   },
   "BIST:EKIZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002156+03:00"
+    "updated_at": "2026-09-28T15:34:37.872092+03:00"
   },
   "BIST:EKOS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002159+03:00"
+    "updated_at": "2026-09-28T15:34:37.872094+03:00"
   },
   "BIST:EKSUN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002162+03:00"
+    "updated_at": "2026-09-28T15:34:37.872097+03:00"
   },
   "BIST:ELITE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788948000,
-    "updated_at": "2026-09-28T14:28:15.002165+03:00"
+    "updated_at": "2026-09-28T15:34:37.872099+03:00"
   },
   "BIST:EMKEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002168+03:00"
+    "updated_at": "2026-09-28T15:34:37.872101+03:00"
   },
   "BIST:EMNIS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.002171+03:00"
+    "updated_at": "2026-09-28T15:34:37.872104+03:00"
   },
   "BIST:EMPAE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788357600,
-    "updated_at": "2026-09-28T14:28:15.002173+03:00"
+    "updated_at": "2026-09-28T15:34:37.872106+03:00"
   },
   "BIST:ENDAE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002176+03:00"
+    "updated_at": "2026-09-28T15:34:37.872108+03:00"
   },
   "BIST:ENERY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002179+03:00"
+    "updated_at": "2026-09-28T15:34:37.872111+03:00"
   },
   "BIST:ENJSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002182+03:00"
+    "updated_at": "2026-09-28T15:34:37.872113+03:00"
   },
   "BIST:ENKAI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789639200,
-    "updated_at": "2026-09-28T14:28:15.002185+03:00"
+    "updated_at": "2026-09-28T15:34:37.872115+03:00"
   },
   "BIST:ENPRA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.002187+03:00"
+    "updated_at": "2026-09-28T15:34:37.872118+03:00"
   },
   "BIST:ENSRI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787727600,
-    "updated_at": "2026-09-28T14:28:15.002190+03:00"
+    "updated_at": "2026-09-28T15:34:37.872120+03:00"
   },
   "BIST:ENTRA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002193+03:00"
+    "updated_at": "2026-09-28T15:34:37.872122+03:00"
   },
   "BIST:EPLAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789110000,
-    "updated_at": "2026-09-28T14:28:15.002196+03:00"
+    "updated_at": "2026-09-28T15:34:37.872125+03:00"
   },
   "BIST:ERBOS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789624800,
-    "updated_at": "2026-09-28T14:28:15.002199+03:00"
+    "updated_at": "2026-09-28T15:34:37.872127+03:00"
   },
   "BIST:ERCB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.002202+03:00"
+    "updated_at": "2026-09-28T15:34:37.872130+03:00"
   },
   "BIST:EREGL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789722000,
-    "updated_at": "2026-09-28T14:28:15.002204+03:00"
+    "updated_at": "2026-09-28T15:34:37.872132+03:00"
   },
   "BIST:ERSU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789567200,
-    "updated_at": "2026-09-28T14:28:15.002207+03:00"
+    "updated_at": "2026-09-28T15:34:37.872135+03:00"
   },
   "BIST:ESCAR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789387200,
-    "updated_at": "2026-09-28T14:28:15.002210+03:00"
+    "updated_at": "2026-09-28T15:34:37.872138+03:00"
   },
   "BIST:ESCOM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.002213+03:00"
+    "updated_at": "2026-09-28T15:34:37.872140+03:00"
   },
   "BIST:ESEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.002215+03:00"
+    "updated_at": "2026-09-28T15:34:37.872143+03:00"
   },
   "BIST:ETILR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.002218+03:00"
+    "updated_at": "2026-09-28T15:34:37.872145+03:00"
   },
   "BIST:ETYAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002221+03:00"
+    "updated_at": "2026-09-28T15:34:37.872148+03:00"
   },
   "BIST:EUHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002224+03:00"
+    "updated_at": "2026-09-28T15:34:37.872151+03:00"
   },
   "BIST:EUKYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002227+03:00"
+    "updated_at": "2026-09-28T15:34:37.872153+03:00"
   },
   "BIST:EUPWR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789736400,
-    "updated_at": "2026-09-28T14:28:15.002229+03:00"
+    "updated_at": "2026-09-28T15:34:37.872156+03:00"
   },
   "BIST:EUREN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.002232+03:00"
+    "updated_at": "2026-09-28T15:34:37.872158+03:00"
   },
   "BIST:EUYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790164800.0,
-    "updated_at": "2026-09-28T14:28:15.002235+03:00"
+    "updated_at": "2026-09-28T15:34:37.872161+03:00"
   },
   "BIST:EYGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.002238+03:00"
+    "updated_at": "2026-09-28T15:34:37.872164+03:00"
   },
   "BIST:FADE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.002241+03:00"
+    "updated_at": "2026-09-28T15:34:37.872166+03:00"
   },
   "BIST:FENER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1787036400,
-    "updated_at": "2026-09-28T14:28:15.002244+03:00"
+    "updated_at": "2026-09-28T15:34:37.872169+03:00"
   },
   "BIST:FLAP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002247+03:00"
+    "updated_at": "2026-09-28T15:34:37.872171+03:00"
   },
   "BIST:FMIZP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002250+03:00"
+    "updated_at": "2026-09-28T15:34:37.872173+03:00"
   },
   "BIST:FONET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002252+03:00"
+    "updated_at": "2026-09-28T15:34:37.872176+03:00"
   },
   "BIST:FORMT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002255+03:00"
+    "updated_at": "2026-09-28T15:34:37.872178+03:00"
   },
   "BIST:FORTE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.002258+03:00"
+    "updated_at": "2026-09-28T15:34:37.872181+03:00"
   },
   "BIST:FRIGO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002261+03:00"
+    "updated_at": "2026-09-28T15:34:37.872183+03:00"
   },
   "BIST:FRMPL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.002264+03:00"
+    "updated_at": "2026-09-28T15:34:37.872186+03:00"
   },
   "BIST:FROTO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002267+03:00"
+    "updated_at": "2026-09-28T15:34:37.872188+03:00"
   },
   "BIST:FZLGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002270+03:00"
+    "updated_at": "2026-09-28T15:34:37.872190+03:00"
   },
   "BIST:GARAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.002273+03:00"
+    "updated_at": "2026-09-28T15:34:37.872193+03:00"
   },
   "BIST:GARFA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789646400,
-    "updated_at": "2026-09-28T14:28:15.002276+03:00"
+    "updated_at": "2026-09-28T15:34:37.872195+03:00"
   },
   "BIST:GATEG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789462800,
-    "updated_at": "2026-09-28T14:28:15.002279+03:00"
+    "updated_at": "2026-09-28T15:34:37.872198+03:00"
   },
   "BIST:GEDIK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789714800,
-    "updated_at": "2026-09-28T14:28:15.002282+03:00"
+    "updated_at": "2026-09-28T15:34:37.872200+03:00"
   },
   "BIST:GEDZA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002285+03:00"
+    "updated_at": "2026-09-28T15:34:37.872202+03:00"
   },
   "BIST:GENIL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002288+03:00"
+    "updated_at": "2026-09-28T15:34:37.872205+03:00"
   },
   "BIST:GENKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788436800,
-    "updated_at": "2026-09-28T14:28:15.002291+03:00"
+    "updated_at": "2026-09-28T15:34:37.872207+03:00"
   },
   "BIST:GENTS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789736400,
-    "updated_at": "2026-09-28T14:28:15.002293+03:00"
+    "updated_at": "2026-09-28T15:34:37.872209+03:00"
   },
   "BIST:GEREL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.002297+03:00"
+    "updated_at": "2026-09-28T15:34:37.872212+03:00"
   },
   "BIST:GESAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002299+03:00"
+    "updated_at": "2026-09-28T15:34:37.872214+03:00"
   },
   "BIST:GIPTA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.002302+03:00"
+    "updated_at": "2026-09-28T15:34:37.872216+03:00"
   },
   "BIST:GLBMD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002305+03:00"
+    "updated_at": "2026-09-28T15:34:37.872219+03:00"
   },
   "BIST:GLCVY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789473600,
-    "updated_at": "2026-09-28T14:28:15.002308+03:00"
+    "updated_at": "2026-09-28T15:34:37.872221+03:00"
   },
   "BIST:GLRMK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789732800,
-    "updated_at": "2026-09-28T14:28:15.002311+03:00"
+    "updated_at": "2026-09-28T15:34:37.872223+03:00"
   },
   "BIST:GLRYH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002314+03:00"
+    "updated_at": "2026-09-28T15:34:37.872226+03:00"
   },
   "BIST:GLYHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002317+03:00"
+    "updated_at": "2026-09-28T15:34:37.872228+03:00"
   },
   "BIST:GMTAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789984800,
-    "updated_at": "2026-09-28T14:28:15.002320+03:00"
+    "updated_at": "2026-09-28T15:34:37.872230+03:00"
   },
   "BIST:GOKNR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002323+03:00"
+    "updated_at": "2026-09-28T15:34:37.872233+03:00"
   },
   "BIST:GOLDA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789387200,
-    "updated_at": "2026-09-28T14:28:15.002325+03:00"
+    "updated_at": "2026-09-28T15:34:37.872235+03:00"
   },
   "BIST:GOLTS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002328+03:00"
+    "updated_at": "2026-09-28T15:34:37.872237+03:00"
   },
   "BIST:GOODY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788357600,
-    "updated_at": "2026-09-28T14:28:15.002331+03:00"
+    "updated_at": "2026-09-28T15:34:37.872240+03:00"
   },
   "BIST:GOZDE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002334+03:00"
+    "updated_at": "2026-09-28T15:34:37.872242+03:00"
   },
   "BIST:GRNYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789023600,
-    "updated_at": "2026-09-28T14:28:15.002337+03:00"
+    "updated_at": "2026-09-28T15:34:37.872245+03:00"
   },
   "BIST:GRSEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002340+03:00"
+    "updated_at": "2026-09-28T15:34:37.872247+03:00"
   },
   "BIST:GRTHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.002343+03:00"
+    "updated_at": "2026-09-28T15:34:37.872250+03:00"
   },
   "BIST:GSDDE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788782400,
-    "updated_at": "2026-09-28T14:28:15.002346+03:00"
+    "updated_at": "2026-09-28T15:34:37.872252+03:00"
   },
   "BIST:GSDHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789380000,
-    "updated_at": "2026-09-28T14:28:15.002349+03:00"
+    "updated_at": "2026-09-28T15:34:37.872254+03:00"
   },
   "BIST:GSRAY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1785999600,
-    "updated_at": "2026-09-28T14:28:15.002352+03:00"
+    "updated_at": "2026-09-28T15:34:37.872256+03:00"
   },
   "BIST:GUBRF": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002355+03:00"
+    "updated_at": "2026-09-28T15:34:37.872259+03:00"
   },
   "BIST:GUNDG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789020000,
-    "updated_at": "2026-09-28T14:28:15.002357+03:00"
+    "updated_at": "2026-09-28T15:34:37.872261+03:00"
   },
   "BIST:GWIND": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002360+03:00"
+    "updated_at": "2026-09-28T15:34:37.872264+03:00"
   },
   "BIST:GZNMI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787918400,
-    "updated_at": "2026-09-28T14:28:15.002363+03:00"
+    "updated_at": "2026-09-28T15:34:37.872266+03:00"
   },
   "BIST:HALKB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002366+03:00"
+    "updated_at": "2026-09-28T15:34:37.872268+03:00"
   },
   "BIST:HATEK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788861600,
-    "updated_at": "2026-09-28T14:28:15.002369+03:00"
+    "updated_at": "2026-09-28T15:34:37.872271+03:00"
   },
   "BIST:HATSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002372+03:00"
+    "updated_at": "2026-09-28T15:34:37.872273+03:00"
   },
   "BIST:HDFGS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.002375+03:00"
+    "updated_at": "2026-09-28T15:34:37.872301+03:00"
   },
   "BIST:HEDEF": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787302800,
-    "updated_at": "2026-09-28T14:28:15.002377+03:00"
+    "updated_at": "2026-09-28T15:34:37.872304+03:00"
   },
   "BIST:HEKTS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.002380+03:00"
+    "updated_at": "2026-09-28T15:34:37.872307+03:00"
   },
   "BIST:HKTM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789387200,
-    "updated_at": "2026-09-28T14:28:15.002383+03:00"
+    "updated_at": "2026-09-28T15:34:37.872309+03:00"
   },
   "BIST:HLGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002385+03:00"
+    "updated_at": "2026-09-28T15:34:37.872312+03:00"
   },
   "BIST:HOROZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002388+03:00"
+    "updated_at": "2026-09-28T15:34:37.872314+03:00"
   },
   "BIST:HRKET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789635600,
-    "updated_at": "2026-09-28T14:28:15.002391+03:00"
+    "updated_at": "2026-09-28T15:34:37.872317+03:00"
   },
   "BIST:HTTBT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002394+03:00"
+    "updated_at": "2026-09-28T15:34:37.872319+03:00"
   },
   "BIST:HUBVC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788271200,
-    "updated_at": "2026-09-28T14:28:15.002397+03:00"
+    "updated_at": "2026-09-28T15:34:37.872322+03:00"
   },
   "BIST:HUNER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.002400+03:00"
+    "updated_at": "2026-09-28T15:34:37.872324+03:00"
   },
   "BIST:HURGZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788271200,
-    "updated_at": "2026-09-28T14:28:15.002403+03:00"
+    "updated_at": "2026-09-28T15:34:37.872326+03:00"
   },
   "BIST:ICBCT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789624800,
-    "updated_at": "2026-09-28T14:28:15.002406+03:00"
+    "updated_at": "2026-09-28T15:34:37.872328+03:00"
   },
   "BIST:ICUGS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002409+03:00"
+    "updated_at": "2026-09-28T15:34:37.872331+03:00"
   },
   "BIST:IDGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789736400,
-    "updated_at": "2026-09-28T14:28:15.002412+03:00"
+    "updated_at": "2026-09-28T15:34:37.872333+03:00"
   },
   "BIST:IEYHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1784890800,
-    "updated_at": "2026-09-28T14:28:15.002415+03:00"
+    "updated_at": "2026-09-28T15:34:37.872336+03:00"
   },
   "BIST:IHAAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002417+03:00"
+    "updated_at": "2026-09-28T15:34:37.872338+03:00"
   },
   "BIST:IHEVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.002420+03:00"
+    "updated_at": "2026-09-28T15:34:37.872341+03:00"
   },
   "BIST:IHGZT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.002423+03:00"
+    "updated_at": "2026-09-28T15:34:37.872343+03:00"
   },
   "BIST:IHLAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.002426+03:00"
+    "updated_at": "2026-09-28T15:34:37.872346+03:00"
   },
   "BIST:IHLGM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.002429+03:00"
+    "updated_at": "2026-09-28T15:34:37.872348+03:00"
   },
   "BIST:IHYAY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789365600,
-    "updated_at": "2026-09-28T14:28:15.002432+03:00"
+    "updated_at": "2026-09-28T15:34:37.872350+03:00"
   },
   "BIST:IMASM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789452000,
-    "updated_at": "2026-09-28T14:28:15.002434+03:00"
+    "updated_at": "2026-09-28T15:34:37.872353+03:00"
   },
   "BIST:INDES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002437+03:00"
+    "updated_at": "2026-09-28T15:34:37.872355+03:00"
   },
   "BIST:INFO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789480800,
-    "updated_at": "2026-09-28T14:28:15.002441+03:00"
+    "updated_at": "2026-09-28T15:34:37.872358+03:00"
   },
   "BIST:INGRM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002444+03:00"
+    "updated_at": "2026-09-28T15:34:37.872360+03:00"
   },
   "BIST:INTEK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002447+03:00"
+    "updated_at": "2026-09-28T15:34:37.872362+03:00"
   },
   "BIST:INTEM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.002450+03:00"
+    "updated_at": "2026-09-28T15:34:37.872365+03:00"
   },
   "BIST:INTET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.002453+03:00"
+    "updated_at": "2026-09-28T15:34:37.872368+03:00"
   },
   "BIST:INVEO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789974000,
-    "updated_at": "2026-09-28T14:28:15.002456+03:00"
+    "updated_at": "2026-09-28T15:34:37.872370+03:00"
   },
   "BIST:INVES": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002458+03:00"
+    "updated_at": "2026-09-28T15:34:37.872373+03:00"
   },
   "BIST:ISBIR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789480800,
-    "updated_at": "2026-09-28T14:28:15.002461+03:00"
+    "updated_at": "2026-09-28T15:34:37.872375+03:00"
   },
   "BIST:ISDMR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002464+03:00"
+    "updated_at": "2026-09-28T15:34:37.872377+03:00"
   },
   "BIST:ISFIN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.002467+03:00"
+    "updated_at": "2026-09-28T15:34:37.872380+03:00"
   },
   "BIST:ISGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.002470+03:00"
+    "updated_at": "2026-09-28T15:34:37.872382+03:00"
   },
   "BIST:ISKPL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787295600,
-    "updated_at": "2026-09-28T14:28:15.002474+03:00"
+    "updated_at": "2026-09-28T15:34:37.872385+03:00"
   },
   "BIST:ISMEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002477+03:00"
+    "updated_at": "2026-09-28T15:34:37.872388+03:00"
   },
   "BIST:ISSEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788357600,
-    "updated_at": "2026-09-28T14:28:15.002480+03:00"
+    "updated_at": "2026-09-28T15:34:37.872390+03:00"
   },
   "BIST:ISVEA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788444000,
-    "updated_at": "2026-09-28T14:28:15.002483+03:00"
+    "updated_at": "2026-09-28T15:34:37.872392+03:00"
   },
   "BIST:IZENR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002486+03:00"
+    "updated_at": "2026-09-28T15:34:37.872395+03:00"
   },
   "BIST:IZFAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789480800,
-    "updated_at": "2026-09-28T14:28:15.002489+03:00"
+    "updated_at": "2026-09-28T15:34:37.872397+03:00"
   },
   "BIST:IZINV": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788861600,
-    "updated_at": "2026-09-28T14:28:15.002492+03:00"
+    "updated_at": "2026-09-28T15:34:37.872400+03:00"
   },
   "BIST:IZMDC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789113600,
-    "updated_at": "2026-09-28T14:28:15.002495+03:00"
+    "updated_at": "2026-09-28T15:34:37.872402+03:00"
   },
   "BIST:JANTS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002498+03:00"
+    "updated_at": "2026-09-28T15:34:37.872404+03:00"
   },
   "BIST:KAPLM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788786000,
-    "updated_at": "2026-09-28T14:28:15.002500+03:00"
+    "updated_at": "2026-09-28T15:34:37.872407+03:00"
   },
   "BIST:KARCL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002503+03:00"
+    "updated_at": "2026-09-28T15:34:37.872410+03:00"
   },
   "BIST:KAREL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002506+03:00"
+    "updated_at": "2026-09-28T15:34:37.872412+03:00"
   },
   "BIST:KARSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002509+03:00"
+    "updated_at": "2026-09-28T15:34:37.872415+03:00"
   },
   "BIST:KARTN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788422400,
-    "updated_at": "2026-09-28T14:28:15.002512+03:00"
+    "updated_at": "2026-09-28T15:34:37.872417+03:00"
   },
   "BIST:KATMR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002515+03:00"
+    "updated_at": "2026-09-28T15:34:37.872420+03:00"
   },
   "BIST:KAYSE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002517+03:00"
+    "updated_at": "2026-09-28T15:34:37.872422+03:00"
   },
   "BIST:KBORU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002520+03:00"
+    "updated_at": "2026-09-28T15:34:37.872424+03:00"
   },
   "BIST:KCAER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002523+03:00"
+    "updated_at": "2026-09-28T15:34:37.872427+03:00"
   },
   "BIST:KCHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.002526+03:00"
+    "updated_at": "2026-09-28T15:34:37.872429+03:00"
   },
   "BIST:KENT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002528+03:00"
+    "updated_at": "2026-09-28T15:34:37.872431+03:00"
   },
   "BIST:KERVN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002531+03:00"
+    "updated_at": "2026-09-28T15:34:37.872434+03:00"
   },
   "BIST:KFEIN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002534+03:00"
+    "updated_at": "2026-09-28T15:34:37.872436+03:00"
   },
   "BIST:KGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789624800,
-    "updated_at": "2026-09-28T14:28:15.002537+03:00"
+    "updated_at": "2026-09-28T15:34:37.872439+03:00"
   },
   "BIST:KIMMR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002540+03:00"
+    "updated_at": "2026-09-28T15:34:37.872441+03:00"
   },
   "BIST:KLGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002542+03:00"
+    "updated_at": "2026-09-28T15:34:37.872443+03:00"
   },
   "BIST:KLKIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002545+03:00"
+    "updated_at": "2026-09-28T15:34:37.872446+03:00"
   },
   "BIST:KLMSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788782400,
-    "updated_at": "2026-09-28T14:28:15.002548+03:00"
+    "updated_at": "2026-09-28T15:34:37.872448+03:00"
   },
   "BIST:KLNMA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002551+03:00"
+    "updated_at": "2026-09-28T15:34:37.872450+03:00"
   },
   "BIST:KLRHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788933600,
-    "updated_at": "2026-09-28T14:28:15.002554+03:00"
+    "updated_at": "2026-09-28T15:34:37.872453+03:00"
   },
   "BIST:KLSER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002556+03:00"
+    "updated_at": "2026-09-28T15:34:37.872455+03:00"
   },
   "BIST:KLSYN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002559+03:00"
+    "updated_at": "2026-09-28T15:34:37.872458+03:00"
   },
   "BIST:KLYPV": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002562+03:00"
+    "updated_at": "2026-09-28T15:34:37.872460+03:00"
   },
   "BIST:KMPUR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002565+03:00"
+    "updated_at": "2026-09-28T15:34:37.872462+03:00"
   },
   "BIST:KNFRT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002568+03:00"
+    "updated_at": "2026-09-28T15:34:37.872465+03:00"
   },
   "BIST:KOCMT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002571+03:00"
+    "updated_at": "2026-09-28T15:34:37.872467+03:00"
   },
   "BIST:KONKA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002574+03:00"
+    "updated_at": "2026-09-28T15:34:37.872470+03:00"
   },
   "BIST:KONTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002577+03:00"
+    "updated_at": "2026-09-28T15:34:37.872472+03:00"
   },
   "BIST:KONYA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002580+03:00"
+    "updated_at": "2026-09-28T15:34:37.872475+03:00"
   },
   "BIST:KOPOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.002582+03:00"
+    "updated_at": "2026-09-28T15:34:37.872477+03:00"
   },
   "BIST:KORDS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.002586+03:00"
+    "updated_at": "2026-09-28T15:34:37.872480+03:00"
   },
   "BIST:KOTON": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788951600,
-    "updated_at": "2026-09-28T14:28:15.002588+03:00"
+    "updated_at": "2026-09-28T15:34:37.872482+03:00"
   },
   "BIST:KPEKS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002591+03:00"
+    "updated_at": "2026-09-28T15:34:37.872485+03:00"
   },
   "BIST:KRDMA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002595+03:00"
+    "updated_at": "2026-09-28T15:34:37.872487+03:00"
   },
   "BIST:KRGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.002597+03:00"
+    "updated_at": "2026-09-28T15:34:37.872490+03:00"
   },
   "BIST:KRONT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788526800,
-    "updated_at": "2026-09-28T14:28:15.002600+03:00"
+    "updated_at": "2026-09-28T15:34:37.872492+03:00"
   },
   "BIST:KRPLS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002603+03:00"
+    "updated_at": "2026-09-28T15:34:37.872494+03:00"
   },
   "BIST:KRSTL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789624800,
-    "updated_at": "2026-09-28T14:28:15.002606+03:00"
+    "updated_at": "2026-09-28T15:34:37.872497+03:00"
   },
   "BIST:KRTEK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002609+03:00"
+    "updated_at": "2026-09-28T15:34:37.872499+03:00"
   },
   "BIST:KRVGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002612+03:00"
+    "updated_at": "2026-09-28T15:34:37.872501+03:00"
   },
   "BIST:KSTUR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002615+03:00"
+    "updated_at": "2026-09-28T15:34:37.872504+03:00"
   },
   "BIST:KTLEV": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788955200,
-    "updated_at": "2026-09-28T14:28:15.002617+03:00"
+    "updated_at": "2026-09-28T15:34:37.872506+03:00"
   },
   "BIST:KTSKR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002620+03:00"
+    "updated_at": "2026-09-28T15:34:37.872509+03:00"
   },
   "BIST:KUTPO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789477200,
-    "updated_at": "2026-09-28T14:28:15.002623+03:00"
+    "updated_at": "2026-09-28T15:34:37.872511+03:00"
   },
   "BIST:KUVVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002625+03:00"
+    "updated_at": "2026-09-28T15:34:37.872514+03:00"
   },
   "BIST:KUYAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788159600,
-    "updated_at": "2026-09-28T14:28:15.002628+03:00"
+    "updated_at": "2026-09-28T15:34:37.872516+03:00"
   },
   "BIST:KZBGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002631+03:00"
+    "updated_at": "2026-09-28T15:34:37.872519+03:00"
   },
   "BIST:KZGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788354000,
-    "updated_at": "2026-09-28T14:28:15.002634+03:00"
+    "updated_at": "2026-09-28T15:34:37.872521+03:00"
   },
   "BIST:LIDER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789452000,
-    "updated_at": "2026-09-28T14:28:15.002637+03:00"
+    "updated_at": "2026-09-28T15:34:37.872523+03:00"
   },
   "BIST:LIDFA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789725600,
-    "updated_at": "2026-09-28T14:28:15.002639+03:00"
+    "updated_at": "2026-09-28T15:34:37.872526+03:00"
   },
   "BIST:LILAK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789722000,
-    "updated_at": "2026-09-28T14:28:15.002642+03:00"
+    "updated_at": "2026-09-28T15:34:37.872528+03:00"
   },
   "BIST:LINK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002645+03:00"
+    "updated_at": "2026-09-28T15:34:37.872531+03:00"
   },
   "BIST:LKMNH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002647+03:00"
+    "updated_at": "2026-09-28T15:34:37.872534+03:00"
   },
   "BIST:LMKDC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789632000,
-    "updated_at": "2026-09-28T14:28:15.002650+03:00"
+    "updated_at": "2026-09-28T15:34:37.872536+03:00"
   },
   "BIST:LOGO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002653+03:00"
+    "updated_at": "2026-09-28T15:34:37.872538+03:00"
   },
   "BIST:LRSHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002656+03:00"
+    "updated_at": "2026-09-28T15:34:37.872541+03:00"
   },
   "BIST:LUKSK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788861600,
-    "updated_at": "2026-09-28T14:28:15.002659+03:00"
+    "updated_at": "2026-09-28T15:34:37.872543+03:00"
   },
   "BIST:LXGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002662+03:00"
+    "updated_at": "2026-09-28T15:34:37.872546+03:00"
   },
   "BIST:LYDHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788519600,
-    "updated_at": "2026-09-28T14:28:15.002665+03:00"
+    "updated_at": "2026-09-28T15:34:37.872548+03:00"
   },
   "BIST:LYDYE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788516000,
-    "updated_at": "2026-09-28T14:28:15.002668+03:00"
+    "updated_at": "2026-09-28T15:34:37.872550+03:00"
   },
   "BIST:MAALT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.002671+03:00"
+    "updated_at": "2026-09-28T15:34:37.872553+03:00"
   },
   "BIST:MACKO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788267600,
-    "updated_at": "2026-09-28T14:28:15.002674+03:00"
+    "updated_at": "2026-09-28T15:34:37.872555+03:00"
   },
   "BIST:MAGEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788444000,
-    "updated_at": "2026-09-28T14:28:15.002676+03:00"
+    "updated_at": "2026-09-28T15:34:37.872558+03:00"
   },
   "BIST:MAKIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002679+03:00"
+    "updated_at": "2026-09-28T15:34:37.872560+03:00"
   },
   "BIST:MAKTK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788933600,
-    "updated_at": "2026-09-28T14:28:15.002682+03:00"
+    "updated_at": "2026-09-28T15:34:37.872563+03:00"
   },
   "BIST:MANAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789106400,
-    "updated_at": "2026-09-28T14:28:15.002684+03:00"
+    "updated_at": "2026-09-28T15:34:37.872565+03:00"
   },
   "BIST:MARBL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002687+03:00"
+    "updated_at": "2026-09-28T15:34:37.872568+03:00"
   },
   "BIST:MARMR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788933600,
-    "updated_at": "2026-09-28T14:28:15.002690+03:00"
+    "updated_at": "2026-09-28T15:34:37.872570+03:00"
   },
   "BIST:MARTI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.002693+03:00"
+    "updated_at": "2026-09-28T15:34:37.872573+03:00"
   },
   "BIST:MASFN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002696+03:00"
+    "updated_at": "2026-09-28T15:34:37.872575+03:00"
   },
   "BIST:MAVI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002698+03:00"
+    "updated_at": "2026-09-28T15:34:37.872577+03:00"
   },
   "BIST:MCARD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788782400,
-    "updated_at": "2026-09-28T14:28:15.002701+03:00"
+    "updated_at": "2026-09-28T15:34:37.872580+03:00"
   },
   "BIST:MEDTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788933600,
-    "updated_at": "2026-09-28T14:28:15.002704+03:00"
+    "updated_at": "2026-09-28T15:34:37.872583+03:00"
   },
   "BIST:MEGAP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002707+03:00"
+    "updated_at": "2026-09-28T15:34:37.872586+03:00"
   },
   "BIST:MEGMT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002709+03:00"
+    "updated_at": "2026-09-28T15:34:37.872588+03:00"
   },
   "BIST:MEKAG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788271200,
-    "updated_at": "2026-09-28T14:28:15.002712+03:00"
+    "updated_at": "2026-09-28T15:34:37.872590+03:00"
   },
   "BIST:MEPET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002715+03:00"
+    "updated_at": "2026-09-28T15:34:37.872593+03:00"
   },
   "BIST:MERCN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002718+03:00"
+    "updated_at": "2026-09-28T15:34:37.872595+03:00"
   },
   "BIST:MERIT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789117200,
-    "updated_at": "2026-09-28T14:28:15.002721+03:00"
+    "updated_at": "2026-09-28T15:34:37.872597+03:00"
   },
   "BIST:MERKO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.002724+03:00"
+    "updated_at": "2026-09-28T15:34:37.872600+03:00"
   },
   "BIST:METEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789632000,
-    "updated_at": "2026-09-28T14:28:15.002727+03:00"
+    "updated_at": "2026-09-28T15:34:37.872602+03:00"
   },
   "BIST:METRO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002730+03:00"
+    "updated_at": "2026-09-28T15:34:37.872604+03:00"
   },
   "BIST:MEYSU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002732+03:00"
+    "updated_at": "2026-09-28T15:34:37.872607+03:00"
   },
   "BIST:MGROS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.002735+03:00"
+    "updated_at": "2026-09-28T15:34:37.872609+03:00"
   },
   "BIST:MHRGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.002737+03:00"
+    "updated_at": "2026-09-28T15:34:37.872611+03:00"
   },
   "BIST:MIATK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002740+03:00"
+    "updated_at": "2026-09-28T15:34:37.872614+03:00"
   },
   "BIST:MMCAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.002742+03:00"
+    "updated_at": "2026-09-28T15:34:37.872616+03:00"
   },
   "BIST:MNDRS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002745+03:00"
+    "updated_at": "2026-09-28T15:34:37.872618+03:00"
   },
   "BIST:MNDTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.002748+03:00"
+    "updated_at": "2026-09-28T15:34:37.872621+03:00"
   },
   "BIST:MOBTL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.002751+03:00"
+    "updated_at": "2026-09-28T15:34:37.872623+03:00"
   },
   "BIST:MOGAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002753+03:00"
+    "updated_at": "2026-09-28T15:34:37.872626+03:00"
   },
   "BIST:MOPAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.002756+03:00"
+    "updated_at": "2026-09-28T15:34:37.872628+03:00"
   },
   "BIST:MPARK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002759+03:00"
+    "updated_at": "2026-09-28T15:34:37.872630+03:00"
   },
   "BIST:MRGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788940800,
-    "updated_at": "2026-09-28T14:28:15.002761+03:00"
+    "updated_at": "2026-09-28T15:34:37.872633+03:00"
   },
   "BIST:MRSHL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002764+03:00"
+    "updated_at": "2026-09-28T15:34:37.872635+03:00"
   },
   "BIST:MSGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.002766+03:00"
+    "updated_at": "2026-09-28T15:34:37.872638+03:00"
   },
   "BIST:MTRKS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.002769+03:00"
+    "updated_at": "2026-09-28T15:34:37.872640+03:00"
   },
   "BIST:MTRYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789729200,
-    "updated_at": "2026-09-28T14:28:15.002771+03:00"
+    "updated_at": "2026-09-28T15:34:37.872643+03:00"
   },
   "BIST:MZHLD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789120800,
-    "updated_at": "2026-09-28T14:28:15.002774+03:00"
+    "updated_at": "2026-09-28T15:34:37.872645+03:00"
   },
   "BIST:NATEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002777+03:00"
+    "updated_at": "2026-09-28T15:34:37.872647+03:00"
   },
   "BIST:NETAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788332400,
-    "updated_at": "2026-09-28T14:28:15.002779+03:00"
+    "updated_at": "2026-09-28T15:34:37.872650+03:00"
   },
   "BIST:NETCD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789466400,
-    "updated_at": "2026-09-28T14:28:15.002782+03:00"
+    "updated_at": "2026-09-28T15:34:37.872652+03:00"
   },
   "BIST:NETGL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
-    "updated_at": "2026-09-28T14:28:15.002785+03:00"
+    "updated_at": "2026-09-28T15:34:37.872655+03:00"
   },
   "BIST:NIBAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002788+03:00"
+    "updated_at": "2026-09-28T15:34:37.872657+03:00"
   },
   "BIST:NTGAZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789639200,
-    "updated_at": "2026-09-28T14:28:15.002791+03:00"
+    "updated_at": "2026-09-28T15:34:37.872660+03:00"
   },
   "BIST:NTHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002793+03:00"
+    "updated_at": "2026-09-28T15:34:37.872662+03:00"
   },
   "BIST:NUGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788865200,
-    "updated_at": "2026-09-28T14:28:15.002796+03:00"
+    "updated_at": "2026-09-28T15:34:37.872665+03:00"
   },
   "BIST:NUHCM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788782400,
-    "updated_at": "2026-09-28T14:28:15.002799+03:00"
+    "updated_at": "2026-09-28T15:34:37.872667+03:00"
   },
   "BIST:OBAMS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002801+03:00"
+    "updated_at": "2026-09-28T15:34:37.872669+03:00"
   },
   "BIST:OBASE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.002804+03:00"
+    "updated_at": "2026-09-28T15:34:37.872672+03:00"
   },
   "BIST:ODAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002807+03:00"
+    "updated_at": "2026-09-28T15:34:37.872675+03:00"
   },
   "BIST:ODINE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788159600,
-    "updated_at": "2026-09-28T14:28:15.002810+03:00"
+    "updated_at": "2026-09-28T15:34:37.872677+03:00"
   },
   "BIST:OFSYM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.002813+03:00"
+    "updated_at": "2026-09-28T15:34:37.872680+03:00"
   },
   "BIST:ONCSM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788523200,
-    "updated_at": "2026-09-28T14:28:15.002816+03:00"
+    "updated_at": "2026-09-28T15:34:37.872682+03:00"
   },
   "BIST:ONRYT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788505200,
-    "updated_at": "2026-09-28T14:28:15.002818+03:00"
+    "updated_at": "2026-09-28T15:34:37.872685+03:00"
   },
   "BIST:ORCAY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788789600,
-    "updated_at": "2026-09-28T14:28:15.002821+03:00"
+    "updated_at": "2026-09-28T15:34:37.872687+03:00"
   },
   "BIST:ORGE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002824+03:00"
+    "updated_at": "2026-09-28T15:34:37.872690+03:00"
   },
   "BIST:ORMA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002826+03:00"
+    "updated_at": "2026-09-28T15:34:37.872693+03:00"
   },
   "BIST:ORZAX": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.002829+03:00"
+    "updated_at": "2026-09-28T15:34:37.872695+03:00"
   },
   "BIST:OSMEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002832+03:00"
+    "updated_at": "2026-09-28T15:34:37.872698+03:00"
   },
   "BIST:OSTIM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.002835+03:00"
+    "updated_at": "2026-09-28T15:34:37.872700+03:00"
   },
   "BIST:OTKAR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002837+03:00"
+    "updated_at": "2026-09-28T15:34:37.872702+03:00"
   },
   "BIST:OTTO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.002840+03:00"
+    "updated_at": "2026-09-28T15:34:37.872705+03:00"
   },
   "BIST:OYAKC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789646400,
-    "updated_at": "2026-09-28T14:28:15.002843+03:00"
+    "updated_at": "2026-09-28T15:34:37.872708+03:00"
   },
   "BIST:OYAYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002845+03:00"
+    "updated_at": "2026-09-28T15:34:37.872710+03:00"
   },
   "BIST:OYLUM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.002848+03:00"
+    "updated_at": "2026-09-28T15:34:37.872712+03:00"
   },
   "BIST:OYYAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002851+03:00"
+    "updated_at": "2026-09-28T15:34:37.872715+03:00"
   },
   "BIST:OZATD": {
     "candle_time": 1790582400.0,
     "direction": 1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.002853+03:00"
+    "updated_at": "2026-09-28T15:34:37.872717+03:00"
   },
   "BIST:OZGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788789600,
-    "updated_at": "2026-09-28T14:28:15.002856+03:00"
+    "updated_at": "2026-09-28T15:34:37.872719+03:00"
   },
   "BIST:OZKGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002859+03:00"
+    "updated_at": "2026-09-28T15:34:37.872722+03:00"
   },
   "BIST:OZRDN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002861+03:00"
+    "updated_at": "2026-09-28T15:34:37.872724+03:00"
   },
   "BIST:OZSUB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789995600,
-    "updated_at": "2026-09-28T14:28:15.002864+03:00"
+    "updated_at": "2026-09-28T15:34:37.872727+03:00"
   },
   "BIST:OZYSR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002867+03:00"
+    "updated_at": "2026-09-28T15:34:37.872729+03:00"
   },
   "BIST:PAGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002870+03:00"
+    "updated_at": "2026-09-28T15:34:37.872731+03:00"
   },
   "BIST:PAHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.002872+03:00"
+    "updated_at": "2026-09-28T15:34:37.872734+03:00"
   },
   "BIST:PAMEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788253200,
-    "updated_at": "2026-09-28T14:28:15.002875+03:00"
+    "updated_at": "2026-09-28T15:34:37.872736+03:00"
   },
   "BIST:PAPIL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.002878+03:00"
+    "updated_at": "2026-09-28T15:34:37.872739+03:00"
   },
   "BIST:PARSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.002881+03:00"
+    "updated_at": "2026-09-28T15:34:37.872742+03:00"
   },
   "BIST:PASEU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1786690800,
-    "updated_at": "2026-09-28T14:28:15.002883+03:00"
+    "updated_at": "2026-09-28T15:34:37.872745+03:00"
   },
   "BIST:PATEK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789480800,
-    "updated_at": "2026-09-28T14:28:15.002886+03:00"
+    "updated_at": "2026-09-28T15:34:37.872747+03:00"
   },
   "BIST:PCILT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002889+03:00"
+    "updated_at": "2026-09-28T15:34:37.872750+03:00"
   },
   "BIST:PEKGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789023600,
-    "updated_at": "2026-09-28T14:28:15.002892+03:00"
+    "updated_at": "2026-09-28T15:34:37.872752+03:00"
   },
   "BIST:PENGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002894+03:00"
+    "updated_at": "2026-09-28T15:34:37.872755+03:00"
   },
   "BIST:PENTA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.002897+03:00"
+    "updated_at": "2026-09-28T15:34:37.872757+03:00"
   },
   "BIST:PETKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002900+03:00"
+    "updated_at": "2026-09-28T15:34:37.872760+03:00"
   },
   "BIST:PETUN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790172000.0,
-    "updated_at": "2026-09-28T14:28:15.002903+03:00"
+    "updated_at": "2026-09-28T15:34:37.872763+03:00"
   },
   "BIST:PGSUS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.002905+03:00"
+    "updated_at": "2026-09-28T15:34:37.872765+03:00"
   },
   "BIST:PINSU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002908+03:00"
+    "updated_at": "2026-09-28T15:34:37.872767+03:00"
   },
   "BIST:PKART": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002911+03:00"
+    "updated_at": "2026-09-28T15:34:37.872770+03:00"
   },
   "BIST:PKENT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788944400,
-    "updated_at": "2026-09-28T14:28:15.002914+03:00"
+    "updated_at": "2026-09-28T15:34:37.872772+03:00"
   },
   "BIST:PLTUR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.002916+03:00"
+    "updated_at": "2026-09-28T15:34:37.872774+03:00"
   },
   "BIST:PNLSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788865200,
-    "updated_at": "2026-09-28T14:28:15.002919+03:00"
+    "updated_at": "2026-09-28T15:34:37.872777+03:00"
   },
   "BIST:PNSUT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002922+03:00"
+    "updated_at": "2026-09-28T15:34:37.872779+03:00"
   },
   "BIST:POLHO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002925+03:00"
+    "updated_at": "2026-09-28T15:34:37.872782+03:00"
   },
   "BIST:POLTK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788868800,
-    "updated_at": "2026-09-28T14:28:15.002928+03:00"
+    "updated_at": "2026-09-28T15:34:37.872784+03:00"
   },
   "BIST:PRDGS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788242400,
-    "updated_at": "2026-09-28T14:28:15.002930+03:00"
+    "updated_at": "2026-09-28T15:34:37.872787+03:00"
   },
   "BIST:PRKAB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002933+03:00"
+    "updated_at": "2026-09-28T15:34:37.872790+03:00"
   },
   "BIST:PRKME": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789452000,
-    "updated_at": "2026-09-28T14:28:15.002936+03:00"
+    "updated_at": "2026-09-28T15:34:37.872792+03:00"
   },
   "BIST:PRZMA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788865200,
-    "updated_at": "2026-09-28T14:28:15.002939+03:00"
+    "updated_at": "2026-09-28T15:34:37.872795+03:00"
   },
   "BIST:PSDTC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.002941+03:00"
+    "updated_at": "2026-09-28T15:34:37.872797+03:00"
   },
   "BIST:PSGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.002944+03:00"
+    "updated_at": "2026-09-28T15:34:37.872800+03:00"
   },
   "BIST:QNBFK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.002948+03:00"
+    "updated_at": "2026-09-28T15:34:37.872802+03:00"
   },
   "BIST:QNBTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789632000,
-    "updated_at": "2026-09-28T14:28:15.002951+03:00"
+    "updated_at": "2026-09-28T15:34:37.872805+03:00"
   },
   "BIST:QUAGR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789048800,
-    "updated_at": "2026-09-28T14:28:15.002954+03:00"
+    "updated_at": "2026-09-28T15:34:37.872807+03:00"
   },
   "BIST:QUICK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002957+03:00"
+    "updated_at": "2026-09-28T15:34:37.872810+03:00"
   },
   "BIST:RALYH": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.002960+03:00"
+    "updated_at": "2026-09-28T15:34:37.872813+03:00"
   },
   "BIST:RAYSG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.002963+03:00"
+    "updated_at": "2026-09-28T15:34:37.872815+03:00"
   },
   "BIST:REEDR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.002965+03:00"
+    "updated_at": "2026-09-28T15:34:37.872818+03:00"
   },
   "BIST:RGYAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002968+03:00"
+    "updated_at": "2026-09-28T15:34:37.872820+03:00"
   },
   "BIST:RNPOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.002971+03:00"
+    "updated_at": "2026-09-28T15:34:37.872823+03:00"
   },
   "BIST:RODRG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.002974+03:00"
+    "updated_at": "2026-09-28T15:34:37.872826+03:00"
   },
   "BIST:RTALB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789369200,
-    "updated_at": "2026-09-28T14:28:15.002977+03:00"
+    "updated_at": "2026-09-28T15:34:37.872828+03:00"
   },
   "BIST:RUBNS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788249600,
-    "updated_at": "2026-09-28T14:28:15.002979+03:00"
+    "updated_at": "2026-09-28T15:34:37.872831+03:00"
   },
   "BIST:RUZYE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.002982+03:00"
+    "updated_at": "2026-09-28T15:34:37.872833+03:00"
   },
   "BIST:RYGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789729200,
-    "updated_at": "2026-09-28T14:28:15.002985+03:00"
+    "updated_at": "2026-09-28T15:34:37.872836+03:00"
   },
   "BIST:RYSAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.002988+03:00"
+    "updated_at": "2026-09-28T15:34:37.872838+03:00"
   },
   "BIST:SAFKR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788951600,
-    "updated_at": "2026-09-28T14:28:15.002990+03:00"
+    "updated_at": "2026-09-28T15:34:37.872840+03:00"
   },
   "BIST:SAHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.002993+03:00"
+    "updated_at": "2026-09-28T15:34:37.872843+03:00"
   },
   "BIST:SAMAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790085600.0,
-    "updated_at": "2026-09-28T14:28:15.002996+03:00"
+    "updated_at": "2026-09-28T15:34:37.872845+03:00"
   },
   "BIST:SANEL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.002999+03:00"
+    "updated_at": "2026-09-28T15:34:37.872847+03:00"
   },
   "BIST:SANFM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.003002+03:00"
+    "updated_at": "2026-09-28T15:34:37.872850+03:00"
   },
   "BIST:SANKO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.003005+03:00"
+    "updated_at": "2026-09-28T15:34:37.872852+03:00"
   },
   "BIST:SARAE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003007+03:00"
+    "updated_at": "2026-09-28T15:34:37.872855+03:00"
   },
   "BIST:SARKY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.003010+03:00"
+    "updated_at": "2026-09-28T15:34:37.872858+03:00"
   },
   "BIST:SASA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789376400,
-    "updated_at": "2026-09-28T14:28:15.003013+03:00"
+    "updated_at": "2026-09-28T15:34:37.872860+03:00"
   },
   "BIST:SAYAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003016+03:00"
+    "updated_at": "2026-09-28T15:34:37.872862+03:00"
   },
   "BIST:SDTTR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.003018+03:00"
+    "updated_at": "2026-09-28T15:34:37.872865+03:00"
   },
   "BIST:SEGMN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789732800,
-    "updated_at": "2026-09-28T14:28:15.003021+03:00"
+    "updated_at": "2026-09-28T15:34:37.872867+03:00"
   },
   "BIST:SEGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003023+03:00"
+    "updated_at": "2026-09-28T15:34:37.872869+03:00"
   },
   "BIST:SEKFK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003026+03:00"
+    "updated_at": "2026-09-28T15:34:37.872872+03:00"
   },
   "BIST:SEKUR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789027200,
-    "updated_at": "2026-09-28T14:28:15.003029+03:00"
+    "updated_at": "2026-09-28T15:34:37.872874+03:00"
   },
   "BIST:SELEC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1786456800,
-    "updated_at": "2026-09-28T14:28:15.003032+03:00"
+    "updated_at": "2026-09-28T15:34:37.872876+03:00"
   },
   "BIST:SELVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788872400,
-    "updated_at": "2026-09-28T14:28:15.003035+03:00"
+    "updated_at": "2026-09-28T15:34:37.872879+03:00"
   },
   "BIST:SERNT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787554800,
-    "updated_at": "2026-09-28T14:28:15.003038+03:00"
+    "updated_at": "2026-09-28T15:34:37.872881+03:00"
   },
   "BIST:SEYKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788858000,
-    "updated_at": "2026-09-28T14:28:15.003041+03:00"
+    "updated_at": "2026-09-28T15:34:37.872884+03:00"
   },
   "BIST:SILVR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.003043+03:00"
+    "updated_at": "2026-09-28T15:34:37.872886+03:00"
   },
   "BIST:SISE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003064+03:00"
+    "updated_at": "2026-09-28T15:34:37.872888+03:00"
   },
   "BIST:SKBNK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788868800,
-    "updated_at": "2026-09-28T14:28:15.003071+03:00"
+    "updated_at": "2026-09-28T15:34:37.872891+03:00"
   },
   "BIST:SKTAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788789600,
-    "updated_at": "2026-09-28T14:28:15.003074+03:00"
+    "updated_at": "2026-09-28T15:34:37.872893+03:00"
   },
   "BIST:SKYLP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789045200,
-    "updated_at": "2026-09-28T14:28:15.003077+03:00"
+    "updated_at": "2026-09-28T15:34:37.872895+03:00"
   },
   "BIST:SKYMD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003080+03:00"
+    "updated_at": "2026-09-28T15:34:37.872897+03:00"
   },
   "BIST:SMART": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788858000,
-    "updated_at": "2026-09-28T14:28:15.003082+03:00"
+    "updated_at": "2026-09-28T15:34:37.872900+03:00"
   },
   "BIST:SMRTG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003085+03:00"
+    "updated_at": "2026-09-28T15:34:37.872902+03:00"
   },
   "BIST:SMRVA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003088+03:00"
+    "updated_at": "2026-09-28T15:34:37.872904+03:00"
   },
   "BIST:SNGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003091+03:00"
+    "updated_at": "2026-09-28T15:34:37.872906+03:00"
   },
   "BIST:SNICA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788865200,
-    "updated_at": "2026-09-28T14:28:15.003094+03:00"
+    "updated_at": "2026-09-28T15:34:37.872909+03:00"
   },
   "BIST:SNPAM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.003097+03:00"
+    "updated_at": "2026-09-28T15:34:37.872911+03:00"
   },
   "BIST:SODSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.003100+03:00"
+    "updated_at": "2026-09-28T15:34:37.872913+03:00"
   },
   "BIST:SOHOE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.003103+03:00"
+    "updated_at": "2026-09-28T15:34:37.872916+03:00"
   },
   "BIST:SOKE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788778800,
-    "updated_at": "2026-09-28T14:28:15.003105+03:00"
+    "updated_at": "2026-09-28T15:34:37.872918+03:00"
   },
   "BIST:SOKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.003108+03:00"
+    "updated_at": "2026-09-28T15:34:37.872920+03:00"
   },
   "BIST:SONME": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789027200,
-    "updated_at": "2026-09-28T14:28:15.003111+03:00"
+    "updated_at": "2026-09-28T15:34:37.872923+03:00"
   },
   "BIST:SRVGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.003114+03:00"
+    "updated_at": "2026-09-28T15:34:37.872925+03:00"
   },
   "BIST:SSAAT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.003117+03:00"
+    "updated_at": "2026-09-28T15:34:37.872927+03:00"
   },
   "BIST:SUMAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.003120+03:00"
+    "updated_at": "2026-09-28T15:34:37.872930+03:00"
   },
   "BIST:SUNTK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788328800,
-    "updated_at": "2026-09-28T14:28:15.003122+03:00"
+    "updated_at": "2026-09-28T15:34:37.872933+03:00"
   },
   "BIST:SURGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.003125+03:00"
+    "updated_at": "2026-09-28T15:34:37.872935+03:00"
   },
   "BIST:SUWEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789390800,
-    "updated_at": "2026-09-28T14:28:15.003128+03:00"
+    "updated_at": "2026-09-28T15:34:37.872937+03:00"
   },
   "BIST:SVGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789376400,
-    "updated_at": "2026-09-28T14:28:15.003130+03:00"
+    "updated_at": "2026-09-28T15:34:37.872940+03:00"
   },
   "BIST:TABGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.003133+03:00"
+    "updated_at": "2026-09-28T15:34:37.872942+03:00"
   },
   "BIST:TARKM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788944400,
-    "updated_at": "2026-09-28T14:28:15.003136+03:00"
+    "updated_at": "2026-09-28T15:34:37.872944+03:00"
   },
   "BIST:TATEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.003138+03:00"
+    "updated_at": "2026-09-28T15:34:37.872947+03:00"
   },
   "BIST:TATGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.003141+03:00"
+    "updated_at": "2026-09-28T15:34:37.872949+03:00"
   },
   "BIST:TAVHL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.003144+03:00"
+    "updated_at": "2026-09-28T15:34:37.872951+03:00"
   },
   "BIST:TBORG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003147+03:00"
+    "updated_at": "2026-09-28T15:34:37.872954+03:00"
   },
   "BIST:TCELL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.003150+03:00"
+    "updated_at": "2026-09-28T15:34:37.872956+03:00"
   },
   "BIST:TCKRC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.003153+03:00"
+    "updated_at": "2026-09-28T15:34:37.872959+03:00"
   },
   "BIST:TDGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003155+03:00"
+    "updated_at": "2026-09-28T15:34:37.872961+03:00"
   },
   "BIST:TEHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787925600,
-    "updated_at": "2026-09-28T14:28:15.003158+03:00"
+    "updated_at": "2026-09-28T15:34:37.872963+03:00"
   },
   "BIST:TEKTU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789128000,
-    "updated_at": "2026-09-28T14:28:15.003160+03:00"
+    "updated_at": "2026-09-28T15:34:37.872966+03:00"
   },
   "BIST:TERA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1787580000,
-    "updated_at": "2026-09-28T14:28:15.003163+03:00"
+    "updated_at": "2026-09-28T15:34:37.872968+03:00"
   },
   "BIST:TEZOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788858000,
-    "updated_at": "2026-09-28T14:28:15.003166+03:00"
+    "updated_at": "2026-09-28T15:34:37.872970+03:00"
   },
   "BIST:TGSAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790164800.0,
-    "updated_at": "2026-09-28T14:28:15.003169+03:00"
+    "updated_at": "2026-09-28T15:34:37.872973+03:00"
   },
   "BIST:THYAO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.003171+03:00"
+    "updated_at": "2026-09-28T15:34:37.872975+03:00"
   },
   "BIST:TKFEN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003174+03:00"
+    "updated_at": "2026-09-28T15:34:37.872978+03:00"
   },
   "BIST:TKNKA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788764400,
-    "updated_at": "2026-09-28T14:28:15.003177+03:00"
+    "updated_at": "2026-09-28T15:34:37.872980+03:00"
   },
   "BIST:TKNSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.003180+03:00"
+    "updated_at": "2026-09-28T15:34:37.872983+03:00"
   },
   "BIST:TLMAN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788768000,
-    "updated_at": "2026-09-28T14:28:15.003183+03:00"
+    "updated_at": "2026-09-28T15:34:37.872985+03:00"
   },
   "BIST:TMPOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1787148000,
-    "updated_at": "2026-09-28T14:28:15.003185+03:00"
+    "updated_at": "2026-09-28T15:34:37.872987+03:00"
   },
   "BIST:TMSN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789459200,
-    "updated_at": "2026-09-28T14:28:15.003188+03:00"
+    "updated_at": "2026-09-28T15:34:37.872990+03:00"
   },
   "BIST:TNZTP": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789988400,
-    "updated_at": "2026-09-28T14:28:15.003191+03:00"
+    "updated_at": "2026-09-28T15:34:37.872992+03:00"
   },
   "BIST:TOASO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.003194+03:00"
+    "updated_at": "2026-09-28T15:34:37.872995+03:00"
   },
   "BIST:TRALT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789714800,
-    "updated_at": "2026-09-28T14:28:15.003197+03:00"
+    "updated_at": "2026-09-28T15:34:37.872997+03:00"
   },
   "BIST:TRCAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788436800,
-    "updated_at": "2026-09-28T14:28:15.003200+03:00"
+    "updated_at": "2026-09-28T15:34:37.873000+03:00"
   },
   "BIST:TRENJ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.003202+03:00"
+    "updated_at": "2026-09-28T15:34:37.873002+03:00"
   },
   "BIST:TRGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.003205+03:00"
+    "updated_at": "2026-09-28T15:34:37.873005+03:00"
   },
   "BIST:TRHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1785330000,
-    "updated_at": "2026-09-28T14:28:15.003208+03:00"
+    "updated_at": "2026-09-28T15:34:37.873007+03:00"
   },
   "BIST:TRILC": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.003211+03:00"
+    "updated_at": "2026-09-28T15:34:37.873009+03:00"
   },
   "BIST:TRMET": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.003214+03:00"
+    "updated_at": "2026-09-28T15:34:37.873012+03:00"
   },
   "BIST:TSGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.003216+03:00"
+    "updated_at": "2026-09-28T15:34:37.873014+03:00"
   },
   "BIST:TSKB": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.003219+03:00"
+    "updated_at": "2026-09-28T15:34:37.873017+03:00"
   },
   "BIST:TSPOR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789113600,
-    "updated_at": "2026-09-28T14:28:15.003222+03:00"
+    "updated_at": "2026-09-28T15:34:37.873019+03:00"
   },
   "BIST:TTKOM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789714800,
-    "updated_at": "2026-09-28T14:28:15.003225+03:00"
+    "updated_at": "2026-09-28T15:34:37.873021+03:00"
   },
   "BIST:TTRAK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789650000,
-    "updated_at": "2026-09-28T14:28:15.003227+03:00"
+    "updated_at": "2026-09-28T15:34:37.873024+03:00"
   },
   "BIST:TUCLK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.003230+03:00"
+    "updated_at": "2026-09-28T15:34:37.873026+03:00"
   },
   "BIST:TUKAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789984800,
-    "updated_at": "2026-09-28T14:28:15.003233+03:00"
+    "updated_at": "2026-09-28T15:34:37.873028+03:00"
   },
   "BIST:TUPRS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789635600,
-    "updated_at": "2026-09-28T14:28:15.003236+03:00"
+    "updated_at": "2026-09-28T15:34:37.873031+03:00"
   },
   "BIST:TUREX": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790071200.0,
-    "updated_at": "2026-09-28T14:28:15.003239+03:00"
+    "updated_at": "2026-09-28T15:34:37.873033+03:00"
   },
   "BIST:TURGG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790150400.0,
-    "updated_at": "2026-09-28T14:28:15.003242+03:00"
+    "updated_at": "2026-09-28T15:34:37.873035+03:00"
   },
   "BIST:TURSG": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.003244+03:00"
+    "updated_at": "2026-09-28T15:34:37.873038+03:00"
   },
   "BIST:UCAYM": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788937200,
-    "updated_at": "2026-09-28T14:28:15.003247+03:00"
+    "updated_at": "2026-09-28T15:34:37.873040+03:00"
   },
   "BIST:UFUK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788512400,
-    "updated_at": "2026-09-28T14:28:15.003250+03:00"
+    "updated_at": "2026-09-28T15:34:37.873043+03:00"
   },
   "BIST:ULAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788523200,
-    "updated_at": "2026-09-28T14:28:15.003253+03:00"
+    "updated_at": "2026-09-28T15:34:37.873045+03:00"
   },
   "BIST:ULKER": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003256+03:00"
+    "updated_at": "2026-09-28T15:34:37.873047+03:00"
   },
   "BIST:ULUFA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.003258+03:00"
+    "updated_at": "2026-09-28T15:34:37.873050+03:00"
   },
   "BIST:ULUSE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789135200,
-    "updated_at": "2026-09-28T14:28:15.003261+03:00"
+    "updated_at": "2026-09-28T15:34:37.873052+03:00"
   },
   "BIST:ULUUN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003264+03:00"
+    "updated_at": "2026-09-28T15:34:37.873054+03:00"
   },
   "BIST:UNLU": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789718400,
-    "updated_at": "2026-09-28T14:28:15.003267+03:00"
+    "updated_at": "2026-09-28T15:34:37.873057+03:00"
   },
   "BIST:USAK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788876000,
-    "updated_at": "2026-09-28T14:28:15.003269+03:00"
+    "updated_at": "2026-09-28T15:34:37.873059+03:00"
   },
   "BIST:USHOL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789999200.0,
-    "updated_at": "2026-09-28T14:28:15.003272+03:00"
+    "updated_at": "2026-09-28T15:34:37.873061+03:00"
   },
   "BIST:VAKBN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789642800,
-    "updated_at": "2026-09-28T14:28:15.003275+03:00"
+    "updated_at": "2026-09-28T15:34:37.873064+03:00"
   },
   "BIST:VAKFA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.003278+03:00"
+    "updated_at": "2026-09-28T15:34:37.873066+03:00"
   },
   "BIST:VAKFN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788948000,
-    "updated_at": "2026-09-28T14:28:15.003281+03:00"
+    "updated_at": "2026-09-28T15:34:37.873069+03:00"
   },
   "BIST:VAKKO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003284+03:00"
+    "updated_at": "2026-09-28T15:34:37.873071+03:00"
   },
   "BIST:VANGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003286+03:00"
+    "updated_at": "2026-09-28T15:34:37.873074+03:00"
   },
   "BIST:VBTYZ": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003289+03:00"
+    "updated_at": "2026-09-28T15:34:37.873076+03:00"
   },
   "BIST:VERUS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789992000,
-    "updated_at": "2026-09-28T14:28:15.003292+03:00"
+    "updated_at": "2026-09-28T15:34:37.873079+03:00"
   },
   "BIST:VESBE": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.003295+03:00"
+    "updated_at": "2026-09-28T15:34:37.873081+03:00"
   },
   "BIST:VESTL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789455600,
-    "updated_at": "2026-09-28T14:28:15.003297+03:00"
+    "updated_at": "2026-09-28T15:34:37.873083+03:00"
   },
   "BIST:VEYAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788850800,
-    "updated_at": "2026-09-28T14:28:15.003300+03:00"
+    "updated_at": "2026-09-28T15:34:37.873086+03:00"
   },
   "BIST:VKFYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790157600.0,
-    "updated_at": "2026-09-28T14:28:15.003303+03:00"
+    "updated_at": "2026-09-28T15:34:37.873089+03:00"
   },
   "BIST:VKGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003305+03:00"
+    "updated_at": "2026-09-28T15:34:37.873091+03:00"
   },
   "BIST:VKING": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788933600,
-    "updated_at": "2026-09-28T14:28:15.003308+03:00"
+    "updated_at": "2026-09-28T15:34:37.873093+03:00"
   },
   "BIST:VRGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788944400,
-    "updated_at": "2026-09-28T14:28:15.003311+03:00"
+    "updated_at": "2026-09-28T15:34:37.873096+03:00"
   },
   "BIST:VSNMD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789560000,
-    "updated_at": "2026-09-28T14:28:15.003314+03:00"
+    "updated_at": "2026-09-28T15:34:37.873098+03:00"
   },
   "BIST:YAPRK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789542000,
-    "updated_at": "2026-09-28T14:28:15.003317+03:00"
+    "updated_at": "2026-09-28T15:34:37.873101+03:00"
   },
   "BIST:YATAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003320+03:00"
+    "updated_at": "2026-09-28T15:34:37.873103+03:00"
   },
   "BIST:YAYLA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788523200,
-    "updated_at": "2026-09-28T14:28:15.003323+03:00"
+    "updated_at": "2026-09-28T15:34:37.873106+03:00"
   },
   "BIST:YBTAS": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.003325+03:00"
+    "updated_at": "2026-09-28T15:34:37.873108+03:00"
   },
   "BIST:YEOTK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790056800.0,
-    "updated_at": "2026-09-28T14:28:15.003328+03:00"
+    "updated_at": "2026-09-28T15:34:37.873111+03:00"
   },
   "BIST:YESIL": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788951600,
-    "updated_at": "2026-09-28T14:28:15.003331+03:00"
+    "updated_at": "2026-09-28T15:34:37.873113+03:00"
   },
   "BIST:YGGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789740000,
-    "updated_at": "2026-09-28T14:28:15.003333+03:00"
+    "updated_at": "2026-09-28T15:34:37.873115+03:00"
   },
   "BIST:YIGIT": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1788948000,
-    "updated_at": "2026-09-28T14:28:15.003336+03:00"
+    "updated_at": "2026-09-28T15:34:37.873118+03:00"
   },
   "BIST:YKBNK": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789628400,
-    "updated_at": "2026-09-28T14:28:15.003338+03:00"
+    "updated_at": "2026-09-28T15:34:37.873120+03:00"
   },
   "BIST:YKSLN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788771600,
-    "updated_at": "2026-09-28T14:28:15.003341+03:00"
+    "updated_at": "2026-09-28T15:34:37.873123+03:00"
   },
   "BIST:YONGA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789452000,
-    "updated_at": "2026-09-28T14:28:15.003343+03:00"
+    "updated_at": "2026-09-28T15:34:37.873125+03:00"
   },
   "BIST:YUNSA": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1790078400.0,
-    "updated_at": "2026-09-28T14:28:15.003346+03:00"
+    "updated_at": "2026-09-28T15:34:37.873128+03:00"
   },
   "BIST:YYAPI": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003349+03:00"
+    "updated_at": "2026-09-28T15:34:37.873130+03:00"
   },
   "BIST:YYLGD": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790064000.0,
-    "updated_at": "2026-09-28T14:28:15.003352+03:00"
+    "updated_at": "2026-09-28T15:34:37.873132+03:00"
   },
   "BIST:ZEDUR": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1788865200,
-    "updated_at": "2026-09-28T14:28:15.003354+03:00"
+    "updated_at": "2026-09-28T15:34:37.873134+03:00"
   },
   "BIST:ZERGY": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789653600,
-    "updated_at": "2026-09-28T14:28:15.003357+03:00"
+    "updated_at": "2026-09-28T15:34:37.873137+03:00"
   },
   "BIST:ZGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1790143200.0,
-    "updated_at": "2026-09-28T14:28:15.003360+03:00"
+    "updated_at": "2026-09-28T15:34:37.873140+03:00"
   },
   "BIST:ZOREN": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": -1,
     "last_buy_candle_time": 1789452000,
-    "updated_at": "2026-09-28T14:28:15.003362+03:00"
+    "updated_at": "2026-09-28T15:34:37.873142+03:00"
   },
   "BIST:ZRGYO": {
-    "candle_time": 1790582400.0,
+    "candle_time": 1790589600.0,
     "direction": 1,
     "last_buy_candle_time": 1789462800,
-    "updated_at": "2026-09-28T14:28:15.003365+03:00"
+    "updated_at": "2026-09-28T15:34:37.873144+03:00"
   }
 }
