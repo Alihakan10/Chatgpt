@@ -57,7 +57,7 @@ def trades_for_symbol(symbol, raw):
     rs = gain / loss.replace(0, np.nan)
     rsi2 = 100 - 100/(1+rs)
     sma5 = c.rolling(5, min_periods=5).mean()
-    sma200 = c.rolling(200, min_periods=200).mean()
+    sma200 = c.rolling(100, min_periods=100).mean()
     prev_c = c.shift(1)
     tr = pd.concat([(x["High"]-x["Low"]).abs(), (x["High"]-prev_c).abs(), (x["Low"]-prev_c).abs()], axis=1).max(axis=1)
     atr14 = tr.ewm(alpha=1/14, min_periods=14, adjust=False).mean()
