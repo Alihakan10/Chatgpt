@@ -114,23 +114,22 @@ def main():
     # and holdings' return starts the following session (shift target weights by one row).
     month = pd.Series(closes.index.to_period("M"), index=closes.index)
     rebalance_dates = month[month.ne(month.shift(-1))].index
-    weights = pd.DataFrame(0.0, index=closes.index, columns=closes.columns)
-    for dt in rebalance_dates:
-        regime_ok = pd.notna(sma200_bench.loc[dt]) and benchmark.loc[dt] > sma200_bench.loc[dt]
-        if not regime_ok: continue
-        scores = (mom12.loc[dt] + mom6.loc[dt]) / 2
-        eligible = (closes.loc[dt] > stock_sma200.loc[dt]) & (closes.loc[dt] > stock_sma100.loc[dt]) & (mom12.loc[dt] > 0) & (mom6.loc[dt] > 0) & liquid.loc[dt].fillna(False)
-        ranked = scores[eligible & scores.notna()].sort_values(ascending=False).head(10)
-        if len(ranked): weights.loc[dt, ranked.index] = 1.0 / len(ranked)
-    # Carry targets forward until next rebalance, then shift one day to avoid same-close lookahead.
-    weights = weights.replace(0, np.nan).ffill().fillna(0.0)
-    # Regime-off at a rebalance is intentionally a cash signal (all zero); ffill above would retain
-    # prior positions, so explicitly stamp zero targets on all rebalance dates before carrying forward.
-    # Rebuild correctly with zero-weight rebalance rows preserved.
+    # Sparse target weights: every month-end explicitly records either selected holdings or cash.
     target = pd.DataFrame(np.nan, index=closes.index, columns=closes.columns)
     for dt in rebalance_dates:
         target.loc[dt] = 0.0
-        if weights.loc[dt].sum() > 0: target.loc[dt] = weights.loc[dt]
+        regime_ok = pd.notna(sma200_bench.loc[dt]) and benchmark.loc[dt] > sma200_bench.loc[dt]
+        if not regime_ok:
+            continue
+        scores = (mom12.loc[dt] + mom6.loc[dt]) / 2
+        eligible = ((closes.loc[dt] > stock_sma200.loc[dt]) &
+                    (closes.loc[dt] > stock_sma100.loc[dt]) &
+                    (mom12.loc[dt] > 0) & (mom6.loc[dt] > 0) &
+                    liquid.loc[dt].fillna(False))
+        ranked = scores[eligible & scores.notna()].sort_values(ascending=False).head(10)
+        if len(ranked):
+            target.loc[dt, ranked.index] = 1.0 / len(ranked)
+    # Hold month-end targets through the next rebalance; apply one session later to avoid lookahead.
     target = target.ffill().fillna(0.0)
     applied = target.shift(1).fillna(0.0)
     asset_returns = closes.pct_change().replace([np.inf,-np.inf],np.nan).fillna(0.0)
