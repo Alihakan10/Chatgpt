@@ -173,15 +173,31 @@ def check_symbol(symbol, expected_time):
         return {"symbol": symbol, "error": str(exc)}
 
 
+def write_skip_report(now, reason):
+    report = {
+        "run_time_istanbul": now.isoformat(),
+        "status": "SKIPPED",
+        "reason": reason,
+        "symbols": 0,
+        "successful": 0,
+        "errors": 0,
+        "early_buy_candidates_now": 0,
+        "new_virtual_buy_events": [],
+        "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS",
+    }
+    Path("latest_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+
+
 def main():
     now = datetime.now(IST)
     print(f"RUN_TIME_IST={now.isoformat()}")
     if now.weekday() >= 5:
-        print("VIRTUAL_TEST: hafta sonu; tarama yapılmadı.")
+        write_skip_report(now, "Hafta sonu; tarama yapılmadı.")
         return
     expected_time = active_bar_start(now)
     if expected_time is None:
-        print("VIRTUAL_TEST: aktif 2H seans dışında; tarama yapılmadı.")
+        write_skip_report(now, "Aktif 2H seans dışında; tarama yapılmadı.")
         return
     # Check that the market data provider has data for the current local date.
     try:
