@@ -2,6 +2,11 @@ name: BIST Historical Virtual AL-SAT Backtest
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - "historical_backtest.py"
+      - ".github/workflows/historical-backtest.yml"
+      - "requirements.txt"
 
 permissions:
   contents: read
