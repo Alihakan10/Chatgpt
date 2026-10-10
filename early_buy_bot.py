@@ -155,11 +155,16 @@ def check_symbol(symbol, expected_time):
         idx = pd.to_datetime(df.index)
         idx = idx.tz_localize(IST) if idx.tz is None else idx.tz_convert(IST)
         df.index = idx
-        if not (df.index == expected_time).any():
-            return {"symbol": symbol, "error": "Beklenen açık 2H mum bulunamadı"}
-        df = df.loc[:expected_time].copy()
-        if df.empty or df.index[-1] != expected_time:
-            return {"symbol": symbol, "error": "Açık mum son satır değil"}
+        if expected_time is None:
+            # Weekend diagnostic: latest available candle only, not a live signal.
+            diagnostic_candle = True
+        else:
+            if not (df.index == expected_time).any():
+                return {"symbol": symbol, "error": "Beklenen açık 2H mum bulunamadı"}
+            df = df.loc[:expected_time].copy()
+            if df.empty or df.index[-1] != expected_time:
+                return {"symbol": symbol, "error": "Açık mum son satır değil"}
+            diagnostic_candle = False
         result = calculate_pine_supertrend(df)
         last = result.iloc[-1]
         return {
@@ -168,6 +173,7 @@ def check_symbol(symbol, expected_time):
             "close": float(last["Close"]),
             "time": result.index[-1].isoformat(),
             "trend": int(last["trend"]),
+            "diagnostic_candle": diagnostic_candle,
         }
     except Exception as exc:
         return {"symbol": symbol, "error": str(exc)}
@@ -192,28 +198,29 @@ def write_skip_report(now, reason):
 def main():
     now = datetime.now(IST)
     print(f"RUN_TIME_IST={now.isoformat()}")
-    if now.weekday() >= 5:
-        write_skip_report(now, "Hafta sonu; tarama yapılmadı.")
-        return
-    expected_time = active_bar_start(now)
-    if expected_time is None:
+    weekend_diagnostic = now.weekday() >= 5
+    expected_time = active_bar_start(now) if not weekend_diagnostic else None
+    if not weekend_diagnostic and expected_time is None:
         write_skip_report(now, "Aktif 2H seans dışında; tarama yapılmadı.")
         return
-    # Check that the market data provider has data for the current local date.
-    try:
-        check = borsapy.Ticker("THYAO").history(period="3d", interval="1h")
-        if check is None or check.empty:
-            raise RuntimeError("THYAO 1H verisi yok")
-        last_ts = pd.Timestamp(check.index[-1])
-        last_date = last_ts.tz_convert(IST).date() if last_ts.tzinfo else last_ts.date()
-        if last_date != now.date():
-            raise RuntimeError(f"Bugünün verisi yok; son veri tarihi={last_date}")
-    except Exception as exc:
-        raise RuntimeError(f"BIST işlem günü/veri kontrolü başarısız: {exc}") from exc
+    # On weekdays require current-date data; weekends test only historical data.
+    if not weekend_diagnostic:
+        try:
+            check = borsapy.Ticker("THYAO").history(period="3d", interval="1h")
+            if check is None or check.empty:
+                raise RuntimeError("THYAO 1H verisi yok")
+            last_ts = pd.Timestamp(check.index[-1])
+            last_date = last_ts.tz_convert(IST).date() if last_ts.tzinfo else last_ts.date()
+            if last_date != now.date():
+                raise RuntimeError(f"Bugünün verisi yok; son veri tarihi={last_date}")
+        except Exception as exc:
+            raise RuntimeError(f"BIST işlem günü/veri kontrolü başarısız: {exc}") from exc
+    else:
+        print("WEEKEND_DIAGNOSTIC=True; son mevcut tarihsel 2H mumlar kontrol edilecek.")
 
     symbols = get_symbols()
     print(f"SYMBOL_COUNT={len(symbols)}")
-    print(f"EXPECTED_OPEN_BAR={expected_time.isoformat()}")
+    print(f"EXPECTED_OPEN_BAR={expected_time.isoformat() if expected_time is not None else 'LATEST_AVAILABLE_HISTORICAL_BAR'}")
     results, errors = [], []
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         jobs = {pool.submit(check_symbol, symbol, expected_time): symbol for symbol in symbols}
@@ -229,21 +236,24 @@ def main():
     except Exception:
         state = {}
     new_buys = []
-    for item in buys:
-        key = f'{item["symbol"]}|{item["time"]}'
-        if key not in state:
-            new_buys.append(item)
-            state[key] = {
-                "symbol": item["symbol"],
-                "time": item["time"],
-                "close": item["close"],
-                "status": "VIRTUAL_ONLY",
-                "first_seen_utc": datetime.now(ZoneInfo("UTC")).isoformat(),
-            }
+    if not weekend_diagnostic:
+        for item in buys:
+            key = f'{item["symbol"]}|{item["time"]}'
+            if key not in state:
+                new_buys.append(item)
+                state[key] = {
+                    "symbol": item["symbol"],
+                    "time": item["time"],
+                    "close": item["close"],
+                    "status": "VIRTUAL_ONLY",
+                    "first_seen_utc": datetime.now(ZoneInfo("UTC")).isoformat(),
+                }
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
     report = {
         "run_time_istanbul": now.isoformat(),
-        "expected_open_bar": expected_time.isoformat(),
+        "expected_open_bar": expected_time.isoformat() if expected_time is not None else None,
+        "status": "WEEKEND_DIAGNOSTIC_ONLY" if weekend_diagnostic else "LIVE_SESSION_SCAN",
+        "note": "Historical candle diagnostic only; candidates are not recorded as live events." if weekend_diagnostic else "Active 2H candle scan.",
         "symbols": len(symbols),
         "successful": len(results),
         "errors": len(errors),
