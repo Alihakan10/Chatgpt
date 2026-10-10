@@ -1,5 +1,5 @@
 {
-  "run_time_istanbul": "2026-10-10T17:54:35.745627+03:00",
+  "run_time_istanbul": "2026-10-10T18:22:12.701521+03:00",
   "expected_open_bar": null,
   "status": "WEEKEND_DIAGNOSTIC_ONLY",
   "note": "Historical candle diagnostic only; candidates are not recorded as live events.",
@@ -7,6 +7,10 @@
   "successful": 620,
   "errors": 0,
   "early_buy_candidates_now": 23,
+  "early_sell_candidates_now": 5,
   "new_virtual_buy_events": [],
+  "new_virtual_sell_events": [],
+  "open_virtual_positions": 0,
+  "closed_virtual_trades": 0,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }
