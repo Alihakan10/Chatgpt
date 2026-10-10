@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Daily BIST cross-sectional momentum research; virtual only, no orders."""
-import json, time, threading
+import json, time, threading, os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
@@ -16,7 +16,9 @@ COMMISSION = 0.001
 SLIPPAGE = 0.001
 ONE_WAY_COST = COMMISSION + SLIPPAGE
 MAX_WORKERS = 2
-MIN_REQUEST_GAP = 1.1
+MIN_REQUEST_GAP = 0.25
+CACHE_DIR = Path(".market_cache")
+CACHE_MAX_AGE_SECONDS = 20 * 60 * 60
 _lock = threading.Lock()
 _last_request = 0.0
 _provider = TradingViewProvider()
@@ -37,19 +39,31 @@ def symbols():
 def history(symbol):
     global _last_request
     try:
-        with _lock:
-            wait = MIN_REQUEST_GAP - (time.monotonic() - _last_request)
-            if wait > 0: time.sleep(wait)
-            _last_request = time.monotonic()
-        err = None
-        for attempt in range(4):
+        CACHE_DIR.mkdir(exist_ok=True)
+        cache_file = CACHE_DIR / (symbol.replace("/", "_") + ".csv")
+        raw = None
+        if cache_file.exists() and time.time() - cache_file.stat().st_mtime < CACHE_MAX_AGE_SECONDS:
             try:
-                raw = _provider.get_history(symbol, period=PERIOD, interval="1d", exchange="BIST")
-                break
-            except Exception as e:
-                err = e
-                if ("429" not in str(e) and "Too Many Requests" not in str(e)) or attempt == 3: raise
-                time.sleep(5 * (attempt + 1))
+                cached = pd.read_csv(cache_file, index_col=0, parse_dates=True)
+                if not cached.empty and {"Open", "Close", "Volume"}.issubset(cached.columns):
+                    raw = cached
+            except Exception:
+                raw = None
+        if raw is None:
+            with _lock:
+                wait = MIN_REQUEST_GAP - (time.monotonic() - _last_request)
+                if wait > 0: time.sleep(wait)
+                _last_request = time.monotonic()
+            for attempt in range(4):
+                try:
+                    raw = _provider.get_history(symbol, period=PERIOD, interval="1d", exchange="BIST")
+                    break
+                except Exception as e:
+                    if ("429" not in str(e) and "Too Many Requests" not in str(e)) or attempt == 3: raise
+                    time.sleep(3 * (attempt + 1))
+            if raw is not None and not raw.empty:
+                try: raw.to_csv(cache_file)
+                except Exception: pass
         if raw is None or raw.empty: return symbol, None, "empty history"
         df = raw.copy()
         rename = {c: str(c).capitalize() for c in df.columns if str(c).lower() in {"open","high","low","close","volume"}}
