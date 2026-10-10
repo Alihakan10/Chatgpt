@@ -178,11 +178,13 @@ def simulate_portfolio(trades):
             cash -= stake
             active.append({"key": key, "stake": stake, "trade": trade})
             accepted += 1
-        equity = cash + sum(p["stake"] * (1 + max(-1.0, (float(p["trade"]["exit_price"]) / float(p["trade"]["entry_price"]) - 1))) for p in active)
+        # Avoid look-ahead: while a trade is open, value it at entry cost only.
+        # This is a realized-equity drawdown estimate, not an intrabar mark-to-market drawdown.
+        equity = cash + sum(p["stake"] for p in active)
         equity_peak = max(equity_peak, equity)
         if equity_peak > 0:
             max_drawdown = max(max_drawdown, (equity_peak - equity) / equity_peak)
-        curve.append({"time": timestamp, "equity": round(equity, 2)})
+        curve.append({"time": timestamp, "realized_equity_estimate": round(equity, 2)})
     final_equity = cash
     # Normally all positions are marked at the data endpoint and have an exit/mark event.
     return {
@@ -190,7 +192,7 @@ def simulate_portfolio(trades):
         "ending_equity_try": round(final_equity, 2),
         "net_profit_try": round(final_equity - STARTING_CASH, 2),
         "net_return_percent": round((final_equity / STARTING_CASH - 1) * 100, 3),
-        "max_drawdown_percent_event_estimate": round(max_drawdown * 100, 3),
+        "max_drawdown_percent_realized_equity_only": round(max_drawdown * 100, 3),
         "max_open_positions": MAX_POSITIONS,
         "target_position_size_percent_of_equity": POSITION_FRACTION * 100,
         "accepted_entries": accepted,
@@ -200,7 +202,7 @@ def simulate_portfolio(trades):
         "open_positions_at_end": len(active),
         "costs": {"commission_each_side_percent": COMMISSION * 100, "slippage_each_side_percent": SLIPPAGE * 100},
         "curve_sample_first_200_events": curve[:200],
-        "method_note": "Chronological event simulation; exits before entries at same timestamp; positions sized to 10% of current cash plus invested stake, capped by available cash; unrealized positions are marked using available exit/endpoint price. Results are historical simulation, not a forecast."
+        "method_note": "Chronological event simulation; exits before entries at same timestamp; positions sized to 10% of cash plus invested stake, capped by available cash. Drawdown is realized-equity-only and excludes intratrade price swings, so it is a lower-bound diagnostic, not true peak-to-trough portfolio drawdown. Open positions are settled at their recorded endpoint mark for ending equity."
     }
 
 
