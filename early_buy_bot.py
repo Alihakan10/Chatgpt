@@ -356,7 +356,12 @@ def main():
         "new_virtual_buy_events": virtual_buys,
         "new_virtual_sell_events": virtual_sells,
         "open_virtual_positions": len(positions["open"]),
+        "open_virtual_positions_detail": list(positions["open"].values()),
         "closed_virtual_trades": len(trades),
+        "recent_closed_virtual_trades": trades[-20:],
+        "realized_pnl_per_share_sum": round(sum(float(t.get("pnl_per_share", 0)) for t in trades), 6),
+        "profitable_closed_trades": sum(1 for t in trades if float(t.get("pnl_per_share", 0)) > 0),
+        "losing_closed_trades": sum(1 for t in trades if float(t.get("pnl_per_share", 0)) < 0),
         "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS",
     }
     Path("latest_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
