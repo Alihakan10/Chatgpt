@@ -1,0 +1,42 @@
+name: BIST Bollinger RSI Portfolio Validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "portfolio_validation.py"
+      - ".github/workflows/portfolio-validation.yml"
+      - "requirements.txt"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bist-portfolio-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run portfolio-level virtual validation
+        run: python portfolio_validation.py
+      - name: Upload portfolio validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bist-bollinger-rsi-portfolio-validation
+          path: portfolio_validation_report.json
+          if-no-files-found: warn
