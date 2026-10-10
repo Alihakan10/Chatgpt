@@ -1,0 +1,39 @@
+name: BIST RSI2 SMA200 Portfolio Validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "rsi2_sma200_validation.py"
+      - ".github/workflows/rsi2-sma200-validation.yml"
+      - "requirements.txt"
+permissions:
+  contents: read
+concurrency:
+  group: bist-rsi2-sma200-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run RSI2 SMA200 virtual portfolio validation
+        run: python rsi2_sma200_validation.py
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bist-rsi2-sma200-validation
+          path: rsi2_sma200_validation_report.json
+          if-no-files-found: warn
