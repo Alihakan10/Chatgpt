@@ -178,9 +178,7 @@ def simulate_portfolio(closed_trades):
             gross_proceeds = pos["shares"] * executed_sell
             sell_fee = gross_proceeds * COMMISSION_RATE
             cash += gross_proceeds - sell_fee
-            net_pnl = cash - pos["cash_before_entry"] - sum(
-                p["cash_before_entry"] for p in open_positions.values()
-            ) if False else (gross_proceeds - sell_fee - pos["entry_cost"])
+            net_pnl = gross_proceeds - sell_fee - pos["entry_cost"]
             completed.append({
                 "symbol": symbol, "buy_time": pos["buy_time"], "sell_time": stamp,
                 "buy_price_raw": pos["raw_buy"], "sell_price_raw": raw_sell,
