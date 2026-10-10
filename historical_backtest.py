@@ -271,7 +271,7 @@ def main():
         "open_historical_positions": len(open_positions),
         "closed_trades": trades, "open_positions": open_positions,
         "errors": errors[:30],
-        "warning": "Historical simulation only; no commissions, slippage, position sizing, or broker orders. Not proof of live signal parity."
+        "warning": "Historical close-to-close signal test only; it does not reconstruct intrabar early signals and is not proof of TradingView live parity. The per-share aggregate excludes costs. The separate portfolio_simulation applies the listed hypothetical position sizing, commission and slippage assumptions, but skips entries when its 10 position slots/cash are unavailable; its close-only drawdown is not a full mark-to-market drawdown. No broker orders are sent."
     }
     Path("historical_backtest_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({k:v for k,v in report.items() if k not in {"closed_trades","open_positions","errors"}}, ensure_ascii=False, indent=2))
