@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compare a small, predeclared set of BIST 2H strategies; virtual research only."""
+"""Compare non-Supertrend BIST 2H strategies; virtual research only."""
 import json
 import threading
 import time
@@ -16,8 +16,6 @@ from tradingview_screener import Query
 IST = ZoneInfo("Europe/Istanbul")
 PERIOD = "6mo"
 TIMEFRAME = "2h"
-ATR_PERIOD = 10
-SUPERTREND_MULTIPLIER = 2.0
 COMMISSION_PER_SIDE = 0.001
 SLIPPAGE_PER_SIDE = 0.001
 ROUND_TRIP_COST = (1 + COMMISSION_PER_SIDE + SLIPPAGE_PER_SIDE) * (1 + COMMISSION_PER_SIDE + SLIPPAGE_PER_SIDE) - 1
@@ -66,30 +64,6 @@ def indicators(df):
     x = df.copy()
     close = x["Close"].astype(float)
     high, low = x["High"].astype(float), x["Low"].astype(float)
-    prev_close = close.shift(1)
-    tr = pd.concat([high-low, (high-prev_close).abs(), (low-prev_close).abs()], axis=1).max(axis=1)
-    atr = tr.ewm(alpha=1/ATR_PERIOD, min_periods=ATR_PERIOD, adjust=False).mean()
-    hl2 = (high + low) / 2
-    raw_up, raw_dn = hl2 - SUPERTREND_MULTIPLIER*atr, hl2 + SUPERTREND_MULTIPLIER*atr
-    up, dn = raw_up.copy(), raw_dn.copy()
-    trend = pd.Series(np.nan, index=x.index, dtype=float)
-    buy = pd.Series(False, index=x.index)
-    sell = pd.Series(False, index=x.index)
-    current = 1
-    for i in range(len(x)):
-        if pd.isna(atr.iloc[i]):
-            continue
-        up_prev = raw_up.iloc[i] if i == 0 or pd.isna(up.iloc[i-1]) else up.iloc[i-1]
-        dn_prev = raw_dn.iloc[i] if i == 0 or pd.isna(dn.iloc[i-1]) else dn.iloc[i-1]
-        if i > 0:
-            up.iloc[i] = max(raw_up.iloc[i], up_prev) if close.iloc[i-1] > up_prev else raw_up.iloc[i]
-            dn.iloc[i] = min(raw_dn.iloc[i], dn_prev) if close.iloc[i-1] < dn_prev else raw_dn.iloc[i]
-        prev = current
-        buy.iloc[i] = prev == -1 and close.iloc[i] > dn_prev
-        sell.iloc[i] = prev == 1 and close.iloc[i] < up_prev
-        current = 1 if buy.iloc[i] else (-1 if sell.iloc[i] else prev)
-        trend.iloc[i] = current
-    x["st_buy"], x["st_sell"] = buy, sell
     x["ema20"] = close.ewm(span=20, adjust=False, min_periods=20).mean()
     x["ema50"] = close.ewm(span=50, adjust=False, min_periods=50).mean()
     delta = close.diff()
@@ -99,7 +73,10 @@ def indicators(df):
     x["rsi14"] = 100 - 100/(1+rs)
     x["prior20_high"] = high.shift(1).rolling(20, min_periods=20).max()
     x["prior10_low"] = low.shift(1).rolling(10, min_periods=10).min()
-    x["st_trend"] = trend
+    x["bb_mid"] = close.rolling(20, min_periods=20).mean()
+    x["bb_std"] = close.rolling(20, min_periods=20).std(ddof=0)
+    x["bb_lower"] = x["bb_mid"] - 2*x["bb_std"]
+    x["bb_upper"] = x["bb_mid"] + 2*x["bb_std"]
     return x
 
 
@@ -108,7 +85,6 @@ def signals(df):
     close = x["Close"].astype(float)
     previous_rsi = x["rsi14"].shift(1)
     strategies = {
-        "supertrend_10_2": (x["st_buy"], x["st_sell"]),
         "ema_trend_rsi_pullback": (
             (x["ema20"] > x["ema50"]) & (close > x["ema50"]) &
             (previous_rsi < 40) & (x["rsi14"] >= 40),
@@ -117,6 +93,10 @@ def signals(df):
         "donchian_20_10": (
             close > x["prior20_high"],
             close < x["prior10_low"],
+        ),
+        "bollinger_rsi_mean_reversion": (
+            (close < x["bb_lower"]) & (x["rsi14"] < 35),
+            (close >= x["bb_mid"]) | (x["rsi14"] >= 55),
         ),
     }
     return x, strategies
@@ -226,7 +206,7 @@ def main():
         for job in as_completed(jobs):
             item = job.result()
             (errors if "error" in item else results).append(item)
-    all_trades = {"supertrend_10_2": [], "ema_trend_rsi_pullback": [], "donchian_20_10": []}
+    all_trades = {"ema_trend_rsi_pullback": [], "donchian_20_10": [], "bollinger_rsi_mean_reversion": []}
     for item in results:
         for name, trades in item["trades"].items():
             all_trades[name].extend(trades)
@@ -251,7 +231,7 @@ def main():
         "candidate_shortlist": eligible,
         "deployment_decision": "NO_STRATEGY_APPROVED" if not eligible else "REQUIRES_FORWARD_PAPER_TEST_BEFORE_ANY_LIVE_USE",
         "limitations": [
-            "These are 2H close-based research rules, not open-candle early signals.",
+            "All tested strategies are non-Supertrend 2H close-based research rules, not open-candle early signals.",
             "Compounded trade return is a non-portfolio diagnostic and does not account for overlapping capital allocation.",
             "No dividend/rights-adjustment guarantee; data and survivorship bias may remain.",
             "Strategy selection on a finite sample can overfit; no result guarantees future profit.",
