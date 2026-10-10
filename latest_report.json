@@ -1,0 +1,11 @@
+{
+  "run_time_istanbul": "2026-10-10T17:35:35.670682+03:00",
+  "status": "SKIPPED",
+  "reason": "Hafta sonu; tarama yapılmadı.",
+  "symbols": 0,
+  "successful": 0,
+  "errors": 0,
+  "early_buy_candidates_now": 0,
+  "new_virtual_buy_events": [],
+  "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
+}
