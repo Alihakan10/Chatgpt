@@ -148,6 +148,25 @@ def main():
     applied = target.shift(1).fillna(0.0)
     asset_returns = closes.pct_change().replace([np.inf,-np.inf],np.nan).fillna(0.0)
     gross = (applied * asset_returns).sum(axis=1)
+    # Hard audit guards: a long-only, fully invested portfolio cannot lose more than 100% in one day.
+    # Flag data/weight anomalies instead of publishing a misleading backtest.
+    weight_sum = applied.sum(axis=1)
+    weight_max = applied.max(axis=1)
+    bad_weights = (weight_sum > 1.000001) | (weight_sum < -1e-9) | (weight_max > 0.100001)
+    if bad_weights.any():
+        bad = pd.DataFrame({"weight_sum": weight_sum[bad_weights], "max_single_weight": weight_max[bad_weights]}).head(20)
+        print("PORTFOLIO_WEIGHT_AUDIT_FAILED\\n" + bad.to_string())
+        raise RuntimeError("Portfolio weights violated max-10 equal-weight position constraints; refusing to publish results")
+    extreme = gross < -0.20
+    if extreme.any():
+        details = []
+        for dt in gross.index[extreme][:20]:
+            contrib = (applied.loc[dt] * asset_returns.loc[dt]).sort_values()
+            details.append({"date": str(dt), "portfolio_return": float(gross.loc[dt]),
+                            "weight_sum": float(weight_sum.loc[dt]),
+                            "worst_contributors": {str(k): float(v) for k, v in contrib[contrib != 0].head(5).items()}})
+        print("EXTREME_DAILY_RETURN_AUDIT_FAILED\\n" + json.dumps(details, ensure_ascii=False, indent=2))
+        raise RuntimeError("Extreme daily portfolio loss detected; likely price/corporate-action anomaly. Results withheld")
     # Charge costs on target turnover at the execution session following each rebalance.
     changes = target.diff().abs().sum(axis=1).fillna(target.iloc[0].abs().sum())
     applied_turnover = changes.shift(1).fillna(changes.iloc[0])
