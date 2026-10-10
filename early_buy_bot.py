@@ -344,7 +344,15 @@ def main():
         "successful": len(results),
         "errors": len(errors),
         "early_buy_candidates_now": len(buys),
+        "early_buy_candidates": [
+            {"symbol": x["symbol"], "candle_time": x["time"], "close": x["close"], "trend": x["trend"]}
+            for x in buys
+        ],
         "early_sell_candidates_now": len(sells),
+        "early_sell_candidates": [
+            {"symbol": x["symbol"], "candle_time": x["time"], "close": x["close"], "trend": x["trend"]}
+            for x in sells
+        ],
         "new_virtual_buy_events": virtual_buys,
         "new_virtual_sell_events": virtual_sells,
         "open_virtual_positions": len(positions["open"]),
