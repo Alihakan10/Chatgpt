@@ -49,7 +49,7 @@ def normalize(df):
 
 def trades_for_symbol(symbol, raw):
     x = normalize(raw)
-    if len(x) < 240: return [], "Insufficient bars for SMA200 plus warmup"
+    if len(x) < 130: return [], "Insufficient bars for SMA100 plus warmup"
     c = x["Close"].astype(float)
     delta = c.diff()
     gain = delta.clip(lower=0).ewm(alpha=1/2, min_periods=2, adjust=False).mean()
@@ -57,7 +57,7 @@ def trades_for_symbol(symbol, raw):
     rs = gain / loss.replace(0, np.nan)
     rsi2 = 100 - 100/(1+rs)
     sma5 = c.rolling(5, min_periods=5).mean()
-    sma200 = c.rolling(100, min_periods=100).mean()
+    sma100 = c.rolling(100, min_periods=100).mean()
     prev_c = c.shift(1)
     tr = pd.concat([(x["High"]-x["Low"]).abs(), (x["High"]-prev_c).abs(), (x["Low"]-prev_c).abs()], axis=1).max(axis=1)
     atr14 = tr.ewm(alpha=1/14, min_periods=14, adjust=False).mean()
@@ -67,12 +67,12 @@ def trades_for_symbol(symbol, raw):
         price = float(c.iloc[i])
         if not np.isfinite(price): continue
         if holding is None:
-            if pd.notna(sma200.iloc[i]) and pd.notna(rsi2.iloc[i]) and price > float(sma200.iloc[i]) and float(rsi2.iloc[i]) < 10:
+            if pd.notna(sma100.iloc[i]) and pd.notna(rsi2.iloc[i]) and price > float(sma100.iloc[i]) and float(rsi2.iloc[i]) < 10:
                 holding = {"time":ts, "price":price, "atr":float(atr14.iloc[i]) if pd.notna(atr14.iloc[i]) else 0.0, "bar":i}
         else:
             stop = holding["price"] - 2.0*holding["atr"]
             time_exit = i - holding["bar"] >= 20
-            trend_exit = pd.notna(sma200.iloc[i]) and price < float(sma200.iloc[i])
+            trend_exit = pd.notna(sma100.iloc[i]) and price < float(sma100.iloc[i])
             mean_exit = pd.notna(sma5.iloc[i]) and price > float(sma5.iloc[i])
             if price <= stop or time_exit or trend_exit or mean_exit:
                 entry_t, entry_p = holding["time"], holding["price"]
@@ -80,7 +80,7 @@ def trades_for_symbol(symbol, raw):
                 tag = "oos" if entry_t >= split and ts >= split else ("train" if entry_t < split and ts < split else "crosses_split")
                 result.append({"symbol":symbol,"entry_time":entry_t.isoformat(),"exit_time":ts.isoformat(),
                     "entry_price":entry_p,"exit_price":price,"net_return":net,"split":tag,"status":"CLOSED",
-                    "exit_reason":"stop_2ATR" if price <= stop else ("time_20_bars" if time_exit else ("below_SMA200" if trend_exit else "above_SMA5"))})
+                    "exit_reason":"stop_2ATR" if price <= stop else ("time_20_bars" if time_exit else ("below_SMA100" if trend_exit else "above_SMA5"))})
                 holding = None
     if holding is not None:
         entry_t, entry_p = holding["time"], holding["price"]
@@ -158,8 +158,8 @@ def main():
     returns=[float(t["net_return"]) for t in oos_closed]
     port=simulate(all_trades)
     report={"run_time_istanbul":datetime.now(IST).isoformat(),"mode":"VIRTUAL_RESEARCH_ONLY_NO_BROKER_ORDERS_NO_TELEGRAM",
-      "strategy":"RSI2_pullback_in_SMA200_uptrend","rules":{"entry":"2H close above SMA200 and RSI(2)<10",
-      "exit":"close above SMA5, close below SMA200, close at least 2 ATR(14) below entry, or 20 bars held",
+      "strategy":"RSI2_pullback_in_SMA100_uptrend","rules":{"entry":"2H close above SMA100 and RSI(2)<10",
+      "exit":"close above SMA5, close below SMA100, close at least 2 ATR(14) below entry, or 20 bars held",
       "execution":"signal filled at signal close; optimistic assumption"},
       "period":PERIOD,"timeframe":"2h","symbols_requested":len(symbols),"symbols_with_errors":len(errors),
       "oos_method":"last 30% chronological per symbol; crossing-split trades excluded",
@@ -171,7 +171,7 @@ def main():
       "limitations":["No future profit is guaranteed.","Same-close fills are optimistic.","Corporate actions, liquidity, taxes, spreads, and survivorship bias may affect results.",
       "Drawdown is realized-equity-only and excludes intratrade price swings.","No live orders or Telegram notifications."],
       "errors_sample":errors[:30]}
-    Path("rsi2_sma200_validation_report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
+    Path("rsi2_sma100_validation_report.json").write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps(report,ensure_ascii=False,indent=2))
 
 if __name__=="__main__": main()
