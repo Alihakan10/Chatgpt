@@ -20,8 +20,9 @@ MULTIPLIER = 2.0
 PERIOD = "3mo"
 IST = ZoneInfo("Europe/Istanbul")
 STATE_FILE = Path("state/early_signals.json")
-MAX_WORKERS = 8
-MIN_REQUEST_GAP = 0.35
+MAX_WORKERS = 2
+MIN_REQUEST_GAP = 1.25
+MAX_DATA_RETRIES = 4
 REQUEST_LOCK = threading.Lock()
 LAST_REQUEST = 0.0
 
@@ -135,9 +136,23 @@ def check_symbol(symbol, expected_time):
             if wait > 0:
                 time.sleep(wait)
             LAST_REQUEST = time.monotonic()
-        df = TV_PROVIDER.get_history(
-            symbol, period=PERIOD, interval="2h", exchange="BIST"
-        )
+        df = None
+        for attempt in range(MAX_DATA_RETRIES + 1):
+            try:
+                df = TV_PROVIDER.get_history(
+                    symbol, period=PERIOD, interval="2h", exchange="BIST"
+                )
+                break
+            except Exception as exc:
+                message = str(exc)
+                rate_limited = "429" in message or "Too Many Requests" in message
+                if not rate_limited or attempt >= MAX_DATA_RETRIES:
+                    raise
+                delay = min(60, 5 * (2 ** attempt))
+                print(f"RATE_LIMIT {symbol}: deneme {attempt + 1}/{MAX_DATA_RETRIES}; {delay}s bekleniyor")
+                time.sleep(delay)
+                with REQUEST_LOCK:
+                    LAST_REQUEST = time.monotonic()
         if df is None or df.empty:
             return {"symbol": symbol, "error": "Veri alınamadı"}
         df = df.copy()
