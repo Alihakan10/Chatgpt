@@ -185,6 +185,7 @@ def check_symbol(symbol, expected_time):
         return {
             "symbol": symbol,
             "early_buy": bool(last["buy"]),
+            "early_sell": bool(last["sell"]),
             "close": float(last["Close"]),
             "time": result.index[-1].isoformat(),
             "trend": int(last["trend"]),
@@ -243,6 +244,7 @@ def main():
             item = job.result()
             (errors if "error" in item else results).append(item)
     buys = sorted((x for x in results if x.get("early_buy")), key=lambda x: x["symbol"])
+    sells = sorted((x for x in results if x.get("early_sell")), key=lambda x: x["symbol"])
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     try:
         state = json.loads(STATE_FILE.read_text(encoding="utf-8")) if STATE_FILE.exists() else {}
@@ -264,6 +266,75 @@ def main():
                     "first_seen_utc": datetime.now(ZoneInfo("UTC")).isoformat(),
                 }
     STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # Independent virtual portfolio: BUY opens one virtual position; SELL closes it.
+    positions_file = Path("state/virtual_positions.json")
+    trades_file = Path("state/virtual_trades.json")
+    try:
+        positions = json.loads(positions_file.read_text(encoding="utf-8")) if positions_file.exists() else {"open": {}}
+        if not isinstance(positions, dict) or not isinstance(positions.get("open"), dict):
+            positions = {"open": {}}
+    except Exception:
+        positions = {"open": {}}
+    try:
+        trades = json.loads(trades_file.read_text(encoding="utf-8")) if trades_file.exists() else []
+        if not isinstance(trades, list):
+            trades = []
+    except Exception:
+        trades = []
+    virtual_buys, virtual_sells = [], []
+    if not weekend_diagnostic:
+        for item in buys:
+            symbol = item["symbol"]
+            if symbol in positions["open"]:
+                continue
+            event_key = f'{symbol}|BUY|{item["time"]}'
+            if event_key in state:
+                continue
+            position = {
+                "symbol": symbol,
+                "buy_time": item["time"],
+                "buy_price": item["close"],
+                "status": "OPEN_VIRTUAL",
+            }
+            positions["open"][symbol] = position
+            virtual_buys.append({**position, "event": "VIRTUAL_BUY"})
+            state[event_key] = {
+                "symbol": symbol, "side": "BUY", "time": item["time"],
+                "close": item["close"], "status": "VIRTUAL_ONLY",
+                "first_seen_utc": datetime.now(ZoneInfo("UTC")).isoformat(),
+            }
+        for item in sells:
+            symbol = item["symbol"]
+            position = positions["open"].get(symbol)
+            if not position:
+                continue
+            event_key = f'{symbol}|SELL|{item["time"]}'
+            if event_key in state:
+                continue
+            sell_price = item["close"]
+            buy_price = float(position["buy_price"])
+            trade = {
+                "symbol": symbol,
+                "buy_time": position["buy_time"],
+                "buy_price": buy_price,
+                "sell_time": item["time"],
+                "sell_price": sell_price,
+                "pnl_per_share": round(sell_price - buy_price, 6),
+                "pnl_percent": round((sell_price / buy_price - 1) * 100, 4) if buy_price else None,
+                "status": "CLOSED_VIRTUAL",
+            }
+            trades.append(trade)
+            virtual_sells.append({**trade, "event": "VIRTUAL_SELL"})
+            del positions["open"][symbol]
+            state[event_key] = {
+                "symbol": symbol, "side": "SELL", "time": item["time"],
+                "close": sell_price, "status": "VIRTUAL_ONLY",
+                "first_seen_utc": datetime.now(ZoneInfo("UTC")).isoformat(),
+            }
+    positions_file.write_text(json.dumps(positions, ensure_ascii=False, indent=2), encoding="utf-8")
+    trades_file.write_text(json.dumps(trades, ensure_ascii=False, indent=2), encoding="utf-8")
+    STATE_FILE.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
     report = {
         "run_time_istanbul": now.isoformat(),
         "expected_open_bar": expected_time.isoformat() if expected_time is not None else None,
@@ -273,7 +344,11 @@ def main():
         "successful": len(results),
         "errors": len(errors),
         "early_buy_candidates_now": len(buys),
-        "new_virtual_buy_events": new_buys,
+        "early_sell_candidates_now": len(sells),
+        "new_virtual_buy_events": virtual_buys,
+        "new_virtual_sell_events": virtual_sells,
+        "open_virtual_positions": len(positions["open"]),
+        "closed_virtual_trades": len(trades),
         "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS",
     }
     Path("latest_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
