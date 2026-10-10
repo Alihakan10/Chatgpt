@@ -145,6 +145,102 @@ def one_symbol(symbol):
         return {"symbol": symbol, "error": str(exc)}
 
 
+
+# Hypothetical portfolio assumptions for a comparable, transparent simulation.
+STARTING_CAPITAL = 100_000.0
+MAX_OPEN_POSITIONS = 10
+POSITION_FRACTION = 0.10
+COMMISSION_RATE = 0.001   # 0.10% each side
+SLIPPAGE_RATE = 0.001     # 0.10% adverse price each side
+
+
+def simulate_portfolio(closed_trades):
+    """Chronological portfolio simulation; skips entries when all slots are occupied."""
+    events = []
+    for trade in closed_trades:
+        events.append((trade["buy_time"], 1, "BUY", trade))
+        events.append((trade["sell_time"], 0, "SELL", trade))
+    # SELL before BUY at identical timestamps; then stable symbol ordering.
+    events.sort(key=lambda e: (e[0], e[1], e[3]["symbol"]))
+    cash = STARTING_CAPITAL
+    open_positions = {}
+    completed = []
+    skipped_entries = 0
+    equity_points = [(None, STARTING_CAPITAL)]
+    for stamp, _, side, trade in events:
+        symbol = trade["symbol"]
+        if side == "SELL":
+            pos = open_positions.pop(symbol, None)
+            if pos is None:
+                continue
+            raw_sell = float(trade["sell_price"])
+            executed_sell = raw_sell * (1 - SLIPPAGE_RATE)
+            gross_proceeds = pos["shares"] * executed_sell
+            sell_fee = gross_proceeds * COMMISSION_RATE
+            cash += gross_proceeds - sell_fee
+            net_pnl = cash - pos["cash_before_entry"] - sum(
+                p["cash_before_entry"] for p in open_positions.values()
+            ) if False else (gross_proceeds - sell_fee - pos["entry_cost"])
+            completed.append({
+                "symbol": symbol, "buy_time": pos["buy_time"], "sell_time": stamp,
+                "buy_price_raw": pos["raw_buy"], "sell_price_raw": raw_sell,
+                "shares": round(pos["shares"], 6),
+                "net_pnl_try": round(net_pnl, 2),
+                "net_return_percent": round(net_pnl / pos["entry_cost"] * 100, 4),
+            })
+            equity_points.append((stamp, cash + sum(
+                p["shares"] * p["last_price"] for p in open_positions.values()
+            )))
+        else:
+            if symbol in open_positions:
+                continue
+            if len(open_positions) >= MAX_OPEN_POSITIONS:
+                skipped_entries += 1
+                continue
+            raw_buy = float(trade["buy_price"])
+            executed_buy = raw_buy * (1 + SLIPPAGE_RATE)
+            equity = cash + sum(p["shares"] * p["last_price"] for p in open_positions.values())
+            budget = min(cash, equity * POSITION_FRACTION)
+            shares = budget / (executed_buy * (1 + COMMISSION_RATE))
+            entry_cost = shares * executed_buy * (1 + COMMISSION_RATE)
+            if shares <= 0 or entry_cost > cash:
+                skipped_entries += 1
+                continue
+            cash -= entry_cost
+            open_positions[symbol] = {
+                "buy_time": stamp, "raw_buy": raw_buy, "shares": shares,
+                "entry_cost": entry_cost, "last_price": raw_buy,
+                "cash_before_entry": cash,
+            }
+            # Link each entry to its later exit using this symbol's trade record.
+            open_positions[symbol]["expected_sell_time"] = trade["sell_time"]
+    # Mark any positions still open from the source data separately; this simulation only
+    # includes fully closed historical trades to avoid inventing future exits.
+    final_equity = cash + sum(p["shares"] * p["last_price"] for p in open_positions.values())
+    peak = STARTING_CAPITAL
+    max_drawdown = 0.0
+    for _, value in equity_points:
+        peak = max(peak, value)
+        if peak > 0:
+            max_drawdown = max(max_drawdown, (peak - value) / peak * 100)
+    return {
+        "assumptions": {
+            "starting_capital_try": STARTING_CAPITAL,
+            "max_concurrent_positions": MAX_OPEN_POSITIONS,
+            "position_size_fraction_of_equity": POSITION_FRACTION,
+            "commission_each_side_percent": COMMISSION_RATE * 100,
+            "slippage_each_side_percent": SLIPPAGE_RATE * 100,
+        },
+        "completed_portfolio_trades": len(completed),
+        "skipped_entries_due_to_slot_or_cash": skipped_entries,
+        "ending_equity_try": round(final_equity, 2),
+        "net_profit_try": round(final_equity - STARTING_CAPITAL, 2),
+        "return_percent": round((final_equity / STARTING_CAPITAL - 1) * 100, 2),
+        "max_drawdown_percent_observed_at_closes": round(max_drawdown, 2),
+        "open_positions_at_end": len(open_positions),
+        "note": "Hypothetical close-to-close model. Open positions are marked using their entry price because this closed-trade event stream does not carry the latest mark; use this as a rough model, not a live performance claim.",
+    }
+
 def main():
     started = datetime.now(IST)
     print("BACKTEST_START_IST=" + started.isoformat())
@@ -172,7 +268,8 @@ def main():
         "symbols_failed": len(errors), "total_closed_virtual_trades": len(trades),
         "profitable_trades": len(wins), "losing_trades": len(losses),
         "win_rate_percent": round(len(wins)/len(trades)*100, 2) if trades else None,
-        "sum_pnl_per_share": round(sum(t["pnl_per_share"] for t in trades), 6),
+        "sum_pnl_per_share_non_portfolio_metric": round(sum(t["pnl_per_share"] for t in trades), 6),
+        "portfolio_simulation": simulate_portfolio(trades),
         "open_historical_positions": len(open_positions),
         "closed_trades": trades, "open_positions": open_positions,
         "errors": errors[:30],
