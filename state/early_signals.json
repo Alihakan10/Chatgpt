@@ -1,1 +1,47 @@
-{}
+{
+  "MHRGY|2026-10-12T13:00:00+03:00": {
+    "symbol": "MHRGY",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 1.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.158952+00:00"
+  },
+  "TNZTP|2026-10-12T13:00:00+03:00": {
+    "symbol": "TNZTP",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 25.14,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.158962+00:00"
+  },
+  "USAK|2026-10-12T13:00:00+03:00": {
+    "symbol": "USAK",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 0.47,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.158966+00:00"
+  },
+  "MHRGY|BUY|2026-10-12T13:00:00+03:00": {
+    "symbol": "MHRGY",
+    "side": "BUY",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 1.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.159470+00:00"
+  },
+  "TNZTP|BUY|2026-10-12T13:00:00+03:00": {
+    "symbol": "TNZTP",
+    "side": "BUY",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 25.14,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.159494+00:00"
+  },
+  "USAK|BUY|2026-10-12T13:00:00+03:00": {
+    "symbol": "USAK",
+    "side": "BUY",
+    "time": "2026-10-12T13:00:00+03:00",
+    "close": 0.47,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-12T11:23:15.159499+00:00"
+  }
+}
