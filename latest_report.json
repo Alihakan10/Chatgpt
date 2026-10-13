@@ -1,11 +1,193 @@
 {
-  "run_time_istanbul": "2026-10-13T05:09:34.331328+03:00",
-  "status": "SKIPPED",
-  "reason": "Aktif 2H seans dışında; tarama yapılmadı.",
-  "symbols": 0,
-  "successful": 0,
-  "errors": 0,
-  "early_buy_candidates_now": 0,
-  "new_virtual_buy_events": [],
+  "run_time_istanbul": "2026-10-13T12:21:58.877714+03:00",
+  "expected_open_bar": "2026-10-13T11:00:00+03:00",
+  "status": "LIVE_SESSION_SCAN",
+  "note": "Active 2H candle scan.",
+  "symbols": 620,
+  "successful": 582,
+  "errors": 38,
+  "early_buy_candidates_now": 4,
+  "early_buy_candidates": [
+    {
+      "symbol": "CEMAS",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 3.11,
+      "trend": 1
+    },
+    {
+      "symbol": "MARTI",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 1.68,
+      "trend": 1
+    },
+    {
+      "symbol": "NIBAS",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 2.95,
+      "trend": 1
+    },
+    {
+      "symbol": "SUNTK",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 25.7,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 12,
+  "early_sell_candidates": [
+    {
+      "symbol": "ATAKP",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 33.78,
+      "trend": -1
+    },
+    {
+      "symbol": "BINBN",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 47.96,
+      "trend": -1
+    },
+    {
+      "symbol": "BORSK",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 5.39,
+      "trend": -1
+    },
+    {
+      "symbol": "BULGS",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 12.83,
+      "trend": -1
+    },
+    {
+      "symbol": "ERBOS",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 113.7,
+      "trend": -1
+    },
+    {
+      "symbol": "FORMT",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 0.95,
+      "trend": -1
+    },
+    {
+      "symbol": "IMASM",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 1.55,
+      "trend": -1
+    },
+    {
+      "symbol": "KTLEV",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 8.27,
+      "trend": -1
+    },
+    {
+      "symbol": "MTRYO",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 7.63,
+      "trend": -1
+    },
+    {
+      "symbol": "OZRDN",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 12.52,
+      "trend": -1
+    },
+    {
+      "symbol": "TUREX",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 5.68,
+      "trend": -1
+    },
+    {
+      "symbol": "ZEDUR",
+      "candle_time": "2026-10-13T11:00:00+03:00",
+      "close": 5.33,
+      "trend": -1
+    }
+  ],
+  "new_virtual_buy_events": [
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "MARTI",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
+  "new_virtual_sell_events": [],
+  "open_virtual_positions": 7,
+  "open_virtual_positions_detail": [
+    {
+      "symbol": "MHRGY",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 1.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TNZTP",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 25.14,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USAK",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 0.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MARTI",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL"
+    }
+  ],
+  "closed_virtual_trades": 0,
+  "recent_closed_virtual_trades": [],
+  "realized_pnl_per_share_sum": 0,
+  "profitable_closed_trades": 0,
+  "losing_closed_trades": 0,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

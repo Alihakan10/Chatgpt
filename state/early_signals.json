@@ -43,5 +43,65 @@
     "close": 0.47,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-12T11:23:15.159499+00:00"
+  },
+  "CEMAS|2026-10-13T11:00:00+03:00": {
+    "symbol": "CEMAS",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 3.11,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.814585+00:00"
+  },
+  "MARTI|2026-10-13T11:00:00+03:00": {
+    "symbol": "MARTI",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 1.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.814595+00:00"
+  },
+  "NIBAS|2026-10-13T11:00:00+03:00": {
+    "symbol": "NIBAS",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 2.95,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.814599+00:00"
+  },
+  "SUNTK|2026-10-13T11:00:00+03:00": {
+    "symbol": "SUNTK",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 25.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.814602+00:00"
+  },
+  "CEMAS|BUY|2026-10-13T11:00:00+03:00": {
+    "symbol": "CEMAS",
+    "side": "BUY",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 3.11,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.815149+00:00"
+  },
+  "MARTI|BUY|2026-10-13T11:00:00+03:00": {
+    "symbol": "MARTI",
+    "side": "BUY",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 1.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.815159+00:00"
+  },
+  "NIBAS|BUY|2026-10-13T11:00:00+03:00": {
+    "symbol": "NIBAS",
+    "side": "BUY",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 2.95,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.815163+00:00"
+  },
+  "SUNTK|BUY|2026-10-13T11:00:00+03:00": {
+    "symbol": "SUNTK",
+    "side": "BUY",
+    "time": "2026-10-13T11:00:00+03:00",
+    "close": 25.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-13T09:34:54.815166+00:00"
   }
 }
