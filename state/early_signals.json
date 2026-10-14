@@ -103,5 +103,20 @@
     "close": 25.7,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-13T09:34:54.815166+00:00"
+  },
+  "TATEN|2026-10-14T13:00:00+03:00": {
+    "symbol": "TATEN",
+    "time": "2026-10-14T13:00:00+03:00",
+    "close": 4.88,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-14T10:49:13.100554+00:00"
+  },
+  "TATEN|BUY|2026-10-14T13:00:00+03:00": {
+    "symbol": "TATEN",
+    "side": "BUY",
+    "time": "2026-10-14T13:00:00+03:00",
+    "close": 4.88,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-14T10:49:13.101151+00:00"
   }
 }

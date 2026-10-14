@@ -41,6 +41,12 @@
       "buy_time": "2026-10-13T11:00:00+03:00",
       "buy_price": 25.7,
       "status": "OPEN_VIRTUAL"
+    },
+    "TATEN": {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }

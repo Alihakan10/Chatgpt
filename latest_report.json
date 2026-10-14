@@ -1,11 +1,87 @@
 {
-  "run_time_istanbul": "2026-10-14T08:38:29.078669+03:00",
-  "status": "SKIPPED",
-  "reason": "Aktif 2H seans dışında; tarama yapılmadı.",
-  "symbols": 0,
-  "successful": 0,
-  "errors": 0,
-  "early_buy_candidates_now": 0,
-  "new_virtual_buy_events": [],
+  "run_time_istanbul": "2026-10-14T13:36:17.931069+03:00",
+  "expected_open_bar": "2026-10-14T13:00:00+03:00",
+  "status": "LIVE_SESSION_SCAN",
+  "note": "Active 2H candle scan.",
+  "symbols": 620,
+  "successful": 581,
+  "errors": 39,
+  "early_buy_candidates_now": 1,
+  "early_buy_candidates": [
+    {
+      "symbol": "TATEN",
+      "candle_time": "2026-10-14T13:00:00+03:00",
+      "close": 4.88,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 0,
+  "early_sell_candidates": [],
+  "new_virtual_buy_events": [
+    {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
+  "new_virtual_sell_events": [],
+  "open_virtual_positions": 8,
+  "open_virtual_positions_detail": [
+    {
+      "symbol": "MHRGY",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 1.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TNZTP",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 25.14,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USAK",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 0.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MARTI",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    }
+  ],
+  "closed_virtual_trades": 0,
+  "recent_closed_virtual_trades": [],
+  "realized_pnl_per_share_sum": 0,
+  "profitable_closed_trades": 0,
+  "losing_closed_trades": 0,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }
