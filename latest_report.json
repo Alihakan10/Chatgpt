@@ -1,33 +1,126 @@
 {
-  "run_time_istanbul": "2026-10-14T13:36:17.931069+03:00",
-  "expected_open_bar": "2026-10-14T13:00:00+03:00",
+  "run_time_istanbul": "2026-10-14T18:28:56.557183+03:00",
+  "expected_open_bar": "2026-10-14T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
-  "successful": 581,
-  "errors": 39,
-  "early_buy_candidates_now": 1,
+  "successful": 620,
+  "errors": 0,
+  "early_buy_candidates_now": 3,
   "early_buy_candidates": [
     {
-      "symbol": "TATEN",
-      "candle_time": "2026-10-14T13:00:00+03:00",
-      "close": 4.88,
+      "symbol": "ATEKS",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 92.0,
+      "trend": 1
+    },
+    {
+      "symbol": "FRIGO",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 2.28,
+      "trend": 1
+    },
+    {
+      "symbol": "YBTAS",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 10.95,
       "trend": 1
     }
   ],
-  "early_sell_candidates_now": 0,
-  "early_sell_candidates": [],
+  "early_sell_candidates_now": 11,
+  "early_sell_candidates": [
+    {
+      "symbol": "AEFES",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 18.24,
+      "trend": -1
+    },
+    {
+      "symbol": "ATSYH",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 80.6,
+      "trend": -1
+    },
+    {
+      "symbol": "BALAT",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 51.45,
+      "trend": -1
+    },
+    {
+      "symbol": "BALSU",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 8.63,
+      "trend": -1
+    },
+    {
+      "symbol": "DMLKT",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 6.97,
+      "trend": -1
+    },
+    {
+      "symbol": "EKIZ",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 50.6,
+      "trend": -1
+    },
+    {
+      "symbol": "GSDDE",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 11.31,
+      "trend": -1
+    },
+    {
+      "symbol": "LKMNH",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 10.76,
+      "trend": -1
+    },
+    {
+      "symbol": "SEGYO",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 2.76,
+      "trend": -1
+    },
+    {
+      "symbol": "SUMAS",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 216.5,
+      "trend": -1
+    },
+    {
+      "symbol": "TUKAS",
+      "candle_time": "2026-10-14T17:00:00+03:00",
+      "close": 1.94,
+      "trend": -1
+    }
+  ],
   "new_virtual_buy_events": [
     {
-      "symbol": "TATEN",
-      "buy_time": "2026-10-14T13:00:00+03:00",
-      "buy_price": 4.88,
+      "symbol": "ATEKS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 92.0,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "FRIGO",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 2.28,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "YBTAS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 10.95,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     }
   ],
   "new_virtual_sell_events": [],
-  "open_virtual_positions": 8,
+  "open_virtual_positions": 11,
   "open_virtual_positions_detail": [
     {
       "symbol": "MHRGY",
@@ -75,6 +168,24 @@
       "symbol": "TATEN",
       "buy_time": "2026-10-14T13:00:00+03:00",
       "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATEKS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 92.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FRIGO",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 2.28,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YBTAS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 10.95,
       "status": "OPEN_VIRTUAL"
     }
   ],
