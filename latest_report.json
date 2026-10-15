@@ -1,11 +1,147 @@
 {
-  "run_time_istanbul": "2026-10-15T08:25:16.669736+03:00",
-  "status": "SKIPPED",
-  "reason": "Aktif 2H seans dışında; tarama yapılmadı.",
-  "symbols": 0,
-  "successful": 0,
-  "errors": 0,
-  "early_buy_candidates_now": 0,
-  "new_virtual_buy_events": [],
+  "run_time_istanbul": "2026-10-15T13:09:24.038768+03:00",
+  "expected_open_bar": "2026-10-15T13:00:00+03:00",
+  "status": "LIVE_SESSION_SCAN",
+  "note": "Active 2H candle scan.",
+  "symbols": 620,
+  "successful": 277,
+  "errors": 343,
+  "early_buy_candidates_now": 2,
+  "early_buy_candidates": [
+    {
+      "symbol": "POLTK",
+      "candle_time": "2026-10-15T13:00:00+03:00",
+      "close": 3865.0,
+      "trend": 1
+    },
+    {
+      "symbol": "TNZTP",
+      "candle_time": "2026-10-15T13:00:00+03:00",
+      "close": 25.78,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 2,
+  "early_sell_candidates": [
+    {
+      "symbol": "NIBAS",
+      "candle_time": "2026-10-15T13:00:00+03:00",
+      "close": 3.07,
+      "trend": -1
+    },
+    {
+      "symbol": "ORGE",
+      "candle_time": "2026-10-15T13:00:00+03:00",
+      "close": 22.24,
+      "trend": -1
+    }
+  ],
+  "new_virtual_buy_events": [
+    {
+      "symbol": "POLTK",
+      "buy_time": "2026-10-15T13:00:00+03:00",
+      "buy_price": 3865.0,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
+  "new_virtual_sell_events": [
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "sell_time": "2026-10-15T13:00:00+03:00",
+      "sell_price": 3.07,
+      "pnl_per_share": 0.12,
+      "pnl_percent": 4.0678,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    }
+  ],
+  "open_virtual_positions": 11,
+  "open_virtual_positions_detail": [
+    {
+      "symbol": "MHRGY",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 1.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TNZTP",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 25.14,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USAK",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 0.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MARTI",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATEKS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 92.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FRIGO",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 2.28,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YBTAS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 10.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "POLTK",
+      "buy_time": "2026-10-15T13:00:00+03:00",
+      "buy_price": 3865.0,
+      "status": "OPEN_VIRTUAL"
+    }
+  ],
+  "closed_virtual_trades": 1,
+  "recent_closed_virtual_trades": [
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "sell_time": "2026-10-15T13:00:00+03:00",
+      "sell_price": 3.07,
+      "pnl_per_share": 0.12,
+      "pnl_percent": 4.0678,
+      "status": "CLOSED_VIRTUAL"
+    }
+  ],
+  "realized_pnl_per_share_sum": 0.12,
+  "profitable_closed_trades": 1,
+  "losing_closed_trades": 0,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

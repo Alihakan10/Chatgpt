@@ -30,12 +30,6 @@
       "buy_price": 1.68,
       "status": "OPEN_VIRTUAL"
     },
-    "NIBAS": {
-      "symbol": "NIBAS",
-      "buy_time": "2026-10-13T11:00:00+03:00",
-      "buy_price": 2.95,
-      "status": "OPEN_VIRTUAL"
-    },
     "SUNTK": {
       "symbol": "SUNTK",
       "buy_time": "2026-10-13T11:00:00+03:00",
@@ -64,6 +58,12 @@
       "symbol": "YBTAS",
       "buy_time": "2026-10-14T17:00:00+03:00",
       "buy_price": 10.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    "POLTK": {
+      "symbol": "POLTK",
+      "buy_time": "2026-10-15T13:00:00+03:00",
+      "buy_price": 3865.0,
       "status": "OPEN_VIRTUAL"
     }
   }

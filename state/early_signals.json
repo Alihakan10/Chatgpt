@@ -163,5 +163,35 @@
     "close": 10.95,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-14T15:41:53.063183+00:00"
+  },
+  "POLTK|2026-10-15T13:00:00+03:00": {
+    "symbol": "POLTK",
+    "time": "2026-10-15T13:00:00+03:00",
+    "close": 3865.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-15T10:22:19.108932+00:00"
+  },
+  "TNZTP|2026-10-15T13:00:00+03:00": {
+    "symbol": "TNZTP",
+    "time": "2026-10-15T13:00:00+03:00",
+    "close": 25.78,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-15T10:22:19.108945+00:00"
+  },
+  "POLTK|BUY|2026-10-15T13:00:00+03:00": {
+    "symbol": "POLTK",
+    "side": "BUY",
+    "time": "2026-10-15T13:00:00+03:00",
+    "close": 3865.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-15T10:22:19.109596+00:00"
+  },
+  "NIBAS|SELL|2026-10-15T13:00:00+03:00": {
+    "symbol": "NIBAS",
+    "side": "SELL",
+    "time": "2026-10-15T13:00:00+03:00",
+    "close": 3.07,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-15T10:22:19.109613+00:00"
   }
 }
