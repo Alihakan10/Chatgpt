@@ -65,6 +65,42 @@
       "buy_time": "2026-10-15T13:00:00+03:00",
       "buy_price": 3865.0,
       "status": "OPEN_VIRTUAL"
+    },
+    "CRDFA": {
+      "symbol": "CRDFA",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.13,
+      "status": "OPEN_VIRTUAL"
+    },
+    "IHAAS": {
+      "symbol": "IHAAS",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 14.87,
+      "status": "OPEN_VIRTUAL"
+    },
+    "QUICK": {
+      "symbol": "QUICK",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 44.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    "VESTL": {
+      "symbol": "VESTL",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YYAPI": {
+      "symbol": "YYAPI",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 0.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ZGYO": {
+      "symbol": "ZGYO",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 16.03,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
