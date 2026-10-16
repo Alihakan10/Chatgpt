@@ -1,11 +1,347 @@
 {
-  "run_time_istanbul": "2026-10-16T23:04:24.537628+03:00",
-  "status": "SKIPPED",
-  "reason": "Aktif 2H seans dışında; tarama yapılmadı.",
-  "symbols": 0,
-  "successful": 0,
+  "run_time_istanbul": "2026-10-17T01:48:59.304488+03:00",
+  "expected_open_bar": null,
+  "status": "WEEKEND_DIAGNOSTIC_ONLY",
+  "note": "Historical candle diagnostic only; candidates are not recorded as live events.",
+  "symbols": 620,
+  "successful": 620,
   "errors": 0,
-  "early_buy_candidates_now": 0,
+  "early_buy_candidates_now": 24,
+  "early_buy_candidates": [
+    {
+      "symbol": "ATAKP",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 33.14,
+      "trend": 1
+    },
+    {
+      "symbol": "ATEKS",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 87.55,
+      "trend": 1
+    },
+    {
+      "symbol": "AVPGY",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 49.5,
+      "trend": 1
+    },
+    {
+      "symbol": "BESTE",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 18.03,
+      "trend": 1
+    },
+    {
+      "symbol": "BIGCH",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 3.58,
+      "trend": 1
+    },
+    {
+      "symbol": "CUSAN",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 19.31,
+      "trend": 1
+    },
+    {
+      "symbol": "DOGUB",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 17.4,
+      "trend": 1
+    },
+    {
+      "symbol": "EGGUB",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 91.7,
+      "trend": 1
+    },
+    {
+      "symbol": "EKIZ",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 51.25,
+      "trend": 1
+    },
+    {
+      "symbol": "GLBMD",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 9.97,
+      "trend": 1
+    },
+    {
+      "symbol": "KGYO",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 8.4,
+      "trend": 1
+    },
+    {
+      "symbol": "KLNMA",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 7.17,
+      "trend": 1
+    },
+    {
+      "symbol": "KUYAS",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 11.65,
+      "trend": 1
+    },
+    {
+      "symbol": "MANAS",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 4.25,
+      "trend": 1
+    },
+    {
+      "symbol": "MASFN",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 33.56,
+      "trend": 1
+    },
+    {
+      "symbol": "PEKGY",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 1.32,
+      "trend": 1
+    },
+    {
+      "symbol": "PRZMA",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 12.13,
+      "trend": 1
+    },
+    {
+      "symbol": "RUZYE",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 3.95,
+      "trend": 1
+    },
+    {
+      "symbol": "SKTAS",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 2.36,
+      "trend": 1
+    },
+    {
+      "symbol": "SNPAM",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 18.4,
+      "trend": 1
+    },
+    {
+      "symbol": "SOHOE",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 7.35,
+      "trend": 1
+    },
+    {
+      "symbol": "TATGD",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 14.85,
+      "trend": 1
+    },
+    {
+      "symbol": "TEZOL",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 7.16,
+      "trend": 1
+    },
+    {
+      "symbol": "ZERGY",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 7.32,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 3,
+  "early_sell_candidates": [
+    {
+      "symbol": "ENERY",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 13.85,
+      "trend": -1
+    },
+    {
+      "symbol": "MIATK",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 25.68,
+      "trend": -1
+    },
+    {
+      "symbol": "PSGYO",
+      "candle_time": "2026-10-16T17:00:00+03:00",
+      "close": 1.68,
+      "trend": -1
+    }
+  ],
   "new_virtual_buy_events": [],
+  "new_virtual_sell_events": [],
+  "open_virtual_positions": 23,
+  "open_virtual_positions_detail": [
+    {
+      "symbol": "MHRGY",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 1.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TNZTP",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 25.14,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USAK",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 0.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATEKS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 92.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FRIGO",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 2.28,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YBTAS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 10.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "POLTK",
+      "buy_time": "2026-10-15T13:00:00+03:00",
+      "buy_price": 3865.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CRDFA",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.13,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "IHAAS",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 14.87,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "QUICK",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 44.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "VESTL",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YYAPI",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 0.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ZGYO",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 16.03,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BORLS",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 2.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DESA",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 8.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DMRGD",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 6.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DZGYO",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 6.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KLRHO",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 11.72,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LKMNH",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 11.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PARSN",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 56.25,
+      "status": "OPEN_VIRTUAL"
+    }
+  ],
+  "closed_virtual_trades": 2,
+  "recent_closed_virtual_trades": [
+    {
+      "symbol": "NIBAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 2.95,
+      "sell_time": "2026-10-15T13:00:00+03:00",
+      "sell_price": 3.07,
+      "pnl_per_share": 0.12,
+      "pnl_percent": 4.0678,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "MARTI",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 1.68,
+      "sell_time": "2026-10-16T15:00:00+03:00",
+      "sell_price": 1.59,
+      "pnl_per_share": -0.09,
+      "pnl_percent": -5.3571,
+      "status": "CLOSED_VIRTUAL"
+    }
+  ],
+  "realized_pnl_per_share_sum": 0.03,
+  "profitable_closed_trades": 1,
+  "losing_closed_trades": 1,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }
