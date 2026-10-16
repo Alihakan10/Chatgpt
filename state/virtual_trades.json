@@ -8,5 +8,15 @@
     "pnl_per_share": 0.12,
     "pnl_percent": 4.0678,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "MARTI",
+    "buy_time": "2026-10-13T11:00:00+03:00",
+    "buy_price": 1.68,
+    "sell_time": "2026-10-16T15:00:00+03:00",
+    "sell_price": 1.59,
+    "pnl_per_share": -0.09,
+    "pnl_percent": -5.3571,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

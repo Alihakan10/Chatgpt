@@ -283,5 +283,118 @@
     "close": 16.03,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-15T15:12:06.484251+00:00"
+  },
+  "BORLS|2026-10-16T15:00:00+03:00": {
+    "symbol": "BORLS",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 2.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394019+00:00"
+  },
+  "DESA|2026-10-16T15:00:00+03:00": {
+    "symbol": "DESA",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 8.35,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394030+00:00"
+  },
+  "DMRGD|2026-10-16T15:00:00+03:00": {
+    "symbol": "DMRGD",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 6.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394034+00:00"
+  },
+  "DZGYO|2026-10-16T15:00:00+03:00": {
+    "symbol": "DZGYO",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 6.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394037+00:00"
+  },
+  "KLRHO|2026-10-16T15:00:00+03:00": {
+    "symbol": "KLRHO",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 11.72,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394040+00:00"
+  },
+  "LKMNH|2026-10-16T15:00:00+03:00": {
+    "symbol": "LKMNH",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 11.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394051+00:00"
+  },
+  "PARSN|2026-10-16T15:00:00+03:00": {
+    "symbol": "PARSN",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 56.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394054+00:00"
+  },
+  "BORLS|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "BORLS",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 2.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394769+00:00"
+  },
+  "DESA|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "DESA",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 8.35,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394782+00:00"
+  },
+  "DMRGD|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "DMRGD",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 6.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394787+00:00"
+  },
+  "DZGYO|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "DZGYO",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 6.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394790+00:00"
+  },
+  "KLRHO|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "KLRHO",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 11.72,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394794+00:00"
+  },
+  "LKMNH|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "LKMNH",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 11.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394797+00:00"
+  },
+  "PARSN|BUY|2026-10-16T15:00:00+03:00": {
+    "symbol": "PARSN",
+    "side": "BUY",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 56.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394800+00:00"
+  },
+  "MARTI|SELL|2026-10-16T15:00:00+03:00": {
+    "symbol": "MARTI",
+    "side": "SELL",
+    "time": "2026-10-16T15:00:00+03:00",
+    "close": 1.59,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-16T13:36:25.394811+00:00"
   }
 }
