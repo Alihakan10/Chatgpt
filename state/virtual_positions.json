@@ -137,6 +137,12 @@
       "buy_time": "2026-10-16T15:00:00+03:00",
       "buy_price": 56.25,
       "status": "OPEN_VIRTUAL"
+    },
+    "PLTUR": {
+      "symbol": "PLTUR",
+      "buy_time": "2026-10-19T17:00:00+03:00",
+      "buy_price": 15.03,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }

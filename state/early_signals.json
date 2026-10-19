@@ -396,5 +396,20 @@
     "close": 1.59,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-16T13:36:25.394811+00:00"
+  },
+  "PLTUR|2026-10-19T17:00:00+03:00": {
+    "symbol": "PLTUR",
+    "time": "2026-10-19T17:00:00+03:00",
+    "close": 15.03,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-19T15:47:12.140992+00:00"
+  },
+  "PLTUR|BUY|2026-10-19T17:00:00+03:00": {
+    "symbol": "PLTUR",
+    "side": "BUY",
+    "time": "2026-10-19T17:00:00+03:00",
+    "close": 15.03,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-19T15:47:12.141782+00:00"
   }
 }

@@ -1,18 +1,112 @@
 {
-  "run_time_istanbul": "2026-10-19T11:00:44.145908+03:00",
-  "expected_open_bar": "2026-10-19T11:00:00+03:00",
+  "run_time_istanbul": "2026-10-19T18:34:14.100898+03:00",
+  "expected_open_bar": "2026-10-19T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
-  "successful": 0,
-  "errors": 620,
-  "early_buy_candidates_now": 0,
-  "early_buy_candidates": [],
-  "early_sell_candidates_now": 0,
-  "early_sell_candidates": [],
-  "new_virtual_buy_events": [],
+  "successful": 620,
+  "errors": 0,
+  "early_buy_candidates_now": 1,
+  "early_buy_candidates": [
+    {
+      "symbol": "PLTUR",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 15.03,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 13,
+  "early_sell_candidates": [
+    {
+      "symbol": "AHSGY",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 5.94,
+      "trend": -1
+    },
+    {
+      "symbol": "AVPGY",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 47.4,
+      "trend": -1
+    },
+    {
+      "symbol": "AYES",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 6.74,
+      "trend": -1
+    },
+    {
+      "symbol": "BALAT",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 57.85,
+      "trend": -1
+    },
+    {
+      "symbol": "ICUGS",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 1.31,
+      "trend": -1
+    },
+    {
+      "symbol": "KENT",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 249.5,
+      "trend": -1
+    },
+    {
+      "symbol": "PEKGY",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 1.2,
+      "trend": -1
+    },
+    {
+      "symbol": "SOHOE",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 7.0,
+      "trend": -1
+    },
+    {
+      "symbol": "TATGD",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 14.36,
+      "trend": -1
+    },
+    {
+      "symbol": "TMPOL",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 140.2,
+      "trend": -1
+    },
+    {
+      "symbol": "UNLU",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 9.68,
+      "trend": -1
+    },
+    {
+      "symbol": "YATAS",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 24.22,
+      "trend": -1
+    },
+    {
+      "symbol": "ZERGY",
+      "candle_time": "2026-10-19T17:00:00+03:00",
+      "close": 6.77,
+      "trend": -1
+    }
+  ],
+  "new_virtual_buy_events": [
+    {
+      "symbol": "PLTUR",
+      "buy_time": "2026-10-19T17:00:00+03:00",
+      "buy_price": 15.03,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
   "new_virtual_sell_events": [],
-  "open_virtual_positions": 23,
+  "open_virtual_positions": 24,
   "open_virtual_positions_detail": [
     {
       "symbol": "MHRGY",
@@ -150,6 +244,12 @@
       "symbol": "PARSN",
       "buy_time": "2026-10-16T15:00:00+03:00",
       "buy_price": 56.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PLTUR",
+      "buy_time": "2026-10-19T17:00:00+03:00",
+      "buy_price": 15.03,
       "status": "OPEN_VIRTUAL"
     }
   ],
