@@ -411,5 +411,20 @@
     "close": 15.03,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-19T15:47:12.141782+00:00"
+  },
+  "OTKAR|2026-10-20T11:00:00+03:00": {
+    "symbol": "OTKAR",
+    "time": "2026-10-20T11:00:00+03:00",
+    "close": 307.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-20T08:26:14.829226+00:00"
+  },
+  "OTKAR|BUY|2026-10-20T11:00:00+03:00": {
+    "symbol": "OTKAR",
+    "side": "BUY",
+    "time": "2026-10-20T11:00:00+03:00",
+    "close": 307.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-20T08:26:14.830074+00:00"
   }
 }

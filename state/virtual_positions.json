@@ -143,6 +143,12 @@
       "buy_time": "2026-10-19T17:00:00+03:00",
       "buy_price": 15.03,
       "status": "OPEN_VIRTUAL"
+    },
+    "OTKAR": {
+      "symbol": "OTKAR",
+      "buy_time": "2026-10-20T11:00:00+03:00",
+      "buy_price": 307.5,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
