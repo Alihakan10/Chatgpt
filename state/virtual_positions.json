@@ -149,6 +149,192 @@
       "buy_time": "2026-10-20T11:00:00+03:00",
       "buy_price": 307.5,
       "status": "OPEN_VIRTUAL"
+    },
+    "AKSA": {
+      "symbol": "AKSA",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 10.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ARDYZ": {
+      "symbol": "ARDYZ",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 58.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ASELS": {
+      "symbol": "ASELS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 339.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AYDEM": {
+      "symbol": "AYDEM",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 22.06,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AYEN": {
+      "symbol": "AYEN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 24.72,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AZTEK": {
+      "symbol": "AZTEK",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BALSU": {
+      "symbol": "BALSU",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 7.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BIMAS": {
+      "symbol": "BIMAS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 384.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BLCYT": {
+      "symbol": "BLCYT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.59,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BRSAN": {
+      "symbol": "BRSAN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 670.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DURKN": {
+      "symbol": "DURKN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EREGL": {
+      "symbol": "EREGL",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 36.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "HRKET": {
+      "symbol": "HRKET",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.07,
+      "status": "OPEN_VIRTUAL"
+    },
+    "IHEVA": {
+      "symbol": "IHEVA",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.54,
+      "status": "OPEN_VIRTUAL"
+    },
+    "IHLGM": {
+      "symbol": "IHLGM",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.16,
+      "status": "OPEN_VIRTUAL"
+    },
+    "INVES": {
+      "symbol": "INVES",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 669.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ISDMR": {
+      "symbol": "ISDMR",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 58.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KLSYN": {
+      "symbol": "KLSYN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 14.39,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KORDS": {
+      "symbol": "KORDS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.79,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KOTON": {
+      "symbol": "KOTON",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MCARD": {
+      "symbol": "MCARD",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 97.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MERIT": {
+      "symbol": "MERIT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 13.23,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MGROS": {
+      "symbol": "MGROS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 462.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MPARK": {
+      "symbol": "MPARK",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 412.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    "NTGAZ": {
+      "symbol": "NTGAZ",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 10.08,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OYAKC": {
+      "symbol": "OYAKC",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 19.51,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OZKGY": {
+      "symbol": "OZKGY",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 11.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PCILT": {
+      "symbol": "PCILT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 30.26,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SNGYO": {
+      "symbol": "SNGYO",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.53,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TRGYO": {
+      "symbol": "TRGYO",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 88.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "VERUS": {
+      "symbol": "VERUS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 467.75,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
