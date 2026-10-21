@@ -198,12 +198,6 @@
       "buy_price": 384.0,
       "status": "OPEN_VIRTUAL"
     },
-    "BLCYT": {
-      "symbol": "BLCYT",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 1.59,
-      "status": "OPEN_VIRTUAL"
-    },
     "BRSAN": {
       "symbol": "BRSAN",
       "buy_time": "2026-10-20T15:00:00+03:00",
@@ -220,12 +214,6 @@
       "symbol": "EREGL",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 36.9,
-      "status": "OPEN_VIRTUAL"
-    },
-    "HRKET": {
-      "symbol": "HRKET",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 9.07,
       "status": "OPEN_VIRTUAL"
     },
     "IHEVA": {
@@ -280,18 +268,6 @@
       "symbol": "MERIT",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 13.23,
-      "status": "OPEN_VIRTUAL"
-    },
-    "MGROS": {
-      "symbol": "MGROS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 462.75,
-      "status": "OPEN_VIRTUAL"
-    },
-    "MPARK": {
-      "symbol": "MPARK",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 412.25,
       "status": "OPEN_VIRTUAL"
     },
     "NTGAZ": {
@@ -352,6 +328,24 @@
       "symbol": "KLKIM",
       "buy_time": "2026-10-21T11:00:00+03:00",
       "buy_price": 20.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ALCTL": {
+      "symbol": "ALCTL",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 67.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BESTE": {
+      "symbol": "BESTE",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 19.97,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CITAS": {
+      "symbol": "CITAS",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 93.55,
       "status": "OPEN_VIRTUAL"
     }
   }

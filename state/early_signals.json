@@ -943,5 +943,82 @@
     "close": 20.96,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-21T09:50:51.217825+00:00"
+  },
+  "ALCTL|2026-10-21T17:00:00+03:00": {
+    "symbol": "ALCTL",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 67.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.468114+00:00"
+  },
+  "BESTE|2026-10-21T17:00:00+03:00": {
+    "symbol": "BESTE",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 19.97,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.468126+00:00"
+  },
+  "CITAS|2026-10-21T17:00:00+03:00": {
+    "symbol": "CITAS",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 93.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.468128+00:00"
+  },
+  "ALCTL|BUY|2026-10-21T17:00:00+03:00": {
+    "symbol": "ALCTL",
+    "side": "BUY",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 67.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469147+00:00"
+  },
+  "BESTE|BUY|2026-10-21T17:00:00+03:00": {
+    "symbol": "BESTE",
+    "side": "BUY",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 19.97,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469153+00:00"
+  },
+  "CITAS|BUY|2026-10-21T17:00:00+03:00": {
+    "symbol": "CITAS",
+    "side": "BUY",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 93.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469156+00:00"
+  },
+  "BLCYT|SELL|2026-10-21T17:00:00+03:00": {
+    "symbol": "BLCYT",
+    "side": "SELL",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 1.51,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469165+00:00"
+  },
+  "HRKET|SELL|2026-10-21T17:00:00+03:00": {
+    "symbol": "HRKET",
+    "side": "SELL",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 8.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469170+00:00"
+  },
+  "MGROS|SELL|2026-10-21T17:00:00+03:00": {
+    "symbol": "MGROS",
+    "side": "SELL",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 454.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469174+00:00"
+  },
+  "MPARK|SELL|2026-10-21T17:00:00+03:00": {
+    "symbol": "MPARK",
+    "side": "SELL",
+    "time": "2026-10-21T17:00:00+03:00",
+    "close": 403.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T14:53:06.469177+00:00"
   }
 }

@@ -1,90 +1,165 @@
 {
-  "run_time_istanbul": "2026-10-21T12:37:56.020088+03:00",
-  "expected_open_bar": "2026-10-21T11:00:00+03:00",
+  "run_time_istanbul": "2026-10-21T17:40:09.821934+03:00",
+  "expected_open_bar": "2026-10-21T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
-  "successful": 581,
-  "errors": 39,
+  "successful": 579,
+  "errors": 41,
   "early_buy_candidates_now": 3,
   "early_buy_candidates": [
     {
-      "symbol": "ATATP",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 217.4,
+      "symbol": "ALCTL",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 67.75,
       "trend": 1
     },
     {
-      "symbol": "CRFSA",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 201.7,
+      "symbol": "BESTE",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 19.97,
       "trend": 1
     },
     {
-      "symbol": "KLKIM",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 20.96,
+      "symbol": "CITAS",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 93.55,
       "trend": 1
     }
   ],
-  "early_sell_candidates_now": 5,
+  "early_sell_candidates_now": 10,
   "early_sell_candidates": [
     {
-      "symbol": "BESTE",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 17.48,
+      "symbol": "AHGAZ",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 45.26,
       "trend": -1
     },
     {
-      "symbol": "CUSAN",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 17.83,
+      "symbol": "BLCYT",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 1.51,
       "trend": -1
     },
     {
-      "symbol": "HKTM",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 11.22,
+      "symbol": "BMSTL",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 37.86,
       "trend": -1
     },
     {
-      "symbol": "MAKIM",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 12.35,
+      "symbol": "ENERY",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 13.44,
       "trend": -1
     },
     {
-      "symbol": "PENGD",
-      "candle_time": "2026-10-21T11:00:00+03:00",
-      "close": 6.89,
+      "symbol": "GLRMK",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 119.3,
+      "trend": -1
+    },
+    {
+      "symbol": "HRKET",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 8.04,
+      "trend": -1
+    },
+    {
+      "symbol": "METRO",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 7.75,
+      "trend": -1
+    },
+    {
+      "symbol": "MGROS",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 454.25,
+      "trend": -1
+    },
+    {
+      "symbol": "MPARK",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 403.0,
+      "trend": -1
+    },
+    {
+      "symbol": "TCELL",
+      "candle_time": "2026-10-21T17:00:00+03:00",
+      "close": 95.05,
       "trend": -1
     }
   ],
   "new_virtual_buy_events": [
     {
-      "symbol": "ATATP",
-      "buy_time": "2026-10-21T11:00:00+03:00",
-      "buy_price": 217.4,
+      "symbol": "ALCTL",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 67.75,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "CRFSA",
-      "buy_time": "2026-10-21T11:00:00+03:00",
-      "buy_price": 201.7,
+      "symbol": "BESTE",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 19.97,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "KLKIM",
-      "buy_time": "2026-10-21T11:00:00+03:00",
-      "buy_price": 20.96,
+      "symbol": "CITAS",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 93.55,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     }
   ],
-  "new_virtual_sell_events": [],
-  "open_virtual_positions": 59,
+  "new_virtual_sell_events": [
+    {
+      "symbol": "BLCYT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.59,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 1.51,
+      "pnl_per_share": -0.08,
+      "pnl_percent": -5.0314,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "HRKET",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.07,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 8.04,
+      "pnl_per_share": -1.03,
+      "pnl_percent": -11.3561,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "MGROS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 462.75,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 454.25,
+      "pnl_per_share": -8.5,
+      "pnl_percent": -1.8368,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "MPARK",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 412.25,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 403.0,
+      "pnl_per_share": -9.25,
+      "pnl_percent": -2.2438,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    }
+  ],
+  "open_virtual_positions": 58,
   "open_virtual_positions_detail": [
     {
       "symbol": "MHRGY",
@@ -285,12 +360,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "BLCYT",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 1.59,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "BRSAN",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 670.5,
@@ -306,12 +375,6 @@
       "symbol": "EREGL",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 36.9,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "HRKET",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 9.07,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -366,18 +429,6 @@
       "symbol": "MERIT",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 13.23,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "MGROS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 462.75,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "MPARK",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 412.25,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -439,9 +490,27 @@
       "buy_time": "2026-10-21T11:00:00+03:00",
       "buy_price": 20.96,
       "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALCTL",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 67.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BESTE",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 19.97,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CITAS",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 93.55,
+      "status": "OPEN_VIRTUAL"
     }
   ],
-  "closed_virtual_trades": 2,
+  "closed_virtual_trades": 6,
   "recent_closed_virtual_trades": [
     {
       "symbol": "NIBAS",
@@ -462,10 +531,50 @@
       "pnl_per_share": -0.09,
       "pnl_percent": -5.3571,
       "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "BLCYT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.59,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 1.51,
+      "pnl_per_share": -0.08,
+      "pnl_percent": -5.0314,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "HRKET",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.07,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 8.04,
+      "pnl_per_share": -1.03,
+      "pnl_percent": -11.3561,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "MGROS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 462.75,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 454.25,
+      "pnl_per_share": -8.5,
+      "pnl_percent": -1.8368,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "MPARK",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 412.25,
+      "sell_time": "2026-10-21T17:00:00+03:00",
+      "sell_price": 403.0,
+      "pnl_per_share": -9.25,
+      "pnl_percent": -2.2438,
+      "status": "CLOSED_VIRTUAL"
     }
   ],
-  "realized_pnl_per_share_sum": 0.03,
+  "realized_pnl_per_share_sum": -18.83,
   "profitable_closed_trades": 1,
-  "losing_closed_trades": 1,
+  "losing_closed_trades": 5,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

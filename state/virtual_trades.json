@@ -18,5 +18,45 @@
     "pnl_per_share": -0.09,
     "pnl_percent": -5.3571,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "BLCYT",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 1.59,
+    "sell_time": "2026-10-21T17:00:00+03:00",
+    "sell_price": 1.51,
+    "pnl_per_share": -0.08,
+    "pnl_percent": -5.0314,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "HRKET",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 9.07,
+    "sell_time": "2026-10-21T17:00:00+03:00",
+    "sell_price": 8.04,
+    "pnl_per_share": -1.03,
+    "pnl_percent": -11.3561,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "MGROS",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 462.75,
+    "sell_time": "2026-10-21T17:00:00+03:00",
+    "sell_price": 454.25,
+    "pnl_per_share": -8.5,
+    "pnl_percent": -1.8368,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "MPARK",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 412.25,
+    "sell_time": "2026-10-21T17:00:00+03:00",
+    "sell_price": 403.0,
+    "pnl_per_share": -9.25,
+    "pnl_percent": -2.2438,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
