@@ -898,5 +898,50 @@
     "close": 467.75,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-20T13:45:47.966278+00:00"
+  },
+  "ATATP|2026-10-21T11:00:00+03:00": {
+    "symbol": "ATATP",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 217.4,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.216614+00:00"
+  },
+  "CRFSA|2026-10-21T11:00:00+03:00": {
+    "symbol": "CRFSA",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 201.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.216625+00:00"
+  },
+  "KLKIM|2026-10-21T11:00:00+03:00": {
+    "symbol": "KLKIM",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 20.96,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.216629+00:00"
+  },
+  "ATATP|BUY|2026-10-21T11:00:00+03:00": {
+    "symbol": "ATATP",
+    "side": "BUY",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 217.4,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.217811+00:00"
+  },
+  "CRFSA|BUY|2026-10-21T11:00:00+03:00": {
+    "symbol": "CRFSA",
+    "side": "BUY",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 201.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.217820+00:00"
+  },
+  "KLKIM|BUY|2026-10-21T11:00:00+03:00": {
+    "symbol": "KLKIM",
+    "side": "BUY",
+    "time": "2026-10-21T11:00:00+03:00",
+    "close": 20.96,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-21T09:50:51.217825+00:00"
   }
 }
