@@ -246,12 +246,6 @@
       "buy_price": 14.39,
       "status": "OPEN_VIRTUAL"
     },
-    "KORDS": {
-      "symbol": "KORDS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 2.79,
-      "status": "OPEN_VIRTUAL"
-    },
     "KOTON": {
       "symbol": "KOTON",
       "buy_time": "2026-10-20T15:00:00+03:00",
@@ -292,12 +286,6 @@
       "symbol": "PCILT",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 30.26,
-      "status": "OPEN_VIRTUAL"
-    },
-    "SNGYO": {
-      "symbol": "SNGYO",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 2.53,
       "status": "OPEN_VIRTUAL"
     },
     "TRGYO": {
@@ -346,6 +334,36 @@
       "symbol": "CITAS",
       "buy_time": "2026-10-21T17:00:00+03:00",
       "buy_price": 93.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KERVN": {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    "METRO": {
+      "symbol": "METRO",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 7.69,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OZRDN": {
+      "symbol": "OZRDN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 9.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    "RTALB": {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TRILC": {
+      "symbol": "TRILC",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 0.85,
       "status": "OPEN_VIRTUAL"
     }
   }

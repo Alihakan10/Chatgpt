@@ -58,5 +58,25 @@
     "pnl_per_share": -9.25,
     "pnl_percent": -2.2438,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "KORDS",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 2.79,
+    "sell_time": "2026-10-22T17:00:00+03:00",
+    "sell_price": 2.68,
+    "pnl_per_share": -0.11,
+    "pnl_percent": -3.9427,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "SNGYO",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 2.53,
+    "sell_time": "2026-10-22T17:00:00+03:00",
+    "sell_price": 2.42,
+    "pnl_per_share": -0.11,
+    "pnl_percent": -4.3478,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

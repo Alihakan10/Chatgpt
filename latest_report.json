@@ -1,25 +1,175 @@
 {
-  "run_time_istanbul": "2026-10-22T13:22:05.464899+03:00",
-  "expected_open_bar": "2026-10-22T13:00:00+03:00",
+  "run_time_istanbul": "2026-10-22T18:25:57.484229+03:00",
+  "expected_open_bar": "2026-10-22T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
-  "successful": 575,
-  "errors": 45,
-  "early_buy_candidates_now": 0,
-  "early_buy_candidates": [],
-  "early_sell_candidates_now": 1,
+  "successful": 620,
+  "errors": 0,
+  "early_buy_candidates_now": 5,
+  "early_buy_candidates": [
+    {
+      "symbol": "KERVN",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 4.88,
+      "trend": 1
+    },
+    {
+      "symbol": "METRO",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 7.69,
+      "trend": 1
+    },
+    {
+      "symbol": "OZRDN",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 9.19,
+      "trend": 1
+    },
+    {
+      "symbol": "RTALB",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 2.18,
+      "trend": 1
+    },
+    {
+      "symbol": "TRILC",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 0.85,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 11,
   "early_sell_candidates": [
     {
-      "symbol": "BOSSA",
-      "candle_time": "2026-10-22T13:00:00+03:00",
-      "close": 5.16,
+      "symbol": "DCTTR",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 3.88,
+      "trend": -1
+    },
+    {
+      "symbol": "EKIZ",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 35.5,
+      "trend": -1
+    },
+    {
+      "symbol": "ENJSA",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 113.1,
+      "trend": -1
+    },
+    {
+      "symbol": "HOROZ",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 40.0,
+      "trend": -1
+    },
+    {
+      "symbol": "INTET",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 42.46,
+      "trend": -1
+    },
+    {
+      "symbol": "KORDS",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 2.68,
+      "trend": -1
+    },
+    {
+      "symbol": "NETCD",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 79.5,
+      "trend": -1
+    },
+    {
+      "symbol": "PGSUS",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 126.4,
+      "trend": -1
+    },
+    {
+      "symbol": "QNBFK",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 33.96,
+      "trend": -1
+    },
+    {
+      "symbol": "SNGYO",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 2.42,
+      "trend": -1
+    },
+    {
+      "symbol": "YKBNK",
+      "candle_time": "2026-10-22T17:00:00+03:00",
+      "close": 35.32,
       "trend": -1
     }
   ],
-  "new_virtual_buy_events": [],
-  "new_virtual_sell_events": [],
-  "open_virtual_positions": 58,
+  "new_virtual_buy_events": [
+    {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "METRO",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 7.69,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "OZRDN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 9.19,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "TRILC",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 0.85,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
+  "new_virtual_sell_events": [
+    {
+      "symbol": "KORDS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.79,
+      "sell_time": "2026-10-22T17:00:00+03:00",
+      "sell_price": 2.68,
+      "pnl_per_share": -0.11,
+      "pnl_percent": -3.9427,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "SNGYO",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.53,
+      "sell_time": "2026-10-22T17:00:00+03:00",
+      "sell_price": 2.42,
+      "pnl_per_share": -0.11,
+      "pnl_percent": -4.3478,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    }
+  ],
+  "open_virtual_positions": 61,
   "open_virtual_positions_detail": [
     {
       "symbol": "MHRGY",
@@ -268,12 +418,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "KORDS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 2.79,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "KOTON",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 9.11,
@@ -313,12 +457,6 @@
       "symbol": "PCILT",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 30.26,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "SNGYO",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 2.53,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -368,9 +506,39 @@
       "buy_time": "2026-10-21T17:00:00+03:00",
       "buy_price": 93.55,
       "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "METRO",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 7.69,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OZRDN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 9.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TRILC",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 0.85,
+      "status": "OPEN_VIRTUAL"
     }
   ],
-  "closed_virtual_trades": 6,
+  "closed_virtual_trades": 8,
   "recent_closed_virtual_trades": [
     {
       "symbol": "NIBAS",
@@ -431,10 +599,30 @@
       "pnl_per_share": -9.25,
       "pnl_percent": -2.2438,
       "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "KORDS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.79,
+      "sell_time": "2026-10-22T17:00:00+03:00",
+      "sell_price": 2.68,
+      "pnl_per_share": -0.11,
+      "pnl_percent": -3.9427,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "SNGYO",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.53,
+      "sell_time": "2026-10-22T17:00:00+03:00",
+      "sell_price": 2.42,
+      "pnl_per_share": -0.11,
+      "pnl_percent": -4.3478,
+      "status": "CLOSED_VIRTUAL"
     }
   ],
-  "realized_pnl_per_share_sum": -18.83,
+  "realized_pnl_per_share_sum": -19.05,
   "profitable_closed_trades": 1,
-  "losing_closed_trades": 5,
+  "losing_closed_trades": 7,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

@@ -1020,5 +1020,96 @@
     "close": 403.0,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-21T14:53:06.469177+00:00"
+  },
+  "KERVN|2026-10-22T17:00:00+03:00": {
+    "symbol": "KERVN",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 4.88,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.660805+00:00"
+  },
+  "METRO|2026-10-22T17:00:00+03:00": {
+    "symbol": "METRO",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 7.69,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.660816+00:00"
+  },
+  "OZRDN|2026-10-22T17:00:00+03:00": {
+    "symbol": "OZRDN",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 9.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.660819+00:00"
+  },
+  "RTALB|2026-10-22T17:00:00+03:00": {
+    "symbol": "RTALB",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 2.18,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.660820+00:00"
+  },
+  "TRILC|2026-10-22T17:00:00+03:00": {
+    "symbol": "TRILC",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 0.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.660823+00:00"
+  },
+  "KERVN|BUY|2026-10-22T17:00:00+03:00": {
+    "symbol": "KERVN",
+    "side": "BUY",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 4.88,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661891+00:00"
+  },
+  "METRO|BUY|2026-10-22T17:00:00+03:00": {
+    "symbol": "METRO",
+    "side": "BUY",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 7.69,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661898+00:00"
+  },
+  "OZRDN|BUY|2026-10-22T17:00:00+03:00": {
+    "symbol": "OZRDN",
+    "side": "BUY",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 9.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661900+00:00"
+  },
+  "RTALB|BUY|2026-10-22T17:00:00+03:00": {
+    "symbol": "RTALB",
+    "side": "BUY",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 2.18,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661902+00:00"
+  },
+  "TRILC|BUY|2026-10-22T17:00:00+03:00": {
+    "symbol": "TRILC",
+    "side": "BUY",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 0.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661904+00:00"
+  },
+  "KORDS|SELL|2026-10-22T17:00:00+03:00": {
+    "symbol": "KORDS",
+    "side": "SELL",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 2.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661914+00:00"
+  },
+  "SNGYO|SELL|2026-10-22T17:00:00+03:00": {
+    "symbol": "SNGYO",
+    "side": "SELL",
+    "time": "2026-10-22T17:00:00+03:00",
+    "close": 2.42,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-22T15:38:55.661918+00:00"
   }
 }
