@@ -365,6 +365,12 @@
       "buy_time": "2026-10-22T17:00:00+03:00",
       "buy_price": 0.85,
       "status": "OPEN_VIRTUAL"
+    },
+    "PEKGY": {
+      "symbol": "PEKGY",
+      "buy_time": "2026-10-23T13:00:00+03:00",
+      "buy_price": 0.95,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
