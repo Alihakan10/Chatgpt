@@ -1133,5 +1133,686 @@
     "close": 0.95,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-23T10:43:44.126262+00:00"
+  },
+  "ACSEL|2026-10-23T17:00:00+03:00": {
+    "symbol": "ACSEL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126120+00:00"
+  },
+  "AGHOL|2026-10-23T17:00:00+03:00": {
+    "symbol": "AGHOL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 28.82,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126132+00:00"
+  },
+  "AKSA|2026-10-23T17:00:00+03:00": {
+    "symbol": "AKSA",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 10.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126136+00:00"
+  },
+  "AKSGY|2026-10-23T17:00:00+03:00": {
+    "symbol": "AKSGY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126138+00:00"
+  },
+  "ALBTN|2026-10-23T17:00:00+03:00": {
+    "symbol": "ALBTN",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 19.41,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126141+00:00"
+  },
+  "ALCAR|2026-10-23T17:00:00+03:00": {
+    "symbol": "ALCAR",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 574.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126144+00:00"
+  },
+  "ANHYT|2026-10-23T17:00:00+03:00": {
+    "symbol": "ANHYT",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 93.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126146+00:00"
+  },
+  "ARSAN|2026-10-23T17:00:00+03:00": {
+    "symbol": "ARSAN",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 2.92,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126149+00:00"
+  },
+  "AVHOL|2026-10-23T17:00:00+03:00": {
+    "symbol": "AVHOL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 28.78,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126151+00:00"
+  },
+  "AYGAZ|2026-10-23T17:00:00+03:00": {
+    "symbol": "AYGAZ",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 269.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126154+00:00"
+  },
+  "BINBN|2026-10-23T17:00:00+03:00": {
+    "symbol": "BINBN",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 33.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126156+00:00"
+  },
+  "CCOLA|2026-10-23T17:00:00+03:00": {
+    "symbol": "CCOLA",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126161+00:00"
+  },
+  "CEMZY|2026-10-23T17:00:00+03:00": {
+    "symbol": "CEMZY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 5.94,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126164+00:00"
+  },
+  "CMENT|2026-10-23T17:00:00+03:00": {
+    "symbol": "CMENT",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 217.4,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126166+00:00"
+  },
+  "DESA|2026-10-23T17:00:00+03:00": {
+    "symbol": "DESA",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.07,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126169+00:00"
+  },
+  "DIRIT|2026-10-23T17:00:00+03:00": {
+    "symbol": "DIRIT",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 13.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126171+00:00"
+  },
+  "DMLKT|2026-10-23T17:00:00+03:00": {
+    "symbol": "DMLKT",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 6.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126174+00:00"
+  },
+  "EGEPO|2026-10-23T17:00:00+03:00": {
+    "symbol": "EGEPO",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.67,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126176+00:00"
+  },
+  "EMNIS|2026-10-23T17:00:00+03:00": {
+    "symbol": "EMNIS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 119.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126179+00:00"
+  },
+  "ENKAI|2026-10-23T17:00:00+03:00": {
+    "symbol": "ENKAI",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126181+00:00"
+  },
+  "ESCAR|2026-10-23T17:00:00+03:00": {
+    "symbol": "ESCAR",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126185+00:00"
+  },
+  "EUKYO|2026-10-23T17:00:00+03:00": {
+    "symbol": "EUKYO",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126188+00:00"
+  },
+  "FRMPL|2026-10-23T17:00:00+03:00": {
+    "symbol": "FRMPL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 17.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126190+00:00"
+  },
+  "INTEK|2026-10-23T17:00:00+03:00": {
+    "symbol": "INTEK",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 151.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126193+00:00"
+  },
+  "ISKPL|2026-10-23T17:00:00+03:00": {
+    "symbol": "ISKPL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 2.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126195+00:00"
+  },
+  "KUVVA|2026-10-23T17:00:00+03:00": {
+    "symbol": "KUVVA",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 81.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126197+00:00"
+  },
+  "KUYAS|2026-10-23T17:00:00+03:00": {
+    "symbol": "KUYAS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.83,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126200+00:00"
+  },
+  "LIDFA|2026-10-23T17:00:00+03:00": {
+    "symbol": "LIDFA",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 1.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126202+00:00"
+  },
+  "MAALT|2026-10-23T17:00:00+03:00": {
+    "symbol": "MAALT",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 661.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126205+00:00"
+  },
+  "MASFN|2026-10-23T17:00:00+03:00": {
+    "symbol": "MASFN",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 31.64,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126207+00:00"
+  },
+  "MAVI|2026-10-23T17:00:00+03:00": {
+    "symbol": "MAVI",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 35.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126210+00:00"
+  },
+  "MEGAP|2026-10-23T17:00:00+03:00": {
+    "symbol": "MEGAP",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 0.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126212+00:00"
+  },
+  "MMCAS|2026-10-23T17:00:00+03:00": {
+    "symbol": "MMCAS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126215+00:00"
+  },
+  "MOGAN|2026-10-23T17:00:00+03:00": {
+    "symbol": "MOGAN",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 7.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126217+00:00"
+  },
+  "MSGYO|2026-10-23T17:00:00+03:00": {
+    "symbol": "MSGYO",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126219+00:00"
+  },
+  "ODAS|2026-10-23T17:00:00+03:00": {
+    "symbol": "ODAS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.65,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126222+00:00"
+  },
+  "OZKGY|2026-10-23T17:00:00+03:00": {
+    "symbol": "OZKGY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 11.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126224+00:00"
+  },
+  "RYGYO|2026-10-23T17:00:00+03:00": {
+    "symbol": "RYGYO",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 51.1,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126229+00:00"
+  },
+  "RYSAS|2026-10-23T17:00:00+03:00": {
+    "symbol": "RYSAS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 24.06,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126232+00:00"
+  },
+  "TRCAS|2026-10-23T17:00:00+03:00": {
+    "symbol": "TRCAS",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 41.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126234+00:00"
+  },
+  "TSKB|2026-10-23T17:00:00+03:00": {
+    "symbol": "TSKB",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.92,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126237+00:00"
+  },
+  "TURGG|2026-10-23T17:00:00+03:00": {
+    "symbol": "TURGG",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 25.86,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126239+00:00"
+  },
+  "TURSG|2026-10-23T17:00:00+03:00": {
+    "symbol": "TURSG",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.17,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126244+00:00"
+  },
+  "USHOL|2026-10-23T17:00:00+03:00": {
+    "symbol": "USHOL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 72.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126246+00:00"
+  },
+  "YYAPI|2026-10-23T17:00:00+03:00": {
+    "symbol": "YYAPI",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 0.54,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126249+00:00"
+  },
+  "ZERGY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ZERGY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 7.08,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126251+00:00"
+  },
+  "ZRGYO|2026-10-23T17:00:00+03:00": {
+    "symbol": "ZRGYO",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 17.84,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.126253+00:00"
+  },
+  "ACSEL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ACSEL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127783+00:00"
+  },
+  "AGHOL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "AGHOL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 28.82,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127793+00:00"
+  },
+  "AKSGY|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "AKSGY",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127797+00:00"
+  },
+  "ALBTN|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ALBTN",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 19.41,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127803+00:00"
+  },
+  "ALCAR|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ALCAR",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 574.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127806+00:00"
+  },
+  "ANHYT|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ANHYT",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 93.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127810+00:00"
+  },
+  "ARSAN|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ARSAN",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 2.92,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127821+00:00"
+  },
+  "AVHOL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "AVHOL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 28.78,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127827+00:00"
+  },
+  "AYGAZ|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "AYGAZ",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 269.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127834+00:00"
+  },
+  "BINBN|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "BINBN",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 33.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127839+00:00"
+  },
+  "CCOLA|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "CCOLA",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127841+00:00"
+  },
+  "CEMZY|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "CEMZY",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 5.94,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127844+00:00"
+  },
+  "CMENT|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "CMENT",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 217.4,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127847+00:00"
+  },
+  "DIRIT|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "DIRIT",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 13.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127850+00:00"
+  },
+  "DMLKT|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "DMLKT",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 6.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127853+00:00"
+  },
+  "EGEPO|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "EGEPO",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.67,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127855+00:00"
+  },
+  "EMNIS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "EMNIS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 119.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127858+00:00"
+  },
+  "ENKAI|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ENKAI",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 74.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127863+00:00"
+  },
+  "ESCAR|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ESCAR",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127866+00:00"
+  },
+  "EUKYO|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "EUKYO",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 9.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127869+00:00"
+  },
+  "FRMPL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "FRMPL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 17.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127871+00:00"
+  },
+  "INTEK|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "INTEK",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 151.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127874+00:00"
+  },
+  "ISKPL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ISKPL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 2.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127877+00:00"
+  },
+  "KUVVA|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "KUVVA",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 81.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127881+00:00"
+  },
+  "KUYAS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "KUYAS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.83,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127884+00:00"
+  },
+  "LIDFA|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "LIDFA",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 1.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127887+00:00"
+  },
+  "MAALT|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MAALT",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 661.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127889+00:00"
+  },
+  "MASFN|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MASFN",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 31.64,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127892+00:00"
+  },
+  "MAVI|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MAVI",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 35.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127895+00:00"
+  },
+  "MEGAP|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MEGAP",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 0.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127897+00:00"
+  },
+  "MMCAS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MMCAS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127900+00:00"
+  },
+  "MOGAN|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MOGAN",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 7.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127902+00:00"
+  },
+  "MSGYO|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "MSGYO",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127905+00:00"
+  },
+  "ODAS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ODAS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.65,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127908+00:00"
+  },
+  "RYGYO|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "RYGYO",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 51.1,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127911+00:00"
+  },
+  "RYSAS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "RYSAS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 24.06,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127914+00:00"
+  },
+  "TRCAS|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "TRCAS",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 41.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127918+00:00"
+  },
+  "TSKB|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "TSKB",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 8.92,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127921+00:00"
+  },
+  "TURGG|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "TURGG",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 25.86,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127924+00:00"
+  },
+  "TURSG|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "TURSG",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 4.17,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127926+00:00"
+  },
+  "USHOL|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "USHOL",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 72.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127929+00:00"
+  },
+  "ZERGY|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ZERGY",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 7.08,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127932+00:00"
+  },
+  "ZRGYO|BUY|2026-10-23T17:00:00+03:00": {
+    "symbol": "ZRGYO",
+    "side": "BUY",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 17.84,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127935+00:00"
+  },
+  "METRO|SELL|2026-10-23T17:00:00+03:00": {
+    "symbol": "METRO",
+    "side": "SELL",
+    "time": "2026-10-23T17:00:00+03:00",
+    "close": 7.34,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-23T15:41:04.127946+00:00"
   }
 }

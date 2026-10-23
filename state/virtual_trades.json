@@ -78,5 +78,15 @@
     "pnl_per_share": -0.11,
     "pnl_percent": -4.3478,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "METRO",
+    "buy_time": "2026-10-22T17:00:00+03:00",
+    "buy_price": 7.69,
+    "sell_time": "2026-10-23T17:00:00+03:00",
+    "sell_price": 7.34,
+    "pnl_per_share": -0.35,
+    "pnl_percent": -4.5514,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
