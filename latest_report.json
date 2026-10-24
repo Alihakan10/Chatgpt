@@ -1,11 +1,11 @@
 {
-  "run_time_istanbul": "2026-10-24T01:29:25.436581+03:00",
+  "run_time_istanbul": "2026-10-24T03:57:38.112105+03:00",
   "expected_open_bar": null,
   "status": "WEEKEND_DIAGNOSTIC_ONLY",
   "note": "Historical candle diagnostic only; candidates are not recorded as live events.",
   "symbols": 620,
-  "successful": 619,
-  "errors": 1,
+  "successful": 620,
+  "errors": 0,
   "early_buy_candidates_now": 47,
   "early_buy_candidates": [
     {
