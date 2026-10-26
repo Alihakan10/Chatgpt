@@ -623,6 +623,306 @@
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 17.84,
       "status": "OPEN_VIRTUAL"
+    },
+    "AHGAZ": {
+      "symbol": "AHGAZ",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 45.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AKENR": {
+      "symbol": "AKENR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 6.59,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ALFAS": {
+      "symbol": "ALFAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ALTNY": {
+      "symbol": "ALTNY",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 10.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ANELE": {
+      "symbol": "ANELE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 8.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ASTOR": {
+      "symbol": "ASTOR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 156.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AYCES": {
+      "symbol": "AYCES",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 297.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BAHKM": {
+      "symbol": "BAHKM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 139.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CVKMD": {
+      "symbol": "CVKMD",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CWENE": {
+      "symbol": "CWENE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 15.15,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DCTTR": {
+      "symbol": "DCTTR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 4.44,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DITAS": {
+      "symbol": "DITAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 7.41,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DOFRB": {
+      "symbol": "DOFRB",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 57.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EKIM": {
+      "symbol": "EKIM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 14.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EMPAE": {
+      "symbol": "EMPAE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 41.58,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ENERY": {
+      "symbol": "ENERY",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EPLAS": {
+      "symbol": "EPLAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 4.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ERCB": {
+      "symbol": "ERCB",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 33.22,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EUPWR": {
+      "symbol": "EUPWR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 39.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EUREN": {
+      "symbol": "EUREN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 2.29,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EUYO": {
+      "symbol": "EUYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.24,
+      "status": "OPEN_VIRTUAL"
+    },
+    "FADE": {
+      "symbol": "FADE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 9.66,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GENTS": {
+      "symbol": "GENTS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.37,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GEREL": {
+      "symbol": "GEREL",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GESAN": {
+      "symbol": "GESAN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 32.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KAPLM": {
+      "symbol": "KAPLM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 94.05,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KLGYO": {
+      "symbol": "KLGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.86,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MACKO": {
+      "symbol": "MACKO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MZHLD": {
+      "symbol": "MZHLD",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    "NETAS": {
+      "symbol": "NETAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 67.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ORMA": {
+      "symbol": "ORMA",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 114.4,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OTTO": {
+      "symbol": "OTTO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 76.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OYAYO": {
+      "symbol": "OYAYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.04,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PAGYO": {
+      "symbol": "PAGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 111.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PETUN": {
+      "symbol": "PETUN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 8.56,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PRKME": {
+      "symbol": "PRKME",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 11.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    "QUAGR": {
+      "symbol": "QUAGR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 1.37,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SARAE": {
+      "symbol": "SARAE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 29.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SDTTR": {
+      "symbol": "SDTTR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SMRTG": {
+      "symbol": "SMRTG",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SOKE": {
+      "symbol": "SOKE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 7.53,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SSAAT": {
+      "symbol": "SSAAT",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 22.48,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TARKM": {
+      "symbol": "TARKM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 318.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TCKRC": {
+      "symbol": "TCKRC",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 100.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TDGYO": {
+      "symbol": "TDGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 5.06,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TUPRS": {
+      "symbol": "TUPRS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 366.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    "VBTYZ": {
+      "symbol": "VBTYZ",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 19.63,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YEOTK": {
+      "symbol": "YEOTK",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 23.2,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YGGYO": {
+      "symbol": "YGGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 189.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YUNSA": {
+      "symbol": "YUNSA",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 5.35,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
