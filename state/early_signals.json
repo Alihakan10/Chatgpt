@@ -2592,5 +2592,439 @@
     "close": 5.35,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-26T08:11:33.660340+00:00"
+  },
+  "AKBNK|2026-10-26T17:00:00+03:00": {
+    "symbol": "AKBNK",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 65.45,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587372+00:00"
+  },
+  "AKHAN|2026-10-26T17:00:00+03:00": {
+    "symbol": "AKHAN",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 23.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587383+00:00"
+  },
+  "BALSU|2026-10-26T17:00:00+03:00": {
+    "symbol": "BALSU",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 7.73,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587386+00:00"
+  },
+  "BNTAS|2026-10-26T17:00:00+03:00": {
+    "symbol": "BNTAS",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 4.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587389+00:00"
+  },
+  "CLEBI|2026-10-26T17:00:00+03:00": {
+    "symbol": "CLEBI",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 1232.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587391+00:00"
+  },
+  "DOFER|2026-10-26T17:00:00+03:00": {
+    "symbol": "DOFER",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 18.1,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587393+00:00"
+  },
+  "DOHOL|2026-10-26T17:00:00+03:00": {
+    "symbol": "DOHOL",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 16.54,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587395+00:00"
+  },
+  "EDIP|2026-10-26T17:00:00+03:00": {
+    "symbol": "EDIP",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 22.62,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587398+00:00"
+  },
+  "EGPRO|2026-10-26T17:00:00+03:00": {
+    "symbol": "EGPRO",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 27.26,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587400+00:00"
+  },
+  "EKDMR|2026-10-26T17:00:00+03:00": {
+    "symbol": "EKDMR",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 21.74,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587404+00:00"
+  },
+  "ENSRI|2026-10-26T17:00:00+03:00": {
+    "symbol": "ENSRI",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 2.41,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587406+00:00"
+  },
+  "GARAN|2026-10-26T17:00:00+03:00": {
+    "symbol": "GARAN",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 129.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587410+00:00"
+  },
+  "GARFA|2026-10-26T17:00:00+03:00": {
+    "symbol": "GARFA",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 21.18,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587412+00:00"
+  },
+  "GENTS|2026-10-26T17:00:00+03:00": {
+    "symbol": "GENTS",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 3.37,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587414+00:00"
+  },
+  "GOKNR|2026-10-26T17:00:00+03:00": {
+    "symbol": "GOKNR",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 12.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587416+00:00"
+  },
+  "GSRAY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GSRAY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 0.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587419+00:00"
+  },
+  "GWIND|2026-10-26T17:00:00+03:00": {
+    "symbol": "GWIND",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 17.23,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587421+00:00"
+  },
+  "JANTS|2026-10-26T17:00:00+03:00": {
+    "symbol": "JANTS",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 11.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587423+00:00"
+  },
+  "KARSN|2026-10-26T17:00:00+03:00": {
+    "symbol": "KARSN",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 7.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587426+00:00"
+  },
+  "KCAER|2026-10-26T17:00:00+03:00": {
+    "symbol": "KCAER",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 8.97,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587428+00:00"
+  },
+  "LOGO|2026-10-26T17:00:00+03:00": {
+    "symbol": "LOGO",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 118.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587430+00:00"
+  },
+  "MAGEN|2026-10-26T17:00:00+03:00": {
+    "symbol": "MAGEN",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 5.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587432+00:00"
+  },
+  "MNDTR|2026-10-26T17:00:00+03:00": {
+    "symbol": "MNDTR",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 3.44,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587434+00:00"
+  },
+  "MOBTL|2026-10-26T17:00:00+03:00": {
+    "symbol": "MOBTL",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 8.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587436+00:00"
+  },
+  "MOPAS|2026-10-26T17:00:00+03:00": {
+    "symbol": "MOPAS",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 15.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587439+00:00"
+  },
+  "REEDR|2026-10-26T17:00:00+03:00": {
+    "symbol": "REEDR",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 2.66,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587441+00:00"
+  },
+  "SAHOL|2026-10-26T17:00:00+03:00": {
+    "symbol": "SAHOL",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 87.35,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587443+00:00"
+  },
+  "TCELL|2026-10-26T17:00:00+03:00": {
+    "symbol": "TCELL",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 90.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587446+00:00"
+  },
+  "TKFEN|2026-10-26T17:00:00+03:00": {
+    "symbol": "TKFEN",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 182.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587448+00:00"
+  },
+  "ULUSE|2026-10-26T17:00:00+03:00": {
+    "symbol": "ULUSE",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 141.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.587450+00:00"
+  },
+  "AKBNK|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "AKBNK",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 65.45,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589771+00:00"
+  },
+  "AKHAN|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "AKHAN",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 23.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589782+00:00"
+  },
+  "BNTAS|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "BNTAS",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 4.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589787+00:00"
+  },
+  "CLEBI|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "CLEBI",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 1232.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589792+00:00"
+  },
+  "DOFER|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "DOFER",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 18.1,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589796+00:00"
+  },
+  "DOHOL|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "DOHOL",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 16.54,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589798+00:00"
+  },
+  "EDIP|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "EDIP",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 22.62,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589801+00:00"
+  },
+  "EGPRO|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "EGPRO",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 27.26,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589803+00:00"
+  },
+  "EKDMR|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "EKDMR",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 21.74,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589806+00:00"
+  },
+  "ENSRI|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "ENSRI",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 2.41,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589808+00:00"
+  },
+  "GARAN|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GARAN",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 129.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589811+00:00"
+  },
+  "GARFA|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GARFA",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 21.18,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589813+00:00"
+  },
+  "GOKNR|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GOKNR",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 12.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589816+00:00"
+  },
+  "GSRAY|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GSRAY",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 0.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589818+00:00"
+  },
+  "GWIND|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "GWIND",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 17.23,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589820+00:00"
+  },
+  "JANTS|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "JANTS",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 11.19,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589823+00:00"
+  },
+  "KARSN|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "KARSN",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 7.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589826+00:00"
+  },
+  "KCAER|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "KCAER",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 8.97,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589829+00:00"
+  },
+  "LOGO|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "LOGO",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 118.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589831+00:00"
+  },
+  "MAGEN|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "MAGEN",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 5.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589834+00:00"
+  },
+  "MNDTR|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "MNDTR",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 3.44,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589836+00:00"
+  },
+  "MOBTL|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "MOBTL",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 8.01,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589838+00:00"
+  },
+  "MOPAS|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "MOPAS",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 15.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589840+00:00"
+  },
+  "REEDR|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "REEDR",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 2.66,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589843+00:00"
+  },
+  "SAHOL|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "SAHOL",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 87.35,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589845+00:00"
+  },
+  "TCELL|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "TCELL",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 90.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589848+00:00"
+  },
+  "TKFEN|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "TKFEN",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 182.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589850+00:00"
+  },
+  "ULUSE|BUY|2026-10-26T17:00:00+03:00": {
+    "symbol": "ULUSE",
+    "side": "BUY",
+    "time": "2026-10-26T17:00:00+03:00",
+    "close": 141.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-26T15:06:00.589853+00:00"
   }
 }
