@@ -3131,5 +3131,143 @@
     "close": 303.25,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-27T08:52:58.106934+00:00"
+  },
+  "BAYRK|2026-10-27T17:00:00+03:00": {
+    "symbol": "BAYRK",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938701+00:00"
+  },
+  "DNISI|2026-10-27T17:00:00+03:00": {
+    "symbol": "DNISI",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 3.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938712+00:00"
+  },
+  "HUBVC|2026-10-27T17:00:00+03:00": {
+    "symbol": "HUBVC",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.15,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938716+00:00"
+  },
+  "KRVGD|2026-10-27T17:00:00+03:00": {
+    "symbol": "KRVGD",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938719+00:00"
+  },
+  "ULUFA|2026-10-27T17:00:00+03:00": {
+    "symbol": "ULUFA",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 1.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938721+00:00"
+  },
+  "VAKFA|2026-10-27T17:00:00+03:00": {
+    "symbol": "VAKFA",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 8.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.938724+00:00"
+  },
+  "BAYRK|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "BAYRK",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941724+00:00"
+  },
+  "DNISI|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "DNISI",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 3.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941734+00:00"
+  },
+  "HUBVC|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "HUBVC",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.15,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941738+00:00"
+  },
+  "KRVGD|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "KRVGD",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 2.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941741+00:00"
+  },
+  "ULUFA|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "ULUFA",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 1.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941744+00:00"
+  },
+  "VAKFA|BUY|2026-10-27T17:00:00+03:00": {
+    "symbol": "VAKFA",
+    "side": "BUY",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 8.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941747+00:00"
+  },
+  "ANHYT|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "ANHYT",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 88.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941756+00:00"
+  },
+  "DOFER|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "DOFER",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 17.27,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941763+00:00"
+  },
+  "INVES|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "INVES",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 622.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941768+00:00"
+  },
+  "RTALB|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "RTALB",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 1.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941772+00:00"
+  },
+  "VERUS|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "VERUS",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 462.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941776+00:00"
+  },
+  "YEOTK|SELL|2026-10-27T17:00:00+03:00": {
+    "symbol": "YEOTK",
+    "side": "SELL",
+    "time": "2026-10-27T17:00:00+03:00",
+    "close": 22.54,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T15:07:28.941781+00:00"
   }
 }

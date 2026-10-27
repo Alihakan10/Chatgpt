@@ -1,128 +1,197 @@
 {
-  "run_time_istanbul": "2026-10-27T11:40:03.524530+03:00",
-  "expected_open_bar": "2026-10-27T11:00:00+03:00",
+  "run_time_istanbul": "2026-10-27T17:54:32.105664+03:00",
+  "expected_open_bar": "2026-10-27T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
   "successful": 580,
   "errors": 40,
-  "early_buy_candidates_now": 7,
+  "early_buy_candidates_now": 6,
   "early_buy_candidates": [
     {
-      "symbol": "AKCNS",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 183.9,
+      "symbol": "BAYRK",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 2.77,
       "trend": 1
     },
     {
-      "symbol": "BFREN",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 88.9,
+      "symbol": "DNISI",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 3.71,
       "trend": 1
     },
     {
-      "symbol": "GEDIK",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 4.77,
+      "symbol": "HUBVC",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 2.15,
       "trend": 1
     },
     {
-      "symbol": "ISDMR",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 53.85,
+      "symbol": "KRVGD",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 2.04,
       "trend": 1
     },
     {
-      "symbol": "LMKDC",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 19.93,
+      "symbol": "ULUFA",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 1.55,
       "trend": 1
     },
     {
-      "symbol": "LXGYO",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 5.67,
-      "trend": 1
-    },
-    {
-      "symbol": "OYAKC",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 18.86,
+      "symbol": "VAKFA",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 8.9,
       "trend": 1
     }
   ],
-  "early_sell_candidates_now": 2,
+  "early_sell_candidates_now": 6,
   "early_sell_candidates": [
     {
-      "symbol": "ESCAR",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 8.72,
+      "symbol": "ANHYT",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 88.75,
       "trend": -1
     },
     {
-      "symbol": "TARKM",
-      "candle_time": "2026-10-27T11:00:00+03:00",
-      "close": 303.25,
+      "symbol": "DOFER",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 17.27,
+      "trend": -1
+    },
+    {
+      "symbol": "INVES",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 622.0,
+      "trend": -1
+    },
+    {
+      "symbol": "RTALB",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 1.98,
+      "trend": -1
+    },
+    {
+      "symbol": "VERUS",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 462.25,
+      "trend": -1
+    },
+    {
+      "symbol": "YEOTK",
+      "candle_time": "2026-10-27T17:00:00+03:00",
+      "close": 22.54,
       "trend": -1
     }
   ],
   "new_virtual_buy_events": [
     {
-      "symbol": "AKCNS",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 183.9,
+      "symbol": "BAYRK",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.77,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "BFREN",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 88.9,
+      "symbol": "DNISI",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 3.71,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "GEDIK",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 4.77,
+      "symbol": "HUBVC",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.15,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "LMKDC",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 19.93,
+      "symbol": "KRVGD",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.04,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     },
     {
-      "symbol": "LXGYO",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 5.67,
+      "symbol": "ULUFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 1.55,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "VAKFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 8.9,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     }
   ],
   "new_virtual_sell_events": [
     {
-      "symbol": "ESCAR",
+      "symbol": "ANHYT",
       "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 9.71,
-      "sell_time": "2026-10-27T11:00:00+03:00",
-      "sell_price": 8.72,
-      "pnl_per_share": -0.99,
-      "pnl_percent": -10.1957,
+      "buy_price": 93.2,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 88.75,
+      "pnl_per_share": -4.45,
+      "pnl_percent": -4.7747,
       "status": "CLOSED_VIRTUAL",
       "event": "VIRTUAL_SELL"
     },
     {
-      "symbol": "TARKM",
+      "symbol": "DOFER",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 18.1,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 17.27,
+      "pnl_per_share": -0.83,
+      "pnl_percent": -4.5856,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "INVES",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 669.5,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 622.0,
+      "pnl_per_share": -47.5,
+      "pnl_percent": -7.0948,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 1.98,
+      "pnl_per_share": -0.2,
+      "pnl_percent": -9.1743,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "VERUS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 467.75,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 462.25,
+      "pnl_per_share": -5.5,
+      "pnl_percent": -1.1758,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "YEOTK",
       "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 318.5,
-      "sell_time": "2026-10-27T11:00:00+03:00",
-      "sell_price": 303.25,
-      "pnl_per_share": -15.25,
-      "pnl_percent": -4.7881,
+      "buy_price": 23.2,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 22.54,
+      "pnl_per_share": -0.66,
+      "pnl_percent": -2.8448,
       "status": "CLOSED_VIRTUAL",
       "event": "VIRTUAL_SELL"
     }
@@ -358,12 +427,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "INVES",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 669.5,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "ISDMR",
       "buy_time": "2026-10-20T15:00:00+03:00",
       "buy_price": 58.55,
@@ -424,12 +487,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "VERUS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 467.75,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "ATATP",
       "buy_time": "2026-10-21T11:00:00+03:00",
       "buy_price": 217.4,
@@ -478,12 +535,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "RTALB",
-      "buy_time": "2026-10-22T17:00:00+03:00",
-      "buy_price": 2.18,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "TRILC",
       "buy_time": "2026-10-22T17:00:00+03:00",
       "buy_price": 0.85,
@@ -523,12 +574,6 @@
       "symbol": "ALCAR",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 574.5,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "ANHYT",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 93.2,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -1024,12 +1069,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "YEOTK",
-      "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 23.2,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "YGGYO",
       "buy_time": "2026-10-26T09:00:00+03:00",
       "buy_price": 189.5,
@@ -1063,12 +1102,6 @@
       "symbol": "CLEBI",
       "buy_time": "2026-10-26T17:00:00+03:00",
       "buy_price": 1232.0,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "DOFER",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 18.1,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -1238,9 +1271,45 @@
       "buy_time": "2026-10-27T11:00:00+03:00",
       "buy_price": 5.67,
       "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BAYRK",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DNISI",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 3.71,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "HUBVC",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.15,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KRVGD",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.04,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ULUFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 1.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "VAKFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 8.9,
+      "status": "OPEN_VIRTUAL"
     }
   ],
-  "closed_virtual_trades": 11,
+  "closed_virtual_trades": 17,
   "recent_closed_virtual_trades": [
     {
       "symbol": "NIBAS",
@@ -1351,10 +1420,70 @@
       "pnl_per_share": -15.25,
       "pnl_percent": -4.7881,
       "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "ANHYT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 93.2,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 88.75,
+      "pnl_per_share": -4.45,
+      "pnl_percent": -4.7747,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "DOFER",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 18.1,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 17.27,
+      "pnl_per_share": -0.83,
+      "pnl_percent": -4.5856,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "INVES",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 669.5,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 622.0,
+      "pnl_per_share": -47.5,
+      "pnl_percent": -7.0948,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 1.98,
+      "pnl_per_share": -0.2,
+      "pnl_percent": -9.1743,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "VERUS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 467.75,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 462.25,
+      "pnl_per_share": -5.5,
+      "pnl_percent": -1.1758,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "YEOTK",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 23.2,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 22.54,
+      "pnl_per_share": -0.66,
+      "pnl_percent": -2.8448,
+      "status": "CLOSED_VIRTUAL"
     }
   ],
-  "realized_pnl_per_share_sum": -35.64,
+  "realized_pnl_per_share_sum": -94.78,
   "profitable_closed_trades": 1,
-  "losing_closed_trades": 10,
+  "losing_closed_trades": 16,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

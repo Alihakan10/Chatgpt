@@ -108,5 +108,65 @@
     "pnl_per_share": -15.25,
     "pnl_percent": -4.7881,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ANHYT",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 93.2,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 88.75,
+    "pnl_per_share": -4.45,
+    "pnl_percent": -4.7747,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "DOFER",
+    "buy_time": "2026-10-26T17:00:00+03:00",
+    "buy_price": 18.1,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 17.27,
+    "pnl_per_share": -0.83,
+    "pnl_percent": -4.5856,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "INVES",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 669.5,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 622.0,
+    "pnl_per_share": -47.5,
+    "pnl_percent": -7.0948,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "RTALB",
+    "buy_time": "2026-10-22T17:00:00+03:00",
+    "buy_price": 2.18,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 1.98,
+    "pnl_per_share": -0.2,
+    "pnl_percent": -9.1743,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "VERUS",
+    "buy_time": "2026-10-20T15:00:00+03:00",
+    "buy_price": 467.75,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 462.25,
+    "pnl_per_share": -5.5,
+    "pnl_percent": -1.1758,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "YEOTK",
+    "buy_time": "2026-10-26T09:00:00+03:00",
+    "buy_price": 23.2,
+    "sell_time": "2026-10-27T17:00:00+03:00",
+    "sell_price": 22.54,
+    "pnl_per_share": -0.66,
+    "pnl_percent": -2.8448,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
