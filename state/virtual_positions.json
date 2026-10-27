@@ -474,12 +474,6 @@
       "buy_price": 74.5,
       "status": "OPEN_VIRTUAL"
     },
-    "ESCAR": {
-      "symbol": "ESCAR",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 9.71,
-      "status": "OPEN_VIRTUAL"
-    },
     "EUKYO": {
       "symbol": "EUKYO",
       "buy_time": "2026-10-23T17:00:00+03:00",
@@ -876,12 +870,6 @@
       "buy_price": 22.48,
       "status": "OPEN_VIRTUAL"
     },
-    "TARKM": {
-      "symbol": "TARKM",
-      "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 318.5,
-      "status": "OPEN_VIRTUAL"
-    },
     "TCKRC": {
       "symbol": "TCKRC",
       "buy_time": "2026-10-26T09:00:00+03:00",
@@ -1090,6 +1078,36 @@
       "symbol": "ULUSE",
       "buy_time": "2026-10-26T17:00:00+03:00",
       "buy_price": 141.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AKCNS": {
+      "symbol": "AKCNS",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 183.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BFREN": {
+      "symbol": "BFREN",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 88.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GEDIK": {
+      "symbol": "GEDIK",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 4.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    "LMKDC": {
+      "symbol": "LMKDC",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 19.93,
+      "status": "OPEN_VIRTUAL"
+    },
+    "LXGYO": {
+      "symbol": "LXGYO",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 5.67,
       "status": "OPEN_VIRTUAL"
     }
   }

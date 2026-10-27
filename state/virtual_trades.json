@@ -88,5 +88,25 @@
     "pnl_per_share": -0.35,
     "pnl_percent": -4.5514,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ESCAR",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 9.71,
+    "sell_time": "2026-10-27T11:00:00+03:00",
+    "sell_price": 8.72,
+    "pnl_per_share": -0.99,
+    "pnl_percent": -10.1957,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "TARKM",
+    "buy_time": "2026-10-26T09:00:00+03:00",
+    "buy_price": 318.5,
+    "sell_time": "2026-10-27T11:00:00+03:00",
+    "sell_price": 303.25,
+    "pnl_per_share": -15.25,
+    "pnl_percent": -4.7881,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

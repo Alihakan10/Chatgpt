@@ -3026,5 +3026,110 @@
     "close": 141.0,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-26T15:06:00.589853+00:00"
+  },
+  "AKCNS|2026-10-27T11:00:00+03:00": {
+    "symbol": "AKCNS",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 183.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103959+00:00"
+  },
+  "BFREN|2026-10-27T11:00:00+03:00": {
+    "symbol": "BFREN",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 88.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103970+00:00"
+  },
+  "GEDIK|2026-10-27T11:00:00+03:00": {
+    "symbol": "GEDIK",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 4.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103974+00:00"
+  },
+  "ISDMR|2026-10-27T11:00:00+03:00": {
+    "symbol": "ISDMR",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 53.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103977+00:00"
+  },
+  "LMKDC|2026-10-27T11:00:00+03:00": {
+    "symbol": "LMKDC",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 19.93,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103980+00:00"
+  },
+  "LXGYO|2026-10-27T11:00:00+03:00": {
+    "symbol": "LXGYO",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 5.67,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103982+00:00"
+  },
+  "OYAKC|2026-10-27T11:00:00+03:00": {
+    "symbol": "OYAKC",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 18.86,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.103987+00:00"
+  },
+  "AKCNS|BUY|2026-10-27T11:00:00+03:00": {
+    "symbol": "AKCNS",
+    "side": "BUY",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 183.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106892+00:00"
+  },
+  "BFREN|BUY|2026-10-27T11:00:00+03:00": {
+    "symbol": "BFREN",
+    "side": "BUY",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 88.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106901+00:00"
+  },
+  "GEDIK|BUY|2026-10-27T11:00:00+03:00": {
+    "symbol": "GEDIK",
+    "side": "BUY",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 4.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106906+00:00"
+  },
+  "LMKDC|BUY|2026-10-27T11:00:00+03:00": {
+    "symbol": "LMKDC",
+    "side": "BUY",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 19.93,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106909+00:00"
+  },
+  "LXGYO|BUY|2026-10-27T11:00:00+03:00": {
+    "symbol": "LXGYO",
+    "side": "BUY",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 5.67,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106917+00:00"
+  },
+  "ESCAR|SELL|2026-10-27T11:00:00+03:00": {
+    "symbol": "ESCAR",
+    "side": "SELL",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 8.72,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106927+00:00"
+  },
+  "TARKM|SELL|2026-10-27T11:00:00+03:00": {
+    "symbol": "TARKM",
+    "side": "SELL",
+    "time": "2026-10-27T11:00:00+03:00",
+    "close": 303.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-27T08:52:58.106934+00:00"
   }
 }
