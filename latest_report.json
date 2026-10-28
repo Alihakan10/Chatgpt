@@ -1,6 +1,6 @@
 {
-  "run_time_istanbul": "2026-10-28T11:47:32.213233+03:00",
-  "expected_open_bar": "2026-10-28T11:00:00+03:00",
+  "run_time_istanbul": "2026-10-28T18:38:02.612936+03:00",
+  "expected_open_bar": "2026-10-28T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
