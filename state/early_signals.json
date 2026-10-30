@@ -3269,5 +3269,51 @@
     "close": 22.54,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-27T15:07:28.941781+00:00"
+  },
+  "ALCTL|2026-10-30T11:00:00+03:00": {
+    "symbol": "ALCTL",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 64.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.287033+00:00"
+  },
+  "DENGE|2026-10-30T11:00:00+03:00": {
+    "symbol": "DENGE",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 1.21,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.287050+00:00"
+  },
+  "DENGE|BUY|2026-10-30T11:00:00+03:00": {
+    "symbol": "DENGE",
+    "side": "BUY",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 1.21,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.289994+00:00"
+  },
+  "LOGO|SELL|2026-10-30T11:00:00+03:00": {
+    "symbol": "LOGO",
+    "side": "SELL",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 115.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.290015+00:00"
+  },
+  "ODAS|SELL|2026-10-30T11:00:00+03:00": {
+    "symbol": "ODAS",
+    "side": "SELL",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 4.47,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.290022+00:00"
+  },
+  "TNZTP|SELL|2026-10-30T11:00:00+03:00": {
+    "symbol": "TNZTP",
+    "side": "SELL",
+    "time": "2026-10-30T11:00:00+03:00",
+    "close": 21.56,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T09:03:19.290028+00:00"
   }
 }

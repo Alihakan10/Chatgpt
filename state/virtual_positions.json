@@ -6,12 +6,6 @@
       "buy_price": 1.85,
       "status": "OPEN_VIRTUAL"
     },
-    "TNZTP": {
-      "symbol": "TNZTP",
-      "buy_time": "2026-10-12T13:00:00+03:00",
-      "buy_price": 25.14,
-      "status": "OPEN_VIRTUAL"
-    },
     "USAK": {
       "symbol": "USAK",
       "buy_time": "2026-10-12T13:00:00+03:00",
@@ -534,12 +528,6 @@
       "buy_price": 4.01,
       "status": "OPEN_VIRTUAL"
     },
-    "ODAS": {
-      "symbol": "ODAS",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 4.65,
-      "status": "OPEN_VIRTUAL"
-    },
     "RYGYO": {
       "symbol": "RYGYO",
       "buy_time": "2026-10-23T17:00:00+03:00",
@@ -984,12 +972,6 @@
       "buy_price": 8.97,
       "status": "OPEN_VIRTUAL"
     },
-    "LOGO": {
-      "symbol": "LOGO",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 118.8,
-      "status": "OPEN_VIRTUAL"
-    },
     "MAGEN": {
       "symbol": "MAGEN",
       "buy_time": "2026-10-26T17:00:00+03:00",
@@ -1108,6 +1090,12 @@
       "symbol": "VAKFA",
       "buy_time": "2026-10-27T17:00:00+03:00",
       "buy_price": 8.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DENGE": {
+      "symbol": "DENGE",
+      "buy_time": "2026-10-30T11:00:00+03:00",
+      "buy_price": 1.21,
       "status": "OPEN_VIRTUAL"
     }
   }

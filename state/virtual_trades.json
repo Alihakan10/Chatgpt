@@ -168,5 +168,35 @@
     "pnl_per_share": -0.66,
     "pnl_percent": -2.8448,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "LOGO",
+    "buy_time": "2026-10-26T17:00:00+03:00",
+    "buy_price": 118.8,
+    "sell_time": "2026-10-30T11:00:00+03:00",
+    "sell_price": 115.0,
+    "pnl_per_share": -3.8,
+    "pnl_percent": -3.1987,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ODAS",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 4.65,
+    "sell_time": "2026-10-30T11:00:00+03:00",
+    "sell_price": 4.47,
+    "pnl_per_share": -0.18,
+    "pnl_percent": -3.871,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "TNZTP",
+    "buy_time": "2026-10-12T13:00:00+03:00",
+    "buy_price": 25.14,
+    "sell_time": "2026-10-30T11:00:00+03:00",
+    "sell_price": 21.56,
+    "pnl_per_share": -3.58,
+    "pnl_percent": -14.2403,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
