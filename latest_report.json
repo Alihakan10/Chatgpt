@@ -1,92 +1,290 @@
 {
-  "run_time_istanbul": "2026-10-30T11:50:24.401365+03:00",
-  "expected_open_bar": "2026-10-30T11:00:00+03:00",
+  "run_time_istanbul": "2026-10-30T18:26:38.238934+03:00",
+  "expected_open_bar": "2026-10-30T17:00:00+03:00",
   "status": "LIVE_SESSION_SCAN",
   "note": "Active 2H candle scan.",
   "symbols": 620,
-  "successful": 580,
-  "errors": 40,
-  "early_buy_candidates_now": 2,
+  "successful": 603,
+  "errors": 17,
+  "early_buy_candidates_now": 7,
   "early_buy_candidates": [
     {
-      "symbol": "ALCTL",
-      "candle_time": "2026-10-30T11:00:00+03:00",
-      "close": 64.6,
+      "symbol": "ARMGD",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 106.0,
       "trend": 1
     },
     {
-      "symbol": "DENGE",
-      "candle_time": "2026-10-30T11:00:00+03:00",
-      "close": 1.21,
+      "symbol": "CMENT",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 219.0,
+      "trend": 1
+    },
+    {
+      "symbol": "ENPRA",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 39.0,
+      "trend": 1
+    },
+    {
+      "symbol": "FRIGO",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 1.92,
+      "trend": 1
+    },
+    {
+      "symbol": "ORGE",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 18.6,
+      "trend": 1
+    },
+    {
+      "symbol": "QNBFK",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 33.6,
+      "trend": 1
+    },
+    {
+      "symbol": "SODSN",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 5.3,
       "trend": 1
     }
   ],
-  "early_sell_candidates_now": 3,
+  "early_sell_candidates_now": 19,
   "early_sell_candidates": [
     {
-      "symbol": "LOGO",
-      "candle_time": "2026-10-30T11:00:00+03:00",
-      "close": 115.0,
+      "symbol": "ALGYO",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 2.41,
       "trend": -1
     },
     {
-      "symbol": "ODAS",
-      "candle_time": "2026-10-30T11:00:00+03:00",
-      "close": 4.47,
+      "symbol": "ARTMS",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 27.3,
       "trend": -1
     },
     {
-      "symbol": "TNZTP",
-      "candle_time": "2026-10-30T11:00:00+03:00",
-      "close": 21.56,
+      "symbol": "DIRIT",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 14.95,
+      "trend": -1
+    },
+    {
+      "symbol": "EGGUB",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 77.6,
+      "trend": -1
+    },
+    {
+      "symbol": "ELITE",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 16.09,
+      "trend": -1
+    },
+    {
+      "symbol": "FROTO",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 65.45,
+      "trend": -1
+    },
+    {
+      "symbol": "GWIND",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 16.41,
+      "trend": -1
+    },
+    {
+      "symbol": "KCHOL",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 192.8,
+      "trend": -1
+    },
+    {
+      "symbol": "KERVN",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 5.66,
+      "trend": -1
+    },
+    {
+      "symbol": "KLNMA",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 6.5,
+      "trend": -1
+    },
+    {
+      "symbol": "MARBL",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 7.14,
+      "trend": -1
+    },
+    {
+      "symbol": "MEGAP",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 0.93,
+      "trend": -1
+    },
+    {
+      "symbol": "MEGMT",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 2.79,
+      "trend": -1
+    },
+    {
+      "symbol": "OBASE",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 16.77,
+      "trend": -1
+    },
+    {
+      "symbol": "PEKGY",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 0.77,
+      "trend": -1
+    },
+    {
+      "symbol": "PENGD",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 6.37,
+      "trend": -1
+    },
+    {
+      "symbol": "TCKRC",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 105.5,
+      "trend": -1
+    },
+    {
+      "symbol": "YKBNK",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 33.96,
+      "trend": -1
+    },
+    {
+      "symbol": "ZERGY",
+      "candle_time": "2026-10-30T17:00:00+03:00",
+      "close": 6.3,
       "trend": -1
     }
   ],
   "new_virtual_buy_events": [
     {
-      "symbol": "DENGE",
-      "buy_time": "2026-10-30T11:00:00+03:00",
-      "buy_price": 1.21,
+      "symbol": "ARMGD",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 106.0,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "ENPRA",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 39.0,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "ORGE",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 18.6,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "QNBFK",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 33.6,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "SODSN",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 5.3,
       "status": "OPEN_VIRTUAL",
       "event": "VIRTUAL_BUY"
     }
   ],
   "new_virtual_sell_events": [
     {
-      "symbol": "LOGO",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 118.8,
-      "sell_time": "2026-10-30T11:00:00+03:00",
-      "sell_price": 115.0,
-      "pnl_per_share": -3.8,
-      "pnl_percent": -3.1987,
-      "status": "CLOSED_VIRTUAL",
-      "event": "VIRTUAL_SELL"
-    },
-    {
-      "symbol": "ODAS",
+      "symbol": "DIRIT",
       "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 4.65,
-      "sell_time": "2026-10-30T11:00:00+03:00",
-      "sell_price": 4.47,
-      "pnl_per_share": -0.18,
-      "pnl_percent": -3.871,
+      "buy_price": 13.71,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 14.95,
+      "pnl_per_share": 1.24,
+      "pnl_percent": 9.0445,
       "status": "CLOSED_VIRTUAL",
       "event": "VIRTUAL_SELL"
     },
     {
-      "symbol": "TNZTP",
-      "buy_time": "2026-10-12T13:00:00+03:00",
-      "buy_price": 25.14,
-      "sell_time": "2026-10-30T11:00:00+03:00",
-      "sell_price": 21.56,
-      "pnl_per_share": -3.58,
-      "pnl_percent": -14.2403,
+      "symbol": "GWIND",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 17.23,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 16.41,
+      "pnl_per_share": -0.82,
+      "pnl_percent": -4.7591,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 5.66,
+      "pnl_per_share": 0.78,
+      "pnl_percent": 15.9836,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "MEGAP",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 0.99,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.93,
+      "pnl_per_share": -0.06,
+      "pnl_percent": -6.0606,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "PEKGY",
+      "buy_time": "2026-10-23T13:00:00+03:00",
+      "buy_price": 0.95,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.77,
+      "pnl_per_share": -0.18,
+      "pnl_percent": -18.9474,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "TCKRC",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 100.9,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 105.5,
+      "pnl_per_share": 4.6,
+      "pnl_percent": 4.559,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "ZERGY",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 7.08,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 6.3,
+      "pnl_per_share": -0.78,
+      "pnl_percent": -11.0169,
       "status": "CLOSED_VIRTUAL",
       "event": "VIRTUAL_SELL"
     }
   ],
-  "open_virtual_positions": 183,
+  "open_virtual_positions": 181,
   "open_virtual_positions_detail": [
     {
       "symbol": "MHRGY",
@@ -407,12 +605,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "KERVN",
-      "buy_time": "2026-10-22T17:00:00+03:00",
-      "buy_price": 4.88,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "OZRDN",
       "buy_time": "2026-10-22T17:00:00+03:00",
       "buy_price": 9.19,
@@ -422,12 +614,6 @@
       "symbol": "TRILC",
       "buy_time": "2026-10-22T17:00:00+03:00",
       "buy_price": 0.85,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "PEKGY",
-      "buy_time": "2026-10-23T13:00:00+03:00",
-      "buy_price": 0.95,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -500,12 +686,6 @@
       "symbol": "CMENT",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 217.4,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "DIRIT",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 13.71,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -593,12 +773,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "MEGAP",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 0.99,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "MMCAS",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 8.3,
@@ -656,12 +830,6 @@
       "symbol": "USHOL",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 72.75,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "ZERGY",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 7.08,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -923,12 +1091,6 @@
       "status": "OPEN_VIRTUAL"
     },
     {
-      "symbol": "TCKRC",
-      "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 100.9,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
       "symbol": "TDGYO",
       "buy_time": "2026-10-26T09:00:00+03:00",
       "buy_price": 5.06,
@@ -1034,12 +1196,6 @@
       "symbol": "GSRAY",
       "buy_time": "2026-10-26T17:00:00+03:00",
       "buy_price": 0.7,
-      "status": "OPEN_VIRTUAL"
-    },
-    {
-      "symbol": "GWIND",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 17.23,
       "status": "OPEN_VIRTUAL"
     },
     {
@@ -1185,80 +1341,40 @@
       "buy_time": "2026-10-30T11:00:00+03:00",
       "buy_price": 1.21,
       "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ARMGD",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 106.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ENPRA",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 39.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ORGE",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 18.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "QNBFK",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 33.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SODSN",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 5.3,
+      "status": "OPEN_VIRTUAL"
     }
   ],
-  "closed_virtual_trades": 20,
+  "closed_virtual_trades": 27,
   "recent_closed_virtual_trades": [
-    {
-      "symbol": "NIBAS",
-      "buy_time": "2026-10-13T11:00:00+03:00",
-      "buy_price": 2.95,
-      "sell_time": "2026-10-15T13:00:00+03:00",
-      "sell_price": 3.07,
-      "pnl_per_share": 0.12,
-      "pnl_percent": 4.0678,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "MARTI",
-      "buy_time": "2026-10-13T11:00:00+03:00",
-      "buy_price": 1.68,
-      "sell_time": "2026-10-16T15:00:00+03:00",
-      "sell_price": 1.59,
-      "pnl_per_share": -0.09,
-      "pnl_percent": -5.3571,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "BLCYT",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 1.59,
-      "sell_time": "2026-10-21T17:00:00+03:00",
-      "sell_price": 1.51,
-      "pnl_per_share": -0.08,
-      "pnl_percent": -5.0314,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "HRKET",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 9.07,
-      "sell_time": "2026-10-21T17:00:00+03:00",
-      "sell_price": 8.04,
-      "pnl_per_share": -1.03,
-      "pnl_percent": -11.3561,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "MGROS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 462.75,
-      "sell_time": "2026-10-21T17:00:00+03:00",
-      "sell_price": 454.25,
-      "pnl_per_share": -8.5,
-      "pnl_percent": -1.8368,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "MPARK",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 412.25,
-      "sell_time": "2026-10-21T17:00:00+03:00",
-      "sell_price": 403.0,
-      "pnl_per_share": -9.25,
-      "pnl_percent": -2.2438,
-      "status": "CLOSED_VIRTUAL"
-    },
-    {
-      "symbol": "KORDS",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 2.79,
-      "sell_time": "2026-10-22T17:00:00+03:00",
-      "sell_price": 2.68,
-      "pnl_per_share": -0.11,
-      "pnl_percent": -3.9427,
-      "status": "CLOSED_VIRTUAL"
-    },
     {
       "symbol": "SNGYO",
       "buy_time": "2026-10-20T15:00:00+03:00",
@@ -1388,10 +1504,80 @@
       "pnl_per_share": -3.58,
       "pnl_percent": -14.2403,
       "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "DIRIT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 13.71,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 14.95,
+      "pnl_per_share": 1.24,
+      "pnl_percent": 9.0445,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "GWIND",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 17.23,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 16.41,
+      "pnl_per_share": -0.82,
+      "pnl_percent": -4.7591,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 5.66,
+      "pnl_per_share": 0.78,
+      "pnl_percent": 15.9836,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "MEGAP",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 0.99,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.93,
+      "pnl_per_share": -0.06,
+      "pnl_percent": -6.0606,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "PEKGY",
+      "buy_time": "2026-10-23T13:00:00+03:00",
+      "buy_price": 0.95,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.77,
+      "pnl_per_share": -0.18,
+      "pnl_percent": -18.9474,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "TCKRC",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 100.9,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 105.5,
+      "pnl_per_share": 4.6,
+      "pnl_percent": 4.559,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "ZERGY",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 7.08,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 6.3,
+      "pnl_per_share": -0.78,
+      "pnl_percent": -11.0169,
+      "status": "CLOSED_VIRTUAL"
     }
   ],
-  "realized_pnl_per_share_sum": -102.34,
-  "profitable_closed_trades": 1,
-  "losing_closed_trades": 19,
+  "realized_pnl_per_share_sum": -97.56,
+  "profitable_closed_trades": 4,
+  "losing_closed_trades": 23,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

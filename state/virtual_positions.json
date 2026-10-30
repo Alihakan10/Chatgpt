@@ -318,12 +318,6 @@
       "buy_price": 93.55,
       "status": "OPEN_VIRTUAL"
     },
-    "KERVN": {
-      "symbol": "KERVN",
-      "buy_time": "2026-10-22T17:00:00+03:00",
-      "buy_price": 4.88,
-      "status": "OPEN_VIRTUAL"
-    },
     "OZRDN": {
       "symbol": "OZRDN",
       "buy_time": "2026-10-22T17:00:00+03:00",
@@ -334,12 +328,6 @@
       "symbol": "TRILC",
       "buy_time": "2026-10-22T17:00:00+03:00",
       "buy_price": 0.85,
-      "status": "OPEN_VIRTUAL"
-    },
-    "PEKGY": {
-      "symbol": "PEKGY",
-      "buy_time": "2026-10-23T13:00:00+03:00",
-      "buy_price": 0.95,
       "status": "OPEN_VIRTUAL"
     },
     "ACSEL": {
@@ -412,12 +400,6 @@
       "symbol": "CMENT",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 217.4,
-      "status": "OPEN_VIRTUAL"
-    },
-    "DIRIT": {
-      "symbol": "DIRIT",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 13.71,
       "status": "OPEN_VIRTUAL"
     },
     "DMLKT": {
@@ -504,12 +486,6 @@
       "buy_price": 35.04,
       "status": "OPEN_VIRTUAL"
     },
-    "MEGAP": {
-      "symbol": "MEGAP",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 0.99,
-      "status": "OPEN_VIRTUAL"
-    },
     "MMCAS": {
       "symbol": "MMCAS",
       "buy_time": "2026-10-23T17:00:00+03:00",
@@ -568,12 +544,6 @@
       "symbol": "USHOL",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 72.75,
-      "status": "OPEN_VIRTUAL"
-    },
-    "ZERGY": {
-      "symbol": "ZERGY",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 7.08,
       "status": "OPEN_VIRTUAL"
     },
     "ZRGYO": {
@@ -834,12 +804,6 @@
       "buy_price": 22.48,
       "status": "OPEN_VIRTUAL"
     },
-    "TCKRC": {
-      "symbol": "TCKRC",
-      "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 100.9,
-      "status": "OPEN_VIRTUAL"
-    },
     "TDGYO": {
       "symbol": "TDGYO",
       "buy_time": "2026-10-26T09:00:00+03:00",
@@ -946,12 +910,6 @@
       "symbol": "GSRAY",
       "buy_time": "2026-10-26T17:00:00+03:00",
       "buy_price": 0.7,
-      "status": "OPEN_VIRTUAL"
-    },
-    "GWIND": {
-      "symbol": "GWIND",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 17.23,
       "status": "OPEN_VIRTUAL"
     },
     "JANTS": {
@@ -1096,6 +1054,36 @@
       "symbol": "DENGE",
       "buy_time": "2026-10-30T11:00:00+03:00",
       "buy_price": 1.21,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ARMGD": {
+      "symbol": "ARMGD",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 106.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ENPRA": {
+      "symbol": "ENPRA",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 39.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ORGE": {
+      "symbol": "ORGE",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 18.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    "QNBFK": {
+      "symbol": "QNBFK",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 33.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SODSN": {
+      "symbol": "SODSN",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 5.3,
       "status": "OPEN_VIRTUAL"
     }
   }

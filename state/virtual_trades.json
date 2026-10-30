@@ -198,5 +198,75 @@
     "pnl_per_share": -3.58,
     "pnl_percent": -14.2403,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "DIRIT",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 13.71,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 14.95,
+    "pnl_per_share": 1.24,
+    "pnl_percent": 9.0445,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "GWIND",
+    "buy_time": "2026-10-26T17:00:00+03:00",
+    "buy_price": 17.23,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 16.41,
+    "pnl_per_share": -0.82,
+    "pnl_percent": -4.7591,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "KERVN",
+    "buy_time": "2026-10-22T17:00:00+03:00",
+    "buy_price": 4.88,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 5.66,
+    "pnl_per_share": 0.78,
+    "pnl_percent": 15.9836,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "MEGAP",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 0.99,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 0.93,
+    "pnl_per_share": -0.06,
+    "pnl_percent": -6.0606,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "PEKGY",
+    "buy_time": "2026-10-23T13:00:00+03:00",
+    "buy_price": 0.95,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 0.77,
+    "pnl_per_share": -0.18,
+    "pnl_percent": -18.9474,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "TCKRC",
+    "buy_time": "2026-10-26T09:00:00+03:00",
+    "buy_price": 100.9,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 105.5,
+    "pnl_per_share": 4.6,
+    "pnl_percent": 4.559,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ZERGY",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 7.08,
+    "sell_time": "2026-10-30T17:00:00+03:00",
+    "sell_price": 6.3,
+    "pnl_per_share": -0.78,
+    "pnl_percent": -11.0169,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

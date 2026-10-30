@@ -3315,5 +3315,150 @@
     "close": 21.56,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-10-30T09:03:19.290028+00:00"
+  },
+  "ARMGD|2026-10-30T17:00:00+03:00": {
+    "symbol": "ARMGD",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 106.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028661+00:00"
+  },
+  "CMENT|2026-10-30T17:00:00+03:00": {
+    "symbol": "CMENT",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 219.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028674+00:00"
+  },
+  "ENPRA|2026-10-30T17:00:00+03:00": {
+    "symbol": "ENPRA",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 39.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028678+00:00"
+  },
+  "FRIGO|2026-10-30T17:00:00+03:00": {
+    "symbol": "FRIGO",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 1.92,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028681+00:00"
+  },
+  "ORGE|2026-10-30T17:00:00+03:00": {
+    "symbol": "ORGE",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 18.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028683+00:00"
+  },
+  "QNBFK|2026-10-30T17:00:00+03:00": {
+    "symbol": "QNBFK",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 33.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028686+00:00"
+  },
+  "SODSN|2026-10-30T17:00:00+03:00": {
+    "symbol": "SODSN",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 5.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.028688+00:00"
+  },
+  "ARMGD|BUY|2026-10-30T17:00:00+03:00": {
+    "symbol": "ARMGD",
+    "side": "BUY",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 106.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031702+00:00"
+  },
+  "ENPRA|BUY|2026-10-30T17:00:00+03:00": {
+    "symbol": "ENPRA",
+    "side": "BUY",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 39.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031713+00:00"
+  },
+  "ORGE|BUY|2026-10-30T17:00:00+03:00": {
+    "symbol": "ORGE",
+    "side": "BUY",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 18.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031717+00:00"
+  },
+  "QNBFK|BUY|2026-10-30T17:00:00+03:00": {
+    "symbol": "QNBFK",
+    "side": "BUY",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 33.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031720+00:00"
+  },
+  "SODSN|BUY|2026-10-30T17:00:00+03:00": {
+    "symbol": "SODSN",
+    "side": "BUY",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 5.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031723+00:00"
+  },
+  "DIRIT|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "DIRIT",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 14.95,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031763+00:00"
+  },
+  "GWIND|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "GWIND",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 16.41,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031778+00:00"
+  },
+  "KERVN|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "KERVN",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 5.66,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031786+00:00"
+  },
+  "MEGAP|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "MEGAP",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 0.93,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031791+00:00"
+  },
+  "PEKGY|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "PEKGY",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 0.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031797+00:00"
+  },
+  "TCKRC|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "TCKRC",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 105.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031803+00:00"
+  },
+  "ZERGY|SELL|2026-10-30T17:00:00+03:00": {
+    "symbol": "ZERGY",
+    "side": "SELL",
+    "time": "2026-10-30T17:00:00+03:00",
+    "close": 6.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-10-30T15:39:33.031807+00:00"
   }
 }
