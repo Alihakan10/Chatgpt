@@ -1026,12 +1026,6 @@
       "buy_price": 3.71,
       "status": "OPEN_VIRTUAL"
     },
-    "HUBVC": {
-      "symbol": "HUBVC",
-      "buy_time": "2026-10-27T17:00:00+03:00",
-      "buy_price": 2.15,
-      "status": "OPEN_VIRTUAL"
-    },
     "KRVGD": {
       "symbol": "KRVGD",
       "buy_time": "2026-10-27T17:00:00+03:00",
@@ -1084,6 +1078,108 @@
       "symbol": "SODSN",
       "buy_time": "2026-10-30T17:00:00+03:00",
       "buy_price": 5.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AEFES": {
+      "symbol": "AEFES",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 16.17,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ECILC": {
+      "symbol": "ECILC",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 43.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ETILR": {
+      "symbol": "ETILR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 6.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GUBRF": {
+      "symbol": "GUBRF",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 265.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    "HEKTS": {
+      "symbol": "HEKTS",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    "IZENR": {
+      "symbol": "IZENR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 3.17,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KTSKR": {
+      "symbol": "KTSKR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 47.2,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MEDTR": {
+      "symbol": "MEDTR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 17.66,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MEGAP": {
+      "symbol": "MEGAP",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 0.93,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MGROS": {
+      "symbol": "MGROS",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 425.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PAMEL": {
+      "symbol": "PAMEL",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 34.52,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SARKY": {
+      "symbol": "SARKY",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 16.51,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SISE": {
+      "symbol": "SISE",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 33.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TAVHL": {
+      "symbol": "TAVHL",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 262.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TLMAN": {
+      "symbol": "TLMAN",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 49.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TRALT": {
+      "symbol": "TRALT",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 33.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YAPRK": {
+      "symbol": "YAPRK",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 6.13,
       "status": "OPEN_VIRTUAL"
     }
   }
