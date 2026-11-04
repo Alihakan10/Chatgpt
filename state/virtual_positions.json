@@ -1181,6 +1181,162 @@
       "buy_time": "2026-11-02T13:00:00+03:00",
       "buy_price": 6.13,
       "status": "OPEN_VIRTUAL"
+    },
+    "ANGEN": {
+      "symbol": "ANGEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ATLAS": {
+      "symbol": "ATLAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 4.16,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BAKAB": {
+      "symbol": "BAKAB",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 24.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BIOEN": {
+      "symbol": "BIOEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 10.48,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BJKAS": {
+      "symbol": "BJKAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.21,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CEOEM": {
+      "symbol": "CEOEM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 16.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DAPGM": {
+      "symbol": "DAPGM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 2.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    "DGGYO": {
+      "symbol": "DGGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 22.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "FROTO": {
+      "symbol": "FROTO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 68.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GOZDE": {
+      "symbol": "GOZDE",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 16.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ISGYO": {
+      "symbol": "ISGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 18.33,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KZGYO": {
+      "symbol": "KZGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 15.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "LIDER": {
+      "symbol": "LIDER",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 6.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    "LINK": {
+      "symbol": "LINK",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 2.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    "LYDYE": {
+      "symbol": "LYDYE",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1751.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MNDRS": {
+      "symbol": "MNDRS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 9.64,
+      "status": "OPEN_VIRTUAL"
+    },
+    "OBAMS": {
+      "symbol": "OBAMS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 3.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "PEKGY": {
+      "symbol": "PEKGY",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 0.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "RNPOL": {
+      "symbol": "RNPOL",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SANFM": {
+      "symbol": "SANFM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 3.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SERNT": {
+      "symbol": "SERNT",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SUWEN": {
+      "symbol": "SUWEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 4.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TOASO": {
+      "symbol": "TOASO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 228.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TUKAS": {
+      "symbol": "TUKAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.79,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TUREX": {
+      "symbol": "TUREX",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.31,
+      "status": "OPEN_VIRTUAL"
+    },
+    "YKBNK": {
+      "symbol": "YKBNK",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 36.1,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
