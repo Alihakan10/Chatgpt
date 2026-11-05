@@ -204,12 +204,6 @@
       "buy_price": 9.47,
       "status": "OPEN_VIRTUAL"
     },
-    "EREGL": {
-      "symbol": "EREGL",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 36.9,
-      "status": "OPEN_VIRTUAL"
-    },
     "IHEVA": {
       "symbol": "IHEVA",
       "buy_time": "2026-10-20T15:00:00+03:00",
@@ -750,12 +744,6 @@
       "buy_price": 24.04,
       "status": "OPEN_VIRTUAL"
     },
-    "PAGYO": {
-      "symbol": "PAGYO",
-      "buy_time": "2026-10-26T09:00:00+03:00",
-      "buy_price": 111.6,
-      "status": "OPEN_VIRTUAL"
-    },
     "PETUN": {
       "symbol": "PETUN",
       "buy_time": "2026-10-26T09:00:00+03:00",
@@ -1060,12 +1048,6 @@
       "symbol": "ENPRA",
       "buy_time": "2026-10-30T17:00:00+03:00",
       "buy_price": 39.0,
-      "status": "OPEN_VIRTUAL"
-    },
-    "ORGE": {
-      "symbol": "ORGE",
-      "buy_time": "2026-10-30T17:00:00+03:00",
-      "buy_price": 18.6,
       "status": "OPEN_VIRTUAL"
     },
     "QNBFK": {

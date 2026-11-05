@@ -4239,5 +4239,29 @@
     "close": 36.1,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-04T10:05:45.037280+00:00"
+  },
+  "EREGL|SELL|2026-11-05T13:00:00+03:00": {
+    "symbol": "EREGL",
+    "side": "SELL",
+    "time": "2026-11-05T13:00:00+03:00",
+    "close": 31.18,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-05T10:38:00.803137+00:00"
+  },
+  "ORGE|SELL|2026-11-05T13:00:00+03:00": {
+    "symbol": "ORGE",
+    "side": "SELL",
+    "time": "2026-11-05T13:00:00+03:00",
+    "close": 17.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-05T10:38:00.803151+00:00"
+  },
+  "PAGYO|SELL|2026-11-05T13:00:00+03:00": {
+    "symbol": "PAGYO",
+    "side": "SELL",
+    "time": "2026-11-05T13:00:00+03:00",
+    "close": 109.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-05T10:38:00.803156+00:00"
   }
 }
