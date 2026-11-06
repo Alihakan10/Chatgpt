@@ -4263,5 +4263,109 @@
     "close": 109.7,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-05T10:38:00.803156+00:00"
+  },
+  "ATATP|2026-11-06T13:00:00+03:00": {
+    "symbol": "ATATP",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 213.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230609+00:00"
+  },
+  "BARMA|2026-11-06T13:00:00+03:00": {
+    "symbol": "BARMA",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 4.46,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230620+00:00"
+  },
+  "HALKB|2026-11-06T13:00:00+03:00": {
+    "symbol": "HALKB",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 41.12,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230623+00:00"
+  },
+  "MEGAP|2026-11-06T13:00:00+03:00": {
+    "symbol": "MEGAP",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 0.95,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230626+00:00"
+  },
+  "NETAS|2026-11-06T13:00:00+03:00": {
+    "symbol": "NETAS",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 69.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230628+00:00"
+  },
+  "ORGE|2026-11-06T13:00:00+03:00": {
+    "symbol": "ORGE",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 18.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230630+00:00"
+  },
+  "SAHOL|2026-11-06T13:00:00+03:00": {
+    "symbol": "SAHOL",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 86.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230631+00:00"
+  },
+  "ULKER|2026-11-06T13:00:00+03:00": {
+    "symbol": "ULKER",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 81.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.230636+00:00"
+  },
+  "BARMA|BUY|2026-11-06T13:00:00+03:00": {
+    "symbol": "BARMA",
+    "side": "BUY",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 4.46,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233160+00:00"
+  },
+  "HALKB|BUY|2026-11-06T13:00:00+03:00": {
+    "symbol": "HALKB",
+    "side": "BUY",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 41.12,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233167+00:00"
+  },
+  "ORGE|BUY|2026-11-06T13:00:00+03:00": {
+    "symbol": "ORGE",
+    "side": "BUY",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 18.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233170+00:00"
+  },
+  "ULKER|BUY|2026-11-06T13:00:00+03:00": {
+    "symbol": "ULKER",
+    "side": "BUY",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 81.2,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233172+00:00"
+  },
+  "INTEK|SELL|2026-11-06T13:00:00+03:00": {
+    "symbol": "INTEK",
+    "side": "SELL",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 168.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233183+00:00"
+  },
+  "YYAPI|SELL|2026-11-06T13:00:00+03:00": {
+    "symbol": "YYAPI",
+    "side": "SELL",
+    "time": "2026-11-06T13:00:00+03:00",
+    "close": 0.53,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-06T11:42:19.233188+00:00"
   }
 }

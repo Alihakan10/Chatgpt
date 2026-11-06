@@ -1,11 +1,1707 @@
 {
-  "run_time_istanbul": "2026-11-06T06:39:35.052259+03:00",
-  "status": "SKIPPED",
-  "reason": "Aktif 2H seans dışında; tarama yapılmadı.",
-  "symbols": 0,
-  "successful": 0,
-  "errors": 0,
-  "early_buy_candidates_now": 0,
-  "new_virtual_buy_events": [],
+  "run_time_istanbul": "2026-11-06T14:29:23.181619+03:00",
+  "expected_open_bar": "2026-11-06T13:00:00+03:00",
+  "status": "LIVE_SESSION_SCAN",
+  "note": "Active 2H candle scan.",
+  "symbols": 620,
+  "successful": 619,
+  "errors": 1,
+  "early_buy_candidates_now": 8,
+  "early_buy_candidates": [
+    {
+      "symbol": "ATATP",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 213.2,
+      "trend": 1
+    },
+    {
+      "symbol": "BARMA",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 4.46,
+      "trend": 1
+    },
+    {
+      "symbol": "HALKB",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 41.12,
+      "trend": 1
+    },
+    {
+      "symbol": "MEGAP",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 0.95,
+      "trend": 1
+    },
+    {
+      "symbol": "NETAS",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 69.85,
+      "trend": 1
+    },
+    {
+      "symbol": "ORGE",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 18.52,
+      "trend": 1
+    },
+    {
+      "symbol": "SAHOL",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 86.9,
+      "trend": 1
+    },
+    {
+      "symbol": "ULKER",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 81.2,
+      "trend": 1
+    }
+  ],
+  "early_sell_candidates_now": 8,
+  "early_sell_candidates": [
+    {
+      "symbol": "ALVES",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 0.48,
+      "trend": -1
+    },
+    {
+      "symbol": "BALAT",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 51.75,
+      "trend": -1
+    },
+    {
+      "symbol": "BULGS",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 5.09,
+      "trend": -1
+    },
+    {
+      "symbol": "EBEBK",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 76.7,
+      "trend": -1
+    },
+    {
+      "symbol": "EKIZ",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 35.68,
+      "trend": -1
+    },
+    {
+      "symbol": "INTEK",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 168.0,
+      "trend": -1
+    },
+    {
+      "symbol": "KSTUR",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 1400.0,
+      "trend": -1
+    },
+    {
+      "symbol": "YYAPI",
+      "candle_time": "2026-11-06T13:00:00+03:00",
+      "close": 0.53,
+      "trend": -1
+    }
+  ],
+  "new_virtual_buy_events": [
+    {
+      "symbol": "BARMA",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 4.46,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "HALKB",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 41.12,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "ORGE",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 18.52,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    },
+    {
+      "symbol": "ULKER",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 81.2,
+      "status": "OPEN_VIRTUAL",
+      "event": "VIRTUAL_BUY"
+    }
+  ],
+  "new_virtual_sell_events": [
+    {
+      "symbol": "INTEK",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 151.0,
+      "sell_time": "2026-11-06T13:00:00+03:00",
+      "sell_price": 168.0,
+      "pnl_per_share": 17.0,
+      "pnl_percent": 11.2583,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    },
+    {
+      "symbol": "YYAPI",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 0.62,
+      "sell_time": "2026-11-06T13:00:00+03:00",
+      "sell_price": 0.53,
+      "pnl_per_share": -0.09,
+      "pnl_percent": -14.5161,
+      "status": "CLOSED_VIRTUAL",
+      "event": "VIRTUAL_SELL"
+    }
+  ],
+  "open_virtual_positions": 222,
+  "open_virtual_positions_detail": [
+    {
+      "symbol": "MHRGY",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 1.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USAK",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 0.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMAS",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 3.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUNTK",
+      "buy_time": "2026-10-13T11:00:00+03:00",
+      "buy_price": 25.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TATEN",
+      "buy_time": "2026-10-14T13:00:00+03:00",
+      "buy_price": 4.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATEKS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 92.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FRIGO",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 2.28,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YBTAS",
+      "buy_time": "2026-10-14T17:00:00+03:00",
+      "buy_price": 10.95,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "POLTK",
+      "buy_time": "2026-10-15T13:00:00+03:00",
+      "buy_price": 3865.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CRDFA",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.13,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "IHAAS",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 14.87,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "QUICK",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 44.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "VESTL",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 17.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ZGYO",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 16.03,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BORLS",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 2.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DESA",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 8.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DMRGD",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 6.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DZGYO",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 6.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KLRHO",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 11.72,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LKMNH",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 11.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PARSN",
+      "buy_time": "2026-10-16T15:00:00+03:00",
+      "buy_price": 56.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PLTUR",
+      "buy_time": "2026-10-19T17:00:00+03:00",
+      "buy_price": 15.03,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OTKAR",
+      "buy_time": "2026-10-20T11:00:00+03:00",
+      "buy_price": 307.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKSA",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 10.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ARDYZ",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 58.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ASELS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 339.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AYDEM",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 22.06,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AYEN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 24.72,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AZTEK",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 2.88,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BALSU",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 7.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BIMAS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 384.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BRSAN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 670.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DURKN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.47,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "IHEVA",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.54,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "IHLGM",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 1.16,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ISDMR",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 58.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KLSYN",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 14.39,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KOTON",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 9.11,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MCARD",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 97.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MERIT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 13.23,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "NTGAZ",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 10.08,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OYAKC",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 19.51,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OZKGY",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 11.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PCILT",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 30.26,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TRGYO",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 88.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATATP",
+      "buy_time": "2026-10-21T11:00:00+03:00",
+      "buy_price": 217.4,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CRFSA",
+      "buy_time": "2026-10-21T11:00:00+03:00",
+      "buy_price": 201.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KLKIM",
+      "buy_time": "2026-10-21T11:00:00+03:00",
+      "buy_price": 20.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALCTL",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 67.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BESTE",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 19.97,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CITAS",
+      "buy_time": "2026-10-21T17:00:00+03:00",
+      "buy_price": 93.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OZRDN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 9.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TRILC",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 0.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ACSEL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 74.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AGHOL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 28.82,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKSGY",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 9.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALBTN",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 19.41,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALCAR",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 574.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ARSAN",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 2.92,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AVHOL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 28.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AYGAZ",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 269.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BINBN",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 33.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CCOLA",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 74.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEMZY",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 5.94,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CMENT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 217.4,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DMLKT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 6.99,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EGEPO",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 4.67,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EMNIS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 119.2,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ENKAI",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 74.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EUKYO",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 9.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FRMPL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 17.98,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ISKPL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 2.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KUVVA",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 81.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KUYAS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 8.83,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LIDFA",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 1.71,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MAALT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 661.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MASFN",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 31.64,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MAVI",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 35.04,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MMCAS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 8.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MOGAN",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 7.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MSGYO",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 4.01,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "RYGYO",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 51.1,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "RYSAS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 24.06,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TRCAS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 41.98,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TSKB",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 8.92,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TURGG",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 25.86,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TURSG",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 4.17,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "USHOL",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 72.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ZRGYO",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 17.84,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AHGAZ",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 45.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKENR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 6.59,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALFAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ALTNY",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 10.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ANELE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 8.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ASTOR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 156.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AYCES",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 297.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BAHKM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 139.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CVKMD",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CWENE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 15.15,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DCTTR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 4.44,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DITAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 7.41,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DOFRB",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 57.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EKIM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 14.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EMPAE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 41.58,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ENERY",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EPLAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 4.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ERCB",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 33.22,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EUPWR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 39.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EUREN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 2.29,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EUYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.24,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FADE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 9.66,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GENTS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.37,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GEREL",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GESAN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 32.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KAPLM",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 94.05,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KLGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.86,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MACKO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MZHLD",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "NETAS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 67.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ORMA",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 114.4,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OTTO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 76.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OYAYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 24.04,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PETUN",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 8.56,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PRKME",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 11.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "QUAGR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 1.37,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SARAE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 29.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SDTTR",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 12.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SMRTG",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 3.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SOKE",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 7.53,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SSAAT",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 22.48,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TDGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 5.06,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TUPRS",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 366.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "VBTYZ",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 19.63,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YGGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 189.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YUNSA",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 5.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKBNK",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 65.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKHAN",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 23.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BNTAS",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 4.71,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CLEBI",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 1232.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DOHOL",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 16.54,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EDIP",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 22.62,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EGPRO",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 27.26,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "EKDMR",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 21.74,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ENSRI",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 2.41,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GARAN",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 129.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GARFA",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 21.18,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GOKNR",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 12.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GSRAY",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 0.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "JANTS",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 11.19,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KARSN",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 7.01,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KCAER",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 8.97,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MAGEN",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 5.52,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MNDTR",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 3.44,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MOBTL",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 8.01,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MOPAS",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 15.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "REEDR",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 2.66,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SAHOL",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 87.35,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TCELL",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 90.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TKFEN",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 182.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ULUSE",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 141.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AKCNS",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 183.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BFREN",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 88.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GEDIK",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 4.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LMKDC",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 19.93,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LXGYO",
+      "buy_time": "2026-10-27T11:00:00+03:00",
+      "buy_price": 5.67,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BAYRK",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.77,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DNISI",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 3.71,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KRVGD",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.04,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ULUFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 1.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "VAKFA",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 8.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DENGE",
+      "buy_time": "2026-10-30T11:00:00+03:00",
+      "buy_price": 1.21,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ARMGD",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 106.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ENPRA",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 39.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "QNBFK",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 33.6,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SODSN",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 5.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "AEFES",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 16.17,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ECILC",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 43.96,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ETILR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 6.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GUBRF",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 265.5,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "HEKTS",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "IZENR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 3.17,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KTSKR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 47.2,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MEDTR",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 17.66,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MEGAP",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 0.93,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MGROS",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 425.75,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PAMEL",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 34.52,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SARKY",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 16.51,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SISE",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 33.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TAVHL",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 262.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TLMAN",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 49.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TRALT",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 33.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YAPRK",
+      "buy_time": "2026-11-02T13:00:00+03:00",
+      "buy_price": 6.13,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ANGEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ATLAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 4.16,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BAKAB",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 24.3,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BIOEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 10.48,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BJKAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.21,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "CEOEM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 16.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DAPGM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 2.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "DGGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 22.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "FROTO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 68.85,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "GOZDE",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 16.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ISGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 18.33,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "KZGYO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 15.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LIDER",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 6.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LINK",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 2.73,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "LYDYE",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1751.0,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "MNDRS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 9.64,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "OBAMS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 3.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "PEKGY",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 0.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "RNPOL",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.68,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SANFM",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 3.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SERNT",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.02,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "SUWEN",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 4.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TOASO",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 228.7,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TUKAS",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 1.79,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "TUREX",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 5.31,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "YKBNK",
+      "buy_time": "2026-11-04T11:00:00+03:00",
+      "buy_price": 36.1,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "BARMA",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 4.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "HALKB",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 41.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ORGE",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 18.52,
+      "status": "OPEN_VIRTUAL"
+    },
+    {
+      "symbol": "ULKER",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 81.2,
+      "status": "OPEN_VIRTUAL"
+    }
+  ],
+  "closed_virtual_trades": 33,
+  "recent_closed_virtual_trades": [
+    {
+      "symbol": "INVES",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 669.5,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 622.0,
+      "pnl_per_share": -47.5,
+      "pnl_percent": -7.0948,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "RTALB",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 2.18,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 1.98,
+      "pnl_per_share": -0.2,
+      "pnl_percent": -9.1743,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "VERUS",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 467.75,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 462.25,
+      "pnl_per_share": -5.5,
+      "pnl_percent": -1.1758,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "YEOTK",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 23.2,
+      "sell_time": "2026-10-27T17:00:00+03:00",
+      "sell_price": 22.54,
+      "pnl_per_share": -0.66,
+      "pnl_percent": -2.8448,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "LOGO",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 118.8,
+      "sell_time": "2026-10-30T11:00:00+03:00",
+      "sell_price": 115.0,
+      "pnl_per_share": -3.8,
+      "pnl_percent": -3.1987,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "ODAS",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 4.65,
+      "sell_time": "2026-10-30T11:00:00+03:00",
+      "sell_price": 4.47,
+      "pnl_per_share": -0.18,
+      "pnl_percent": -3.871,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "TNZTP",
+      "buy_time": "2026-10-12T13:00:00+03:00",
+      "buy_price": 25.14,
+      "sell_time": "2026-10-30T11:00:00+03:00",
+      "sell_price": 21.56,
+      "pnl_per_share": -3.58,
+      "pnl_percent": -14.2403,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "DIRIT",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 13.71,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 14.95,
+      "pnl_per_share": 1.24,
+      "pnl_percent": 9.0445,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "GWIND",
+      "buy_time": "2026-10-26T17:00:00+03:00",
+      "buy_price": 17.23,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 16.41,
+      "pnl_per_share": -0.82,
+      "pnl_percent": -4.7591,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "KERVN",
+      "buy_time": "2026-10-22T17:00:00+03:00",
+      "buy_price": 4.88,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 5.66,
+      "pnl_per_share": 0.78,
+      "pnl_percent": 15.9836,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "MEGAP",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 0.99,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.93,
+      "pnl_per_share": -0.06,
+      "pnl_percent": -6.0606,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "PEKGY",
+      "buy_time": "2026-10-23T13:00:00+03:00",
+      "buy_price": 0.95,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 0.77,
+      "pnl_per_share": -0.18,
+      "pnl_percent": -18.9474,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "TCKRC",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 100.9,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 105.5,
+      "pnl_per_share": 4.6,
+      "pnl_percent": 4.559,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "ZERGY",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 7.08,
+      "sell_time": "2026-10-30T17:00:00+03:00",
+      "sell_price": 6.3,
+      "pnl_per_share": -0.78,
+      "pnl_percent": -11.0169,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "HUBVC",
+      "buy_time": "2026-10-27T17:00:00+03:00",
+      "buy_price": 2.15,
+      "sell_time": "2026-11-02T13:00:00+03:00",
+      "sell_price": 1.92,
+      "pnl_per_share": -0.23,
+      "pnl_percent": -10.6977,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "EREGL",
+      "buy_time": "2026-10-20T15:00:00+03:00",
+      "buy_price": 36.9,
+      "sell_time": "2026-11-05T13:00:00+03:00",
+      "sell_price": 31.18,
+      "pnl_per_share": -5.72,
+      "pnl_percent": -15.5014,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "ORGE",
+      "buy_time": "2026-10-30T17:00:00+03:00",
+      "buy_price": 18.6,
+      "sell_time": "2026-11-05T13:00:00+03:00",
+      "sell_price": 17.75,
+      "pnl_per_share": -0.85,
+      "pnl_percent": -4.5699,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "PAGYO",
+      "buy_time": "2026-10-26T09:00:00+03:00",
+      "buy_price": 111.6,
+      "sell_time": "2026-11-05T13:00:00+03:00",
+      "sell_price": 109.7,
+      "pnl_per_share": -1.9,
+      "pnl_percent": -1.7025,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "INTEK",
+      "buy_time": "2026-10-23T17:00:00+03:00",
+      "buy_price": 151.0,
+      "sell_time": "2026-11-06T13:00:00+03:00",
+      "sell_price": 168.0,
+      "pnl_per_share": 17.0,
+      "pnl_percent": 11.2583,
+      "status": "CLOSED_VIRTUAL"
+    },
+    {
+      "symbol": "YYAPI",
+      "buy_time": "2026-10-15T17:00:00+03:00",
+      "buy_price": 0.62,
+      "sell_time": "2026-11-06T13:00:00+03:00",
+      "sell_price": 0.53,
+      "pnl_per_share": -0.09,
+      "pnl_percent": -14.5161,
+      "status": "CLOSED_VIRTUAL"
+    }
+  ],
+  "realized_pnl_per_share_sum": -89.35,
+  "profitable_closed_trades": 5,
+  "losing_closed_trades": 28,
   "mode": "VIRTUAL_ONLY_NO_TELEGRAM_NO_BROKER_ORDERS"
 }

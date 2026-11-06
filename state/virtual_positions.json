@@ -78,12 +78,6 @@
       "buy_price": 17.32,
       "status": "OPEN_VIRTUAL"
     },
-    "YYAPI": {
-      "symbol": "YYAPI",
-      "buy_time": "2026-10-15T17:00:00+03:00",
-      "buy_price": 0.62,
-      "status": "OPEN_VIRTUAL"
-    },
     "ZGYO": {
       "symbol": "ZGYO",
       "buy_time": "2026-10-15T17:00:00+03:00",
@@ -430,12 +424,6 @@
       "symbol": "FRMPL",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 17.98,
-      "status": "OPEN_VIRTUAL"
-    },
-    "INTEK": {
-      "symbol": "INTEK",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 151.0,
       "status": "OPEN_VIRTUAL"
     },
     "ISKPL": {
@@ -1318,6 +1306,30 @@
       "symbol": "YKBNK",
       "buy_time": "2026-11-04T11:00:00+03:00",
       "buy_price": 36.1,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BARMA": {
+      "symbol": "BARMA",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 4.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    "HALKB": {
+      "symbol": "HALKB",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 41.12,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ORGE": {
+      "symbol": "ORGE",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 18.52,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ULKER": {
+      "symbol": "ULKER",
+      "buy_time": "2026-11-06T13:00:00+03:00",
+      "buy_price": 81.2,
       "status": "OPEN_VIRTUAL"
     }
   }
