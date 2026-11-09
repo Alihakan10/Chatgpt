@@ -4367,5 +4367,20 @@
     "close": 0.53,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-06T11:42:19.233188+00:00"
+  },
+  "TTKOM|2026-11-09T15:00:00+03:00": {
+    "symbol": "TTKOM",
+    "time": "2026-11-09T15:00:00+03:00",
+    "close": 49.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-09T12:23:20.861306+00:00"
+  },
+  "TTKOM|BUY|2026-11-09T15:00:00+03:00": {
+    "symbol": "TTKOM",
+    "side": "BUY",
+    "time": "2026-11-09T15:00:00+03:00",
+    "close": 49.52,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-09T12:23:20.864943+00:00"
   }
 }

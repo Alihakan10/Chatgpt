@@ -1331,6 +1331,12 @@
       "buy_time": "2026-11-06T13:00:00+03:00",
       "buy_price": 81.2,
       "status": "OPEN_VIRTUAL"
+    },
+    "TTKOM": {
+      "symbol": "TTKOM",
+      "buy_time": "2026-11-09T15:00:00+03:00",
+      "buy_price": 49.52,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
