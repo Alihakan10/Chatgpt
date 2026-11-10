@@ -4382,5 +4382,21 @@
     "close": 49.52,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-09T12:23:20.864943+00:00"
+  },
+  "ARDYZ|SELL|2026-11-10T15:00:00+03:00": {
+    "symbol": "ARDYZ",
+    "side": "SELL",
+    "time": "2026-11-10T15:00:00+03:00",
+    "close": 57.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-10T12:51:28.411032+00:00"
+  },
+  "MNDTR|SELL|2026-11-10T15:00:00+03:00": {
+    "symbol": "MNDTR",
+    "side": "SELL",
+    "time": "2026-11-10T15:00:00+03:00",
+    "close": 3.53,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-10T12:51:28.411049+00:00"
   }
 }

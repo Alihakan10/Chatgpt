@@ -144,12 +144,6 @@
       "buy_price": 10.11,
       "status": "OPEN_VIRTUAL"
     },
-    "ARDYZ": {
-      "symbol": "ARDYZ",
-      "buy_time": "2026-10-20T15:00:00+03:00",
-      "buy_price": 58.7,
-      "status": "OPEN_VIRTUAL"
-    },
     "ASELS": {
       "symbol": "ASELS",
       "buy_time": "2026-10-20T15:00:00+03:00",
@@ -910,12 +904,6 @@
       "symbol": "MAGEN",
       "buy_time": "2026-10-26T17:00:00+03:00",
       "buy_price": 5.52,
-      "status": "OPEN_VIRTUAL"
-    },
-    "MNDTR": {
-      "symbol": "MNDTR",
-      "buy_time": "2026-10-26T17:00:00+03:00",
-      "buy_price": 3.44,
       "status": "OPEN_VIRTUAL"
     },
     "MOBTL": {
