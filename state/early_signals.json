@@ -4398,5 +4398,114 @@
     "close": 3.53,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-10T12:51:28.411049+00:00"
+  },
+  "KRPLS|2026-11-11T17:00:00+03:00": {
+    "symbol": "KRPLS",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 9.33,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.880047+00:00"
+  },
+  "ODAS|2026-11-11T17:00:00+03:00": {
+    "symbol": "ODAS",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 4.69,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.880059+00:00"
+  },
+  "OTKAR|2026-11-11T17:00:00+03:00": {
+    "symbol": "OTKAR",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 315.25,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.880063+00:00"
+  },
+  "KRPLS|BUY|2026-11-11T17:00:00+03:00": {
+    "symbol": "KRPLS",
+    "side": "BUY",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 9.33,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884395+00:00"
+  },
+  "ODAS|BUY|2026-11-11T17:00:00+03:00": {
+    "symbol": "ODAS",
+    "side": "BUY",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 4.69,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884406+00:00"
+  },
+  "AYEN|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "AYEN",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 24.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884419+00:00"
+  },
+  "DURKN|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "DURKN",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 8.09,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884426+00:00"
+  },
+  "EUREN|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "EUREN",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 2.44,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884433+00:00"
+  },
+  "FADE|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "FADE",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 10.17,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884438+00:00"
+  },
+  "KARSN|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "KARSN",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 7.39,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884444+00:00"
+  },
+  "KLKIM|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "KLKIM",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 20.02,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884450+00:00"
+  },
+  "OBAMS|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "OBAMS",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 3.64,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884455+00:00"
+  },
+  "QUICK|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "QUICK",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 42.62,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884459+00:00"
+  },
+  "TCELL|SELL|2026-11-11T17:00:00+03:00": {
+    "symbol": "TCELL",
+    "side": "SELL",
+    "time": "2026-11-11T17:00:00+03:00",
+    "close": 94.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-11T15:06:33.884464+00:00"
   }
 }
