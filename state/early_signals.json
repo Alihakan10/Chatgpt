@@ -4507,5 +4507,49 @@
     "close": 94.85,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-11T15:06:33.884464+00:00"
+  },
+  "BRKVY|2026-11-12T13:00:00+03:00": {
+    "symbol": "BRKVY",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 36.16,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.001647+00:00"
+  },
+  "CWENE|2026-11-12T13:00:00+03:00": {
+    "symbol": "CWENE",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 16.24,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.001665+00:00"
+  },
+  "LMKDC|2026-11-12T13:00:00+03:00": {
+    "symbol": "LMKDC",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 22.22,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.001669+00:00"
+  },
+  "SAYAS|2026-11-12T13:00:00+03:00": {
+    "symbol": "SAYAS",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 41.32,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.001671+00:00"
+  },
+  "BRKVY|BUY|2026-11-12T13:00:00+03:00": {
+    "symbol": "BRKVY",
+    "side": "BUY",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 36.16,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.005498+00:00"
+  },
+  "SAYAS|BUY|2026-11-12T13:00:00+03:00": {
+    "symbol": "SAYAS",
+    "side": "BUY",
+    "time": "2026-11-12T13:00:00+03:00",
+    "close": 41.32,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-12T10:30:34.005514+00:00"
   }
 }

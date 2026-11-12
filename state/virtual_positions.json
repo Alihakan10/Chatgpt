@@ -1283,6 +1283,18 @@
       "buy_time": "2026-11-11T17:00:00+03:00",
       "buy_price": 4.69,
       "status": "OPEN_VIRTUAL"
+    },
+    "BRKVY": {
+      "symbol": "BRKVY",
+      "buy_time": "2026-11-12T13:00:00+03:00",
+      "buy_price": 36.16,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SAYAS": {
+      "symbol": "SAYAS",
+      "buy_time": "2026-11-12T13:00:00+03:00",
+      "buy_price": 41.32,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }
