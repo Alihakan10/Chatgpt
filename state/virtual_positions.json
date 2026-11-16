@@ -1062,12 +1062,6 @@
       "buy_price": 16.51,
       "status": "OPEN_VIRTUAL"
     },
-    "SISE": {
-      "symbol": "SISE",
-      "buy_time": "2026-11-02T13:00:00+03:00",
-      "buy_price": 33.02,
-      "status": "OPEN_VIRTUAL"
-    },
     "TAVHL": {
       "symbol": "TAVHL",
       "buy_time": "2026-11-02T13:00:00+03:00",

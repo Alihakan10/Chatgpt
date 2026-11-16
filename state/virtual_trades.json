@@ -438,5 +438,15 @@
     "pnl_per_share": 4.1,
     "pnl_percent": 4.5179,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "SISE",
+    "buy_time": "2026-11-02T13:00:00+03:00",
+    "buy_price": 33.02,
+    "sell_time": "2026-11-16T15:00:00+03:00",
+    "sell_price": 35.04,
+    "pnl_per_share": 2.02,
+    "pnl_percent": 6.1175,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

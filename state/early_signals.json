@@ -4551,5 +4551,20 @@
     "close": 41.32,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-12T10:30:34.005514+00:00"
+  },
+  "TRALT|2026-11-16T15:00:00+03:00": {
+    "symbol": "TRALT",
+    "time": "2026-11-16T15:00:00+03:00",
+    "close": 39.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-16T12:30:34.612021+00:00"
+  },
+  "SISE|SELL|2026-11-16T15:00:00+03:00": {
+    "symbol": "SISE",
+    "side": "SELL",
+    "time": "2026-11-16T15:00:00+03:00",
+    "close": 35.04,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-16T12:30:34.615726+00:00"
   }
 }
