@@ -448,5 +448,25 @@
     "pnl_per_share": 2.02,
     "pnl_percent": 6.1175,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "CRFSA",
+    "buy_time": "2026-10-21T11:00:00+03:00",
+    "buy_price": 201.7,
+    "sell_time": "2026-11-17T15:00:00+03:00",
+    "sell_price": 155.0,
+    "pnl_per_share": -46.7,
+    "pnl_percent": -23.1532,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "GEDIK",
+    "buy_time": "2026-10-27T11:00:00+03:00",
+    "buy_price": 4.77,
+    "sell_time": "2026-11-17T15:00:00+03:00",
+    "sell_price": 4.95,
+    "pnl_per_share": 0.18,
+    "pnl_percent": 3.7736,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

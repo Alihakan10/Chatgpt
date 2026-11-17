@@ -4566,5 +4566,102 @@
     "close": 35.04,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-16T12:30:34.615726+00:00"
+  },
+  "EGSER|2026-11-17T15:00:00+03:00": {
+    "symbol": "EGSER",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 2.14,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649136+00:00"
+  },
+  "EPLAS|2026-11-17T15:00:00+03:00": {
+    "symbol": "EPLAS",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 5.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649154+00:00"
+  },
+  "FRIGO|2026-11-17T15:00:00+03:00": {
+    "symbol": "FRIGO",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 2.14,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649157+00:00"
+  },
+  "IZENR|2026-11-17T15:00:00+03:00": {
+    "symbol": "IZENR",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 4.22,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649160+00:00"
+  },
+  "IZMDC|2026-11-17T15:00:00+03:00": {
+    "symbol": "IZMDC",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 5.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649163+00:00"
+  },
+  "KAREL|2026-11-17T15:00:00+03:00": {
+    "symbol": "KAREL",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 4.44,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649165+00:00"
+  },
+  "VSNMD|2026-11-17T15:00:00+03:00": {
+    "symbol": "VSNMD",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 25.46,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.649167+00:00"
+  },
+  "EGSER|BUY|2026-11-17T15:00:00+03:00": {
+    "symbol": "EGSER",
+    "side": "BUY",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 2.14,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653050+00:00"
+  },
+  "IZMDC|BUY|2026-11-17T15:00:00+03:00": {
+    "symbol": "IZMDC",
+    "side": "BUY",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 5.99,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653067+00:00"
+  },
+  "KAREL|BUY|2026-11-17T15:00:00+03:00": {
+    "symbol": "KAREL",
+    "side": "BUY",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 4.44,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653071+00:00"
+  },
+  "VSNMD|BUY|2026-11-17T15:00:00+03:00": {
+    "symbol": "VSNMD",
+    "side": "BUY",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 25.46,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653074+00:00"
+  },
+  "CRFSA|SELL|2026-11-17T15:00:00+03:00": {
+    "symbol": "CRFSA",
+    "side": "SELL",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 155.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653087+00:00"
+  },
+  "GEDIK|SELL|2026-11-17T15:00:00+03:00": {
+    "symbol": "GEDIK",
+    "side": "SELL",
+    "time": "2026-11-17T15:00:00+03:00",
+    "close": 4.95,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-17T14:03:42.653095+00:00"
   }
 }

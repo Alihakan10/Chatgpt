@@ -252,12 +252,6 @@
       "buy_price": 217.4,
       "status": "OPEN_VIRTUAL"
     },
-    "CRFSA": {
-      "symbol": "CRFSA",
-      "buy_time": "2026-10-21T11:00:00+03:00",
-      "buy_price": 201.7,
-      "status": "OPEN_VIRTUAL"
-    },
     "ALCTL": {
       "symbol": "ALCTL",
       "buy_time": "2026-10-21T17:00:00+03:00",
@@ -912,12 +906,6 @@
       "buy_price": 88.9,
       "status": "OPEN_VIRTUAL"
     },
-    "GEDIK": {
-      "symbol": "GEDIK",
-      "buy_time": "2026-10-27T11:00:00+03:00",
-      "buy_price": 4.77,
-      "status": "OPEN_VIRTUAL"
-    },
     "LMKDC": {
       "symbol": "LMKDC",
       "buy_time": "2026-10-27T11:00:00+03:00",
@@ -1288,6 +1276,30 @@
       "symbol": "SAYAS",
       "buy_time": "2026-11-12T13:00:00+03:00",
       "buy_price": 41.32,
+      "status": "OPEN_VIRTUAL"
+    },
+    "EGSER": {
+      "symbol": "EGSER",
+      "buy_time": "2026-11-17T15:00:00+03:00",
+      "buy_price": 2.14,
+      "status": "OPEN_VIRTUAL"
+    },
+    "IZMDC": {
+      "symbol": "IZMDC",
+      "buy_time": "2026-11-17T15:00:00+03:00",
+      "buy_price": 5.99,
+      "status": "OPEN_VIRTUAL"
+    },
+    "KAREL": {
+      "symbol": "KAREL",
+      "buy_time": "2026-11-17T15:00:00+03:00",
+      "buy_price": 4.44,
+      "status": "OPEN_VIRTUAL"
+    },
+    "VSNMD": {
+      "symbol": "VSNMD",
+      "buy_time": "2026-11-17T15:00:00+03:00",
+      "buy_price": 25.46,
       "status": "OPEN_VIRTUAL"
     }
   }
