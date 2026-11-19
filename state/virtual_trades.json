@@ -468,5 +468,35 @@
     "pnl_per_share": 0.18,
     "pnl_percent": 3.7736,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "LYDYE",
+    "buy_time": "2026-11-04T11:00:00+03:00",
+    "buy_price": 1751.0,
+    "sell_time": "2026-11-19T11:00:00+03:00",
+    "sell_price": 2478.0,
+    "pnl_per_share": 727.0,
+    "pnl_percent": 41.5191,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "RNPOL",
+    "buy_time": "2026-11-04T11:00:00+03:00",
+    "buy_price": 1.68,
+    "sell_time": "2026-11-19T11:00:00+03:00",
+    "sell_price": 2.03,
+    "pnl_per_share": 0.35,
+    "pnl_percent": 20.8333,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "TRCAS",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 41.98,
+    "sell_time": "2026-11-19T11:00:00+03:00",
+    "sell_price": 42.68,
+    "pnl_per_share": 0.7,
+    "pnl_percent": 1.6675,
+    "status": "CLOSED_VIRTUAL"
   }
 ]

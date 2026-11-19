@@ -462,12 +462,6 @@
       "buy_price": 24.06,
       "status": "OPEN_VIRTUAL"
     },
-    "TRCAS": {
-      "symbol": "TRCAS",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 41.98,
-      "status": "OPEN_VIRTUAL"
-    },
     "TSKB": {
       "symbol": "TSKB",
       "buy_time": "2026-10-23T17:00:00+03:00",
@@ -1158,12 +1152,6 @@
       "buy_price": 2.73,
       "status": "OPEN_VIRTUAL"
     },
-    "LYDYE": {
-      "symbol": "LYDYE",
-      "buy_time": "2026-11-04T11:00:00+03:00",
-      "buy_price": 1751.0,
-      "status": "OPEN_VIRTUAL"
-    },
     "MNDRS": {
       "symbol": "MNDRS",
       "buy_time": "2026-11-04T11:00:00+03:00",
@@ -1174,12 +1162,6 @@
       "symbol": "PEKGY",
       "buy_time": "2026-11-04T11:00:00+03:00",
       "buy_price": 0.78,
-      "status": "OPEN_VIRTUAL"
-    },
-    "RNPOL": {
-      "symbol": "RNPOL",
-      "buy_time": "2026-11-04T11:00:00+03:00",
-      "buy_price": 1.68,
       "status": "OPEN_VIRTUAL"
     },
     "SANFM": {
@@ -1300,6 +1282,24 @@
       "symbol": "VSNMD",
       "buy_time": "2026-11-17T15:00:00+03:00",
       "buy_price": 25.46,
+      "status": "OPEN_VIRTUAL"
+    },
+    "AKFIS": {
+      "symbol": "AKFIS",
+      "buy_time": "2026-11-19T11:00:00+03:00",
+      "buy_price": 15.25,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TNZTP": {
+      "symbol": "TNZTP",
+      "buy_time": "2026-11-19T11:00:00+03:00",
+      "buy_price": 21.78,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TSPOR": {
+      "symbol": "TSPOR",
+      "buy_time": "2026-11-19T11:00:00+03:00",
+      "buy_price": 0.76,
       "status": "OPEN_VIRTUAL"
     }
   }
