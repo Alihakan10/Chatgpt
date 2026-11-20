@@ -4732,5 +4732,97 @@
     "close": 42.68,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-19T09:53:27.739802+00:00"
+  },
+  "ANELE|2026-11-20T09:00:00+03:00": {
+    "symbol": "ANELE",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 13.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.636819+00:00"
+  },
+  "EMNIS|2026-11-20T09:00:00+03:00": {
+    "symbol": "EMNIS",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 142.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.636833+00:00"
+  },
+  "QNBTR|2026-11-20T09:00:00+03:00": {
+    "symbol": "QNBTR",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 146.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.636837+00:00"
+  },
+  "SAMAT|2026-11-20T09:00:00+03:00": {
+    "symbol": "SAMAT",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 3.81,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.636840+00:00"
+  },
+  "QNBTR|BUY|2026-11-20T09:00:00+03:00": {
+    "symbol": "QNBTR",
+    "side": "BUY",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 146.7,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640952+00:00"
+  },
+  "SAMAT|BUY|2026-11-20T09:00:00+03:00": {
+    "symbol": "SAMAT",
+    "side": "BUY",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 3.81,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640964+00:00"
+  },
+  "ATATP|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "ATATP",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 169.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640976+00:00"
+  },
+  "CCOLA|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "CCOLA",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 78.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640984+00:00"
+  },
+  "CWENE|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "CWENE",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 16.67,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640990+00:00"
+  },
+  "HALKB|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "HALKB",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 38.94,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.640997+00:00"
+  },
+  "HEKTS|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "HEKTS",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 1.53,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.641002+00:00"
+  },
+  "IZENR|SELL|2026-11-20T09:00:00+03:00": {
+    "symbol": "IZENR",
+    "side": "SELL",
+    "time": "2026-11-20T09:00:00+03:00",
+    "close": 3.87,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-20T08:07:28.641007+00:00"
   }
 }
