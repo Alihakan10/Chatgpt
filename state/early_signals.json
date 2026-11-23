@@ -4824,5 +4824,144 @@
     "close": 3.87,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-20T08:07:28.641007+00:00"
+  },
+  "ARDYZ|2026-11-23T17:00:00+03:00": {
+    "symbol": "ARDYZ",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 48.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811814+00:00"
+  },
+  "ASTOR|2026-11-23T17:00:00+03:00": {
+    "symbol": "ASTOR",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 145.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811825+00:00"
+  },
+  "BAHKM|2026-11-23T17:00:00+03:00": {
+    "symbol": "BAHKM",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 179.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811828+00:00"
+  },
+  "BALAT|2026-11-23T17:00:00+03:00": {
+    "symbol": "BALAT",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 49.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811830+00:00"
+  },
+  "BALSU|2026-11-23T17:00:00+03:00": {
+    "symbol": "BALSU",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 6.24,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811833+00:00"
+  },
+  "BUCIM|2026-11-23T17:00:00+03:00": {
+    "symbol": "BUCIM",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 3.94,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811837+00:00"
+  },
+  "CUSAN|2026-11-23T17:00:00+03:00": {
+    "symbol": "CUSAN",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 16.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811839+00:00"
+  },
+  "GUBRF|2026-11-23T17:00:00+03:00": {
+    "symbol": "GUBRF",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 277.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811843+00:00"
+  },
+  "IHEVA|2026-11-23T17:00:00+03:00": {
+    "symbol": "IHEVA",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 1.86,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811845+00:00"
+  },
+  "ISBIR|2026-11-23T17:00:00+03:00": {
+    "symbol": "ISBIR",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 49.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811847+00:00"
+  },
+  "KCAER|2026-11-23T17:00:00+03:00": {
+    "symbol": "KCAER",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 10.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811849+00:00"
+  },
+  "KUYAS|2026-11-23T17:00:00+03:00": {
+    "symbol": "KUYAS",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 10.75,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811851+00:00"
+  },
+  "TRILC|2026-11-23T17:00:00+03:00": {
+    "symbol": "TRILC",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 0.69,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.811853+00:00"
+  },
+  "ARDYZ|BUY|2026-11-23T17:00:00+03:00": {
+    "symbol": "ARDYZ",
+    "side": "BUY",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 48.6,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815324+00:00"
+  },
+  "BALAT|BUY|2026-11-23T17:00:00+03:00": {
+    "symbol": "BALAT",
+    "side": "BUY",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 49.0,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815334+00:00"
+  },
+  "BUCIM|BUY|2026-11-23T17:00:00+03:00": {
+    "symbol": "BUCIM",
+    "side": "BUY",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 3.94,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815337+00:00"
+  },
+  "CUSAN|BUY|2026-11-23T17:00:00+03:00": {
+    "symbol": "CUSAN",
+    "side": "BUY",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 16.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815340+00:00"
+  },
+  "ISBIR|BUY|2026-11-23T17:00:00+03:00": {
+    "symbol": "ISBIR",
+    "side": "BUY",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 49.98,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815342+00:00"
+  },
+  "YBTAS|SELL|2026-11-23T17:00:00+03:00": {
+    "symbol": "YBTAS",
+    "side": "SELL",
+    "time": "2026-11-23T17:00:00+03:00",
+    "close": 9.79,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-23T15:45:23.815353+00:00"
   }
 }

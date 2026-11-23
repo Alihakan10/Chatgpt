@@ -558,5 +558,15 @@
     "pnl_per_share": 0.7,
     "pnl_percent": 22.082,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "YBTAS",
+    "buy_time": "2026-10-14T17:00:00+03:00",
+    "buy_price": 10.95,
+    "sell_time": "2026-11-23T17:00:00+03:00",
+    "sell_price": 9.79,
+    "pnl_per_share": -1.16,
+    "pnl_percent": -10.5936,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
