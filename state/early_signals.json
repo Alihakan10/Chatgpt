@@ -4963,5 +4963,65 @@
     "close": 9.79,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-23T15:45:23.815353+00:00"
+  },
+  "BORSK|2026-11-24T15:00:00+03:00": {
+    "symbol": "BORSK",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 4.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.199680+00:00"
+  },
+  "EFOR|2026-11-24T15:00:00+03:00": {
+    "symbol": "EFOR",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 10.05,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.199695+00:00"
+  },
+  "PENTA|2026-11-24T15:00:00+03:00": {
+    "symbol": "PENTA",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 8.48,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.199699+00:00"
+  },
+  "TUCLK|2026-11-24T15:00:00+03:00": {
+    "symbol": "TUCLK",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 2.03,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.199702+00:00"
+  },
+  "BORSK|BUY|2026-11-24T15:00:00+03:00": {
+    "symbol": "BORSK",
+    "side": "BUY",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 4.68,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.204014+00:00"
+  },
+  "EFOR|BUY|2026-11-24T15:00:00+03:00": {
+    "symbol": "EFOR",
+    "side": "BUY",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 10.05,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.204032+00:00"
+  },
+  "PENTA|BUY|2026-11-24T15:00:00+03:00": {
+    "symbol": "PENTA",
+    "side": "BUY",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 8.48,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.204036+00:00"
+  },
+  "TUCLK|BUY|2026-11-24T15:00:00+03:00": {
+    "symbol": "TUCLK",
+    "side": "BUY",
+    "time": "2026-11-24T15:00:00+03:00",
+    "close": 2.03,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-24T13:09:26.204039+00:00"
   }
 }
