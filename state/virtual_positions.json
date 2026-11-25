@@ -30,12 +30,6 @@
       "buy_price": 4.88,
       "status": "OPEN_VIRTUAL"
     },
-    "ATEKS": {
-      "symbol": "ATEKS",
-      "buy_time": "2026-10-14T17:00:00+03:00",
-      "buy_price": 92.0,
-      "status": "OPEN_VIRTUAL"
-    },
     "FRIGO": {
       "symbol": "FRIGO",
       "buy_time": "2026-10-14T17:00:00+03:00",
@@ -88,12 +82,6 @@
       "symbol": "DMRGD",
       "buy_time": "2026-10-16T15:00:00+03:00",
       "buy_price": 6.36,
-      "status": "OPEN_VIRTUAL"
-    },
-    "DZGYO": {
-      "symbol": "DZGYO",
-      "buy_time": "2026-10-16T15:00:00+03:00",
-      "buy_price": 6.77,
       "status": "OPEN_VIRTUAL"
     },
     "KLRHO": {
@@ -330,12 +318,6 @@
       "buy_price": 5.94,
       "status": "OPEN_VIRTUAL"
     },
-    "CMENT": {
-      "symbol": "CMENT",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 217.4,
-      "status": "OPEN_VIRTUAL"
-    },
     "DMLKT": {
       "symbol": "DMLKT",
       "buy_time": "2026-10-23T17:00:00+03:00",
@@ -382,12 +364,6 @@
       "symbol": "KUVVA",
       "buy_time": "2026-10-23T17:00:00+03:00",
       "buy_price": 81.0,
-      "status": "OPEN_VIRTUAL"
-    },
-    "KUYAS": {
-      "symbol": "KUYAS",
-      "buy_time": "2026-10-23T17:00:00+03:00",
-      "buy_price": 8.83,
       "status": "OPEN_VIRTUAL"
     },
     "LIDFA": {
@@ -930,12 +906,6 @@
       "buy_price": 106.0,
       "status": "OPEN_VIRTUAL"
     },
-    "ENPRA": {
-      "symbol": "ENPRA",
-      "buy_time": "2026-10-30T17:00:00+03:00",
-      "buy_price": 39.0,
-      "status": "OPEN_VIRTUAL"
-    },
     "QNBFK": {
       "symbol": "QNBFK",
       "buy_time": "2026-10-30T17:00:00+03:00",
@@ -982,12 +952,6 @@
       "symbol": "MEDTR",
       "buy_time": "2026-11-02T13:00:00+03:00",
       "buy_price": 17.66,
-      "status": "OPEN_VIRTUAL"
-    },
-    "MEGAP": {
-      "symbol": "MEGAP",
-      "buy_time": "2026-11-02T13:00:00+03:00",
-      "buy_price": 0.93,
       "status": "OPEN_VIRTUAL"
     },
     "MGROS": {
@@ -1324,6 +1288,18 @@
       "symbol": "TUCLK",
       "buy_time": "2026-11-24T15:00:00+03:00",
       "buy_price": 2.03,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CELHA": {
+      "symbol": "CELHA",
+      "buy_time": "2026-11-25T17:00:00+03:00",
+      "buy_price": 32.36,
+      "status": "OPEN_VIRTUAL"
+    },
+    "SAFKR": {
+      "symbol": "SAFKR",
+      "buy_time": "2026-11-25T17:00:00+03:00",
+      "buy_price": 12.82,
       "status": "OPEN_VIRTUAL"
     }
   }

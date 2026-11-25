@@ -5023,5 +5023,83 @@
     "close": 2.03,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-24T13:09:26.204039+00:00"
+  },
+  "CELHA|2026-11-25T17:00:00+03:00": {
+    "symbol": "CELHA",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 32.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.762011+00:00"
+  },
+  "SAFKR|2026-11-25T17:00:00+03:00": {
+    "symbol": "SAFKR",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 12.82,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.762027+00:00"
+  },
+  "CELHA|BUY|2026-11-25T17:00:00+03:00": {
+    "symbol": "CELHA",
+    "side": "BUY",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 32.36,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766937+00:00"
+  },
+  "SAFKR|BUY|2026-11-25T17:00:00+03:00": {
+    "symbol": "SAFKR",
+    "side": "BUY",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 12.82,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766952+00:00"
+  },
+  "ATEKS|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "ATEKS",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 62.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766966+00:00"
+  },
+  "CMENT|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "CMENT",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 222.5,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766975+00:00"
+  },
+  "DZGYO|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "DZGYO",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 6.78,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766983+00:00"
+  },
+  "ENPRA|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "ENPRA",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 37.54,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766989+00:00"
+  },
+  "KUYAS|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "KUYAS",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 9.77,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.766996+00:00"
+  },
+  "MEGAP|SELL|2026-11-25T17:00:00+03:00": {
+    "symbol": "MEGAP",
+    "side": "SELL",
+    "time": "2026-11-25T17:00:00+03:00",
+    "close": 0.89,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-25T15:45:20.767002+00:00"
   }
 }

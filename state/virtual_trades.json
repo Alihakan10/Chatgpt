@@ -568,5 +568,65 @@
     "pnl_per_share": -1.16,
     "pnl_percent": -10.5936,
     "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ATEKS",
+    "buy_time": "2026-10-14T17:00:00+03:00",
+    "buy_price": 92.0,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 62.3,
+    "pnl_per_share": -29.7,
+    "pnl_percent": -32.2826,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "CMENT",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 217.4,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 222.5,
+    "pnl_per_share": 5.1,
+    "pnl_percent": 2.3459,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "DZGYO",
+    "buy_time": "2026-10-16T15:00:00+03:00",
+    "buy_price": 6.77,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 6.78,
+    "pnl_per_share": 0.01,
+    "pnl_percent": 0.1477,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "ENPRA",
+    "buy_time": "2026-10-30T17:00:00+03:00",
+    "buy_price": 39.0,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 37.54,
+    "pnl_per_share": -1.46,
+    "pnl_percent": -3.7436,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "KUYAS",
+    "buy_time": "2026-10-23T17:00:00+03:00",
+    "buy_price": 8.83,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 9.77,
+    "pnl_per_share": 0.94,
+    "pnl_percent": 10.6455,
+    "status": "CLOSED_VIRTUAL"
+  },
+  {
+    "symbol": "MEGAP",
+    "buy_time": "2026-11-02T13:00:00+03:00",
+    "buy_price": 0.93,
+    "sell_time": "2026-11-25T17:00:00+03:00",
+    "sell_price": 0.89,
+    "pnl_per_share": -0.04,
+    "pnl_percent": -4.3011,
+    "status": "CLOSED_VIRTUAL"
   }
 ]
