@@ -1301,6 +1301,60 @@
       "buy_time": "2026-11-25T17:00:00+03:00",
       "buy_price": 12.82,
       "status": "OPEN_VIRTUAL"
+    },
+    "AKSEN": {
+      "symbol": "AKSEN",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 60.9,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BETAE": {
+      "symbol": "BETAE",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 43.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "BTCIM": {
+      "symbol": "BTCIM",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 1.8,
+      "status": "OPEN_VIRTUAL"
+    },
+    "CGCAM": {
+      "symbol": "CGCAM",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 20.28,
+      "status": "OPEN_VIRTUAL"
+    },
+    "ENTRA": {
+      "symbol": "ENTRA",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 4.55,
+      "status": "OPEN_VIRTUAL"
+    },
+    "GLCVY": {
+      "symbol": "GLCVY",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 32.76,
+      "status": "OPEN_VIRTUAL"
+    },
+    "MEGMT": {
+      "symbol": "MEGMT",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 3.49,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TRENJ": {
+      "symbol": "TRENJ",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 68.45,
+      "status": "OPEN_VIRTUAL"
+    },
+    "TRMET": {
+      "symbol": "TRMET",
+      "buy_time": "2026-11-27T11:00:00+03:00",
+      "buy_price": 101.8,
+      "status": "OPEN_VIRTUAL"
     }
   }
 }

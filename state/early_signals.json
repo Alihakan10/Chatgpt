@@ -5101,5 +5101,182 @@
     "close": 0.89,
     "status": "VIRTUAL_ONLY",
     "first_seen_utc": "2026-11-25T15:45:20.767002+00:00"
+  },
+  "AKSEN|2026-11-27T11:00:00+03:00": {
+    "symbol": "AKSEN",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 60.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283905+00:00"
+  },
+  "ASTOR|2026-11-27T11:00:00+03:00": {
+    "symbol": "ASTOR",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 160.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283917+00:00"
+  },
+  "BETAE|2026-11-27T11:00:00+03:00": {
+    "symbol": "BETAE",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 43.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283921+00:00"
+  },
+  "BTCIM|2026-11-27T11:00:00+03:00": {
+    "symbol": "BTCIM",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 1.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283925+00:00"
+  },
+  "CGCAM|2026-11-27T11:00:00+03:00": {
+    "symbol": "CGCAM",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 20.28,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283928+00:00"
+  },
+  "CVKMD|2026-11-27T11:00:00+03:00": {
+    "symbol": "CVKMD",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 11.53,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283930+00:00"
+  },
+  "ENTRA|2026-11-27T11:00:00+03:00": {
+    "symbol": "ENTRA",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 4.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283932+00:00"
+  },
+  "GLCVY|2026-11-27T11:00:00+03:00": {
+    "symbol": "GLCVY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 32.76,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283936+00:00"
+  },
+  "GOKNR|2026-11-27T11:00:00+03:00": {
+    "symbol": "GOKNR",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 11.3,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283938+00:00"
+  },
+  "KAPLM|2026-11-27T11:00:00+03:00": {
+    "symbol": "KAPLM",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 111.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283940+00:00"
+  },
+  "KAREL|2026-11-27T11:00:00+03:00": {
+    "symbol": "KAREL",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 3.85,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283943+00:00"
+  },
+  "MEGMT|2026-11-27T11:00:00+03:00": {
+    "symbol": "MEGMT",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 3.49,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283947+00:00"
+  },
+  "SARKY|2026-11-27T11:00:00+03:00": {
+    "symbol": "SARKY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 13.71,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283949+00:00"
+  },
+  "TRENJ|2026-11-27T11:00:00+03:00": {
+    "symbol": "TRENJ",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 68.45,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283950+00:00"
+  },
+  "TRMET|2026-11-27T11:00:00+03:00": {
+    "symbol": "TRMET",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 101.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.283952+00:00"
+  },
+  "AKSEN|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "AKSEN",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 60.9,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287566+00:00"
+  },
+  "BETAE|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "BETAE",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 43.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287576+00:00"
+  },
+  "BTCIM|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "BTCIM",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 1.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287580+00:00"
+  },
+  "CGCAM|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "CGCAM",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 20.28,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287583+00:00"
+  },
+  "ENTRA|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "ENTRA",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 4.55,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287586+00:00"
+  },
+  "GLCVY|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "GLCVY",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 32.76,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287588+00:00"
+  },
+  "MEGMT|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "MEGMT",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 3.49,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287591+00:00"
+  },
+  "TRENJ|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "TRENJ",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 68.45,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287593+00:00"
+  },
+  "TRMET|BUY|2026-11-27T11:00:00+03:00": {
+    "symbol": "TRMET",
+    "side": "BUY",
+    "time": "2026-11-27T11:00:00+03:00",
+    "close": 101.8,
+    "status": "VIRTUAL_ONLY",
+    "first_seen_utc": "2026-11-27T09:31:14.287596+00:00"
   }
 }
